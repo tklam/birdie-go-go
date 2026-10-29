@@ -270,24 +270,28 @@ Background music lives in `content/music/<id>.yaml`: `tempo`, `loop_beats`, and 
 ```yaml
 # content/hazards.yaml
 - id: high_uv
-  when: { uv_at_least: 8 }
+  name: High UV
   status: sunburnt
-  drain_per_min: 0.5              # Energy per in-game minute outdoors
-  severe: { uv_at_least: 11, drain_per_min: 1.2 }
+  when: { param: uv, min: 8 }          # param: cloud, precip, temp, fog, wind, uv or signal; min and/or max
+  drain_per_min: 0.25                  # Energy per in-game minute outdoors (1 real second = 1 minute)
+  severe: { min: 11, drain_per_min: 0.5 }
   countered_by: [sun_hat, sunscreen, umbrella]
 - id: strong_wind
-  when: { wind_at_least: 0.7 }
+  name: Strong wind
   status: windswept
-  push: 20                        # px/s sideways along the wind direction
-  breaks: { item: umbrella, wind_at_least: 0.8 }
+  when: { param: wind, min: 0.7 }
+  drain_per_min: 0.1
+  push: 22                             # px/s at full wind, along the wind direction
+  breaks: { item: umbrella, min: 0.8 }
   countered_by: [windbreaker]
 ```
 ```yaml
 # content/items.yaml (excerpt)
-- { id: umbrella, slot: hand, price: 40, counters: [heavy_rain, high_uv], encounter: { block: true, breaks_on_fail: true } }
-- { id: sunscreen, kind: consumable, bag_size: 1, duration_slots: 1, counters: [high_uv] }
-- { id: water_bottle, kind: consumable, bag_size: 1, refills_at: [fountain, shop], restores: 15, counters: [heat] }
+- { id: umbrella, name: Umbrella, kind: gear, slot: hand, price: 60, counters: [heavy_rain, high_uv], description: "..." }
+- { id: sunscreen, name: Sunscreen, kind: consumable, price: 25, counters: [high_uv], duration_slots: 1, description: "..." }
+- { id: milk_tea, name: Milk Tea, kind: consumable, price: 18, counters: [], restores: 25, description: "..." }
 ```
+*(Planned:)* `encounter` options for items (block, breaks on failure), bag size, refill points.
 ```yaml
 # content/enemies.yaml
 - id: stray_dog_pack

@@ -104,8 +104,8 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] Seasons with palette-swapped foliage
 - [ ] Regional weather (§4.9)
   - [x] Climate profiles in `areas.yaml` + validation
-  - [ ] `core/weather`: drifting regional front, local variation, smoothing, deterministic, tested
-  - [ ] Typhoon fronts + signals; rainstorm warnings; effects on transit, spots, lessons
+  - [x] `core/weather`: drifting regional front, local variation, smoothing, deterministic, tested
+  - [~] Typhoon fronts + signals done (shown in the HUD); rainstorm warnings and effects on transit/spots/lessons still to do
   - [x] Blend field in `worldbuild` + tests
   - [x] Client blend sampling (pure TS) + tests
   - [~] WeatherRenderer: rain, dithered fog, cloud/evening tint done (haze line-scroll, sway, waves, ambience, muffled interiors still to do)
@@ -121,12 +121,14 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] Album milestones
 
 ## M4b: Hazards and encounters (§4.12–4.13)
-- [ ] Energy meter, HUD, recovery (food, benches, home); no-game-over faint flow (clinic/home, lost slot, fee)
-- [ ] `uv` weather parameter in `core/weather`
-- [ ] `hazards.yaml` + `hazards.ts`: UV, heat, heavy rain, strong wind, cold, typhoon; status effects; tests
-- [ ] Gear slots + bag capacity; packing UI at home
-- [ ] Hazard gear items: sun hat, sunscreen, umbrella (breaks in strong wind), raincoat, windbreaker, jacket, water bottle
-- [ ] Hazard effects in the photo scene (fogged lens, heat haze)
+- [x] Energy meter in the HUD, recovery (snacks, indoors, sleep); no-game-over faint flow (helped home, lost slot, fee)
+- [ ] Rest on benches
+- [x] `uv` weather parameter in `core/weather`
+- [x] `hazards.yaml` + `hazards.ts`: UV, heat, heavy rain, strong wind, cold, typhoon; status effects; tests
+- [x] Gear slots; Bag menu to wear gear and use consumables; convenience store in the mall plaza
+- [ ] Bag capacity and packing at home
+- [x] Hazard gear items: sun hat, sunscreen, umbrella (breaks in strong wind), raincoat, windbreaker, jacket, water bottle; snacks (milk tea, pineapple bun)
+- [~] Weather effects in the photo scene (slower focus, lower sharpness); soaked/overheated status effects still to do
 - [ ] `enemies.yaml`; enemy roaming, detection (noise/sight), chase on the map
 - [ ] Encounter transition (swirl/mosaic) + Encounter Scene
 - [ ] Escape: mash meter + dodge prompts
@@ -136,7 +138,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] First folklore creatures, each with a lore-based weakness
 - [ ] Gear and companion assists in encounters
 - [ ] Accessibility: hold instead of mash, slower prompts, skip encounter
-- [ ] Radio forecast includes UV / heat / wind / rain warnings
+- [~] Radio forecast per area done; explicit UV / heat / wind warnings still to do
 
 ## M5: Content updates (optional server, §9.6)
 - [ ] `make pack`: build update packs (content + replaced chunks), manifest, SHA-256

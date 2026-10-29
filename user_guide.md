@@ -113,7 +113,8 @@ The weather can be an enemy too. Pack the right gear before heading out:
 | 🌀 **Typhoon** | Outdoors is dangerous | Stay home |
 
 - Hazard icons appear on screen when they affect you.
-- Your **bag** has limited space, so choose what to pack each morning. The radio forecast tells you what to expect.
+- Buy gear and snacks at the **convenience store** in the mall plaza. Open **Menu → Bag** to wear gear or use a snack. Sunscreen and water protect you for the rest of that part of the day.
+- The **radio** in Angie's flat tells you tomorrow's weather for each district. *(Later: your bag will have limited space.)*
 - If Energy runs out, Angie gets dizzy and someone helps her to shelter or home. You lose the rest of that part of the day and pay a small clinic fee, but nothing else.
 
 ## Encounters
