@@ -1,4 +1,12 @@
-import type { PingResult, Request, Response } from './types.gen';
+import type {
+  LessonGeneratePayload,
+  LessonGenerateResult,
+  LessonGradePayload,
+  LessonGradeResult,
+  PingResult,
+  Request,
+  Response,
+} from './types.gen';
 
 /** The parts of a Worker the client uses; lets tests pass a fake. */
 export interface WorkerLike {
@@ -32,6 +40,16 @@ export class CoreClient {
 
   ping(echo: string): Promise<PingResult> {
     return this.call<PingResult>('ping', { echo });
+  }
+
+  /** Generates a lesson performance; the answer key stays in the core (SPEC.md §6.2). */
+  generateLesson(payload: LessonGeneratePayload): Promise<LessonGenerateResult> {
+    return this.call<LessonGenerateResult>('lesson.generate', payload);
+  }
+
+  /** Grades the player's flags against a generated lesson's answer key (SPEC.md §6.3). */
+  gradeLesson(payload: LessonGradePayload): Promise<LessonGradeResult> {
+    return this.call<LessonGradeResult>('lesson.grade', payload);
   }
 
   private receive(response: Response): void {

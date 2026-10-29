@@ -10,6 +10,7 @@ import { modal } from '../ui/overlay';
 import { showPanel } from '../ui/panel';
 import { downloadSave, pickSave } from '../systems/backup';
 import { loadJSON } from '../systems/data';
+import type { Manifest } from '../systems/assets';
 import { toast } from '../ui/toast';
 import { TouchControls } from '../ui/touchControls';
 import type { ChunkData } from '../world/chunk';
@@ -351,7 +352,7 @@ export class MapScene extends Phaser.Scene {
     this.busy = true;
     const s = this.session;
     const items = [
-      { label: 'Album', run: async () => (await showAlbum(s.content, s.state), true) },
+      { label: 'Album', run: async () => (await showAlbum(s.content, s.state, this.registry.get('manifest') as Manifest), true) },
       {
         label: 'Export save',
         run: async () => {

@@ -52,4 +52,29 @@ describe('CoreClient', () => {
     worker.onerror?.({ message: 'boom' } as ErrorEvent);
     for (const p of pending) await expect(p).rejects.toThrow('core worker error: boom');
   });
+
+  it('sends lesson.generate and lesson.grade with typed payloads', async () => {
+    const worker = new FakeWorker();
+    const core = new CoreClient(worker);
+    const song = { id: 's', title: 'S', tempo: 120, timeSignature: [4, 4], difficulty: 1, notes: [] };
+    const generated = core.generateLesson({ song, tendencies: { rush: 1 }, difficulty: 2, seed: 7 });
+    expect(worker.sent[0]).toEqual({
+      id: 1,
+      op: 'lesson.generate',
+      payload: { song, tendencies: { rush: 1 }, difficulty: 2, seed: 7 },
+    });
+    const performance = { notes: [], durationMs: 0 };
+    worker.reply({ id: 1, ok: true, result: { lessonId: 'l1', performance } });
+    await expect(generated).resolves.toEqual({ lessonId: 'l1', performance });
+
+    const graded = core.gradeLesson({ lessonId: 'l1', flagsMs: [100], latencyOffsetMs: 20 });
+    expect(worker.sent[1]).toEqual({
+      id: 2,
+      op: 'lesson.grade',
+      payload: { lessonId: 'l1', flagsMs: [100], latencyOffsetMs: 20 },
+    });
+    const result = { score: 0, hits: 0, misses: 0, falseAlarms: 1, mistakes: [] };
+    worker.reply({ id: 2, ok: true, result });
+    await expect(graded).resolves.toEqual(result);
+  });
 });

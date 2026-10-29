@@ -1,11 +1,12 @@
 import type { ContentBundle } from '../core/types.gen';
+import type { Manifest } from '../systems/assets';
 import type { GameState } from '../systems/state';
 import { modal, overlay } from './overlay';
 
 const STARS = { perfect: '★★★', great: '★★', good: '★', blurry: '' } as const;
 
 /** Shows the photo album: every species, with the best shot if taken. */
-export function showAlbum(content: ContentBundle, state: GameState): Promise<void> {
+export function showAlbum(content: ContentBundle, state: GameState, manifest: Manifest = {}): Promise<void> {
   const box = document.createElement('div');
   box.className = 'window panel';
   const h = document.createElement('div');
@@ -17,6 +18,16 @@ export function showAlbum(content: ContentBundle, state: GameState): Promise<voi
     const entry = state.album[bird.id];
     const row = document.createElement('div');
     row.className = `album-row${entry ? '' : ' unknown'}`;
+    const portrait = manifest[`album_${bird.id}`]?.file;
+    const pic = document.createElement('div');
+    pic.className = 'album-pic';
+    if (entry && portrait) {
+      const img = document.createElement('img');
+      img.src = `${import.meta.env.BASE_URL}assets/${portrait}`;
+      img.alt = bird.name;
+      pic.appendChild(img);
+    }
+    row.appendChild(pic);
     const name = document.createElement('span');
     name.textContent = entry ? bird.name : '??????';
     const score = document.createElement('span');

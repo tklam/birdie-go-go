@@ -2,8 +2,11 @@ import Phaser from 'phaser';
 import './style.css';
 import { startCore } from './core/client';
 import { BootScene } from './scenes/BootScene';
+import { AudioEngine } from './audio/AudioEngine';
+import { CalibrationScene } from './scenes/CalibrationScene';
 import { MapScene } from './scenes/MapScene';
 import { PhotoScene } from './scenes/PhotoScene';
+import { PianoScene } from './scenes/PianoScene';
 import { TitleScene } from './scenes/TitleScene';
 import { fitZoom, GAME_HEIGHT, GAME_WIDTH } from './systems/display';
 import { overlay, setOverlayZoom } from './ui/overlay';
@@ -19,10 +22,13 @@ const game = new Phaser.Game({
   pixelArt: true,
   roundPixels: true,
   scale: { mode: Phaser.Scale.NONE, autoCenter: Phaser.Scale.CENTER_BOTH, zoom: currentZoom() },
-  scene: [BootScene, TitleScene, MapScene, PhotoScene],
+  scene: [BootScene, TitleScene, MapScene, PhotoScene, PianoScene, CalibrationScene],
 });
 
 game.registry.set('core', startCore());
+const audio = new AudioEngine();
+audio.unlockOnFirstGesture();
+game.registry.set('audio', audio);
 overlay();
 setOverlayZoom(currentZoom());
 window.addEventListener('resize', () => {

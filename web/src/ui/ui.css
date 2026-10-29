@@ -204,8 +204,25 @@
 /* Album list. */
 .panel .album-row {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   gap: calc(var(--px) * 6);
+  margin: calc(var(--px) * 1) 0;
+}
+.panel .album-row span:last-child {
+  margin-left: auto;
+}
+.album-pic {
+  width: calc(var(--px) * 36);
+  height: calc(var(--px) * 24);
+  background: #101018;
+  border: var(--px) solid var(--win-shadow);
+  flex: none;
+}
+.album-pic img {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  display: block;
 }
 .panel .album-row.unknown {
   color: #6e6e80;
