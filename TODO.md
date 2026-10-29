@@ -137,7 +137,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] 104 bird species from freely licensed photos (birdphoto + segmentation masks + vision-checked auto picks), spread over the four spots by habitat and season
 - [x] Paged album for 100+ species
 - [ ] More birding spots (wetland, hills, islands) so waders, ducks and raptors have proper habitats
-- [ ] Album milestones
+- [x] Album milestones (5, 10, 25, 50, 100 species; Birding Society rewards)
 
 ## M4b: Hazards and encounters (§4.12–4.13)
 - [x] Energy meter in the HUD, recovery (snacks, indoors, sleep); no-game-over faint flow (helped home, lost slot, fee)
@@ -156,7 +156,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Wild dogs (driven off)
 - [x] Hopping zombie (jiangshi) and water ghost (shui gwai) with folklore weaknesses
 - [x] Tougher enemies, more spawn points, each spawn cleared separately
-- [ ] First folklore creatures, each with a lore-based weakness
+- [x] First folklore creatures, each with a lore-based weakness (hopping zombie, water ghost)
 - [x] Companion assists in encounters: O Boy's squawk (one combo step fewer), Kei's whistle vs dogs (−25% resolve) and flash vs monsters (longer windows, from dating)
 - [x] Gear assists in encounters: umbrella block, whistle item
 - [x] Accessibility: hold instead of mash, slower prompts, skip encounter (Settings)

@@ -149,7 +149,7 @@ Find a bird or a marked birding spot and press **Photograph**. The view switches
 4. **Wait for the moment.** A bird with its wings spread or in an alert pose scores best. Fast-flying birds can come out blurry.
 5. **Mind your memory card.** You have a limited number of shots per session.
 
-Every photo gets a score and a rating: **★★★ Perfect**, **★★ Great**, **★ Good**, or **Blurry**. Your best shot of each species goes into your **Album** (open it from the Menu), and filling the album unlocks rewards.
+Every photo gets a score and a rating: **★★★ Perfect**, **★★ Great**, **★ Good**, or **Blurry**. Your best shot of each species goes into your **Album** (open it from the Menu), and filling the album unlocks rewards: the Birding Society sends gifts, money and camera parts at 5, 10, 25, 50 and 100 species.
 
 ## Piano lessons
 

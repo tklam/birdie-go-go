@@ -1,0 +1,29 @@
+# Album milestones (SPEC.md §5.6): the Birding Society rewards a growing album.
+# `species` is the number of species in the album.
+- id: album_5
+  trigger: { type: album_milestone, species: "5" }
+  actions:
+    - dialogue: album_5
+    - give_item: { item: milk_tea, count: 2 }
+- id: album_10
+  trigger: { type: album_milestone, species: "10" }
+  actions:
+    - dialogue: album_10
+    - give_money: 200
+- id: album_25
+  trigger: { type: album_milestone, species: "25" }
+  actions:
+    - dialogue: album_25
+    - give_money: 400
+    - give_item: camera_part
+- id: album_50
+  trigger: { type: album_milestone, species: "50" }
+  actions:
+    - dialogue: album_50
+    - give_money: 800
+    - give_item: { item: camera_part, count: 2 }
+- id: album_100
+  trigger: { type: album_milestone, species: "100" }
+  actions:
+    - dialogue: album_100
+    - give_money: 2000

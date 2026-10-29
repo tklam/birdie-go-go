@@ -10,6 +10,7 @@ import { completeMission, lessonMissionsMet, photoMissionsMet, reminderMission, 
 import { showPanel } from '../ui/panel';
 import { advanceSlot } from './time';
 import { billsDue, payBills } from './economy';
+import { albumMilestones } from './milestones';
 
 /** The autosave slot. */
 export const AUTOSAVE = 'auto';
@@ -98,6 +99,11 @@ export class Session {
     return m.title;
   }
 
+  /** Fires the album milestones the album has reached (SPEC.md §5.6). */
+  async checkAlbum(): Promise<void> {
+    for (const t of albumMilestones(this.state, this.content.events)) await this.fire(t);
+  }
+
   /** Deducts the bills due this morning and shows what was paid (SPEC.md §3.2). */
   private async payMorningBills(): Promise<void> {
     const due = billsDue(this.content.game.bills, this.state.day);
@@ -127,6 +133,7 @@ export class Session {
         );
       }
       await this.payMorningBills();
+      if (caught.length) await this.checkAlbum();
     }
     for (const t of triggers) await this.fire(t);
   }

@@ -313,6 +313,7 @@ export class MapScene extends Phaser.Scene {
       const area = s.content.spots.find((x) => x.id === data.spotId)?.area ?? '';
       const shots = (this.registry.get('lastPhotos') as { species: string; result: { rating: PhotoResult['rating'] } }[] | undefined) ?? [];
       await s.checkMissions({ photos: shots.map((p) => ({ species: p.species, rating: p.result.rating, area })) });
+      await s.checkAlbum();
       await s.endSlot();
     } else if (data.from === 'Piano') {
       const last = this.registry.get('lastLesson') as { studentId: string; result: { score: number } } | undefined;

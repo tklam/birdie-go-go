@@ -346,7 +346,7 @@ Ratings: **≥90 Perfect ★★★**, 75–89 Great ★★, 50–74 Good ★, <5
 ### 5.6 Album
 - Best shot per species is kept (plus a few extra favorites).
 - Album entry: species, rating, score, date, area, companions present.
-- Completion milestones give rewards and story beats.
+- Completion milestones give rewards and story beats. As built: after each photo session and each morning that trail cameras add photos, every `album_milestone` event whose `species` count the album has reached fires (events run once). `content/events/album.yaml` rewards 5, 10, 25, 50 and 100 species with items, money and camera parts from the Birding Society.
 
 ## 6. Piano Scene (Lessons)
 

@@ -1,0 +1,25 @@
+# Album milestones: notes from the Birding Society.
+- id: album_5
+  lines:
+    - { speaker: angie, text: "Five species in my album already! This calls for a treat." }
+    - { speaker: oboy, text: "Chirp chirp!", if: { party_has: oboy } }
+    - { speaker: angie, text: "(Angie found two milk teas in the fridge. Lucky!)" }
+- id: album_10
+  lines:
+    - { speaker: birding_society, text: "Dear Angie, word of your bird photos has reached the Birding Society. Ten species, beautifully shot!" }
+    - { speaker: birding_society, text: "Please accept a small award of $200 for our newsletter feature. Keep exploring!" }
+- id: album_25
+  lines:
+    - { speaker: birding_society, text: "Twenty-five species! Our members can't stop talking about your album." }
+    - { speaker: birding_society, text: "Enclosed: $400, and a spare camera part a member wanted you to have." }
+    - { speaker: kei, text: "A camera part? Ooh. I could build something with that.", if: { party_has: kei } }
+- id: album_50
+  lines:
+    - { speaker: birding_society, text: "Fifty species. Fifty! That's more than most of our committee has seen." }
+    - { speaker: birding_society, text: "Please accept $800 and two camera parts, with our admiration." }
+- id: album_100
+  lines:
+    - { speaker: birding_society, text: "One hundred species. Angie, you've photographed the birds of this whole city." }
+    - { speaker: birding_society, text: "The Society is proud to name you an honorary member, with a $2,000 award." }
+    - { speaker: angie, text: "A hundred... and every one has a story. Thank you, birds." }
+    - { speaker: oboy, text: "Chirrup! Chirp chirp chirp!", if: { party_has: oboy } }
