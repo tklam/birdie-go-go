@@ -23,6 +23,10 @@ export class TitleScene extends Phaser.Scene {
     void Promise.all([core.ping('chirp'), Session.open(content, core)]).then(
       ([ping, { session, hasSave }]) => {
         this.registry.set('session', session);
+        // Apply saved volumes.
+        const audio = this.registry.get('audio') as { setVolume(bus: string, v: number): void } | undefined;
+        audio?.setVolume('music', session.state.settings.musicVolume);
+        audio?.setVolume('sfx', session.state.settings.sfxVolume);
         status.setText(`core v${ping.coreVersion} · content v${content.game.contentVersion}`);
         document.body.dataset.boot = 'ok';
         const options: [string, () => void][] = [];

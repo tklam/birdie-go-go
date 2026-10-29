@@ -178,6 +178,9 @@
 }
 
 /* Menus. */
+.menu-window {
+  min-width: calc(var(--px) * 200);
+}
 .menu-window .menu-item {
   padding-left: calc(var(--px) * 10);
   position: relative;

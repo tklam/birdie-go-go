@@ -22,6 +22,7 @@ import { loadJSON } from '../systems/data';
 import type { Manifest } from '../systems/assets';
 import { toast } from '../ui/toast';
 import { TouchControls } from '../ui/touchControls';
+import type { AudioEngine } from '../audio/AudioEngine';
 import type { MusicPlayer } from '../audio/music';
 import type { ChunkData } from '../world/chunk';
 import { ChunkRenderer, DEPTH } from '../world/ChunkRenderer';
@@ -632,6 +633,68 @@ export class MapScene extends Phaser.Scene {
     );
   }
 
+  /** Volume, accessibility and audio-latency settings (SPEC.md §4.13, §6.4). */
+  private async settingsMenu(): Promise<boolean> {
+    const s = this.session;
+    const audio = this.registry.get('audio') as AudioEngine | undefined;
+    const st = s.state.settings;
+    const steps = [0, 0.25, 0.5, 0.75, 1];
+    // The next step above the current value, wrapping to 0 after 100%.
+    const next = (v: number) => steps.find((x) => x > v + 0.01) ?? 0;
+    const pct = (v: number) => `${Math.round(v * 100)}%`;
+    let again = true;
+    while (again) {
+      again = false;
+      const items: { label: string; run: () => Promise<boolean> }[] = [
+        {
+          label: `Music: ${pct(st.musicVolume)}`,
+          run: async () => {
+            st.musicVolume = next(st.musicVolume);
+            audio?.setVolume('music', st.musicVolume);
+            again = true;
+            return false;
+          },
+        },
+        {
+          label: `Sound: ${pct(st.sfxVolume)}`,
+          run: async () => {
+            st.sfxVolume = next(st.sfxVolume);
+            audio?.setVolume('sfx', st.sfxVolume);
+            audio?.setVolume('piano', Math.max(0.25, st.sfxVolume));
+            again = true;
+            return false;
+          },
+        },
+        {
+          label: `Hold, not mash: ${st.holdInsteadOfMash ? 'on' : 'off'}`,
+          run: async () => ((st.holdInsteadOfMash = !st.holdInsteadOfMash), (again = true), false),
+        },
+        {
+          label: `Slow prompts: ${st.slowerPrompts ? 'on' : 'off'}`,
+          run: async () => ((st.slowerPrompts = !st.slowerPrompts), (again = true), false),
+        },
+        {
+          label: `Skip fights: ${st.skipEncounters ? 'on' : 'off'}`,
+          run: async () => ((st.skipEncounters = !st.skipEncounters), (again = true), false),
+        },
+      ];
+      if (this.scene.manager.keys['Calibration']) {
+        items.push({
+          label: 'Lesson timing',
+          run: async () => {
+            await s.save();
+            this.scene.start('Calibration', { returnTo: 'Map', returnData: {} });
+            return false;
+          },
+        });
+      }
+      items.push({ label: 'Back', run: async () => false });
+      await showMenu('Settings', items);
+    }
+    await s.save();
+    return true;
+  }
+
   /** Choose who comes along (SPEC.md §7): alone, O Boy, Kei, or both. */
   private async partyMenu(): Promise<void> {
     const s = this.session;
@@ -782,16 +845,7 @@ export class MapScene extends Phaser.Scene {
         },
       },
     ];
-    if (this.scene.manager.keys['Calibration']) {
-      items.push({
-        label: 'Recalibrate audio',
-        run: async () => {
-          await s.save();
-          this.scene.start('Calibration', { returnTo: 'Map', returnData: {} });
-          return false;
-        },
-      });
-    }
+    items.push({ label: 'Settings', run: () => this.settingsMenu() });
     items.push({ label: 'Close', run: async () => false });
     await showMenu('Menu', items);
     this.busy = false;

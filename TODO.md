@@ -157,7 +157,8 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] Post-game free play
 
 ## M7: Polish
-- [ ] Settings: volume, control scheme, window color, recalibrate, text speed
+- [x] Settings: music/sound volume, encounter accessibility (hold, slow prompts, skip), lesson timing recalibration
+- [ ] Settings: control scheme, window color, text speed, reduced motion
 - [ ] Accessibility: captions for audio cues, color-blind-safe UI, reduced motion (disables mosaic/wave effects)
 - [ ] Low-end phone performance pass
 - [ ] Replace placeholder art and music with final 16-bit assets
