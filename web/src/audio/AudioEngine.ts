@@ -8,9 +8,11 @@ import {
   clampVolume,
   dueUntil,
   midiToFreq,
+  nearestSample,
   noteTimes,
   pianoPartials,
   releaseTau,
+  samplePitch,
   scheduleEnd,
   sortNotes,
   velocityGain,
@@ -41,6 +43,9 @@ export class AudioEngine {
   /** Sample id → URL (registered from the manifest), and decoded buffers. */
   private readonly sampleUrls = new Map<string, string>();
   private readonly samples = new Map<string, Promise<AudioBuffer | null>>();
+  /** Decoded piano samples by MIDI pitch (Salamander Grand Piano); empty until loaded, then lessons use them. */
+  private readonly pianoBank = new Map<number, AudioBuffer>();
+  private pianoBankLoading = false;
 
   constructor(private readonly createContext: () => AudioContext = () => new AudioContext({ latencyHint: 'interactive' })) {}
 
@@ -84,6 +89,7 @@ export class AudioEngine {
    */
   unlock(): Promise<void> {
     if (!this.ctx) this.init(this.createContext());
+    this.loadPianoBank();
     const ctx = this.ctx!;
     return ctx.state === 'running' ? Promise.resolve() : ctx.resume();
   }
@@ -174,6 +180,7 @@ export class AudioEngine {
   /** Registers recorded samples by id; they're decoded on first use. */
   registerSamples(urls: Record<string, string>): void {
     for (const [id, url] of Object.entries(urls)) this.sampleUrls.set(id, url);
+    this.loadPianoBank();
   }
 
   /** Ids of registered samples that start with `prefix`. */
@@ -253,6 +260,42 @@ export class AudioEngine {
       src.start(ctx.currentTime);
       src.onended = () => g.disconnect();
     });
+  }
+
+  /** Decodes the piano samples (sfx_piano_*) once; the synth plays until they're in. */
+  private loadPianoBank(): void {
+    if (this.pianoBankLoading || !this.ctx) return;
+    // Audio may unlock before the manifest's samples are registered; then
+    // registerSamples() tries again.
+    const ids = [...this.sampleUrls.keys()].filter((id) => samplePitch(id) !== null);
+    if (ids.length === 0) return;
+    this.pianoBankLoading = true;
+    for (const id of ids) {
+      void this.decode(id).then((buf) => {
+        if (buf) this.pianoBank.set(samplePitch(id) as number, buf);
+      });
+    }
+  }
+
+  /** A sampled piano note, or false if no sample is loaded. */
+  private sampledVoice(note: ScheduleNote, start: number, end: number, out: AudioNode, track: (s: AudioScheduledSourceNode) => void): boolean {
+    const near = nearestSample([...this.pianoBank.keys()], note.pitch);
+    const buf = near && this.pianoBank.get(near.pitch);
+    if (!near || !buf) return false;
+    const ctx = this.ctx!;
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    src.playbackRate.value = near.rate;
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(velocityGain(note.vel) * 1.6, start);
+    g.gain.setTargetAtTime(0, end, releaseTau(note.pitch));
+    src.connect(g).connect(out);
+    const stopAt = Math.min(start + buf.duration / near.rate, end + 5 * releaseTau(note.pitch));
+    src.start(start);
+    src.stop(stopAt);
+    track(src);
+    setTimeout(() => g.disconnect(), (stopAt - ctx.currentTime) * 1000 + 300);
+    return true;
   }
 
   private decode(id: string): Promise<AudioBuffer | null> {
@@ -345,6 +388,7 @@ export class AudioEngine {
       sources.add(s);
       s.onended = () => sources.delete(s);
     };
+    if (this.sampledVoice(note, start, end, out, track)) return;
 
     const voice = ctx.createGain();
     voice.connect(out);

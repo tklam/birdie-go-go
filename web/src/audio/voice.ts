@@ -164,3 +164,20 @@ export function clickTimes(count: number, bpm: number, atTime: number): number[]
 export function clampVolume(v: number): number {
   return Number.isFinite(v) ? Math.min(1, Math.max(0, v)) : 0;
 }
+
+const NOTE_OFFSET: Record<string, number> = { C: 0, Cs: 1, D: 2, Ds: 3, E: 4, F: 5, Fs: 6, G: 7, Gs: 8, A: 9, As: 10, B: 11 };
+
+/** The MIDI pitch of a piano sample id like "sfx_piano_Fs3" (null if it isn't one). */
+export function samplePitch(id: string): number | null {
+  const m = /^sfx_piano_([A-G]s?)(-?\d)$/.exec(id);
+  if (!m || NOTE_OFFSET[m[1]] === undefined) return null;
+  return 12 * (Number(m[2]) + 1) + NOTE_OFFSET[m[1]];
+}
+
+/** The nearest sampled pitch to `pitch` and the playback rate that retunes it. */
+export function nearestSample(pitches: readonly number[], pitch: number): { pitch: number; rate: number } | null {
+  if (pitches.length === 0) return null;
+  let best = pitches[0];
+  for (const p of pitches) if (Math.abs(p - pitch) < Math.abs(best - pitch)) best = p;
+  return { pitch: best, rate: 2 ** ((pitch - best) / 12) };
+}

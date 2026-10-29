@@ -14,6 +14,8 @@ import {
   scheduleEnd,
   sortNotes,
   velocityGain,
+  nearestSample,
+  samplePitch,
   voiceLength,
 } from './voice';
 
@@ -140,5 +142,18 @@ describe('scheduling plans', () => {
     expect(clampVolume(2)).toBe(1);
     expect(clampVolume(Number.NaN)).toBe(0);
     expect(clampVolume(0.3)).toBe(0.3);
+  });
+});
+
+describe('piano samples', () => {
+  it('reads sample pitches and retunes from the nearest', () => {
+    expect(samplePitch('sfx_piano_C4')).toBe(60);
+    expect(samplePitch('sfx_piano_Fs3')).toBe(54);
+    expect(samplePitch('sfx_piano_A0')).toBe(21);
+    expect(samplePitch('sfx_oboy_chirp1')).toBeNull();
+    const n = nearestSample([57, 60, 63], 61)!;
+    expect(n.pitch).toBe(60);
+    expect(n.rate).toBeCloseTo(2 ** (1 / 12));
+    expect(nearestSample([], 60)).toBeNull();
   });
 });

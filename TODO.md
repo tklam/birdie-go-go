@@ -32,7 +32,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] 16-bit UI kit: window frames, dialogue box with typewriter, area toast pixel font (Press Start 2P), menus, album list, speaker portraits
 - [x] Touch controls: floating joystick, Action button (context label), Menu button
 - [x] Audio: unlock on first gesture, synthesized piano, metronome, SFX, looping chiptune music per area (3 original themes) with crossfades
-- [ ] SoundFont sample bank (optional upgrade over the synth)
+- [x] Sampled piano for lessons (Salamander Grand Piano, CC BY 3.0; the synth plays until the samples load)
 
 ### World and streaming (§4.10, §9.7)
 - [x] `worldbuild`: chunking, collision, areas, objects, content-hashed files, world index

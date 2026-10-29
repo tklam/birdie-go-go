@@ -375,7 +375,7 @@ Ratings: **≥90 Perfect ★★★**, 75–89 Great ★★, 50–74 Good ★, <5
 
 ### 6.1 Presentation
 - A student at the piano; a **piano roll** of the reference score scrolls horizontally with a playhead.
-- Audio: the student's performance synthesized with a piano SoundFont.
+- Audio: the student's performance played with sampled piano (Salamander Grand Piano, CC BY 3.0: one sample every third semitone, retuned to the nearest; an additive synth plays until the samples have loaded).
 - A large **Mistake!** button (bottom center; also tap anywhere on the lower half, or press Space/Enter).
 
 ### 6.2 Performance generation (Go core)
@@ -479,7 +479,7 @@ The game also works when the core runs in Node or natively — the same Go packa
 ### 9.2 Stack
 - **Frontend**: TypeScript (strict), **Phaser 3**, Vite. Dialogue, menus, and touch controls as an HTML/CSS overlay. Service worker for offline play.
 - **Go core**: Go 1.24+ packages compiled with TinyGo to `core.wasm`. Called through a typed message API from a Web Worker.
-- **Audio**: Web Audio; a SoundFont synth (e.g. `smplr`) plays the piano, plus sequenced 16-bit-style music and effects from a small sample bank. All lesson timing scheduled against `AudioContext.currentTime`.
+- **Audio**: Web Audio; the lesson piano plays decoded samples (no library; see §6), plus sequenced 16-bit-style music and effects from a small sample bank. All lesson timing scheduled against `AudioContext.currentTime`.
 - **Storage**: IndexedDB for saves, downloaded content packs, and the world-chunk cache.
 - **Shared types**: Go structs in `core/model` → TypeScript via `tygo` → `web/src/core/types.gen.ts`.
 - **Optional server**: Go standard library `net/http`.

@@ -2940,6 +2940,122 @@
     "type": "audio",
     "file": "audio/oboy_squawk.mp3"
   },
+  "sfx_piano_A1": {
+    "type": "audio",
+    "file": "audio/piano_A1.mp3"
+  },
+  "sfx_piano_A2": {
+    "type": "audio",
+    "file": "audio/piano_A2.mp3"
+  },
+  "sfx_piano_A3": {
+    "type": "audio",
+    "file": "audio/piano_A3.mp3"
+  },
+  "sfx_piano_A4": {
+    "type": "audio",
+    "file": "audio/piano_A4.mp3"
+  },
+  "sfx_piano_A5": {
+    "type": "audio",
+    "file": "audio/piano_A5.mp3"
+  },
+  "sfx_piano_A6": {
+    "type": "audio",
+    "file": "audio/piano_A6.mp3"
+  },
+  "sfx_piano_A7": {
+    "type": "audio",
+    "file": "audio/piano_A7.mp3"
+  },
+  "sfx_piano_C1": {
+    "type": "audio",
+    "file": "audio/piano_C1.mp3"
+  },
+  "sfx_piano_C2": {
+    "type": "audio",
+    "file": "audio/piano_C2.mp3"
+  },
+  "sfx_piano_C3": {
+    "type": "audio",
+    "file": "audio/piano_C3.mp3"
+  },
+  "sfx_piano_C4": {
+    "type": "audio",
+    "file": "audio/piano_C4.mp3"
+  },
+  "sfx_piano_C5": {
+    "type": "audio",
+    "file": "audio/piano_C5.mp3"
+  },
+  "sfx_piano_C6": {
+    "type": "audio",
+    "file": "audio/piano_C6.mp3"
+  },
+  "sfx_piano_C7": {
+    "type": "audio",
+    "file": "audio/piano_C7.mp3"
+  },
+  "sfx_piano_C8": {
+    "type": "audio",
+    "file": "audio/piano_C8.mp3"
+  },
+  "sfx_piano_Ds1": {
+    "type": "audio",
+    "file": "audio/piano_Ds1.mp3"
+  },
+  "sfx_piano_Ds2": {
+    "type": "audio",
+    "file": "audio/piano_Ds2.mp3"
+  },
+  "sfx_piano_Ds3": {
+    "type": "audio",
+    "file": "audio/piano_Ds3.mp3"
+  },
+  "sfx_piano_Ds4": {
+    "type": "audio",
+    "file": "audio/piano_Ds4.mp3"
+  },
+  "sfx_piano_Ds5": {
+    "type": "audio",
+    "file": "audio/piano_Ds5.mp3"
+  },
+  "sfx_piano_Ds6": {
+    "type": "audio",
+    "file": "audio/piano_Ds6.mp3"
+  },
+  "sfx_piano_Ds7": {
+    "type": "audio",
+    "file": "audio/piano_Ds7.mp3"
+  },
+  "sfx_piano_Fs1": {
+    "type": "audio",
+    "file": "audio/piano_Fs1.mp3"
+  },
+  "sfx_piano_Fs2": {
+    "type": "audio",
+    "file": "audio/piano_Fs2.mp3"
+  },
+  "sfx_piano_Fs3": {
+    "type": "audio",
+    "file": "audio/piano_Fs3.mp3"
+  },
+  "sfx_piano_Fs4": {
+    "type": "audio",
+    "file": "audio/piano_Fs4.mp3"
+  },
+  "sfx_piano_Fs5": {
+    "type": "audio",
+    "file": "audio/piano_Fs5.mp3"
+  },
+  "sfx_piano_Fs6": {
+    "type": "audio",
+    "file": "audio/piano_Fs6.mp3"
+  },
+  "sfx_piano_Fs7": {
+    "type": "audio",
+    "file": "audio/piano_Fs7.mp3"
+  },
   "tiles_tko": {
     "type": "spritesheet",
     "file": "tiles/tko.png",
