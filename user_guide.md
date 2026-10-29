@@ -174,6 +174,21 @@ If your taps feel consistently early or late, recalibrate in **Settings**.
 
 People around the city will ask for help. A magazine might want a photo of a particular winter visitor, a parent might want extra lessons before a recital, or someone might ask you to take a ferry somewhere. Check active missions in the Menu. Some missions only appear in certain seasons (like the winter spoonbill contest), some ask you to ride a ferry or explore somewhere new, and special ones run only for a few real-world days around holidays or arrive in game updates.
 
+## Stories and favours
+
+The first time you visit each of the 20 districts, someone local tells you a little of its history (how Junk Bay got its name, the bun festival on Pebble Island, the walled village's feng shui wood) and asks a favour. It shows up in your Missions; go back and talk to them to play it as a mini game:
+
+| Game | How to play |
+|---|---|
+| **Quiz** | Pick the right answer from what you were told. |
+| **Memory** | Tap two cards to turn them over; find every pair before you run out of moves. |
+| **Rhythm** | After the count-in, tap the **DRUM** button (or the right half of the screen, or Space/Z) as each beat reaches the drum. |
+| **Catch** | Drag (or use ←/→) to move the basket; catch what's asked for and dodge the rest before time runs out. |
+| **Find** | Tap the hidden birds in the picture (or move the cursor with the arrows and press Space). **Hint** helps after a while. |
+| **Slide** | Tap a piece next to the gap to slide it, until the old photo is whole again. **Hint** shows the finished picture. |
+
+You can't fail for good: try again as often as you like, or leave and come back later. **Slow prompts** in Settings makes the timed games gentler.
+
 ## Companions
 
 Before heading out, choose who comes along: go **alone**, or bring **O Boy**, **Kei**, or **both**, from **Menu → Party**.

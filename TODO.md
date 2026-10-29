@@ -187,3 +187,8 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 
 ## Open questions
 See SPEC.md §11.
+
+## Place stories and mini games (§4.14)
+- [x] Mini game framework (`start_minigame`, `minigame_complete`, minigame mission objectives, `minigames.yaml`)
+- [x] Six types: quiz, memory, rhythm, catch, find, slide
+- [x] A history story and favour for each of the 20 districts
