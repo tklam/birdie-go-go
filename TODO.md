@@ -129,7 +129,9 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Missions (§9.5): photograph and lesson objectives, rewards, Menu → Missions; Chapter 2 missions (magazine egret shot, Mei's recital)
 - [ ] Contests, transit missions, live missions from updates
 - [x] Trail cameras
+- [x] 104 bird species from freely licensed photos (birdphoto + segmentation masks + vision-checked auto picks), spread over the four spots by habitat and season
 - [x] Paged album for 100+ species
+- [ ] More birding spots (wetland, hills, islands) so waders, ducks and raptors have proper habitats
 - [ ] Album milestones
 
 ## M4b: Hazards and encounters (§4.12–4.13)

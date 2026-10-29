@@ -630,3 +630,1351 @@ still carries the CC BY-SA terms of the other frames.
   - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
   - Source: <https://commons.wikimedia.org/wiki/File:Milvus_migrans_lineatus_(Sakurajimayokoyama-ch%C5%8D,_Kagoshima)_VLux5_hdsr_01.jpg>
   - Used for: flying1, flying2 (copy of flying1)
+
+## Black-crowned Night Heron (`black_crowned_night_heron`)
+
+- **Nycticorax nycticorax12.jpg** (`selected/black_crowned_night_heron/03.jpg`)
+  - Author: Calibas
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Nycticorax_nycticorax12.jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **Nycticorax nycticorax (in flight).JPG** (`selected/black_crowned_night_heron/15.jpg`)
+  - Author: Alpsdake
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Nycticorax_nycticorax_(in_flight).JPG>
+  - Used for: wings_spread (copy of flying1), flying1 (mirrored), flying2 (copy of flying1)
+
+- **Nycticorax nycticorax Linne.jpg** (`selected/black_crowned_night_heron/19.jpg`)
+  - Author: Cliff from I now live in Arlington, VA (Outside Washington DC), USA
+  - License: [CC BY 2.0](https://creativecommons.org/licenses/by/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Nycticorax_nycticorax_Linne.jpg>
+  - Used for: perched_alert (mirrored)
+
+## Black-faced Spoonbill (`black_faced_spoonbill`)
+
+- **Black faced spoonbill at Niigata.JPG** (`selected/black_faced_spoonbill/04.jpg`)
+  - Author: Cp9asngf
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Black_faced_spoonbill_at_Niigata.JPG>
+  - Used for: perched_alert (mirrored)
+
+- **Black-faced spoonbill 2006.jpg** (`selected/black_faced_spoonbill/06.jpg`)
+  - Author: Probophilic at Cantonese Wikipedia
+  - License: Public domain
+  - Source: <https://commons.wikimedia.org/wiki/File:Black-faced_spoonbill_2006.jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+- **Platalea minor (25077444570).jpg** (`selected/black_faced_spoonbill/12.jpg`)
+  - Author: LiCheng Shih
+  - License: [CC BY 2.0](https://creativecommons.org/licenses/by/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Platalea_minor_(25077444570).jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## Common Moorhen (`common_moorhen`)
+
+- **Common moorhen (Gallinula chloropus) France.jpg** (`selected/common_moorhen/01.jpg`)
+  - Author: Alexis Lours
+  - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Common_moorhen_(Gallinula_chloropus)_France.jpg>
+  - Used for: perched_alert
+
+- **Common Moorhen 2023 11 11 03.jpg** (`selected/common_moorhen/05.jpg`)
+  - Author: Alexis Lours
+  - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Common_Moorhen_2023_11_11_03.jpg>
+  - Used for: perched, wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Grey Heron (`grey_heron`)
+
+- **Grey heron, October 2015 II.jpg** (`selected/grey_heron/11.jpg`)
+  - Author: Laitche
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Grey_heron,_October_2015_II.jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+- **Ardea cinerea qtl3.jpg** (`selected/grey_heron/14.jpg`)
+  - Author: Quartl
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Ardea_cinerea_qtl3.jpg>
+  - Used for: perched_alert
+
+- **Grey heron in flight (Ardea cinerea).jpg** (`selected/grey_heron/16.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Grey_heron_in_flight_(Ardea_cinerea).jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## Eastern Cattle Egret (`cattle_egret`)
+
+- **Eastern Cattle-Egret in Bhagalpur December 2025 by Tisha Mukherjee 02.jpg** (`selected/cattle_egret/05.jpg`)
+  - Author: Tisha Mukherjee
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Eastern_Cattle-Egret_in_Bhagalpur_December_2025_by_Tisha_Mukherjee_02.jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **Eastern Cattle-Egret in Bhagalpur December 2025 by Tisha Mukherjee 01.jpg** (`selected/cattle_egret/06.jpg`)
+  - Author: Tisha Mukherjee
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Eastern_Cattle-Egret_in_Bhagalpur_December_2025_by_Tisha_Mukherjee_01.jpg>
+  - Used for: perched_alert (mirrored)
+
+- **Bubulcus ibis coromandus in flight s4.JPG** (`selected/cattle_egret/16.jpg`)
+  - Author: Alpsdake
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Bubulcus_ibis_coromandus_in_flight_s4.JPG>
+  - Used for: wings_spread (copy of flying1), flying1 (mirrored), flying2 (copy of flying1)
+
+## Striated Heron (`striated_heron`)
+
+- **Butorides striata - Laem Pak Bia.jpg** (`selected/striated_heron/12.jpg`)
+  - Author: JJ Harrison (https://www.jjharrison.com.au/)
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Butorides_striata_-_Laem_Pak_Bia.jpg>
+  - Used for: perched_alert (mirrored)
+
+- **Striated Heron (Butorides striata) @ Kuala Lumpur, Malaysia (6).jpg** (`selected/striated_heron/13.jpg`)
+  - Author: GerifalteDelSabana
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Striated_Heron_(Butorides_striata)_@_Kuala_Lumpur,_Malaysia_(6).jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+- **Butorides striatus in flight.JPG** (`selected/striated_heron/16.jpg`)
+  - Author: Alpsdake
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Butorides_striatus_in_flight.JPG>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## Great Cormorant (`great_cormorant`)
+
+- **Phalacrocorax carbo Vic.jpg** (`selected/great_cormorant/01.jpg`)
+  - Author: JJ Harrison (https://www.jjharrison.com.au/)
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Phalacrocorax_carbo_Vic.jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+- **Cormorant (Phalacrocorax carbo) (14).JPG** (`selected/great_cormorant/10.jpg`)
+  - Author: Ken Billington
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Cormorant_(Phalacrocorax_carbo)_(14).JPG>
+  - Used for: perched_alert (mirrored)
+
+- **Great cormorant (Phalacrocorax carbo) in flight Blanchetown.jpg** (`selected/great_cormorant/14.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Great_cormorant_(Phalacrocorax_carbo)_in_flight_Blanchetown.jpg>
+  - Used for: wings_spread (copy of flying1), flying1 (mirrored), flying2 (copy of flying1)
+
+## Common Greenshank (`common_greenshank`)
+
+- **Common greenshank (Tringa nebularia).jpg** (`selected/common_greenshank/07.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Common_greenshank_(Tringa_nebularia).jpg>
+  - Used for: perched_alert (mirrored)
+
+- **Chevalier aboyeur003 lac de Tunis.jpg** (`selected/common_greenshank/13.jpg`)
+  - Author: El Golli Mohamed
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Chevalier_aboyeur003_lac_de_Tunis.jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **Tringa nebularia in flight.JPG** (`selected/common_greenshank/16.jpg`)
+  - Author: Alpsdake
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Tringa_nebularia_in_flight.JPG>
+  - Used for: wings_spread (copy of flying1), flying1 (mirrored), flying2 (copy of flying1)
+
+## Common Sandpiper (`common_sandpiper`)
+
+- **Chevalier guignette lac de Tunis011.jpg** (`selected/common_sandpiper/04.jpg`)
+  - Author: El Golli Mohamed
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Chevalier_guignette_lac_de_Tunis011.jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **Common sandpiper (Actitis hypoleucos) Botswana.jpg** (`selected/common_sandpiper/07.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Common_sandpiper_(Actitis_hypoleucos)_Botswana.jpg>
+  - Used for: perched_alert
+
+- **Sandpiper (Actitis hypoleucos) (19).jpg** (`selected/common_sandpiper/20.jpg`)
+  - Author: Ken Billington
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Sandpiper_(Actitis_hypoleucos)_(19).jpg>
+  - Used for: wings_spread (copy of flying1), flying1 (mirrored), flying2 (copy of flying1)
+
+## Eurasian Curlew (`eurasian_curlew`)
+
+- **Chiurlo Maggiore (Numenius arquata) DSC7954.jpg** (`selected/eurasian_curlew/04.jpg`)
+  - Author: Artemio Terna
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Chiurlo_Maggiore_(Numenius_arquata)_DSC7954.jpg>
+  - Used for: perched_alert (mirrored)
+
+- **Numenius arquata amk.jpg** (`selected/eurasian_curlew/05.jpg`)
+  - Author: AngMoKio
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Numenius_arquata_amk.jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **Curlew (Numenius arquata) - geograph.org.uk - 929612.jpg** (`selected/eurasian_curlew/15.jpg`)
+  - Author: Mike Pennington
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Curlew_(Numenius_arquata)_-_geograph.org.uk_-_929612.jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## Kentish Plover (`kentish_plover`)
+
+- **Charadrius alexandrinus - Kentish Plover 04.jpg** (`selected/kentish_plover/11.jpg`)
+  - Author: Zeynel Cebeci
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Charadrius_alexandrinus_-_Kentish_Plover_04.jpg>
+  - Used for: perched_alert
+
+- **Kentish Plover Charadrius alexandrinus by Vedant Kasambe 02.jpg** (`selected/kentish_plover/14.jpg`)
+  - Author: Vedant Raju Kasambe
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Kentish_Plover_Charadrius_alexandrinus_by_Vedant_Kasambe_02.jpg>
+  - Used for: perched, wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Little Grebe (`little_grebe`)
+
+- **Little Grebe in Bhigwan August 2025 by Tisha Mukherjee 02.jpg** (`selected/little_grebe/07.jpg`)
+  - Author: Tisha Mukherjee
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Little_Grebe_in_Bhigwan_August_2025_by_Tisha_Mukherjee_02.jpg>
+  - Used for: perched_alert
+
+- **Tachybaptus ruficollis - Little grebe 01-13.jpg** (`selected/little_grebe/14.jpg`)
+  - Author: Zeynel Cebeci
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Tachybaptus_ruficollis_-_Little_grebe_01-13.jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **Zampullín corriendo sobre el agua - little grebe running on the water.jpg** (`selected/little_grebe/16.jpg`)
+  - Author: Ferran Pestaña
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Zampull%C3%ADn_corriendo_sobre_el_agua_-_little_grebe_running_on_the_water.jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## Northern Pintail (`northern_pintail`)
+
+- **Male northern pintail at Llano Seco.jpg** (`selected/northern_pintail/01.jpg`)
+  - Author: Frank Schulenburg
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Male_northern_pintail_at_Llano_Seco.jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+- **Female northern pintail in flight-1827.jpg** (`selected/northern_pintail/04.jpg`)
+  - Author: Frank Schulenburg
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Female_northern_pintail_in_flight-1827.jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+- **Male Northern pintail (Anas acuta) in Algeria.jpg** (`selected/northern_pintail/14.jpg`)
+  - Author: mourad-harzallah
+  - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Male_Northern_pintail_(Anas_acuta)_in_Algeria.jpg>
+  - Used for: perched_alert
+
+## Pied Kingfisher (`pied_kingfisher`)
+
+- **Pied kingfisher (Ceryle rudis rudis) female 2.jpg** (`selected/pied_kingfisher/01.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Pied_kingfisher_(Ceryle_rudis_rudis)_female_2.jpg>
+  - Used for: perched_alert
+
+- **Ceryle rudis (male).jpg** (`selected/pied_kingfisher/13.jpg`)
+  - Author: Hans Hillewaert
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Ceryle_rudis_(male).jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **Pied kingfisher (Ceryle rudis) 13.jpg** (`selected/pied_kingfisher/16.jpg`)
+  - Author: Afsarnayakkan
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Pied_kingfisher_(Ceryle_rudis)_13.jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## Tufted Duck (`tufted_duck`)
+
+- **Tufted Duck 09 05 2025 01.jpg** (`selected/tufted_duck/05.jpg`)
+  - Author: Alexis Lours
+  - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Tufted_Duck_09_05_2025_01.jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+- **Tufted Duck 09 05 2025 02.jpg** (`selected/tufted_duck/06.jpg`)
+  - Author: Alexis Lours
+  - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Tufted_Duck_09_05_2025_02.jpg>
+  - Used for: perched_alert
+
+- **Tufted Duck (Aythya fuligula) - Flickr - gilgit2.jpg** (`selected/tufted_duck/17.jpg`)
+  - Author: Birds of Gilgit-Baltistan from Aliabad, Hunza, Pakistan
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Tufted_Duck_(Aythya_fuligula)_-_Flickr_-_gilgit2.jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## White-bellied Sea Eagle (`white_bellied_sea_eagle`)
+
+- **White-bellied fish eagle (Haliaeetus leucogaster) juvenile in flight.jpg** (`selected/white_bellied_sea_eagle/01.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:White-bellied_fish_eagle_(Haliaeetus_leucogaster)_juvenile_in_flight.jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+- **White-bellied sea-eagle (Haliaeetus leucogaster) Kakadu 3.jpg** (`selected/white_bellied_sea_eagle/08.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:White-bellied_sea-eagle_(Haliaeetus_leucogaster)_Kakadu_3.jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+- **White-bellied sea-eagle (Haliaeetus leucogaster) Kakadu 2.jpg** (`selected/white_bellied_sea_eagle/09.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:White-bellied_sea-eagle_(Haliaeetus_leucogaster)_Kakadu_2.jpg>
+  - Used for: perched_alert
+
+## Peregrine Falcon (`peregrine_falcon`)
+
+- **Peregrine falcon (Falco peregrinus) in flight, Cape Baily, Kamay Botany Bay NSW Jun 2022.jpg** (`selected/peregrine_falcon/02.jpg`)
+  - Author: Kytabu
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Peregrine_falcon_(Falco_peregrinus)_in_flight,_Cape_Baily,_Kamay_Botany_Bay_NSW_Jun_2022.jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+- **African peregrine falcon (Falco peregrinus minor) Arusha.jpg** (`selected/peregrine_falcon/03.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:African_peregrine_falcon_(Falco_peregrinus_minor)_Arusha.jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+- **Falco peregrinus in Moussem Moulay Abdallah Amghar.jpg** (`selected/peregrine_falcon/06.jpg`)
+  - Author: Mounir Neddi
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Falco_peregrinus_in_Moussem_Moulay_Abdallah_Amghar.jpg>
+  - Used for: perched_alert (mirrored)
+
+## Feral Pigeon (`rock_dove`)
+
+- **Columba livia Luc Viatour.jpg** (`selected/rock_dove/03.jpg`)
+  - Author: Luc Viatour
+  - License: [CC BY-SA 3.0](http://creativecommons.org/licenses/by-sa/3.0/)
+  - Source: <https://commons.wikimedia.org/wiki/File:Columba_livia_Luc_Viatour.jpg>
+  - Used for: perched_alert (mirrored)
+
+- **Feral pigeon (Columba livia domestica), 2017-05-27.jpg** (`selected/rock_dove/09.jpg`)
+  - Author: Lewis Hulbert
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Feral_pigeon_(Columba_livia_domestica),_2017-05-27.jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+- **Columba livia EM1B0630 (46500224005).jpg** (`selected/rock_dove/21.jpg`)
+  - Author: Bengt Nyman from Vaxholm, Sweden
+  - License: [CC BY 2.0](https://creativecommons.org/licenses/by/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Columba_livia_EM1B0630_(46500224005).jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## Collared Scops Owl (`collared_scops_owl`)
+
+- **Collared scops owl (Otus lettia) 2019 024.jpg** (`selected/collared_scops_owl/10.jpg`)
+  - Author: Umang Jung Thapa
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Collared_scops_owl_(Otus_lettia)_2019_024.jpg>
+  - Used for: perched_alert
+
+- **Collared scops owl (Otus lettia) 3.jpg** (`selected/collared_scops_owl/11.jpg`)
+  - Author: Sanjaya Tha Shrestha
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Collared_scops_owl_(Otus_lettia)_3.jpg>
+  - Used for: perched, wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Red-rumped Swallow (`red_rumped_swallow`)
+
+- **The Red Rumped Swallow.jpg** (`selected/red_rumped_swallow/02.jpg`)
+  - Author: Prasan Shrestha
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:The_Red_Rumped_Swallow.jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+- **Eastern Red-rumped Swallow by Tisha Mukherjee 10.jpg** (`selected/red_rumped_swallow/10.jpg`)
+  - Author: Tisha Mukherjee
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Eastern_Red-rumped_Swallow_by_Tisha_Mukherjee_10.jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **Eastern Red-rumped Swallow by Tisha Mukherjee 09.jpg** (`selected/red_rumped_swallow/13.jpg`)
+  - Author: Tisha Mukherjee
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Eastern_Red-rumped_Swallow_by_Tisha_Mukherjee_09.jpg>
+  - Used for: perched_alert (mirrored)
+
+## Olive-backed Pipit (`olive_backed_pipit`)
+
+- **Olive-backed Pipit, Doi Ang Khang, Chiang Mai, Thailand.jpg** (`selected/olive_backed_pipit/06.jpg`)
+  - Author: Jason Thompson
+  - License: [CC BY 2.0](https://creativecommons.org/licenses/by/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Olive-backed_Pipit,_Doi_Ang_Khang,_Chiang_Mai,_Thailand.jpg>
+  - Used for: perched (mirrored), perched_alert (copy of perched), wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Large-billed Crow (`large_billed_crow`)
+
+- **Large-billed Crow in Bhagalpur December 2025 by Tisha Mukherjee 02.jpg** (`selected/large_billed_crow/08.jpg`)
+  - Author: Tisha Mukherjee
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Large-billed_Crow_in_Bhagalpur_December_2025_by_Tisha_Mukherjee_02.jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+- **Large-billed Crow in Lepcha Jagat October 2025 by Tisha Mukherjee 02.jpg** (`selected/large_billed_crow/09.jpg`)
+  - Author: Tisha Mukherjee
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Large-billed_Crow_in_Lepcha_Jagat_October_2025_by_Tisha_Mukherjee_02.jpg>
+  - Used for: perched_alert (mirrored)
+
+- **Jungle crow (Corvus macrorhynchos) from anaimalai hills in flight JEG3210.jpg** (`selected/large_billed_crow/16.jpg`)
+  - Author: PJeganathan
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Jungle_crow_(Corvus_macrorhynchos)_from_anaimalai_hills_in_flight_JEG3210.jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## Grey Treepie (`grey_treepie`)
+
+- **Grey treepie near Kasauli, Himachal Pradesh.jpg** (`selected/grey_treepie/02.jpg`)
+  - Author: Satdeep Gill
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Grey_treepie_near_Kasauli,_Himachal_Pradesh.jpg>
+  - Used for: perched_alert (mirrored)
+
+- **Grey Treepie - Taiwan S4E5639 (22595777170).jpg** (`selected/grey_treepie/10.jpg`)
+  - Author: Francesco Veronesi from Italy
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Grey_Treepie_-_Taiwan_S4E5639_(22595777170).jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **Flying (36132777764).jpg** (`selected/grey_treepie/18.jpg`)
+  - Author: Charles Lam from Hong Kong, China
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Flying_(36132777764).jpg>
+  - Used for: wings_spread (copy of flying1), flying1 (mirrored), flying2 (copy of flying1)
+
+## Daurian Redstart (`daurian_redstart`)
+
+- **Daurian redstart (female) in Sakai, Osaka, February 2016 III.jpg** (`selected/daurian_redstart/02.jpg`)
+  - Author: Laitche
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Daurian_redstart_(female)_in_Sakai,_Osaka,_February_2016_III.jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+- **Daurian redstart (female) in Sakai, Osaka, February 2016.jpg** (`selected/daurian_redstart/06.jpg`)
+  - Author: Laitche
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Daurian_redstart_(female)_in_Sakai,_Osaka,_February_2016.jpg>
+  - Used for: perched_alert
+
+- **Taking Off (24245676552).jpg** (`selected/daurian_redstart/15.jpg`)
+  - Author: Charles Lam from Hong Kong, China
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Taking_Off_(24245676552).jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## Chinese Hwamei (`hwamei`)
+
+- **Garrulax canorus 04.jpg** (`selected/hwamei/07.jpg`)
+  - Author: Sun Jiao (Interaccoonale)
+  - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Garrulax_canorus_04.jpg>
+  - Used for: perched, perched_alert (copy of perched), wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Red-billed Starling (`red_billed_starling`)
+
+- **Red-billed Starling - Taiwan S4E9914 (22801340815).jpg** (`selected/red_billed_starling/05.jpg`)
+  - Author: Francesco Veronesi from Italy
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Red-billed_Starling_-_Taiwan_S4E9914_(22801340815).jpg>
+  - Used for: perched_alert (mirrored)
+
+- **Flower Lover Spodiopsar sericeus.jpg** (`selected/red_billed_starling/08.jpg`)
+  - Author: Charles Lam
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Flower_Lover_Spodiopsar_sericeus.jpg>
+  - Used for: perched (mirrored), wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Scarlet-backed Flowerpecker (`scarlet_backed_flowerpecker`)
+
+- **Scarlet-backed flowerpecker (Dicaeum cruentatum) male Double Haven.jpg** (`selected/scarlet_backed_flowerpecker/01.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Scarlet-backed_flowerpecker_(Dicaeum_cruentatum)_male_Double_Haven.jpg>
+  - Used for: perched_alert
+
+- **Scarlet-backed flowerpecker (Dicaeum cruentatum) male Double Haven 2.jpg** (`selected/scarlet_backed_flowerpecker/02.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Scarlet-backed_flowerpecker_(Dicaeum_cruentatum)_male_Double_Haven_2.jpg>
+  - Used for: perched (mirrored), wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Sooty-headed Bulbul (`sooty_headed_bulbul`)
+
+- **Sooty-headed Bulbul (Pycnonotus aurigaster) in South Jakarta, Indonesia.jpg** (`selected/sooty_headed_bulbul/08.jpg`)
+  - Author: Melindra12
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Sooty-headed_Bulbul_(Pycnonotus_aurigaster)_in_South_Jakarta,_Indonesia.jpg>
+  - Used for: perched, wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+- **Sooty headed bulbul (Pycnonotus aurigaster aurigaster ) - Flickr - Lip Kee.jpg** (`selected/sooty_headed_bulbul/10.jpg`)
+  - Author: Lip Kee from Singapore, Republic of Singapore
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Sooty_headed_bulbul_(Pycnonotus_aurigaster_aurigaster_)_-_Flickr_-_Lip_Kee.jpg>
+  - Used for: perched_alert (mirrored)
+
+## Asian Brown Flycatcher (`asian_brown_flycatcher`)
+
+- **Asian Brown Flycatcher - Muscicapa dauurica.jpg** (`selected/asian_brown_flycatcher/06.jpg`)
+  - Author: Lip Kee Yap
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Asian_Brown_Flycatcher_-_Muscicapa_dauurica.jpg>
+  - Used for: perched (mirrored), perched_alert (copy of perched), wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Rose-ringed Parakeet (`rose_ringed_parakeet`)
+
+- **2018.03.03.-10-Mannheim-Vogelstang--Halsbandsittich-Weibchen.jpg** (`selected/rose_ringed_parakeet/02.jpg`)
+  - Author: Andreas Eichler
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:2018.03.03.-10-Mannheim-Vogelstang--Halsbandsittich-Weibchen.jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+- **The Rose Ringed Parakeet in flight.jpg** (`selected/rose_ringed_parakeet/13.jpg`)
+  - Author: Prasan Shrestha
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:The_Rose_Ringed_Parakeet_in_flight.jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+- **Rose-Ringed Parakeet Psittacula Krameri Richmond Park 2025 01.jpg** (`selected/rose_ringed_parakeet/16.jpg`)
+  - Author: Julian Herzog (Website)
+  - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Rose-Ringed_Parakeet_Psittacula_Krameri_Richmond_Park_2025_01.jpg>
+  - Used for: perched_alert (mirrored)
+
+## Yellow-bellied Prinia (`yellow_bellied_prinia`)
+
+- **Yellow-bellied Prinia in Baruipur October 2025 by Tisha Mukherjee 09.jpg** (`selected/yellow_bellied_prinia/04.jpg`)
+  - Author: Tisha Mukherjee
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Yellow-bellied_Prinia_in_Baruipur_October_2025_by_Tisha_Mukherjee_09.jpg>
+  - Used for: perched_alert
+
+- **Yellow-bellied Prinia in Baruipur October 2025 by Tisha Mukherjee 08.jpg** (`selected/yellow_bellied_prinia/06.jpg`)
+  - Author: Tisha Mukherjee
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Yellow-bellied_Prinia_in_Baruipur_October_2025_by_Tisha_Mukherjee_08.jpg>
+  - Used for: perched (mirrored), wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Chinese Grosbeak (`chinese_grosbeak`)
+
+- **Eophona migratoria 1.jpg** (`selected/chinese_grosbeak/02.jpg`)
+  - Author: Charles Lam from Hong Kong, China
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Eophona_migratoria_1.jpg>
+  - Used for: perched_alert
+
+- **Eophona migratoria 281269109.jpg** (`selected/chinese_grosbeak/05.jpg`)
+  - Author: wang cai
+  - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Eophona_migratoria_281269109.jpg>
+  - Used for: perched, wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## White-rumped Munia (`white_rumped_munia`)
+
+- **White-rumped Munia (Lonchura striata) (5780780488).jpg** (`selected/white_rumped_munia/07.jpg`)
+  - Author: Thomas Brown
+  - License: [CC BY 2.0](https://creativecommons.org/licenses/by/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:White-rumped_Munia_(Lonchura_striata)_(5780780488).jpg>
+  - Used for: perched (mirrored), wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+- **White-rumped munia (Lonchura striata).jpg** (`selected/white_rumped_munia/15.jpg`)
+  - Author: Shino jacob koottanad
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:White-rumped_munia_(Lonchura_striata).jpg>
+  - Used for: perched_alert (mirrored)
+
+## Black-winged Stilt (`black_winged_stilt`)
+
+- **Stelzenläufer (Himantopus himantopus).jpg** (`selected/black_winged_stilt/03.jpg`)
+  - Author: Andreas Trepte
+  - License: [CC BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5)
+  - Source: <https://commons.wikimedia.org/wiki/File:Stelzenl%C3%A4ufer_(Himantopus_himantopus).jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **Himantopus leucocephalus - Hexham.jpg** (`selected/black_winged_stilt/04.jpg`)
+  - Author: JJ Harrison (https://www.jjharrison.com.au/)
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Himantopus_leucocephalus_-_Hexham.jpg>
+  - Used for: perched_alert (mirrored)
+
+- **Himantopus himantopus - Black-winged Stilt 09.jpg** (`selected/black_winged_stilt/19.jpg`)
+  - Author: Zeynel Cebeci
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Himantopus_himantopus_-_Black-winged_Stilt_09.jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## Common Redshank (`common_redshank`)
+
+- **Redshank on a pole.jpg** (`selected/common_redshank/02.jpg`)
+  - Author: Stephan Sprinz
+  - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Redshank_on_a_pole.jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+- **Common redshank (Tringa totanus) breeding Marken.jpg** (`selected/common_redshank/03.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Common_redshank_(Tringa_totanus)_breeding_Marken.jpg>
+  - Used for: perched_alert (mirrored)
+
+- **Common redshank (Tringa totanus robusta) in flight Myrar.jpg** (`selected/common_redshank/07.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Common_redshank_(Tringa_totanus_robusta)_in_flight_Myrar.jpg>
+  - Used for: wings_spread (copy of flying1), flying1 (mirrored), flying2 (copy of flying1)
+
+## Whimbrel (`whimbrel`)
+
+- **Whimbrel Numenius phaeopus.jpg** (`selected/whimbrel/01.jpg`)
+  - Author: Andreas Trepte
+  - License: [CC BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5)
+  - Source: <https://commons.wikimedia.org/wiki/File:Whimbrel_Numenius_phaeopus.jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **Whimbrel (Numenius phaeopus) in flight Myrar.jpg** (`selected/whimbrel/03.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Whimbrel_(Numenius_phaeopus)_in_flight_Myrar.jpg>
+  - Used for: wings_spread (copy of flying1), flying1 (mirrored), flying2 (copy of flying1)
+
+- **Eurasian whimbrel (Numenius phaeopus islandicus).jpg** (`selected/whimbrel/11.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Eurasian_whimbrel_(Numenius_phaeopus_islandicus).jpg>
+  - Used for: perched_alert
+
+## Black-capped Kingfisher (`black_capped_kingfisher`)
+
+- **Halcyon pileata - Phra Non.jpg** (`selected/black_capped_kingfisher/01.jpg`)
+  - Author: JJ Harrison (https://www.jjharrison.com.au/)
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Halcyon_pileata_-_Phra_Non.jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+- **Black-capped Kingfisher in Sundarbans National Park February 2026 by Tisha Mukherjee 05.jpg** (`selected/black_capped_kingfisher/06.jpg`)
+  - Author: Tisha Mukherjee
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Black-capped_Kingfisher_in_Sundarbans_National_Park_February_2026_by_Tisha_Mukherjee_05.jpg>
+  - Used for: perched_alert
+
+- **Black Capped (cropped).jpg** (`selected/black_capped_kingfisher/17.jpg`)
+  - Author: Taritganguly
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Black_Capped_(cropped).jpg>
+  - Used for: wings_spread (copy of flying1), flying1 (mirrored), flying2 (copy of flying1)
+
+## Northern Shoveler (`northern_shoveler`)
+
+- **Northern shoveler (Spatula clypeata) female Marken.jpg** (`selected/northern_shoveler/06.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Northern_shoveler_(Spatula_clypeata)_female_Marken.jpg>
+  - Used for: perched_alert (mirrored)
+
+- **Northern shoveler male in Marine Park (33296).jpg** (`selected/northern_shoveler/07.jpg`)
+  - Author: Rhododendrites
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Northern_shoveler_male_in_Marine_Park_(33296).jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **Male northern shoveler in flight-0208.jpg** (`selected/northern_shoveler/09.jpg`)
+  - Author: Frank Schulenburg
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Male_northern_shoveler_in_flight-0208.jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## Black-headed Gull (`black_headed_gull`)
+
+- **Chroicocephalus ridibundus 2012a.jpg** (`selected/black_headed_gull/01.jpg`)
+  - Author: ArildV
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Chroicocephalus_ridibundus_2012a.jpg>
+  - Used for: perched_alert (mirrored)
+
+- **090 Wild Black-headed gull in flight at Lake Geneva during sunset Photo by Giles Laurent.jpg** (`selected/black_headed_gull/04.jpg`)
+  - Author: Giles Laurent
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:090_Wild_Black-headed_gull_in_flight_at_Lake_Geneva_during_sunset_Photo_by_Giles_Laurent.jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+- **Black-headed gull breeding plumage.jpg** (`selected/black_headed_gull/07.jpg`)
+  - Author: Alexis Lours
+  - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Black-headed_gull_breeding_plumage.jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+## Osprey (`osprey`)
+
+- **Pandion haliaetus (Osprey).jpg** (`selected/osprey/07.jpg`)
+  - Author: מינוזיג - MinoZig
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Pandion_haliaetus_(Osprey).jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **Osprey. (Pandion haliaetus).jpg** (`selected/osprey/08.jpg`)
+  - Author: מינוזיג
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Osprey._(Pandion_haliaetus).jpg>
+  - Used for: perched_alert
+
+- **Pandion haliaetus (in flight).JPG** (`selected/osprey/17.jpg`)
+  - Author: Alpsdake
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Pandion_haliaetus_(in_flight).JPG>
+  - Used for: wings_spread (copy of flying1), flying1 (mirrored), flying2 (copy of flying1)
+
+## Common Kestrel (`common_kestrel`)
+
+- **Common kestrel falco tinnunculus.jpg** (`selected/common_kestrel/01.jpg`)
+  - Author: Andreas Trepte
+  - License: [CC BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5)
+  - Source: <https://commons.wikimedia.org/wiki/File:Common_kestrel_falco_tinnunculus.jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **Common kestrel (Falco tinnunculus) female (IMGP1648r1).jpg** (`selected/common_kestrel/11.jpg`)
+  - Author: Alexey V. Kurochkin
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Common_kestrel_(Falco_tinnunculus)_female_(IMGP1648r1).jpg>
+  - Used for: perched_alert
+
+- **Kestrel (Falco tinnunculus) male in flight 4.jpg** (`selected/common_kestrel/15.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Kestrel_(Falco_tinnunculus)_male_in_flight_4.jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## Oriental Turtle Dove (`oriental_turtle_dove`)
+
+- **Oriental turtle dove in Nepal (79).jpg** (`selected/oriental_turtle_dove/03.jpg`)
+  - Author: Krishna Prajapati
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Oriental_turtle_dove_in_Nepal_(79).jpg>
+  - Used for: perched_alert
+
+- **Oriental Turtle-Dove-1.jpg** (`selected/oriental_turtle_dove/05.jpg`)
+  - Author: Mildeep
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Oriental_Turtle-Dove-1.jpg>
+  - Used for: wings_spread (copy of flying1), flying1 (mirrored), flying2 (copy of flying1)
+
+- **Oriental Turtle-Dove by Tisha Mukherjee 05.jpg** (`selected/oriental_turtle_dove/10.jpg`)
+  - Author: Tisha Mukherjee
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Oriental_Turtle-Dove_by_Tisha_Mukherjee_05.jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+## Asian Barred Owlet (`asian_barred_owlet`)
+
+- **Asian Barred Owlet in Kaziranga National Park March 2025 by Tisha Mukherjee 01.jpg** (`selected/asian_barred_owlet/01.jpg`)
+  - Author: Tisha Mukherjee
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Asian_Barred_Owlet_in_Kaziranga_National_Park_March_2025_by_Tisha_Mukherjee_01.jpg>
+  - Used for: perched, wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+- **Asian Barred Owlet in Kaziranga National Park March 2025 by Tisha Mukherjee 02.jpg** (`selected/asian_barred_owlet/02.jpg`)
+  - Author: Tisha Mukherjee
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Asian_Barred_Owlet_in_Kaziranga_National_Park_March_2025_by_Tisha_Mukherjee_02.jpg>
+  - Used for: perched_alert (mirrored)
+
+## White Wagtail (`white_wagtail`)
+
+- **Bachstelze - Bergeronnette grise - White wagtail - Motacilla alba - 03.jpg** (`selected/white_wagtail/01.jpg`)
+  - Author: NorbertNagel
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Bachstelze_-_Bergeronnette_grise_-_White_wagtail_-_Motacilla_alba_-_03.jpg>
+  - Used for: perched_alert (mirrored)
+
+- **Motacilla alba alba - Sète - January 2021.jpg** (`selected/white_wagtail/07.jpg`)
+  - Author: Christian Ferrer
+  - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Motacilla_alba_alba_-_S%C3%A8te_-_January_2021.jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **Motacilla alba, Kalkara, (2026) (01).jpg** (`selected/white_wagtail/19.jpg`)
+  - Author: Tranceliner
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Motacilla_alba,_Kalkara,_(2026)_(01).jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## Collared Crow (`collared_crow`)
+
+- **Corvus torquatus 266775102.jpg** (`selected/collared_crow/02.jpg`)
+  - Author: Lawrence Hylton
+  - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Corvus_torquatus_266775102.jpg>
+  - Used for: perched_alert (mirrored)
+
+- **Collared Crow (Corvus torquatus), Hong Kong 03.jpg** (`selected/collared_crow/10.jpg`)
+  - Author: andrewlai530
+  - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Collared_Crow_(Corvus_torquatus),_Hong_Kong_03.jpg>
+  - Used for: perched, wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Common Myna (`common_myna`)
+
+- **Acridotheres tristis (feral).jpg** (`selected/common_myna/07.jpg`)
+  - Author: מינוזיג
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Acridotheres_tristis_(feral).jpg>
+  - Used for: perched, wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+- **Acridotheres tristis @ Kuala Lumpur 1.jpg** (`selected/common_myna/08.jpg`)
+  - Author: GerifalteDelSabana
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Acridotheres_tristis_@_Kuala_Lumpur_1.jpg>
+  - Used for: perched_alert
+
+## Japanese Tit (`japanese_tit`)
+
+- **Asian Tit in Rabindra Sarobar January 2024 by Tisha Mukherjee 01.jpg** (`selected/japanese_tit/01.jpg`)
+  - Author: Tisha Mukherjee
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Asian_Tit_in_Rabindra_Sarobar_January_2024_by_Tisha_Mukherjee_01.jpg>
+  - Used for: perched_alert (mirrored)
+
+- **Parus minor female.JPG** (`selected/japanese_tit/14.jpg`)
+  - Author: Alpsdake
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Parus_minor_female.JPG>
+  - Used for: perched, wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Red-flanked Bluetail (`red_flanked_bluetail`)
+
+- **Tarsiger cyanurus.jpg** (`selected/red_flanked_bluetail/01.jpg`)
+  - Author: M.Nishimura
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Tarsiger_cyanurus.jpg>
+  - Used for: perched_alert
+
+- **Tarsiger cyanurus (female).JPG** (`selected/red_flanked_bluetail/13.jpg`)
+  - Author: Alpsdake
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Tarsiger_cyanurus_(female).JPG>
+  - Used for: perched, wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Blue Whistling Thrush (`blue_whistling_thrush`)
+
+- **Blue whistling thrush (Myophonus caeruleus) Juv.jpg** (`selected/blue_whistling_thrush/03.jpg`)
+  - Author: Nirmal Dulal
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Blue_whistling_thrush_(Myophonus_caeruleus)_Juv.jpg>
+  - Used for: perched_alert
+
+- **Blue whistling thrush (Myophonus caeruleus) 01.jpg** (`selected/blue_whistling_thrush/08.jpg`)
+  - Author: Anjan Kumar Kundu
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Blue_whistling_thrush_(Myophonus_caeruleus)_01.jpg>
+  - Used for: perched (mirrored), wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Red-billed Leiothrix (`red_billed_leiothrix`)
+
+- **সোনালী লেওথ্রিক্স (Leiothrix lutea),লাটপাঞ্ছার,কার্শিয়ং, পশ্চিমবঙ্গ .DSC0565.jpg** (`selected/red_billed_leiothrix/05.jpg`)
+  - Author: SVKMBFLY
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:%E0%A6%B8%E0%A7%8B%E0%A6%A8%E0%A6%BE%E0%A6%B2%E0%A7%80_%E0%A6%B2%E0%A7%87%E0%A6%93%E0%A6%A5%E0%A7%8D%E0%A6%B0%E0%A6%BF%E0%A6%95%E0%A7%8D%E0%A6%B8_(Leiothrix_lutea),%E0%A6%B2%E0%A6%BE%E0%A6%9F%E0%A6%AA%E0%A6%BE%E0%A6%9E%E0%A7%8D%E0%A6%9B%E0%A6%BE%E0%A6%B0,%E0%A6%95%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%B6%E0%A6%BF%E0%A6%AF%E0%A6%BC%E0%A6%82,_%E0%A6%AA%E0%A6%B6%E0%A7%8D%E0%A6%9A%E0%A6%BF%E0%A6%AE%E0%A6%AC%E0%A6%99%E0%A7%8D%E0%A6%97_.DSC0565.jpg>
+  - Used for: perched_alert
+
+- **Red-billed Leiothrix Mangoli Nainital Uttarakhand 03.02.2015.jpg** (`selected/red_billed_leiothrix/09.jpg`)
+  - Author: Dibyendu Ash
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Red-billed_Leiothrix_Mangoli_Nainital_Uttarakhand_03.02.2015.jpg>
+  - Used for: perched, wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Black-naped Monarch (`black_naped_monarch`)
+
+- **Black Naped monarch.jpg** (`selected/black_naped_monarch/06.jpg`)
+  - Author: AnkitBasu91
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Black_Naped_monarch.jpg>
+  - Used for: perched (mirrored), wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+- **Black Naped Monarch facts 04.jpg** (`selected/black_naped_monarch/10.jpg`)
+  - Author: Shiv's fotografia
+  - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Black_Naped_Monarch_facts_04.jpg>
+  - Used for: perched_alert (mirrored)
+
+## Great Barbet (`great_barbet`)
+
+- **Great Barbet by Tisha Mukherjee 08.jpg** (`selected/great_barbet/05.jpg`)
+  - Author: Tisha Mukherjee
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Great_Barbet_by_Tisha_Mukherjee_08.jpg>
+  - Used for: perched (mirrored), perched_alert (copy of perched), wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Scaly-breasted Munia (`scaly_breasted_munia`)
+
+- **Scaly-breasted munia (Lonchura punctulata punctulata) juvenile.jpg** (`selected/scaly_breasted_munia/03.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Scaly-breasted_munia_(Lonchura_punctulata_punctulata)_juvenile.jpg>
+  - Used for: perched, perched_alert (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+- **Flying (17639696985).jpg** (`selected/scaly_breasted_munia/16.jpg`)
+  - Author: Charles Lam from Hong Kong, China
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Flying_(17639696985).jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## Velvet-fronted Nuthatch (`velvet_fronted_nuthatch`)
+
+- **Velvet-fronted Nuthatch from thrissur.jpg** (`selected/velvet_fronted_nuthatch/01.jpg`)
+  - Author: Sajeesh Aluparambil
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Velvet-fronted_Nuthatch_from_thrissur.jpg>
+  - Used for: perched, wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+- **কালাকপাল বনমালী (Sitta frontalis), সুন্দরবন, বাংলাদেশ.jpg** (`selected/velvet_fronted_nuthatch/04.jpg`)
+  - Author: Rusho127
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:%E0%A6%95%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%95%E0%A6%AA%E0%A6%BE%E0%A6%B2_%E0%A6%AC%E0%A6%A8%E0%A6%AE%E0%A6%BE%E0%A6%B2%E0%A7%80_(Sitta_frontalis),_%E0%A6%B8%E0%A7%81%E0%A6%A8%E0%A7%8D%E0%A6%A6%E0%A6%B0%E0%A6%AC%E0%A6%A8,_%E0%A6%AC%E0%A6%BE%E0%A6%82%E0%A6%B2%E0%A6%BE%E0%A6%A6%E0%A7%87%E0%A6%B6.jpg>
+  - Used for: perched_alert (mirrored)
+
+## White-breasted Waterhen (`white_breasted_waterhen`)
+
+- **White-breasted Waterhen Carrying Prey over Nagdaha, Kathmandu Valley.jpg** (`selected/white_breasted_waterhen/05.jpg`)
+  - Author: Sunuwargr
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:White-breasted_Waterhen_Carrying_Prey_over_Nagdaha,_Kathmandu_Valley.jpg>
+  - Used for: wings_spread (copy of flying1), flying1 (mirrored), flying2 (copy of flying1)
+
+- **White-breasted Waterhen (Amaurornis phoenicurus).jpg** (`selected/white_breasted_waterhen/11.jpg`)
+  - Author: Lip Kee Yap
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:White-breasted_Waterhen_(Amaurornis_phoenicurus).jpg>
+  - Used for: perched, perched_alert (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Pied Avocet (`pied_avocet`)
+
+- **Pied avocet (Recurvirostra avosetta) France.jpg** (`selected/pied_avocet/05.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Pied_avocet_(Recurvirostra_avosetta)_France.jpg>
+  - Used for: perched_alert
+
+- **Pied avocet (Recurvirostra avosetta) 3.jpg** (`selected/pied_avocet/06.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Pied_avocet_(Recurvirostra_avosetta)_3.jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **Recurvirostra avosetta flying1.jpg** (`selected/pied_avocet/21.jpg`)
+  - Author: Lip Kee
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Recurvirostra_avosetta_flying1.jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## Wood Sandpiper (`wood_sandpiper`)
+
+- **Chevalier sylvain Korba009.jpg** (`selected/wood_sandpiper/10.jpg`)
+  - Author: El Golli Mohamed
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Chevalier_sylvain_Korba009.jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **Chevalier sylvain Korba010.jpg** (`selected/wood_sandpiper/11.jpg`)
+  - Author: El Golli Mohamed
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Chevalier_sylvain_Korba010.jpg>
+  - Used for: perched_alert (mirrored)
+
+- **Wood Sandpiper (Tringa glareola) (53879706937), crop.jpg** (`selected/wood_sandpiper/20.jpg`)
+  - Author: Birds of Gilgit-Baltistan from Aliabad, Hunza, Pakistan
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Wood_Sandpiper_(Tringa_glareola)_(53879706937),_crop.jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## Black-tailed Godwit (`black_tailed_godwit`)
+
+- **Icelandic black-tailed godwit (Limosa limosa islandica), Seltjarnarnes, Iceland.jpg** (`selected/black_tailed_godwit/12.jpg`)
+  - Author: Hobbyfotowiki
+  - License: [CC0](http://creativecommons.org/publicdomain/zero/1.0/deed.en)
+  - Source: <https://commons.wikimedia.org/wiki/File:Icelandic_black-tailed_godwit_(Limosa_limosa_islandica),_Seltjarnarnes,_Iceland.jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **Black-tailed godwit (Limosa limosa) male breeding.jpg** (`selected/black_tailed_godwit/14.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Black-tailed_godwit_(Limosa_limosa)_male_breeding.jpg>
+  - Used for: perched_alert
+
+- **Black-tailed godwit (Limosa limosa) in flight.jpg** (`selected/black_tailed_godwit/16.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Black-tailed_godwit_(Limosa_limosa)_in_flight.jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## Eurasian Wigeon (`eurasian_wigeon`)
+
+- **Male Eurasian Wigeon Mareca penelope, Finland.jpg** (`selected/eurasian_wigeon/06.jpg`)
+  - Author: Nimged
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Male_Eurasian_Wigeon_Mareca_penelope,_Finland.jpg>
+  - Used for: perched_alert
+
+- **Mareca penelope female s2.jpg** (`selected/eurasian_wigeon/07.jpg`)
+  - Author: Alpsdake
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Mareca_penelope_female_s2.jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+- **Mareca penelope in flight.jpg** (`selected/eurasian_wigeon/19.jpg`)
+  - Author: Alpsdake
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Mareca_penelope_in_flight.jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## Eastern Spot-billed Duck (`eastern_spot_billed_duck`)
+
+- **Eastern Spot-billed Duck (Anas zonorhyncha), captive, RWD.jpg** (`selected/eastern_spot_billed_duck/13.jpg`)
+  - Author: Dick Daniels (http://carolinabirds.org/)
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Eastern_Spot-billed_Duck_(Anas_zonorhyncha),_captive,_RWD.jpg>
+  - Used for: perched_alert
+
+- **Anas zonorhyncha young feather s2.jpg** (`selected/eastern_spot_billed_duck/14.jpg`)
+  - Author: Alpsdake
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Anas_zonorhyncha_young_feather_s2.jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **Low‐altitude flight (4563154220).jpg** (`selected/eastern_spot_billed_duck/16.jpg`)
+  - Author: Takashi Hososhima from Tokyo, Japan
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Low%E2%80%90altitude_flight_(4563154220).jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## Whiskered Tern (`whiskered_tern`)
+
+- **Whiskered tern (Chlidonias hybridus) winter plumage.jpg** (`selected/whiskered_tern/08.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Whiskered_tern_(Chlidonias_hybridus)_winter_plumage.jpg>
+  - Used for: perched_alert (mirrored)
+
+- **Whiskered tern (Chilidonias hybrida) non breeding Tonle Sap.jpg** (`selected/whiskered_tern/09.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Whiskered_tern_(Chilidonias_hybrida)_non_breeding_Tonle_Sap.jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+- **Whiskered tern (Chlidonias hybrida javanicus) breeding in flight Kakadu.jpg** (`selected/whiskered_tern/18.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Whiskered_tern_(Chlidonias_hybrida_javanicus)_breeding_in_flight_Kakadu.jpg>
+  - Used for: wings_spread (copy of flying1), flying1 (mirrored), flying2 (copy of flying1)
+
+## Crested Serpent Eagle (`crested_serpent_eagle`)
+
+- **Crested serpent-eagle (Spilornis cheela spilogaster).jpg** (`selected/crested_serpent_eagle/02.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Crested_serpent-eagle_(Spilornis_cheela_spilogaster).jpg>
+  - Used for: perched_alert
+
+- **Crested Serpent Eagle Mudumalai India Sep22 A7C 02792.jpg** (`selected/crested_serpent_eagle/09.jpg`)
+  - Author: This Photo was taken by Timothy A. Gonsalves.  Feel free to use my photos, but please mention me as the author.  I would much appreciate if you send me an email tagooty@yahoo.com or write on my talk p
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Crested_Serpent_Eagle_Mudumalai_India_Sep22_A7C_02792.jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+- **Crested Serpent Eagle - Spilornis cheela ,flight.jpg** (`selected/crested_serpent_eagle/18.jpg`)
+  - Author: Shino jacob koottanad
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Crested_Serpent_Eagle_-_Spilornis_cheela_,flight.jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## Crested Goshawk (`crested_goshawk`)
+
+- **Crested goshawk (Lophospiza trivirgata formosae) in flight Qianshan.jpg** (`selected/crested_goshawk/01.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Crested_goshawk_(Lophospiza_trivirgata_formosae)_in_flight_Qianshan.jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+- **Accipiter trivirgatus PA273291.jpg** (`selected/crested_goshawk/02.jpg`)
+  - Author: Alnus
+  - License: [CC BY-SA 3.0](http://creativecommons.org/licenses/by-sa/3.0/)
+  - Source: <https://commons.wikimedia.org/wiki/File:Accipiter_trivirgatus_PA273291.jpg>
+  - Used for: perched_alert
+
+- **Accipiter trivirgatus 390628035.jpg** (`selected/crested_goshawk/04.jpg`)
+  - Author: Justin Philbois
+  - License: [CC0](http://creativecommons.org/publicdomain/zero/1.0/deed.en)
+  - Source: <https://commons.wikimedia.org/wiki/File:Accipiter_trivirgatus_390628035.jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+## Greater Coucal (`greater_coucal`)
+
+- **Greater Coucal in Tal Chhapar Sanctuary November 2025 by Tisha Mukherjee 02.jpg** (`selected/greater_coucal/08.jpg`)
+  - Author: Tisha Mukherjee
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Greater_Coucal_in_Tal_Chhapar_Sanctuary_November_2025_by_Tisha_Mukherjee_02.jpg>
+  - Used for: perched_alert
+
+- **A Greater Coucal at work (50678123033).jpg** (`selected/greater_coucal/18.jpg`)
+  - Author: Hari K  Patibanda
+  - License: [CC BY 2.0](https://creativecommons.org/licenses/by/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:A_Greater_Coucal_at_work_(50678123033).jpg>
+  - Used for: perched (mirrored), wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Barn Swallow (`barn_swallow`)
+
+- **Landsvale.jpg** (`selected/barn_swallow/02.jpg`)
+  - Author: Malene Thyssen
+  - License: [CC BY 2.5](https://creativecommons.org/licenses/by/2.5)
+  - Source: <https://commons.wikimedia.org/wiki/File:Landsvale.jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+- **Barn swallow (Hirundo rustica rustica).jpg** (`selected/barn_swallow/11.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Barn_swallow_(Hirundo_rustica_rustica).jpg>
+  - Used for: perched_alert
+
+- **Hirundo rustica gutturalis (in flight).JPG** (`selected/barn_swallow/18.jpg`)
+  - Author: Alpsdake
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Hirundo_rustica_gutturalis_(in_flight).JPG>
+  - Used for: wings_spread (copy of flying1), flying1 (mirrored), flying2 (copy of flying1)
+
+## Grey Wagtail (`grey_wagtail`)
+
+- **Grey Wagtail (6880814750).jpg** (`selected/grey_wagtail/16.jpg`)
+  - Author: Antony Grossy from Conoor, Nilgiris District, Tamil Nadu State, India, India
+  - License: [CC BY 2.0](https://creativecommons.org/licenses/by/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Grey_Wagtail_(6880814750).jpg>
+  - Used for: perched_alert
+
+- **Grey Wagtail (6944094180).jpg** (`selected/grey_wagtail/18.jpg`)
+  - Author: Antony Grossy from Conoor, Nilgiris District, Tamil Nadu State, India, India
+  - License: [CC BY 2.0](https://creativecommons.org/licenses/by/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Grey_Wagtail_(6944094180).jpg>
+  - Used for: perched, wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Hair-crested Drongo (`hair_crested_drongo`)
+
+- **Dicrurus hottentottus leucops.JPG** (`selected/hair_crested_drongo/02.jpg`)
+  - Author: Ariefrahman
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Dicrurus_hottentottus_leucops.JPG>
+  - Used for: perched_alert (mirrored)
+
+- **Dicrurus hottentottus-20030823.jpg** (`selected/hair_crested_drongo/05.jpg`)
+  - Author: Dougjj
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Dicrurus_hottentottus-20030823.jpg>
+  - Used for: perched (mirrored), wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Oriental Magpie (`oriental_magpie`)
+
+- **Korean magpie in Daejeon (side profile).jpg** (`selected/oriental_magpie/07.jpg`)
+  - Author: Yoo Chung
+  - License: [CC BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5)
+  - Source: <https://commons.wikimedia.org/wiki/File:Korean_magpie_in_Daejeon_(side_profile).jpg>
+  - Used for: perched_alert (mirrored)
+
+- **Pica serica (P1060377).jpg** (`selected/oriental_magpie/12.jpg`)
+  - Author: 用心阁
+  - License: [CC BY-SA 3.0](http://creativecommons.org/licenses/by-sa/3.0/)
+  - Source: <https://commons.wikimedia.org/wiki/File:Pica_serica_(P1060377).jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+- **Taking Off (15360650453).jpg** (`selected/oriental_magpie/15.jpg`)
+  - Author: Charles Lam from Hong Kong, China
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Taking_Off_(15360650453).jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+## White-cheeked Starling (`white_cheeked_starling`)
+
+- **A bird in flight (7359714972).jpg** (`selected/white_cheeked_starling/01.jpg`)
+  - Author: Takashi Hososhima from Tokyo, Japan
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:A_bird_in_flight_(7359714972).jpg>
+  - Used for: wings_spread (copy of flying1), flying1 (mirrored), flying2 (copy of flying1)
+
+- **Spodiopsar cineraceus, Osaka, Japan (6705375201).jpg** (`selected/white_cheeked_starling/11.jpg`)
+  - Author: Charles Lam from Hong Kong, China
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Spodiopsar_cineraceus,_Osaka,_Japan_(6705375201).jpg>
+  - Used for: perched_alert (mirrored)
+
+- **Spodiopsar cineraceus, Hong Kong (5477084813).jpg** (`selected/white_cheeked_starling/12.jpg`)
+  - Author: Charles Lam from Hong Kong, China
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Spodiopsar_cineraceus,_Hong_Kong_(5477084813).jpg>
+  - Used for: perched, back_turned (copy of perched, mirrored), album portrait
+
+## Chestnut Bulbul (`chestnut_bulbul`)
+
+- **Hemixos castanonotus-A9 00441 (cropped).jpg** (`selected/chestnut_bulbul/01.jpg`)
+  - Author: Sun Jiao (Interaccoonale)
+  - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Hemixos_castanonotus-A9_00441_(cropped).jpg>
+  - Used for: perched, wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+- **Hemixos castanonotus-A9 00425.jpg** (`selected/chestnut_bulbul/05.jpg`)
+  - Author: Sun Jiao (Interaccoonale)
+  - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Hemixos_castanonotus-A9_00425.jpg>
+  - Used for: perched_alert (mirrored)
+
+## Yellow-browed Warbler (`yellow_browed_warbler`)
+
+- **Phylloscopus inornatus 456140817.jpg** (`selected/yellow_browed_warbler/12.jpg`)
+  - Author: Wich’yanan (Jay) Limparungpatthanakij
+  - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Phylloscopus_inornatus_456140817.jpg>
+  - Used for: perched (mirrored), perched_alert (copy of perched), wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Siberian Rubythroat (`siberian_rubythroat`)
+
+- **Siberian Rubythroat Facts 04.jpg** (`selected/siberian_rubythroat/07.jpg`)
+  - Author: Shiv's fotografia
+  - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Siberian_Rubythroat_Facts_04.jpg>
+  - Used for: perched, perched_alert (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+- **The siberian rubythroat in flight.jpg** (`selected/siberian_rubythroat/15.jpg`)
+  - Author: Prasan Shrestha
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:The_siberian_rubythroat_in_flight.jpg>
+  - Used for: wings_spread (copy of flying1), flying1 (mirrored), flying2 (copy of flying1)
+
+## Plain Prinia (`plain_prinia`)
+
+- **Plain prinia (Prinia inornata herberti) Tonle Sap.jpg** (`selected/plain_prinia/06.jpg`)
+  - Author: Charles J. Sharp
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Plain_prinia_(Prinia_inornata_herberti)_Tonle_Sap.jpg>
+  - Used for: perched, perched_alert (copy of perched), wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Pale Thrush (`pale_thrush`)
+
+- **Turdus pallidus (0s2).JPG** (`selected/pale_thrush/05.jpg`)
+  - Author: Alpsdake
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Turdus_pallidus_(0s2).JPG>
+  - Used for: perched_alert
+
+- **Turdus pallidus (on tree s3).jpg** (`selected/pale_thrush/08.jpg`)
+  - Author: Alpsdake
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Turdus_pallidus_(on_tree_s3).jpg>
+  - Used for: perched, wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Scarlet Minivet (`scarlet_minivet`)
+
+- **Scarlet Minivet by Tisha Mukherjee 18.jpg** (`selected/scarlet_minivet/04.jpg`)
+  - Author: Tisha Mukherjee
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Scarlet_Minivet_by_Tisha_Mukherjee_18.jpg>
+  - Used for: perched (mirrored), wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+- **Scarlet Minivet by Tisha Mukherjee 17.jpg** (`selected/scarlet_minivet/06.jpg`)
+  - Author: Tisha Mukherjee
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Scarlet_Minivet_by_Tisha_Mukherjee_17.jpg>
+  - Used for: perched_alert
+
+## Black-faced Bunting (`black_faced_bunting`)
+
+- **Emberiza spodocephala personata (male s15).jpg** (`selected/black_faced_bunting/04.jpg`)
+  - Author: Alpsdake
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Emberiza_spodocephala_personata_(male_s15).jpg>
+  - Used for: perched, wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+- **Emberiza spodocephala (female).JPG** (`selected/black_faced_bunting/13.jpg`)
+  - Author: Alpsdake
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Emberiza_spodocephala_(female).JPG>
+  - Used for: perched_alert (mirrored)
+
+## Chinese Blackbird (`chinese_blackbird`)
+
+- **Turdus merula mandarinus Hong Kong 6.jpg** (`selected/chinese_blackbird/07.jpg`)
+  - Author: Charles Lam from Hong Kong, China
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Turdus_merula_mandarinus_Hong_Kong_6.jpg>
+  - Used for: perched (mirrored), perched_alert (copy of perched), wings_spread (copy of perched), flying1 (copy of perched), flying2 (copy of perched), back_turned (copy of perched, mirrored), album portrait
+
+## Little Ringed Plover (`little_ringed_plover`)
+
+- **Väiketüll.jpg** (`selected/little_ringed_plover/05.jpg`)
+  - Author: Locaguapa
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:V%C3%A4iket%C3%BCll.jpg>
+  - Used for: wings_spread (copy of flying1), flying1 (mirrored), flying2 (copy of flying1)
+
+- **Charadrius dubius curonicus s7.JPG** (`selected/little_ringed_plover/26.jpg`)
+  - Author: Alpsdake
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Charadrius_dubius_curonicus_s7.JPG>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **Charadrius dubius curonicus s5.JPG** (`selected/little_ringed_plover/27.jpg`)
+  - Author: Alpsdake
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Charadrius_dubius_curonicus_s5.JPG>
+  - Used for: perched_alert
+
+## Pacific Golden Plover (`pacific_golden_plover`)
+
+- **Pluvialis fulva taking off - Christopher Watson, crop.jpg** (`selected/pacific_golden_plover/03.jpg`)
+  - Author: Christopher Watson (http://www.comebirdwatching.blogspot.com/)
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Pluvialis_fulva_taking_off_-_Christopher_Watson,_crop.jpg>
+  - Used for: wings_spread (copy of flying1), flying1 (mirrored), flying2 (copy of flying1)
+
+- **Pluvialis fulva 2 - Laem Pak Bia.jpg** (`selected/pacific_golden_plover/09.jpg`)
+  - Author: JJ Harrison (https://tiny.jjharrison.com.au/t/3CuTyj5LtxrKUxYI)
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Pluvialis_fulva_2_-_Laem_Pak_Bia.jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **Pacific Golden Plover at Kalipur beach, Diglipur, North Andaman - 04.jpg** (`selected/pacific_golden_plover/18.jpg`)
+  - Author: Satdeep Gill
+  - License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Pacific_Golden_Plover_at_Kalipur_beach,_Diglipur,_North_Andaman_-_04.jpg>
+  - Used for: perched_alert
+
+## Eurasian Hoopoe (`eurasian_hoopoe`)
+
+- **Common Hoopoe (Upupa epops) (29981036728).jpg** (`selected/eurasian_hoopoe/07.jpg`)
+  - Author: Imran Shah from Islamabad, Pakistan
+  - License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Common_Hoopoe_(Upupa_epops)_(29981036728).jpg>
+  - Used for: wings_spread (copy of flying1), flying1, flying2 (copy of flying1)
+
+- **Huppe fasciée Lac de Tunis.jpg** (`selected/eurasian_hoopoe/13.jpg`)
+  - Author: El Golli Mohamed
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Huppe_fasci%C3%A9e_Lac_de_Tunis.jpg>
+  - Used for: perched (mirrored), back_turned (copy of perched, mirrored), album portrait
+
+- **060 Eurasian hoopoe in Keoladeo National Park Photo by Giles Laurent.jpg** (`selected/eurasian_hoopoe/20.jpg`)
+  - Author: Giles Laurent
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:060_Eurasian_hoopoe_in_Keoladeo_National_Park_Photo_by_Giles_Laurent.jpg>
+  - Used for: perched_alert (mirrored)

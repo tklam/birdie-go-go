@@ -17,6 +17,49 @@
     - { species: common_kingfisher, weight: 1 }
     # Chapter 1: a shimmering blue-green bird from the Bird Paradise rests here (SPEC.md §8).
     - { species: pacific_parrotlet, weight: 2, always: true, requires_flag: chapter1_started, unless_flag: oboy_found }
+    - { species: black_crowned_night_heron, weight: 2, slots: [evening] }
+    - { species: black_faced_spoonbill, weight: 1 }
+    - { species: common_moorhen, weight: 2 }
+    - { species: grey_heron, weight: 2 }
+    - { species: cattle_egret, weight: 2 }
+    - { species: striated_heron, weight: 2 }
+    - { species: great_cormorant, weight: 2 }
+    - { species: common_greenshank, weight: 2 }
+    - { species: common_sandpiper, weight: 2 }
+    - { species: eurasian_curlew, weight: 1 }
+    - { species: kentish_plover, weight: 2 }
+    - { species: little_grebe, weight: 2 }
+    - { species: northern_pintail, weight: 2 }
+    - { species: pied_kingfisher, weight: 2 }
+    - { species: tufted_duck, weight: 2 }
+    - { species: white_bellied_sea_eagle, weight: 1 }
+    - { species: peregrine_falcon, weight: 1 }
+    - { species: rock_dove, weight: 2 }
+    - { species: red_rumped_swallow, weight: 2 }
+    - { species: large_billed_crow, weight: 2 }
+    - { species: yellow_bellied_prinia, weight: 2 }
+    - { species: black_winged_stilt, weight: 2 }
+    - { species: common_redshank, weight: 2 }
+    - { species: whimbrel, weight: 2 }
+    - { species: black_capped_kingfisher, weight: 2 }
+    - { species: northern_shoveler, weight: 2 }
+    - { species: black_headed_gull, weight: 2 }
+    - { species: osprey, weight: 1 }
+    - { species: common_kestrel, weight: 1 }
+    - { species: white_wagtail, weight: 2 }
+    - { species: collared_crow, weight: 2 }
+    - { species: common_myna, weight: 2 }
+    - { species: white_breasted_waterhen, weight: 2 }
+    - { species: pied_avocet, weight: 1 }
+    - { species: wood_sandpiper, weight: 2 }
+    - { species: black_tailed_godwit, weight: 2 }
+    - { species: eurasian_wigeon, weight: 2 }
+    - { species: eastern_spot_billed_duck, weight: 2 }
+    - { species: whiskered_tern, weight: 2 }
+    - { species: barn_swallow, weight: 2 }
+    - { species: grey_wagtail, weight: 2 }
+    - { species: little_ringed_plover, weight: 2 }
+    - { species: pacific_golden_plover, weight: 2 }
 - id: tko_estate_garden
   name: Estate Garden
   area: tko_town
@@ -35,6 +78,52 @@
     - { species: long_tailed_shrike, weight: 1 }
     - { species: yellow_crested_cockatoo, weight: 1, slots: [morning, evening] }
     - { species: asian_koel, weight: 1, slots: [morning] }
+    - { species: peregrine_falcon, weight: 1 }
+    - { species: rock_dove, weight: 2 }
+    - { species: collared_scops_owl, weight: 1, slots: [evening] }
+    - { species: red_rumped_swallow, weight: 2 }
+    - { species: olive_backed_pipit, weight: 2 }
+    - { species: large_billed_crow, weight: 2 }
+    - { species: grey_treepie, weight: 2 }
+    - { species: daurian_redstart, weight: 2 }
+    - { species: hwamei, weight: 1 }
+    - { species: red_billed_starling, weight: 2 }
+    - { species: scarlet_backed_flowerpecker, weight: 2 }
+    - { species: sooty_headed_bulbul, weight: 2 }
+    - { species: asian_brown_flycatcher, weight: 2 }
+    - { species: rose_ringed_parakeet, weight: 2 }
+    - { species: chinese_grosbeak, weight: 2 }
+    - { species: white_rumped_munia, weight: 2 }
+    - { species: common_kestrel, weight: 1 }
+    - { species: oriental_turtle_dove, weight: 2 }
+    - { species: asian_barred_owlet, weight: 1 }
+    - { species: white_wagtail, weight: 2 }
+    - { species: common_myna, weight: 2 }
+    - { species: japanese_tit, weight: 2 }
+    - { species: red_flanked_bluetail, weight: 2 }
+    - { species: blue_whistling_thrush, weight: 2 }
+    - { species: red_billed_leiothrix, weight: 2 }
+    - { species: black_naped_monarch, weight: 2 }
+    - { species: great_barbet, weight: 1 }
+    - { species: scaly_breasted_munia, weight: 2 }
+    - { species: velvet_fronted_nuthatch, weight: 2 }
+    - { species: crested_serpent_eagle, weight: 1 }
+    - { species: crested_goshawk, weight: 1 }
+    - { species: greater_coucal, weight: 2 }
+    - { species: barn_swallow, weight: 2 }
+    - { species: grey_wagtail, weight: 2 }
+    - { species: hair_crested_drongo, weight: 2 }
+    - { species: oriental_magpie, weight: 2 }
+    - { species: white_cheeked_starling, weight: 2 }
+    - { species: chestnut_bulbul, weight: 2 }
+    - { species: yellow_browed_warbler, weight: 2 }
+    - { species: siberian_rubythroat, weight: 1 }
+    - { species: plain_prinia, weight: 2 }
+    - { species: pale_thrush, weight: 2 }
+    - { species: scarlet_minivet, weight: 2 }
+    - { species: black_faced_bunting, weight: 2 }
+    - { species: chinese_blackbird, weight: 2 }
+    - { species: eurasian_hoopoe, weight: 2 }
 - id: cwb_stream
   name: Woodland Stream
   area: cwb_country_park
@@ -52,6 +141,52 @@
     - { species: asian_koel, weight: 1 }
     - { species: bull_headed_shrike, weight: 1 }
     - { species: black_kite, weight: 1 }
+    - { species: peregrine_falcon, weight: 1 }
+    - { species: rock_dove, weight: 2 }
+    - { species: collared_scops_owl, weight: 1, slots: [evening] }
+    - { species: red_rumped_swallow, weight: 2 }
+    - { species: olive_backed_pipit, weight: 2 }
+    - { species: large_billed_crow, weight: 2 }
+    - { species: grey_treepie, weight: 2 }
+    - { species: daurian_redstart, weight: 2 }
+    - { species: hwamei, weight: 1 }
+    - { species: red_billed_starling, weight: 2 }
+    - { species: scarlet_backed_flowerpecker, weight: 2 }
+    - { species: sooty_headed_bulbul, weight: 2 }
+    - { species: asian_brown_flycatcher, weight: 2 }
+    - { species: rose_ringed_parakeet, weight: 2 }
+    - { species: chinese_grosbeak, weight: 2 }
+    - { species: white_rumped_munia, weight: 2 }
+    - { species: common_kestrel, weight: 1 }
+    - { species: oriental_turtle_dove, weight: 2 }
+    - { species: asian_barred_owlet, weight: 1 }
+    - { species: white_wagtail, weight: 2 }
+    - { species: common_myna, weight: 2 }
+    - { species: japanese_tit, weight: 2 }
+    - { species: red_flanked_bluetail, weight: 2 }
+    - { species: blue_whistling_thrush, weight: 2 }
+    - { species: red_billed_leiothrix, weight: 2 }
+    - { species: black_naped_monarch, weight: 2 }
+    - { species: great_barbet, weight: 1 }
+    - { species: scaly_breasted_munia, weight: 2 }
+    - { species: velvet_fronted_nuthatch, weight: 2 }
+    - { species: crested_serpent_eagle, weight: 1 }
+    - { species: crested_goshawk, weight: 1 }
+    - { species: greater_coucal, weight: 2 }
+    - { species: barn_swallow, weight: 2 }
+    - { species: grey_wagtail, weight: 2 }
+    - { species: hair_crested_drongo, weight: 2 }
+    - { species: oriental_magpie, weight: 2 }
+    - { species: white_cheeked_starling, weight: 2 }
+    - { species: chestnut_bulbul, weight: 2 }
+    - { species: yellow_browed_warbler, weight: 2 }
+    - { species: siberian_rubythroat, weight: 1 }
+    - { species: plain_prinia, weight: 2 }
+    - { species: pale_thrush, weight: 2 }
+    - { species: scarlet_minivet, weight: 2 }
+    - { species: black_faced_bunting, weight: 2 }
+    - { species: chinese_blackbird, weight: 2 }
+    - { species: eurasian_hoopoe, weight: 2 }
 - id: po_toi_o_pier
   name: Po Toi O Pier
   area: po_toi_o
@@ -66,3 +201,37 @@
     - { species: great_egret, weight: 2 }
     - { species: white_throated_kingfisher, weight: 2 }
     - { species: spotted_dove, weight: 1 }
+    - { species: black_crowned_night_heron, weight: 2, slots: [evening] }
+    - { species: black_faced_spoonbill, weight: 1 }
+    - { species: common_moorhen, weight: 2 }
+    - { species: grey_heron, weight: 2 }
+    - { species: cattle_egret, weight: 2 }
+    - { species: striated_heron, weight: 2 }
+    - { species: great_cormorant, weight: 2 }
+    - { species: common_greenshank, weight: 2 }
+    - { species: common_sandpiper, weight: 2 }
+    - { species: eurasian_curlew, weight: 1 }
+    - { species: kentish_plover, weight: 2 }
+    - { species: little_grebe, weight: 2 }
+    - { species: northern_pintail, weight: 2 }
+    - { species: pied_kingfisher, weight: 2 }
+    - { species: tufted_duck, weight: 2 }
+    - { species: white_bellied_sea_eagle, weight: 1 }
+    - { species: yellow_bellied_prinia, weight: 2 }
+    - { species: black_winged_stilt, weight: 2 }
+    - { species: common_redshank, weight: 2 }
+    - { species: whimbrel, weight: 2 }
+    - { species: black_capped_kingfisher, weight: 2 }
+    - { species: northern_shoveler, weight: 2 }
+    - { species: black_headed_gull, weight: 2 }
+    - { species: osprey, weight: 1 }
+    - { species: collared_crow, weight: 2 }
+    - { species: white_breasted_waterhen, weight: 2 }
+    - { species: pied_avocet, weight: 1 }
+    - { species: wood_sandpiper, weight: 2 }
+    - { species: black_tailed_godwit, weight: 2 }
+    - { species: eurasian_wigeon, weight: 2 }
+    - { species: eastern_spot_billed_duck, weight: 2 }
+    - { species: whiskered_tern, weight: 2 }
+    - { species: little_ringed_plover, weight: 2 }
+    - { species: pacific_golden_plover, weight: 2 }

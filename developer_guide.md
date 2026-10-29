@@ -346,7 +346,7 @@ To add a trigger, condition, or action:
 - **Adding bird species in bulk:** `art/birds/scripts/` holds the optional authoring helpers used for the photo birds (Python 3, run from the repo root; they are not needed to build the game, because masks, sources and outputs are committed):
   1. `fetch.py species.json` downloads freely licensed candidates from Wikimedia Commons into `art/birds/candidates/<id>/` (git-ignored), with their credits.
   2. `autopick.py auto.json <ids…>` segments each candidate (rembg), keeps photos showing one whole bird, asks a local vision model through Ollama (`qwen2.5vl:7b`) whether it's a real photo of the right species and which way it faces, and picks perched, alert and flying photos with crops.
-  3. `picks2yaml.py picks.json auto.json` copies the chosen photos to `selected/`, writes a segmentation mask per frame (rembg `isnet-general-use`) and the species entries at the end of `sources.yaml`.
+  3. `picks2yaml.py art/birds/scripts/picks_manual.json art/birds/scripts/picks_auto.json` (the committed picks, after review fixes) copies the chosen photos to `selected/`, writes a segmentation mask per frame (rembg `isnet-general-use`) and the species entries at the end of `sources.yaml`.
   4. `go run ./tools/birdphoto -species <id>` builds the sheet; `-credits <ids>` prints the CREDITS.md sections.
   Review every sheet by eye before committing. In `sources.yaml`, `mask:` uses a segmentation mask instead of the colour flood fill, and `from: <pose>` reuses another frame (with `offsetX/Y` and `flipX`) when there is no photo for a pose.
 - **Replacing an asset:** drop the new file at the same path with the same dimensions and frame layout, then run `make lint`.

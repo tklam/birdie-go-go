@@ -246,3 +246,804 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, flying: 0.9, flapping: 0.7, perched_alert: 0.8, perched: 0.7, back_turned: 0.3 }
   behaviors: [perch, fly]
+
+- id: black_crowned_night_heron
+  name: "Black-crowned Night Heron"
+  sprite: bird_black_crowned_night_heron
+  overworld_sprite: owbird_black_crowned_night_heron
+  skittishness: 0.35
+  size_band: [0.12, 0.42]
+  speed: 90
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, perch, fly]
+- id: black_faced_spoonbill
+  name: "Black-faced Spoonbill"
+  sprite: bird_black_faced_spoonbill
+  overworld_sprite: owbird_black_faced_spoonbill
+  skittishness: 0.65
+  size_band: [0.12, 0.42]
+  speed: 90
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, forage, fly]
+- id: common_moorhen
+  name: "Common Moorhen"
+  sprite: bird_common_moorhen
+  overworld_sprite: owbird_common_moorhen
+  skittishness: 0.35
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, forage]
+- id: grey_heron
+  name: "Grey Heron"
+  sprite: bird_grey_heron
+  overworld_sprite: owbird_grey_heron
+  skittishness: 0.35
+  size_band: [0.12, 0.42]
+  speed: 90
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, forage, fly]
+- id: cattle_egret
+  name: "Eastern Cattle Egret"
+  sprite: bird_cattle_egret
+  overworld_sprite: owbird_cattle_egret
+  skittishness: 0.35
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, forage, fly]
+- id: striated_heron
+  name: "Striated Heron"
+  sprite: bird_striated_heron
+  overworld_sprite: owbird_striated_heron
+  skittishness: 0.35
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, perch, fly]
+- id: great_cormorant
+  name: "Great Cormorant"
+  sprite: bird_great_cormorant
+  overworld_sprite: owbird_great_cormorant
+  skittishness: 0.5
+  size_band: [0.12, 0.42]
+  speed: 90
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, fly]
+- id: common_greenshank
+  name: "Common Greenshank"
+  sprite: bird_common_greenshank
+  overworld_sprite: owbird_common_greenshank
+  skittishness: 0.5
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [autumn, winter, spring]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, forage, fly]
+- id: common_sandpiper
+  name: "Common Sandpiper"
+  sprite: bird_common_sandpiper
+  overworld_sprite: owbird_common_sandpiper
+  skittishness: 0.5
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [autumn, winter, spring]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, forage, fly]
+- id: eurasian_curlew
+  name: "Eurasian Curlew"
+  sprite: bird_eurasian_curlew
+  overworld_sprite: owbird_eurasian_curlew
+  skittishness: 0.65
+  size_band: [0.12, 0.42]
+  speed: 90
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, forage, fly]
+- id: kentish_plover
+  name: "Kentish Plover"
+  sprite: bird_kentish_plover
+  overworld_sprite: owbird_kentish_plover
+  skittishness: 0.5
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [autumn, winter, spring]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, forage, fly]
+- id: little_grebe
+  name: "Little Grebe"
+  sprite: bird_little_grebe
+  overworld_sprite: owbird_little_grebe
+  skittishness: 0.35
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, fly]
+- id: northern_pintail
+  name: "Northern Pintail"
+  sprite: bird_northern_pintail
+  overworld_sprite: owbird_northern_pintail
+  skittishness: 0.5
+  size_band: [0.12, 0.42]
+  speed: 90
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, fly]
+- id: pied_kingfisher
+  name: "Pied Kingfisher"
+  sprite: bird_pied_kingfisher
+  overworld_sprite: owbird_pied_kingfisher
+  skittishness: 0.35
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, fly]
+- id: tufted_duck
+  name: "Tufted Duck"
+  sprite: bird_tufted_duck
+  overworld_sprite: owbird_tufted_duck
+  skittishness: 0.5
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, fly]
+- id: white_bellied_sea_eagle
+  name: "White-bellied Sea Eagle"
+  sprite: bird_white_bellied_sea_eagle
+  overworld_sprite: owbird_white_bellied_sea_eagle
+  skittishness: 0.65
+  size_band: [0.12, 0.42]
+  speed: 90
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, flying: 0.9, flapping: 0.7, perched_alert: 0.8, perched: 0.7, back_turned: 0.3 }
+  behaviors: [perch, fly]
+- id: peregrine_falcon
+  name: "Peregrine Falcon"
+  sprite: bird_peregrine_falcon
+  overworld_sprite: owbird_peregrine_falcon
+  skittishness: 0.65
+  size_band: [0.12, 0.42]
+  speed: 90
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, flying: 0.9, flapping: 0.7, perched_alert: 0.8, perched: 0.7, back_turned: 0.3 }
+  behaviors: [perch, fly]
+- id: rock_dove
+  name: "Feral Pigeon"
+  sprite: bird_rock_dove
+  overworld_sprite: owbird_rock_dove
+  skittishness: 0.35
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, forage, fly]
+- id: collared_scops_owl
+  name: "Collared Scops Owl"
+  sprite: bird_collared_scops_owl
+  overworld_sprite: owbird_collared_scops_owl
+  skittishness: 0.65
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch]
+- id: red_rumped_swallow
+  name: "Red-rumped Swallow"
+  sprite: bird_red_rumped_swallow
+  overworld_sprite: owbird_red_rumped_swallow
+  skittishness: 0.5
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [spring, summer]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, fly]
+- id: olive_backed_pipit
+  name: "Olive-backed Pipit"
+  sprite: bird_olive_backed_pipit
+  overworld_sprite: owbird_olive_backed_pipit
+  skittishness: 0.5
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [forage, hop, perch]
+- id: large_billed_crow
+  name: "Large-billed Crow"
+  sprite: bird_large_billed_crow
+  overworld_sprite: owbird_large_billed_crow
+  skittishness: 0.35
+  size_band: [0.12, 0.42]
+  speed: 90
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, forage, fly]
+- id: grey_treepie
+  name: "Grey Treepie"
+  sprite: bird_grey_treepie
+  overworld_sprite: owbird_grey_treepie
+  skittishness: 0.35
+  size_band: [0.12, 0.42]
+  speed: 90
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, fly]
+- id: daurian_redstart
+  name: "Daurian Redstart"
+  sprite: bird_daurian_redstart
+  overworld_sprite: owbird_daurian_redstart
+  skittishness: 0.5
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, fly]
+- id: hwamei
+  name: "Chinese Hwamei"
+  sprite: bird_hwamei
+  overworld_sprite: owbird_hwamei
+  skittishness: 0.65
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, forage]
+- id: red_billed_starling
+  name: "Red-billed Starling"
+  sprite: bird_red_billed_starling
+  overworld_sprite: owbird_red_billed_starling
+  skittishness: 0.5
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, forage, fly]
+- id: scarlet_backed_flowerpecker
+  name: "Scarlet-backed Flowerpecker"
+  sprite: bird_scarlet_backed_flowerpecker
+  overworld_sprite: owbird_scarlet_backed_flowerpecker
+  skittishness: 0.35
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, fly]
+- id: sooty_headed_bulbul
+  name: "Sooty-headed Bulbul"
+  sprite: bird_sooty_headed_bulbul
+  overworld_sprite: owbird_sooty_headed_bulbul
+  skittishness: 0.35
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, fly]
+- id: asian_brown_flycatcher
+  name: "Asian Brown Flycatcher"
+  sprite: bird_asian_brown_flycatcher
+  overworld_sprite: owbird_asian_brown_flycatcher
+  skittishness: 0.5
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [autumn, winter, spring]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, fly]
+- id: rose_ringed_parakeet
+  name: "Rose-ringed Parakeet"
+  sprite: bird_rose_ringed_parakeet
+  overworld_sprite: owbird_rose_ringed_parakeet
+  skittishness: 0.35
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, fly]
+- id: yellow_bellied_prinia
+  name: "Yellow-bellied Prinia"
+  sprite: bird_yellow_bellied_prinia
+  overworld_sprite: owbird_yellow_bellied_prinia
+  skittishness: 0.35
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, fly]
+- id: chinese_grosbeak
+  name: "Chinese Grosbeak"
+  sprite: bird_chinese_grosbeak
+  overworld_sprite: owbird_chinese_grosbeak
+  skittishness: 0.5
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, fly]
+- id: white_rumped_munia
+  name: "White-rumped Munia"
+  sprite: bird_white_rumped_munia
+  overworld_sprite: owbird_white_rumped_munia
+  skittishness: 0.35
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, forage]
+- id: black_winged_stilt
+  name: "Black-winged Stilt"
+  sprite: bird_black_winged_stilt
+  overworld_sprite: owbird_black_winged_stilt
+  skittishness: 0.5
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [autumn, winter, spring]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, forage, fly]
+- id: common_redshank
+  name: "Common Redshank"
+  sprite: bird_common_redshank
+  overworld_sprite: owbird_common_redshank
+  skittishness: 0.5
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [autumn, winter, spring]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, forage, fly]
+- id: whimbrel
+  name: "Whimbrel"
+  sprite: bird_whimbrel
+  overworld_sprite: owbird_whimbrel
+  skittishness: 0.5
+  size_band: [0.12, 0.42]
+  speed: 90
+  seasons: [autumn, winter, spring]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, forage, fly]
+- id: black_capped_kingfisher
+  name: "Black-capped Kingfisher"
+  sprite: bird_black_capped_kingfisher
+  overworld_sprite: owbird_black_capped_kingfisher
+  skittishness: 0.5
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, fly]
+- id: northern_shoveler
+  name: "Northern Shoveler"
+  sprite: bird_northern_shoveler
+  overworld_sprite: owbird_northern_shoveler
+  skittishness: 0.5
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, fly]
+- id: black_headed_gull
+  name: "Black-headed Gull"
+  sprite: bird_black_headed_gull
+  overworld_sprite: owbird_black_headed_gull
+  skittishness: 0.5
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, perch, fly]
+- id: osprey
+  name: "Osprey"
+  sprite: bird_osprey
+  overworld_sprite: owbird_osprey
+  skittishness: 0.65
+  size_band: [0.12, 0.42]
+  speed: 90
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, flying: 0.9, flapping: 0.7, perched_alert: 0.8, perched: 0.7, back_turned: 0.3 }
+  behaviors: [perch, fly]
+- id: common_kestrel
+  name: "Common Kestrel"
+  sprite: bird_common_kestrel
+  overworld_sprite: owbird_common_kestrel
+  skittishness: 0.65
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, flying: 0.9, flapping: 0.7, perched_alert: 0.8, perched: 0.7, back_turned: 0.3 }
+  behaviors: [perch, fly]
+- id: oriental_turtle_dove
+  name: "Oriental Turtle Dove"
+  sprite: bird_oriental_turtle_dove
+  overworld_sprite: owbird_oriental_turtle_dove
+  skittishness: 0.5
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, forage, fly]
+- id: asian_barred_owlet
+  name: "Asian Barred Owlet"
+  sprite: bird_asian_barred_owlet
+  overworld_sprite: owbird_asian_barred_owlet
+  skittishness: 0.65
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, fly]
+- id: white_wagtail
+  name: "White Wagtail"
+  sprite: bird_white_wagtail
+  overworld_sprite: owbird_white_wagtail
+  skittishness: 0.5
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [forage, hop, fly]
+- id: collared_crow
+  name: "Collared Crow"
+  sprite: bird_collared_crow
+  overworld_sprite: owbird_collared_crow
+  skittishness: 0.35
+  size_band: [0.12, 0.42]
+  speed: 90
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, forage, fly]
+- id: common_myna
+  name: "Common Myna"
+  sprite: bird_common_myna
+  overworld_sprite: owbird_common_myna
+  skittishness: 0.35
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, forage, fly]
+- id: japanese_tit
+  name: "Japanese Tit"
+  sprite: bird_japanese_tit
+  overworld_sprite: owbird_japanese_tit
+  skittishness: 0.35
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, fly]
+- id: red_flanked_bluetail
+  name: "Red-flanked Bluetail"
+  sprite: bird_red_flanked_bluetail
+  overworld_sprite: owbird_red_flanked_bluetail
+  skittishness: 0.5
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, fly]
+- id: blue_whistling_thrush
+  name: "Blue Whistling Thrush"
+  sprite: bird_blue_whistling_thrush
+  overworld_sprite: owbird_blue_whistling_thrush
+  skittishness: 0.35
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, forage]
+- id: red_billed_leiothrix
+  name: "Red-billed Leiothrix"
+  sprite: bird_red_billed_leiothrix
+  overworld_sprite: owbird_red_billed_leiothrix
+  skittishness: 0.35
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, fly]
+- id: black_naped_monarch
+  name: "Black-naped Monarch"
+  sprite: bird_black_naped_monarch
+  overworld_sprite: owbird_black_naped_monarch
+  skittishness: 0.35
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, fly]
+- id: great_barbet
+  name: "Great Barbet"
+  sprite: bird_great_barbet
+  overworld_sprite: owbird_great_barbet
+  skittishness: 0.65
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, fly]
+- id: scaly_breasted_munia
+  name: "Scaly-breasted Munia"
+  sprite: bird_scaly_breasted_munia
+  overworld_sprite: owbird_scaly_breasted_munia
+  skittishness: 0.35
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, forage]
+- id: velvet_fronted_nuthatch
+  name: "Velvet-fronted Nuthatch"
+  sprite: bird_velvet_fronted_nuthatch
+  overworld_sprite: owbird_velvet_fronted_nuthatch
+  skittishness: 0.35
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop]
+- id: white_breasted_waterhen
+  name: "White-breasted Waterhen"
+  sprite: bird_white_breasted_waterhen
+  overworld_sprite: owbird_white_breasted_waterhen
+  skittishness: 0.35
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, forage, hop]
+- id: pied_avocet
+  name: "Pied Avocet"
+  sprite: bird_pied_avocet
+  overworld_sprite: owbird_pied_avocet
+  skittishness: 0.65
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, forage, fly]
+- id: wood_sandpiper
+  name: "Wood Sandpiper"
+  sprite: bird_wood_sandpiper
+  overworld_sprite: owbird_wood_sandpiper
+  skittishness: 0.5
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [autumn, winter, spring]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, forage, fly]
+- id: black_tailed_godwit
+  name: "Black-tailed Godwit"
+  sprite: bird_black_tailed_godwit
+  overworld_sprite: owbird_black_tailed_godwit
+  skittishness: 0.5
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [autumn, winter, spring]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, forage, fly]
+- id: eurasian_wigeon
+  name: "Eurasian Wigeon"
+  sprite: bird_eurasian_wigeon
+  overworld_sprite: owbird_eurasian_wigeon
+  skittishness: 0.5
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, fly]
+- id: eastern_spot_billed_duck
+  name: "Eastern Spot-billed Duck"
+  sprite: bird_eastern_spot_billed_duck
+  overworld_sprite: owbird_eastern_spot_billed_duck
+  skittishness: 0.5
+  size_band: [0.12, 0.42]
+  speed: 90
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, fly]
+- id: whiskered_tern
+  name: "Whiskered Tern"
+  sprite: bird_whiskered_tern
+  overworld_sprite: owbird_whiskered_tern
+  skittishness: 0.5
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [autumn, winter, spring]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, fly]
+- id: crested_serpent_eagle
+  name: "Crested Serpent Eagle"
+  sprite: bird_crested_serpent_eagle
+  overworld_sprite: owbird_crested_serpent_eagle
+  skittishness: 0.65
+  size_band: [0.12, 0.42]
+  speed: 90
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, flying: 0.9, flapping: 0.7, perched_alert: 0.8, perched: 0.7, back_turned: 0.3 }
+  behaviors: [perch, fly]
+- id: crested_goshawk
+  name: "Crested Goshawk"
+  sprite: bird_crested_goshawk
+  overworld_sprite: owbird_crested_goshawk
+  skittishness: 0.65
+  size_band: [0.12, 0.42]
+  speed: 90
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, flying: 0.9, flapping: 0.7, perched_alert: 0.8, perched: 0.7, back_turned: 0.3 }
+  behaviors: [perch, fly]
+- id: greater_coucal
+  name: "Greater Coucal"
+  sprite: bird_greater_coucal
+  overworld_sprite: owbird_greater_coucal
+  skittishness: 0.35
+  size_band: [0.12, 0.42]
+  speed: 90
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, forage]
+- id: barn_swallow
+  name: "Barn Swallow"
+  sprite: bird_barn_swallow
+  overworld_sprite: owbird_barn_swallow
+  skittishness: 0.5
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [spring, summer]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, fly]
+- id: grey_wagtail
+  name: "Grey Wagtail"
+  sprite: bird_grey_wagtail
+  overworld_sprite: owbird_grey_wagtail
+  skittishness: 0.5
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [forage, hop, fly]
+- id: hair_crested_drongo
+  name: "Hair-crested Drongo"
+  sprite: bird_hair_crested_drongo
+  overworld_sprite: owbird_hair_crested_drongo
+  skittishness: 0.5
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [autumn, winter, spring]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, fly]
+- id: oriental_magpie
+  name: "Oriental Magpie"
+  sprite: bird_oriental_magpie
+  overworld_sprite: owbird_oriental_magpie
+  skittishness: 0.35
+  size_band: [0.12, 0.42]
+  speed: 90
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, forage, fly]
+- id: white_cheeked_starling
+  name: "White-cheeked Starling"
+  sprite: bird_white_cheeked_starling
+  overworld_sprite: owbird_white_cheeked_starling
+  skittishness: 0.5
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, forage, fly]
+- id: chestnut_bulbul
+  name: "Chestnut Bulbul"
+  sprite: bird_chestnut_bulbul
+  overworld_sprite: owbird_chestnut_bulbul
+  skittishness: 0.35
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, fly]
+- id: yellow_browed_warbler
+  name: "Yellow-browed Warbler"
+  sprite: bird_yellow_browed_warbler
+  overworld_sprite: owbird_yellow_browed_warbler
+  skittishness: 0.5
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, fly]
+- id: siberian_rubythroat
+  name: "Siberian Rubythroat"
+  sprite: bird_siberian_rubythroat
+  overworld_sprite: owbird_siberian_rubythroat
+  skittishness: 0.65
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, forage]
+- id: plain_prinia
+  name: "Plain Prinia"
+  sprite: bird_plain_prinia
+  overworld_sprite: owbird_plain_prinia
+  skittishness: 0.35
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, fly]
+- id: pale_thrush
+  name: "Pale Thrush"
+  sprite: bird_pale_thrush
+  overworld_sprite: owbird_pale_thrush
+  skittishness: 0.5
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, forage]
+- id: scarlet_minivet
+  name: "Scarlet Minivet"
+  sprite: bird_scarlet_minivet
+  overworld_sprite: owbird_scarlet_minivet
+  skittishness: 0.35
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, fly]
+- id: black_faced_bunting
+  name: "Black-faced Bunting"
+  sprite: bird_black_faced_bunting
+  overworld_sprite: owbird_black_faced_bunting
+  skittishness: 0.5
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, forage]
+- id: chinese_blackbird
+  name: "Chinese Blackbird"
+  sprite: bird_chinese_blackbird
+  overworld_sprite: owbird_chinese_blackbird
+  skittishness: 0.5
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, forage, fly]
+- id: little_ringed_plover
+  name: "Little Ringed Plover"
+  sprite: bird_little_ringed_plover
+  overworld_sprite: owbird_little_ringed_plover
+  skittishness: 0.5
+  size_band: [0.05, 0.22]
+  speed: 140
+  seasons: [autumn, winter, spring]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, forage, fly]
+- id: pacific_golden_plover
+  name: "Pacific Golden Plover"
+  sprite: bird_pacific_golden_plover
+  overworld_sprite: owbird_pacific_golden_plover
+  skittishness: 0.5
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [autumn, winter, spring]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, forage, fly]
+- id: eurasian_hoopoe
+  name: "Eurasian Hoopoe"
+  sprite: bird_eurasian_hoopoe
+  overworld_sprite: owbird_eurasian_hoopoe
+  skittishness: 0.5
+  size_band: [0.08, 0.30]
+  speed: 115
+  seasons: [autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [forage, hop, fly]

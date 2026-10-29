@@ -1697,3 +1697,4883 @@ species:
       back_turned:
         from: perched
         flipX: true
+  black_crowned_night_heron:
+    album:
+      file: selected/black_crowned_night_heron/03.jpg
+      candidate: 03.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 1348
+      flipX: true
+      title: File:Nycticorax nycticorax12.jpg
+      page: https://commons.wikimedia.org/wiki/File:Nycticorax_nycticorax12.jpg
+      author: Calibas
+      license: CC BY-SA 3.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+    poses:
+      perched:
+        file: selected/black_crowned_night_heron/03.jpg
+        candidate: 03.jpg
+        crop:
+        - 43
+        - 191
+        - 912
+        - 988
+        mask: selected/black_crowned_night_heron/03.perched.mask.png
+        flipX: true
+        title: File:Nycticorax nycticorax12.jpg
+        page: https://commons.wikimedia.org/wiki/File:Nycticorax_nycticorax12.jpg
+        author: Calibas
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      perched_alert:
+        file: selected/black_crowned_night_heron/19.jpg
+        candidate: 19.jpg
+        crop:
+        - 107
+        - 23
+        - 566
+        - 1224
+        mask: selected/black_crowned_night_heron/19.perched_alert.mask.png
+        flipX: true
+        title: File:Nycticorax nycticorax Linne.jpg
+        page: https://commons.wikimedia.org/wiki/File:Nycticorax_nycticorax_Linne.jpg
+        author: Cliff from I now live in Arlington, VA (Outside Washington DC), USA
+        license: CC BY 2.0
+        licenseUrl: https://creativecommons.org/licenses/by/2.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/black_crowned_night_heron/15.jpg
+        candidate: 15.jpg
+        crop:
+        - 73
+        - 0
+        - 826
+        - 1167
+        mask: selected/black_crowned_night_heron/15.flying1.mask.png
+        flipX: true
+        title: File:Nycticorax nycticorax (in flight).JPG
+        page: https://commons.wikimedia.org/wiki/File:Nycticorax_nycticorax_(in_flight).JPG
+        author: Alpsdake
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  black_faced_spoonbill:
+    album:
+      file: selected/black_faced_spoonbill/06.jpg
+      candidate: 06.jpg
+      crop:
+      - 0
+      - 0
+      - 800
+      - 533
+      title: File:Black-faced spoonbill 2006.jpg
+      page: https://commons.wikimedia.org/wiki/File:Black-faced_spoonbill_2006.jpg
+      author: Probophilic at Cantonese Wikipedia
+      license: Public domain
+      licenseUrl: ''
+    poses:
+      perched:
+        file: selected/black_faced_spoonbill/06.jpg
+        candidate: 06.jpg
+        crop:
+        - 0
+        - 0
+        - 738
+        - 533
+        mask: selected/black_faced_spoonbill/06.perched.mask.png
+        title: File:Black-faced spoonbill 2006.jpg
+        page: https://commons.wikimedia.org/wiki/File:Black-faced_spoonbill_2006.jpg
+        author: Probophilic at Cantonese Wikipedia
+        license: Public domain
+        licenseUrl: ''
+      perched_alert:
+        file: selected/black_faced_spoonbill/04.jpg
+        candidate: 04.jpg
+        crop:
+        - 110
+        - 0
+        - 799
+        - 640
+        mask: selected/black_faced_spoonbill/04.perched_alert.mask.png
+        flipX: true
+        title: File:Black faced spoonbill at Niigata.JPG
+        page: https://commons.wikimedia.org/wiki/File:Black_faced_spoonbill_at_Niigata.JPG
+        author: Cp9asngf
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/black_faced_spoonbill/12.jpg
+        candidate: 12.jpg
+        crop:
+        - 155
+        - 80
+        - 389
+        - 495
+        mask: selected/black_faced_spoonbill/12.flying1.mask.png
+        title: File:Platalea minor (25077444570).jpg
+        page: https://commons.wikimedia.org/wiki/File:Platalea_minor_(25077444570).jpg
+        author: LiCheng Shih
+        license: CC BY 2.0
+        licenseUrl: https://creativecommons.org/licenses/by/2.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  common_moorhen:
+    album:
+      file: selected/common_moorhen/05.jpg
+      candidate: 05.jpg
+      crop:
+      - 0
+      - 0
+      - 925
+      - 564
+      title: File:Common Moorhen 2023 11 11 03.jpg
+      page: https://commons.wikimedia.org/wiki/File:Common_Moorhen_2023_11_11_03.jpg
+      author: Alexis Lours
+      license: CC BY 4.0
+      licenseUrl: https://creativecommons.org/licenses/by/4.0
+    poses:
+      perched:
+        file: selected/common_moorhen/05.jpg
+        candidate: 05.jpg
+        crop:
+        - 75
+        - 83
+        - 672
+        - 380
+        mask: selected/common_moorhen/05.perched.mask.png
+        title: File:Common Moorhen 2023 11 11 03.jpg
+        page: https://commons.wikimedia.org/wiki/File:Common_Moorhen_2023_11_11_03.jpg
+        author: Alexis Lours
+        license: CC BY 4.0
+        licenseUrl: https://creativecommons.org/licenses/by/4.0
+      perched_alert:
+        file: selected/common_moorhen/01.jpg
+        candidate: 01.jpg
+        crop:
+        - 0
+        - 74
+        - 797
+        - 602
+        mask: selected/common_moorhen/01.perched_alert.mask.png
+        title: File:Common moorhen (Gallinula chloropus) France.jpg
+        page: https://commons.wikimedia.org/wiki/File:Common_moorhen_(Gallinula_chloropus)_France.jpg
+        author: Alexis Lours
+        license: CC BY 4.0
+        licenseUrl: https://creativecommons.org/licenses/by/4.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  grey_heron:
+    album:
+      file: selected/grey_heron/11.jpg
+      candidate: 11.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 1440
+      title: File:Grey heron, October 2015 II.jpg
+      page: https://commons.wikimedia.org/wiki/File:Grey_heron,_October_2015_II.jpg
+      author: Laitche
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/grey_heron/11.jpg
+        candidate: 11.jpg
+        crop:
+        - 116
+        - 276
+        - 781
+        - 1086
+        mask: selected/grey_heron/11.perched.mask.png
+        title: File:Grey heron, October 2015 II.jpg
+        page: https://commons.wikimedia.org/wiki/File:Grey_heron,_October_2015_II.jpg
+        author: Laitche
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/grey_heron/14.jpg
+        candidate: 14.jpg
+        crop:
+        - 58
+        - 42
+        - 683
+        - 671
+        mask: selected/grey_heron/14.perched_alert.mask.png
+        title: File:Ardea cinerea qtl3.jpg
+        page: https://commons.wikimedia.org/wiki/File:Ardea_cinerea_qtl3.jpg
+        author: Quartl
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/grey_heron/16.jpg
+        candidate: 16.jpg
+        crop:
+        - 9
+        - 172
+        - 863
+        - 369
+        mask: selected/grey_heron/16.flying1.mask.png
+        exclude:
+        - blue
+        - sky
+        - pale_sky
+        - sea
+        - light_sea
+        - window
+        - navy
+        title: File:Grey heron in flight (Ardea cinerea).jpg
+        page: https://commons.wikimedia.org/wiki/File:Grey_heron_in_flight_(Ardea_cinerea).jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  cattle_egret:
+    album:
+      file: selected/cattle_egret/05.jpg
+      candidate: 05.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 1280
+      flipX: true
+      title: File:Eastern Cattle-Egret in Bhagalpur December 2025 by Tisha Mukherjee 02.jpg
+      page: https://commons.wikimedia.org/wiki/File:Eastern_Cattle-Egret_in_Bhagalpur_December_2025_by_Tisha_Mukherjee_02.jpg
+      author: Tisha Mukherjee
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/cattle_egret/05.jpg
+        candidate: 05.jpg
+        crop:
+        - 98
+        - 163
+        - 862
+        - 1075
+        mask: selected/cattle_egret/05.perched.mask.png
+        flipX: true
+        title: File:Eastern Cattle-Egret in Bhagalpur December 2025 by Tisha Mukherjee 02.jpg
+        page: https://commons.wikimedia.org/wiki/File:Eastern_Cattle-Egret_in_Bhagalpur_December_2025_by_Tisha_Mukherjee_02.jpg
+        author: Tisha Mukherjee
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/cattle_egret/06.jpg
+        candidate: 06.jpg
+        crop:
+        - 177
+        - 139
+        - 719
+        - 367
+        mask: selected/cattle_egret/06.perched_alert.mask.png
+        flipX: true
+        title: File:Eastern Cattle-Egret in Bhagalpur December 2025 by Tisha Mukherjee 01.jpg
+        page: https://commons.wikimedia.org/wiki/File:Eastern_Cattle-Egret_in_Bhagalpur_December_2025_by_Tisha_Mukherjee_01.jpg
+        author: Tisha Mukherjee
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/cattle_egret/16.jpg
+        candidate: 16.jpg
+        crop:
+        - 58
+        - 0
+        - 902
+        - 853
+        mask: selected/cattle_egret/16.flying1.mask.png
+        flipX: true
+        title: File:Bubulcus ibis coromandus in flight s4.JPG
+        page: https://commons.wikimedia.org/wiki/File:Bubulcus_ibis_coromandus_in_flight_s4.JPG
+        author: Alpsdake
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  striated_heron:
+    album:
+      file: selected/striated_heron/13.jpg
+      candidate: 13.jpg
+      crop:
+      - 70
+      - 0
+      - 890
+      - 621
+      title: File:Striated Heron (Butorides striata) @ Kuala Lumpur, Malaysia (6).jpg
+      page: https://commons.wikimedia.org/wiki/File:Striated_Heron_(Butorides_striata)_@_Kuala_Lumpur,_Malaysia_(6).jpg
+      author: GerifalteDelSabana
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/striated_heron/13.jpg
+        candidate: 13.jpg
+        crop:
+        - 231
+        - 107
+        - 605
+        - 406
+        mask: selected/striated_heron/13.perched.mask.png
+        title: File:Striated Heron (Butorides striata) @ Kuala Lumpur, Malaysia (6).jpg
+        page: https://commons.wikimedia.org/wiki/File:Striated_Heron_(Butorides_striata)_@_Kuala_Lumpur,_Malaysia_(6).jpg
+        author: GerifalteDelSabana
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/striated_heron/12.jpg
+        candidate: 12.jpg
+        crop:
+        - 168
+        - 79
+        - 637
+        - 545
+        mask: selected/striated_heron/12.perched_alert.mask.png
+        flipX: true
+        title: File:Butorides striata - Laem Pak Bia.jpg
+        page: https://commons.wikimedia.org/wiki/File:Butorides_striata_-_Laem_Pak_Bia.jpg
+        author: JJ Harrison (https://www.jjharrison.com.au/)
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/striated_heron/16.jpg
+        candidate: 16.jpg
+        crop:
+        - 136
+        - 117
+        - 675
+        - 466
+        mask: selected/striated_heron/16.flying1.mask.png
+        title: File:Butorides striatus in flight.JPG
+        page: https://commons.wikimedia.org/wiki/File:Butorides_striatus_in_flight.JPG
+        author: Alpsdake
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  great_cormorant:
+    album:
+      file: selected/great_cormorant/01.jpg
+      candidate: 01.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 1440
+      title: File:Phalacrocorax carbo Vic.jpg
+      page: https://commons.wikimedia.org/wiki/File:Phalacrocorax_carbo_Vic.jpg
+      author: JJ Harrison (https://www.jjharrison.com.au/)
+      license: CC BY-SA 3.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+    poses:
+      perched:
+        file: selected/great_cormorant/01.jpg
+        candidate: 01.jpg
+        crop:
+        - 84
+        - 66
+        - 781
+        - 1295
+        mask: selected/great_cormorant/01.perched.mask.png
+        title: File:Phalacrocorax carbo Vic.jpg
+        page: https://commons.wikimedia.org/wiki/File:Phalacrocorax_carbo_Vic.jpg
+        author: JJ Harrison (https://www.jjharrison.com.au/)
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      perched_alert:
+        file: selected/great_cormorant/10.jpg
+        candidate: 10.jpg
+        crop:
+        - 0
+        - 78
+        - 960
+        - 513
+        mask: selected/great_cormorant/10.perched_alert.mask.png
+        flipX: true
+        title: File:Cormorant (Phalacrocorax carbo) (14).JPG
+        page: https://commons.wikimedia.org/wiki/File:Cormorant_(Phalacrocorax_carbo)_(14).JPG
+        author: Ken Billington
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/great_cormorant/14.jpg
+        candidate: 14.jpg
+        crop:
+        - 213
+        - 191
+        - 694
+        - 387
+        mask: selected/great_cormorant/14.flying1.mask.png
+        flipX: true
+        title: File:Great cormorant (Phalacrocorax carbo) in flight Blanchetown.jpg
+        page: https://commons.wikimedia.org/wiki/File:Great_cormorant_(Phalacrocorax_carbo)_in_flight_Blanchetown.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  common_greenshank:
+    album:
+      file: selected/common_greenshank/13.jpg
+      candidate: 13.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 720
+      flipX: true
+      title: File:Chevalier aboyeur003 lac de Tunis.jpg
+      page: https://commons.wikimedia.org/wiki/File:Chevalier_aboyeur003_lac_de_Tunis.jpg
+      author: El Golli Mohamed
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/common_greenshank/13.jpg
+        candidate: 13.jpg
+        crop:
+        - 146
+        - 62
+        - 814
+        - 558
+        mask: selected/common_greenshank/13.perched.mask.png
+        flipX: true
+        title: File:Chevalier aboyeur003 lac de Tunis.jpg
+        page: https://commons.wikimedia.org/wiki/File:Chevalier_aboyeur003_lac_de_Tunis.jpg
+        author: El Golli Mohamed
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/common_greenshank/07.jpg
+        candidate: 07.jpg
+        crop:
+        - 162
+        - 131
+        - 786
+        - 342
+        mask: selected/common_greenshank/07.perched_alert.mask.png
+        flipX: true
+        title: File:Common greenshank (Tringa nebularia).jpg
+        page: https://commons.wikimedia.org/wiki/File:Common_greenshank_(Tringa_nebularia).jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/common_greenshank/16.jpg
+        candidate: 16.jpg
+        crop:
+        - 0
+        - 110
+        - 960
+        - 580
+        mask: selected/common_greenshank/16.flying1.mask.png
+        flipX: true
+        title: File:Tringa nebularia in flight.JPG
+        page: https://commons.wikimedia.org/wiki/File:Tringa_nebularia_in_flight.JPG
+        author: Alpsdake
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  common_sandpiper:
+    album:
+      file: selected/common_sandpiper/04.jpg
+      candidate: 04.jpg
+      crop:
+      - 16
+      - 0
+      - 944
+      - 597
+      flipX: true
+      title: File:Chevalier guignette lac de Tunis011.jpg
+      page: https://commons.wikimedia.org/wiki/File:Chevalier_guignette_lac_de_Tunis011.jpg
+      author: El Golli Mohamed
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/common_sandpiper/04.jpg
+        candidate: 04.jpg
+        crop:
+        - 225
+        - 98
+        - 735
+        - 394
+        mask: selected/common_sandpiper/04.perched.mask.png
+        flipX: true
+        title: File:Chevalier guignette lac de Tunis011.jpg
+        page: https://commons.wikimedia.org/wiki/File:Chevalier_guignette_lac_de_Tunis011.jpg
+        author: El Golli Mohamed
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/common_sandpiper/07.jpg
+        candidate: 07.jpg
+        crop:
+        - 0
+        - 103
+        - 870
+        - 526
+        mask: selected/common_sandpiper/07.perched_alert.mask.png
+        title: File:Common sandpiper (Actitis hypoleucos) Botswana.jpg
+        page: https://commons.wikimedia.org/wiki/File:Common_sandpiper_(Actitis_hypoleucos)_Botswana.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/common_sandpiper/20.jpg
+        candidate: 20.jpg
+        crop:
+        - 270
+        - 3
+        - 372
+        - 415
+        mask: selected/common_sandpiper/20.flying1.mask.png
+        flipX: true
+        title: File:Sandpiper (Actitis hypoleucos) (19).jpg
+        page: https://commons.wikimedia.org/wiki/File:Sandpiper_(Actitis_hypoleucos)_(19).jpg
+        author: Ken Billington
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  eurasian_curlew:
+    album:
+      file: selected/eurasian_curlew/05.jpg
+      candidate: 05.jpg
+      crop:
+      - 168
+      - 0
+      - 792
+      - 632
+      flipX: true
+      title: File:Numenius arquata amk.jpg
+      page: https://commons.wikimedia.org/wiki/File:Numenius_arquata_amk.jpg
+      author: AngMoKio
+      license: CC BY-SA 3.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+    poses:
+      perched:
+        file: selected/eurasian_curlew/05.jpg
+        candidate: 05.jpg
+        crop:
+        - 323
+        - 26
+        - 577
+        - 479
+        mask: selected/eurasian_curlew/05.perched.mask.png
+        flipX: true
+        title: File:Numenius arquata amk.jpg
+        page: https://commons.wikimedia.org/wiki/File:Numenius_arquata_amk.jpg
+        author: AngMoKio
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      perched_alert:
+        file: selected/eurasian_curlew/04.jpg
+        candidate: 04.jpg
+        crop:
+        - 204
+        - 0
+        - 565
+        - 614
+        mask: selected/eurasian_curlew/04.perched_alert.mask.png
+        flipX: true
+        title: File:Chiurlo Maggiore (Numenius arquata) DSC7954.jpg
+        page: https://commons.wikimedia.org/wiki/File:Chiurlo_Maggiore_(Numenius_arquata)_DSC7954.jpg
+        author: Artemio Terna
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/eurasian_curlew/15.jpg
+        candidate: 15.jpg
+        crop:
+        - 41
+        - 58
+        - 513
+        - 312
+        mask: selected/eurasian_curlew/15.flying1.mask.png
+        title: File:Curlew (Numenius arquata) - geograph.org.uk - 929612.jpg
+        page: https://commons.wikimedia.org/wiki/File:Curlew_(Numenius_arquata)_-_geograph.org.uk_-_929612.jpg
+        author: Mike Pennington
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  kentish_plover:
+    album:
+      file: selected/kentish_plover/14.jpg
+      candidate: 14.jpg
+      crop:
+      - 16
+      - 0
+      - 783
+      - 594
+      title: File:Kentish Plover Charadrius alexandrinus by Vedant Kasambe 02.jpg
+      page: https://commons.wikimedia.org/wiki/File:Kentish_Plover_Charadrius_alexandrinus_by_Vedant_Kasambe_02.jpg
+      author: Vedant Raju Kasambe
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/kentish_plover/14.jpg
+        candidate: 14.jpg
+        crop:
+        - 153
+        - 102
+        - 511
+        - 412
+        mask: selected/kentish_plover/14.perched.mask.png
+        title: File:Kentish Plover Charadrius alexandrinus by Vedant Kasambe 02.jpg
+        page: https://commons.wikimedia.org/wiki/File:Kentish_Plover_Charadrius_alexandrinus_by_Vedant_Kasambe_02.jpg
+        author: Vedant Raju Kasambe
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/kentish_plover/11.jpg
+        candidate: 11.jpg
+        crop:
+        - 41
+        - 132
+        - 564
+        - 308
+        mask: selected/kentish_plover/11.perched_alert.mask.png
+        title: File:Charadrius alexandrinus - Kentish Plover 04.jpg
+        page: https://commons.wikimedia.org/wiki/File:Charadrius_alexandrinus_-_Kentish_Plover_04.jpg
+        author: Zeynel Cebeci
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  little_grebe:
+    album:
+      file: selected/little_grebe/14.jpg
+      candidate: 14.jpg
+      crop:
+      - 194
+      - 0
+      - 766
+      - 605
+      flipX: true
+      title: File:Tachybaptus ruficollis - Little grebe 01-13.jpg
+      page: https://commons.wikimedia.org/wiki/File:Tachybaptus_ruficollis_-_Little_grebe_01-13.jpg
+      author: Zeynel Cebeci
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/little_grebe/14.jpg
+        candidate: 14.jpg
+        crop:
+        - 335
+        - 12
+        - 528
+        - 593
+        mask: selected/little_grebe/14.perched.mask.png
+        flipX: true
+        title: File:Tachybaptus ruficollis - Little grebe 01-13.jpg
+        page: https://commons.wikimedia.org/wiki/File:Tachybaptus_ruficollis_-_Little_grebe_01-13.jpg
+        author: Zeynel Cebeci
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/little_grebe/07.jpg
+        candidate: 07.jpg
+        crop:
+        - 232
+        - 200
+        - 394
+        - 349
+        mask: selected/little_grebe/07.perched_alert.mask.png
+        title: File:Little Grebe in Bhigwan August 2025 by Tisha Mukherjee 02.jpg
+        page: https://commons.wikimedia.org/wiki/File:Little_Grebe_in_Bhigwan_August_2025_by_Tisha_Mukherjee_02.jpg
+        author: Tisha Mukherjee
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/little_grebe/16.jpg
+        candidate: 16.jpg
+        crop:
+        - 330
+        - 191
+        - 372
+        - 211
+        mask: selected/little_grebe/16.flying1.mask.png
+        title: File:Zampullín corriendo sobre el agua - little grebe running on the water.jpg
+        page: https://commons.wikimedia.org/wiki/File:Zampull%C3%ADn_corriendo_sobre_el_agua_-_little_grebe_running_on_the_water.jpg
+        author: Ferran Pestaña
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  northern_pintail:
+    album:
+      file: selected/northern_pintail/01.jpg
+      candidate: 01.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 600
+      title: File:Male northern pintail at Llano Seco.jpg
+      page: https://commons.wikimedia.org/wiki/File:Male_northern_pintail_at_Llano_Seco.jpg
+      author: Frank Schulenburg
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/northern_pintail/01.jpg
+        candidate: 01.jpg
+        crop:
+        - 0
+        - 31
+        - 960
+        - 569
+        mask: selected/northern_pintail/01.perched.mask.png
+        title: File:Male northern pintail at Llano Seco.jpg
+        page: https://commons.wikimedia.org/wiki/File:Male_northern_pintail_at_Llano_Seco.jpg
+        author: Frank Schulenburg
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/northern_pintail/14.jpg
+        candidate: 14.jpg
+        crop:
+        - 52
+        - 142
+        - 747
+        - 275
+        mask: selected/northern_pintail/14.perched_alert.mask.png
+        title: File:Male Northern pintail (Anas acuta) in Algeria.jpg
+        page: https://commons.wikimedia.org/wiki/File:Male_Northern_pintail_(Anas_acuta)_in_Algeria.jpg
+        author: mourad-harzallah
+        license: CC BY 4.0
+        licenseUrl: https://creativecommons.org/licenses/by/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/northern_pintail/04.jpg
+        candidate: 04.jpg
+        crop:
+        - 0
+        - 0
+        - 950
+        - 640
+        mask: selected/northern_pintail/04.flying1.mask.png
+        title: File:Female northern pintail in flight-1827.jpg
+        page: https://commons.wikimedia.org/wiki/File:Female_northern_pintail_in_flight-1827.jpg
+        author: Frank Schulenburg
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  pied_kingfisher:
+    album:
+      file: selected/pied_kingfisher/13.jpg
+      candidate: 13.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 720
+      flipX: true
+      title: File:Ceryle rudis (male).jpg
+      page: https://commons.wikimedia.org/wiki/File:Ceryle_rudis_(male).jpg
+      author: Hans Hillewaert
+      license: CC BY-SA 3.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+    poses:
+      perched:
+        file: selected/pied_kingfisher/13.jpg
+        candidate: 13.jpg
+        crop:
+        - 74
+        - 3
+        - 886
+        - 654
+        mask: selected/pied_kingfisher/13.perched.mask.png
+        flipX: true
+        title: File:Ceryle rudis (male).jpg
+        page: https://commons.wikimedia.org/wiki/File:Ceryle_rudis_(male).jpg
+        author: Hans Hillewaert
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      perched_alert:
+        file: selected/pied_kingfisher/01.jpg
+        candidate: 01.jpg
+        crop:
+        - 0
+        - 20
+        - 850
+        - 620
+        mask: selected/pied_kingfisher/01.perched_alert.mask.png
+        title: File:Pied kingfisher (Ceryle rudis rudis) female 2.jpg
+        page: https://commons.wikimedia.org/wiki/File:Pied_kingfisher_(Ceryle_rudis_rudis)_female_2.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/pied_kingfisher/16.jpg
+        candidate: 16.jpg
+        crop:
+        - 186
+        - 198
+        - 597
+        - 332
+        mask: selected/pied_kingfisher/16.flying1.mask.png
+        title: File:Pied kingfisher (Ceryle rudis) 13.jpg
+        page: https://commons.wikimedia.org/wiki/File:Pied_kingfisher_(Ceryle_rudis)_13.jpg
+        author: Afsarnayakkan
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  tufted_duck:
+    album:
+      file: selected/tufted_duck/05.jpg
+      candidate: 05.jpg
+      crop:
+      - 0
+      - 81
+      - 960
+      - 559
+      title: File:Tufted Duck 09 05 2025 01.jpg
+      page: https://commons.wikimedia.org/wiki/File:Tufted_Duck_09_05_2025_01.jpg
+      author: Alexis Lours
+      license: CC BY 4.0
+      licenseUrl: https://creativecommons.org/licenses/by/4.0
+    poses:
+      perched:
+        file: selected/tufted_duck/05.jpg
+        candidate: 05.jpg
+        crop:
+        - 0
+        - 179
+        - 823
+        - 367
+        mask: selected/tufted_duck/05.perched.mask.png
+        title: File:Tufted Duck 09 05 2025 01.jpg
+        page: https://commons.wikimedia.org/wiki/File:Tufted_Duck_09_05_2025_01.jpg
+        author: Alexis Lours
+        license: CC BY 4.0
+        licenseUrl: https://creativecommons.org/licenses/by/4.0
+      perched_alert:
+        file: selected/tufted_duck/06.jpg
+        candidate: 06.jpg
+        crop:
+        - 0
+        - 144
+        - 877
+        - 412
+        mask: selected/tufted_duck/06.perched_alert.mask.png
+        title: File:Tufted Duck 09 05 2025 02.jpg
+        page: https://commons.wikimedia.org/wiki/File:Tufted_Duck_09_05_2025_02.jpg
+        author: Alexis Lours
+        license: CC BY 4.0
+        licenseUrl: https://creativecommons.org/licenses/by/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/tufted_duck/17.jpg
+        candidate: 17.jpg
+        crop:
+        - 58
+        - 85
+        - 605
+        - 444
+        mask: selected/tufted_duck/17.flying1.mask.png
+        title: File:Tufted Duck (Aythya fuligula) - Flickr - gilgit2.jpg
+        page: https://commons.wikimedia.org/wiki/File:Tufted_Duck_(Aythya_fuligula)_-_Flickr_-_gilgit2.jpg
+        author: Birds of Gilgit-Baltistan from Aliabad, Hunza, Pakistan
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  white_bellied_sea_eagle:
+    album:
+      file: selected/white_bellied_sea_eagle/08.jpg
+      candidate: 08.jpg
+      crop:
+      - 0
+      - 0
+      - 803
+      - 1248
+      title: File:White-bellied sea-eagle (Haliaeetus leucogaster) Kakadu 3.jpg
+      page: https://commons.wikimedia.org/wiki/File:White-bellied_sea-eagle_(Haliaeetus_leucogaster)_Kakadu_3.jpg
+      author: Charles J. Sharp
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/white_bellied_sea_eagle/08.jpg
+        candidate: 08.jpg
+        crop:
+        - 117
+        - 149
+        - 541
+        - 1045
+        mask: selected/white_bellied_sea_eagle/08.perched.mask.png
+        title: File:White-bellied sea-eagle (Haliaeetus leucogaster) Kakadu 3.jpg
+        page: https://commons.wikimedia.org/wiki/File:White-bellied_sea-eagle_(Haliaeetus_leucogaster)_Kakadu_3.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/white_bellied_sea_eagle/09.jpg
+        candidate: 09.jpg
+        crop:
+        - 228
+        - 205
+        - 514
+        - 896
+        mask: selected/white_bellied_sea_eagle/09.perched_alert.mask.png
+        exclude:
+        - blue
+        - sky
+        - pale_sky
+        - sea
+        - light_sea
+        - window
+        - navy
+        title: File:White-bellied sea-eagle (Haliaeetus leucogaster) Kakadu 2.jpg
+        page: https://commons.wikimedia.org/wiki/File:White-bellied_sea-eagle_(Haliaeetus_leucogaster)_Kakadu_2.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/white_bellied_sea_eagle/01.jpg
+        candidate: 01.jpg
+        crop:
+        - 207
+        - 6
+        - 420
+        - 580
+        mask: selected/white_bellied_sea_eagle/01.flying1.mask.png
+        title: File:White-bellied fish eagle (Haliaeetus leucogaster) juvenile in flight.jpg
+        page: https://commons.wikimedia.org/wiki/File:White-bellied_fish_eagle_(Haliaeetus_leucogaster)_juvenile_in_flight.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  peregrine_falcon:
+    album:
+      file: selected/peregrine_falcon/03.jpg
+      candidate: 03.jpg
+      crop:
+      - 314
+      - 45
+      - 320
+      - 563
+      title: File:African peregrine falcon (Falco peregrinus minor) Arusha.jpg
+      page: https://commons.wikimedia.org/wiki/File:African_peregrine_falcon_(Falco_peregrinus_minor)_Arusha.jpg
+      author: Charles J. Sharp
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/peregrine_falcon/03.jpg
+        candidate: 03.jpg
+        crop:
+        - 370
+        - 143
+        - 208
+        - 367
+        mask: selected/peregrine_falcon/03.perched.mask.png
+        title: File:African peregrine falcon (Falco peregrinus minor) Arusha.jpg
+        page: https://commons.wikimedia.org/wiki/File:African_peregrine_falcon_(Falco_peregrinus_minor)_Arusha.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/peregrine_falcon/06.jpg
+        candidate: 06.jpg
+        crop:
+        - 104
+        - 122
+        - 722
+        - 1326
+        mask: selected/peregrine_falcon/06.perched_alert.mask.png
+        flipX: true
+        title: File:Falco peregrinus in Moussem Moulay Abdallah Amghar.jpg
+        page: https://commons.wikimedia.org/wiki/File:Falco_peregrinus_in_Moussem_Moulay_Abdallah_Amghar.jpg
+        author: Mounir Neddi
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/peregrine_falcon/02.jpg
+        candidate: 02.jpg
+        crop:
+        - 0
+        - 0
+        - 960
+        - 960
+        mask: selected/peregrine_falcon/02.flying1.mask.png
+        title: File:Peregrine falcon (Falco peregrinus) in flight, Cape Baily, Kamay Botany Bay NSW Jun 2022.jpg
+        page: https://commons.wikimedia.org/wiki/File:Peregrine_falcon_(Falco_peregrinus)_in_flight,_Cape_Baily,_Kamay_Botany_Bay_NSW_Jun_2022.jpg
+        author: Kytabu
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  rock_dove:
+    album:
+      file: selected/rock_dove/09.jpg
+      candidate: 09.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 650
+      title: File:Feral pigeon (Columba livia domestica), 2017-05-27.jpg
+      page: https://commons.wikimedia.org/wiki/File:Feral_pigeon_(Columba_livia_domestica),_2017-05-27.jpg
+      author: Lewis Hulbert
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/rock_dove/09.jpg
+        candidate: 09.jpg
+        crop:
+        - 0
+        - 0
+        - 900
+        - 650
+        mask: selected/rock_dove/09.perched.mask.png
+        title: File:Feral pigeon (Columba livia domestica), 2017-05-27.jpg
+        page: https://commons.wikimedia.org/wiki/File:Feral_pigeon_(Columba_livia_domestica),_2017-05-27.jpg
+        author: Lewis Hulbert
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/rock_dove/03.jpg
+        candidate: 03.jpg
+        crop:
+        - 165
+        - 52
+        - 795
+        - 610
+        mask: selected/rock_dove/03.perched_alert.mask.png
+        flipX: true
+        title: File:Columba livia Luc Viatour.jpg
+        page: https://commons.wikimedia.org/wiki/File:Columba_livia_Luc_Viatour.jpg
+        author: Luc Viatour
+        license: CC BY-SA 3.0
+        licenseUrl: http://creativecommons.org/licenses/by-sa/3.0/
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/rock_dove/21.jpg
+        candidate: 21.jpg
+        crop:
+        - 111
+        - 132
+        - 754
+        - 489
+        mask: selected/rock_dove/21.flying1.mask.png
+        title: File:Columba livia EM1B0630 (46500224005).jpg
+        page: https://commons.wikimedia.org/wiki/File:Columba_livia_EM1B0630_(46500224005).jpg
+        author: Bengt Nyman from Vaxholm, Sweden
+        license: CC BY 2.0
+        licenseUrl: https://creativecommons.org/licenses/by/2.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  collared_scops_owl:
+    album:
+      file: selected/collared_scops_owl/11.jpg
+      candidate: 11.jpg
+      crop:
+      - 181
+      - 0
+      - 778
+      - 1171
+      title: File:Collared scops owl (Otus lettia) 3.jpg
+      page: https://commons.wikimedia.org/wiki/File:Collared_scops_owl_(Otus_lettia)_3.jpg
+      author: Sanjaya Tha Shrestha
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/collared_scops_owl/11.jpg
+        candidate: 11.jpg
+        crop:
+        - 317
+        - 164
+        - 507
+        - 829
+        mask: selected/collared_scops_owl/11.perched.mask.png
+        title: File:Collared scops owl (Otus lettia) 3.jpg
+        page: https://commons.wikimedia.org/wiki/File:Collared_scops_owl_(Otus_lettia)_3.jpg
+        author: Sanjaya Tha Shrestha
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/collared_scops_owl/10.jpg
+        candidate: 10.jpg
+        crop:
+        - 324
+        - 60
+        - 298
+        - 456
+        mask: selected/collared_scops_owl/10.perched_alert.mask.png
+        title: File:Collared scops owl (Otus lettia) 2019 024.jpg
+        page: https://commons.wikimedia.org/wiki/File:Collared_scops_owl_(Otus_lettia)_2019_024.jpg
+        author: Umang Jung Thapa
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  red_rumped_swallow:
+    album:
+      file: selected/red_rumped_swallow/10.jpg
+      candidate: 10.jpg
+      crop:
+      - 269
+      - 149
+      - 536
+      - 384
+      flipX: true
+      title: File:Eastern Red-rumped Swallow by Tisha Mukherjee 10.jpg
+      page: https://commons.wikimedia.org/wiki/File:Eastern_Red-rumped_Swallow_by_Tisha_Mukherjee_10.jpg
+      author: Tisha Mukherjee
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/red_rumped_swallow/10.jpg
+        candidate: 10.jpg
+        crop:
+        - 362
+        - 216
+        - 350
+        - 250
+        mask: selected/red_rumped_swallow/10.perched.mask.png
+        flipX: true
+        title: File:Eastern Red-rumped Swallow by Tisha Mukherjee 10.jpg
+        page: https://commons.wikimedia.org/wiki/File:Eastern_Red-rumped_Swallow_by_Tisha_Mukherjee_10.jpg
+        author: Tisha Mukherjee
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/red_rumped_swallow/13.jpg
+        candidate: 13.jpg
+        crop:
+        - 349
+        - 222
+        - 335
+        - 250
+        mask: selected/red_rumped_swallow/13.perched_alert.mask.png
+        flipX: true
+        title: File:Eastern Red-rumped Swallow by Tisha Mukherjee 09.jpg
+        page: https://commons.wikimedia.org/wiki/File:Eastern_Red-rumped_Swallow_by_Tisha_Mukherjee_09.jpg
+        author: Tisha Mukherjee
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/red_rumped_swallow/02.jpg
+        candidate: 02.jpg
+        crop:
+        - 38
+        - 147
+        - 612
+        - 469
+        mask: selected/red_rumped_swallow/02.flying1.mask.png
+        title: File:The Red Rumped Swallow.jpg
+        page: https://commons.wikimedia.org/wiki/File:The_Red_Rumped_Swallow.jpg
+        author: Prasan Shrestha
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  olive_backed_pipit:
+    album:
+      file: selected/olive_backed_pipit/06.jpg
+      candidate: 06.jpg
+      crop:
+      - 113
+      - 0
+      - 847
+      - 720
+      flipX: true
+      title: File:Olive-backed Pipit, Doi Ang Khang, Chiang Mai, Thailand.jpg
+      page: https://commons.wikimedia.org/wiki/File:Olive-backed_Pipit,_Doi_Ang_Khang,_Chiang_Mai,_Thailand.jpg
+      author: Jason Thompson
+      license: CC BY 2.0
+      licenseUrl: https://creativecommons.org/licenses/by/2.0
+    poses:
+      perched:
+        file: selected/olive_backed_pipit/06.jpg
+        candidate: 06.jpg
+        crop:
+        - 290
+        - 92
+        - 664
+        - 580
+        mask: selected/olive_backed_pipit/06.perched.mask.png
+        flipX: true
+        title: File:Olive-backed Pipit, Doi Ang Khang, Chiang Mai, Thailand.jpg
+        page: https://commons.wikimedia.org/wiki/File:Olive-backed_Pipit,_Doi_Ang_Khang,_Chiang_Mai,_Thailand.jpg
+        author: Jason Thompson
+        license: CC BY 2.0
+        licenseUrl: https://creativecommons.org/licenses/by/2.0
+      perched_alert:
+        from: perched
+        offsetY: -1
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  large_billed_crow:
+    album:
+      file: selected/large_billed_crow/08.jpg
+      candidate: 08.jpg
+      crop:
+      - 0
+      - 0
+      - 855
+      - 686
+      title: File:Large-billed Crow in Bhagalpur December 2025 by Tisha Mukherjee 02.jpg
+      page: https://commons.wikimedia.org/wiki/File:Large-billed_Crow_in_Bhagalpur_December_2025_by_Tisha_Mukherjee_02.jpg
+      author: Tisha Mukherjee
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/large_billed_crow/08.jpg
+        candidate: 08.jpg
+        crop:
+        - 111
+        - 97
+        - 588
+        - 545
+        mask: selected/large_billed_crow/08.perched.mask.png
+        title: File:Large-billed Crow in Bhagalpur December 2025 by Tisha Mukherjee 02.jpg
+        page: https://commons.wikimedia.org/wiki/File:Large-billed_Crow_in_Bhagalpur_December_2025_by_Tisha_Mukherjee_02.jpg
+        author: Tisha Mukherjee
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/large_billed_crow/09.jpg
+        candidate: 09.jpg
+        crop:
+        - 282
+        - 74
+        - 511
+        - 563
+        mask: selected/large_billed_crow/09.perched_alert.mask.png
+        flipX: true
+        title: File:Large-billed Crow in Lepcha Jagat October 2025 by Tisha Mukherjee 02.jpg
+        page: https://commons.wikimedia.org/wiki/File:Large-billed_Crow_in_Lepcha_Jagat_October_2025_by_Tisha_Mukherjee_02.jpg
+        author: Tisha Mukherjee
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/large_billed_crow/16.jpg
+        candidate: 16.jpg
+        crop:
+        - 400
+        - 264
+        - 325
+        - 251
+        mask: selected/large_billed_crow/16.flying1.mask.png
+        title: File:Jungle crow (Corvus macrorhynchos) from anaimalai hills in flight JEG3210.jpg
+        page: https://commons.wikimedia.org/wiki/File:Jungle_crow_(Corvus_macrorhynchos)_from_anaimalai_hills_in_flight_JEG3210.jpg
+        author: PJeganathan
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  grey_treepie:
+    album:
+      file: selected/grey_treepie/10.jpg
+      candidate: 10.jpg
+      crop:
+      - 271
+      - 0
+      - 452
+      - 492
+      flipX: true
+      title: File:Grey Treepie - Taiwan S4E5639 (22595777170).jpg
+      page: https://commons.wikimedia.org/wiki/File:Grey_Treepie_-_Taiwan_S4E5639_(22595777170).jpg
+      author: Francesco Veronesi from Italy
+      license: CC BY-SA 2.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+    poses:
+      perched:
+        file: selected/grey_treepie/10.jpg
+        candidate: 10.jpg
+        crop:
+        - 349
+        - 74
+        - 295
+        - 330
+        mask: selected/grey_treepie/10.perched.mask.png
+        flipX: true
+        title: File:Grey Treepie - Taiwan S4E5639 (22595777170).jpg
+        page: https://commons.wikimedia.org/wiki/File:Grey_Treepie_-_Taiwan_S4E5639_(22595777170).jpg
+        author: Francesco Veronesi from Italy
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      perched_alert:
+        file: selected/grey_treepie/02.jpg
+        candidate: 02.jpg
+        crop:
+        - 320
+        - 131
+        - 354
+        - 427
+        mask: selected/grey_treepie/02.perched_alert.mask.png
+        flipX: true
+        title: File:Grey treepie near Kasauli, Himachal Pradesh.jpg
+        page: https://commons.wikimedia.org/wiki/File:Grey_treepie_near_Kasauli,_Himachal_Pradesh.jpg
+        author: Satdeep Gill
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/grey_treepie/18.jpg
+        candidate: 18.jpg
+        crop:
+        - 113
+        - 0
+        - 691
+        - 636
+        mask: selected/grey_treepie/18.flying1.mask.png
+        flipX: true
+        title: File:Flying (36132777764).jpg
+        page: https://commons.wikimedia.org/wiki/File:Flying_(36132777764).jpg
+        author: Charles Lam from Hong Kong, China
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  daurian_redstart:
+    album:
+      file: selected/daurian_redstart/02.jpg
+      candidate: 02.jpg
+      crop:
+      - 14
+      - 0
+      - 665
+      - 773
+      title: File:Daurian redstart (female) in Sakai, Osaka, February 2016 III.jpg
+      page: https://commons.wikimedia.org/wiki/File:Daurian_redstart_(female)_in_Sakai,_Osaka,_February_2016_III.jpg
+      author: Laitche
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/daurian_redstart/02.jpg
+        candidate: 02.jpg
+        crop:
+        - 130
+        - 34
+        - 434
+        - 739
+        mask: selected/daurian_redstart/02.perched.mask.png
+        title: File:Daurian redstart (female) in Sakai, Osaka, February 2016 III.jpg
+        page: https://commons.wikimedia.org/wiki/File:Daurian_redstart_(female)_in_Sakai,_Osaka,_February_2016_III.jpg
+        author: Laitche
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/daurian_redstart/06.jpg
+        candidate: 06.jpg
+        crop:
+        - 86
+        - 76
+        - 453
+        - 538
+        mask: selected/daurian_redstart/06.perched_alert.mask.png
+        title: File:Daurian redstart (female) in Sakai, Osaka, February 2016.jpg
+        page: https://commons.wikimedia.org/wiki/File:Daurian_redstart_(female)_in_Sakai,_Osaka,_February_2016.jpg
+        author: Laitche
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/daurian_redstart/15.jpg
+        candidate: 15.jpg
+        crop:
+        - 65
+        - 12
+        - 665
+        - 697
+        mask: selected/daurian_redstart/15.flying1.mask.png
+        title: File:Taking Off (24245676552).jpg
+        page: https://commons.wikimedia.org/wiki/File:Taking_Off_(24245676552).jpg
+        author: Charles Lam from Hong Kong, China
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  hwamei:
+    album:
+      file: selected/hwamei/07.jpg
+      candidate: 07.jpg
+      crop:
+      - 0
+      - 33
+      - 793
+      - 607
+      title: File:Garrulax canorus 04.jpg
+      page: https://commons.wikimedia.org/wiki/File:Garrulax_canorus_04.jpg
+      author: Sun Jiao (Interaccoonale)
+      license: CC BY 4.0
+      licenseUrl: https://creativecommons.org/licenses/by/4.0
+    poses:
+      perched:
+        file: selected/hwamei/07.jpg
+        candidate: 07.jpg
+        crop:
+        - 135
+        - 173
+        - 506
+        - 467
+        mask: selected/hwamei/07.perched.mask.png
+        title: File:Garrulax canorus 04.jpg
+        page: https://commons.wikimedia.org/wiki/File:Garrulax_canorus_04.jpg
+        author: Sun Jiao (Interaccoonale)
+        license: CC BY 4.0
+        licenseUrl: https://creativecommons.org/licenses/by/4.0
+      perched_alert:
+        from: perched
+        offsetY: -1
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  red_billed_starling:
+    album:
+      file: selected/red_billed_starling/08.jpg
+      candidate: 08.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 720
+      flipX: true
+      title: File:Flower Lover Spodiopsar sericeus.jpg
+      page: https://commons.wikimedia.org/wiki/File:Flower_Lover_Spodiopsar_sericeus.jpg
+      author: Charles Lam
+      license: CC BY-SA 2.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+    poses:
+      perched:
+        file: selected/red_billed_starling/08.jpg
+        candidate: 08.jpg
+        crop:
+        - 142
+        - 33
+        - 818
+        - 628
+        mask: selected/red_billed_starling/08.perched.mask.png
+        flipX: true
+        title: File:Flower Lover Spodiopsar sericeus.jpg
+        page: https://commons.wikimedia.org/wiki/File:Flower_Lover_Spodiopsar_sericeus.jpg
+        author: Charles Lam
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      perched_alert:
+        file: selected/red_billed_starling/05.jpg
+        candidate: 05.jpg
+        crop:
+        - 337
+        - 139
+        - 380
+        - 323
+        mask: selected/red_billed_starling/05.perched_alert.mask.png
+        flipX: true
+        title: File:Red-billed Starling - Taiwan S4E9914 (22801340815).jpg
+        page: https://commons.wikimedia.org/wiki/File:Red-billed_Starling_-_Taiwan_S4E9914_(22801340815).jpg
+        author: Francesco Veronesi from Italy
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  scarlet_backed_flowerpecker:
+    album:
+      file: selected/scarlet_backed_flowerpecker/02.jpg
+      candidate: 02.jpg
+      crop:
+      - 245
+      - 8
+      - 536
+      - 632
+      flipX: true
+      title: File:Scarlet-backed flowerpecker (Dicaeum cruentatum) male Double Haven 2.jpg
+      page: https://commons.wikimedia.org/wiki/File:Scarlet-backed_flowerpecker_(Dicaeum_cruentatum)_male_Double_Haven_2.jpg
+      author: Charles J. Sharp
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/scarlet_backed_flowerpecker/02.jpg
+        candidate: 02.jpg
+        crop:
+        - 338
+        - 124
+        - 349
+        - 436
+        mask: selected/scarlet_backed_flowerpecker/02.perched.mask.png
+        flipX: true
+        title: File:Scarlet-backed flowerpecker (Dicaeum cruentatum) male Double Haven 2.jpg
+        page: https://commons.wikimedia.org/wiki/File:Scarlet-backed_flowerpecker_(Dicaeum_cruentatum)_male_Double_Haven_2.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/scarlet_backed_flowerpecker/01.jpg
+        candidate: 01.jpg
+        crop:
+        - 110
+        - 174
+        - 635
+        - 374
+        mask: selected/scarlet_backed_flowerpecker/01.perched_alert.mask.png
+        title: File:Scarlet-backed flowerpecker (Dicaeum cruentatum) male Double Haven.jpg
+        page: https://commons.wikimedia.org/wiki/File:Scarlet-backed_flowerpecker_(Dicaeum_cruentatum)_male_Double_Haven.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  sooty_headed_bulbul:
+    album:
+      file: selected/sooty_headed_bulbul/08.jpg
+      candidate: 08.jpg
+      crop:
+      - 186
+      - 0
+      - 702
+      - 1121
+      title: File:Sooty-headed Bulbul (Pycnonotus aurigaster) in South Jakarta, Indonesia.jpg
+      page: https://commons.wikimedia.org/wiki/File:Sooty-headed_Bulbul_(Pycnonotus_aurigaster)_in_South_Jakarta,_Indonesia.jpg
+      author: Melindra12
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/sooty_headed_bulbul/08.jpg
+        candidate: 08.jpg
+        crop:
+        - 308
+        - 49
+        - 458
+        - 1011
+        mask: selected/sooty_headed_bulbul/08.perched.mask.png
+        title: File:Sooty-headed Bulbul (Pycnonotus aurigaster) in South Jakarta, Indonesia.jpg
+        page: https://commons.wikimedia.org/wiki/File:Sooty-headed_Bulbul_(Pycnonotus_aurigaster)_in_South_Jakarta,_Indonesia.jpg
+        author: Melindra12
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/sooty_headed_bulbul/10.jpg
+        candidate: 10.jpg
+        crop:
+        - 195
+        - 95
+        - 464
+        - 532
+        mask: selected/sooty_headed_bulbul/10.perched_alert.mask.png
+        flipX: true
+        title: File:Sooty headed bulbul (Pycnonotus aurigaster aurigaster ) - Flickr - Lip Kee.jpg
+        page: https://commons.wikimedia.org/wiki/File:Sooty_headed_bulbul_(Pycnonotus_aurigaster_aurigaster_)_-_Flickr_-_Lip_Kee.jpg
+        author: Lip Kee from Singapore, Republic of Singapore
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  asian_brown_flycatcher:
+    album:
+      file: selected/asian_brown_flycatcher/06.jpg
+      candidate: 06.jpg
+      crop:
+      - 0
+      - 0
+      - 800
+      - 640
+      flipX: true
+      title: File:Asian Brown Flycatcher - Muscicapa dauurica.jpg
+      page: https://commons.wikimedia.org/wiki/File:Asian_Brown_Flycatcher_-_Muscicapa_dauurica.jpg
+      author: Lip Kee Yap
+      license: CC BY-SA 2.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+    poses:
+      perched:
+        file: selected/asian_brown_flycatcher/06.jpg
+        candidate: 06.jpg
+        crop:
+        - 77
+        - 61
+        - 690
+        - 543
+        mask: selected/asian_brown_flycatcher/06.perched.mask.png
+        flipX: true
+        title: File:Asian Brown Flycatcher - Muscicapa dauurica.jpg
+        page: https://commons.wikimedia.org/wiki/File:Asian_Brown_Flycatcher_-_Muscicapa_dauurica.jpg
+        author: Lip Kee Yap
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      perched_alert:
+        from: perched
+        offsetY: -1
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  rose_ringed_parakeet:
+    album:
+      file: selected/rose_ringed_parakeet/02.jpg
+      candidate: 02.jpg
+      crop:
+      - 101
+      - 0
+      - 625
+      - 1171
+      title: File:2018.03.03.-10-Mannheim-Vogelstang--Halsbandsittich-Weibchen.jpg
+      page: https://commons.wikimedia.org/wiki/File:2018.03.03.-10-Mannheim-Vogelstang--Halsbandsittich-Weibchen.jpg
+      author: Andreas Eichler
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/rose_ringed_parakeet/02.jpg
+        candidate: 02.jpg
+        crop:
+        - 209
+        - 156
+        - 408
+        - 841
+        mask: selected/rose_ringed_parakeet/02.perched.mask.png
+        title: File:2018.03.03.-10-Mannheim-Vogelstang--Halsbandsittich-Weibchen.jpg
+        page: https://commons.wikimedia.org/wiki/File:2018.03.03.-10-Mannheim-Vogelstang--Halsbandsittich-Weibchen.jpg
+        author: Andreas Eichler
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/rose_ringed_parakeet/16.jpg
+        candidate: 16.jpg
+        crop:
+        - 301
+        - 76
+        - 357
+        - 454
+        mask: selected/rose_ringed_parakeet/16.perched_alert.mask.png
+        flipX: true
+        title: File:Rose-Ringed Parakeet Psittacula Krameri Richmond Park 2025 01.jpg
+        page: https://commons.wikimedia.org/wiki/File:Rose-Ringed_Parakeet_Psittacula_Krameri_Richmond_Park_2025_01.jpg
+        author: Julian Herzog (Website)
+        license: CC BY 4.0
+        licenseUrl: https://creativecommons.org/licenses/by/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/rose_ringed_parakeet/13.jpg
+        candidate: 13.jpg
+        crop:
+        - 166
+        - 209
+        - 540
+        - 302
+        mask: selected/rose_ringed_parakeet/13.flying1.mask.png
+        title: File:The Rose Ringed Parakeet in flight.jpg
+        page: https://commons.wikimedia.org/wiki/File:The_Rose_Ringed_Parakeet_in_flight.jpg
+        author: Prasan Shrestha
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  yellow_bellied_prinia:
+    album:
+      file: selected/yellow_bellied_prinia/06.jpg
+      candidate: 06.jpg
+      crop:
+      - 91
+      - 187
+      - 844
+      - 935
+      flipX: true
+      title: File:Yellow-bellied Prinia in Baruipur October 2025 by Tisha Mukherjee 08.jpg
+      page: https://commons.wikimedia.org/wiki/File:Yellow-bellied_Prinia_in_Baruipur_October_2025_by_Tisha_Mukherjee_08.jpg
+      author: Tisha Mukherjee
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/yellow_bellied_prinia/06.jpg
+        candidate: 06.jpg
+        crop:
+        - 238
+        - 348
+        - 550
+        - 611
+        mask: selected/yellow_bellied_prinia/06.perched.mask.png
+        flipX: true
+        title: File:Yellow-bellied Prinia in Baruipur October 2025 by Tisha Mukherjee 08.jpg
+        page: https://commons.wikimedia.org/wiki/File:Yellow-bellied_Prinia_in_Baruipur_October_2025_by_Tisha_Mukherjee_08.jpg
+        author: Tisha Mukherjee
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/yellow_bellied_prinia/04.jpg
+        candidate: 04.jpg
+        crop:
+        - 290
+        - 363
+        - 480
+        - 562
+        mask: selected/yellow_bellied_prinia/04.perched_alert.mask.png
+        title: File:Yellow-bellied Prinia in Baruipur October 2025 by Tisha Mukherjee 09.jpg
+        page: https://commons.wikimedia.org/wiki/File:Yellow-bellied_Prinia_in_Baruipur_October_2025_by_Tisha_Mukherjee_09.jpg
+        author: Tisha Mukherjee
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  chinese_grosbeak:
+    album:
+      file: selected/chinese_grosbeak/05.jpg
+      candidate: 05.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 865
+      title: File:Eophona migratoria 281269109.jpg
+      page: https://commons.wikimedia.org/wiki/File:Eophona_migratoria_281269109.jpg
+      author: wang cai
+      license: CC BY 4.0
+      licenseUrl: https://creativecommons.org/licenses/by/4.0
+    poses:
+      perched:
+        file: selected/chinese_grosbeak/05.jpg
+        candidate: 05.jpg
+        crop:
+        - 156
+        - 133
+        - 660
+        - 689
+        mask: selected/chinese_grosbeak/05.perched.mask.png
+        title: File:Eophona migratoria 281269109.jpg
+        page: https://commons.wikimedia.org/wiki/File:Eophona_migratoria_281269109.jpg
+        author: wang cai
+        license: CC BY 4.0
+        licenseUrl: https://creativecommons.org/licenses/by/4.0
+      perched_alert:
+        file: selected/chinese_grosbeak/02.jpg
+        candidate: 02.jpg
+        crop:
+        - 162
+        - 0
+        - 636
+        - 1080
+        mask: selected/chinese_grosbeak/02.perched_alert.mask.png
+        title: File:Eophona migratoria 1.jpg
+        page: https://commons.wikimedia.org/wiki/File:Eophona_migratoria_1.jpg
+        author: Charles Lam from Hong Kong, China
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  white_rumped_munia:
+    album:
+      file: selected/white_rumped_munia/07.jpg
+      candidate: 07.jpg
+      crop:
+      - 166
+      - 0
+      - 482
+      - 629
+      flipX: true
+      title: File:White-rumped Munia (Lonchura striata) (5780780488).jpg
+      page: https://commons.wikimedia.org/wiki/File:White-rumped_Munia_(Lonchura_striata)_(5780780488).jpg
+      author: Thomas Brown
+      license: CC BY 2.0
+      licenseUrl: https://creativecommons.org/licenses/by/2.0
+    poses:
+      perched:
+        file: selected/white_rumped_munia/07.jpg
+        candidate: 07.jpg
+        crop:
+        - 250
+        - 74
+        - 315
+        - 439
+        mask: selected/white_rumped_munia/07.perched.mask.png
+        flipX: true
+        title: File:White-rumped Munia (Lonchura striata) (5780780488).jpg
+        page: https://commons.wikimedia.org/wiki/File:White-rumped_Munia_(Lonchura_striata)_(5780780488).jpg
+        author: Thomas Brown
+        license: CC BY 2.0
+        licenseUrl: https://creativecommons.org/licenses/by/2.0
+      perched_alert:
+        file: selected/white_rumped_munia/15.jpg
+        candidate: 15.jpg
+        crop:
+        - 299
+        - 393
+        - 529
+        - 482
+        mask: selected/white_rumped_munia/15.perched_alert.mask.png
+        flipX: true
+        title: File:White-rumped munia (Lonchura striata).jpg
+        page: https://commons.wikimedia.org/wiki/File:White-rumped_munia_(Lonchura_striata).jpg
+        author: Shino jacob koottanad
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  black_winged_stilt:
+    album:
+      file: selected/black_winged_stilt/03.jpg
+      candidate: 03.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 640
+      flipX: true
+      title: File:Stelzenläufer (Himantopus himantopus).jpg
+      page: https://commons.wikimedia.org/wiki/File:Stelzenl%C3%A4ufer_(Himantopus_himantopus).jpg
+      author: Andreas Trepte
+      license: CC BY-SA 2.5
+      licenseUrl: https://creativecommons.org/licenses/by-sa/2.5
+    poses:
+      perched:
+        file: selected/black_winged_stilt/03.jpg
+        candidate: 03.jpg
+        crop:
+        - 136
+        - 42
+        - 677
+        - 598
+        mask: selected/black_winged_stilt/03.perched.mask.png
+        flipX: true
+        title: File:Stelzenläufer (Himantopus himantopus).jpg
+        page: https://commons.wikimedia.org/wiki/File:Stelzenl%C3%A4ufer_(Himantopus_himantopus).jpg
+        author: Andreas Trepte
+        license: CC BY-SA 2.5
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.5
+      perched_alert:
+        file: selected/black_winged_stilt/04.jpg
+        candidate: 04.jpg
+        crop:
+        - 296
+        - 51
+        - 563
+        - 566
+        mask: selected/black_winged_stilt/04.perched_alert.mask.png
+        flipX: true
+        title: File:Himantopus leucocephalus - Hexham.jpg
+        page: https://commons.wikimedia.org/wiki/File:Himantopus_leucocephalus_-_Hexham.jpg
+        author: JJ Harrison (https://www.jjharrison.com.au/)
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/black_winged_stilt/19.jpg
+        candidate: 19.jpg
+        crop:
+        - 14
+        - 0
+        - 717
+        - 598
+        mask: selected/black_winged_stilt/19.flying1.mask.png
+        title: File:Himantopus himantopus - Black-winged Stilt 09.jpg
+        page: https://commons.wikimedia.org/wiki/File:Himantopus_himantopus_-_Black-winged_Stilt_09.jpg
+        author: Zeynel Cebeci
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  common_redshank:
+    album:
+      file: selected/common_redshank/02.jpg
+      candidate: 02.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 1200
+      title: File:Redshank on a pole.jpg
+      page: https://commons.wikimedia.org/wiki/File:Redshank_on_a_pole.jpg
+      author: Stephan Sprinz
+      license: CC BY 4.0
+      licenseUrl: https://creativecommons.org/licenses/by/4.0
+    poses:
+      perched:
+        file: selected/common_redshank/02.jpg
+        candidate: 02.jpg
+        crop:
+        - 0
+        - 184
+        - 813
+        - 868
+        mask: selected/common_redshank/02.perched.mask.png
+        title: File:Redshank on a pole.jpg
+        page: https://commons.wikimedia.org/wiki/File:Redshank_on_a_pole.jpg
+        author: Stephan Sprinz
+        license: CC BY 4.0
+        licenseUrl: https://creativecommons.org/licenses/by/4.0
+      perched_alert:
+        file: selected/common_redshank/03.jpg
+        candidate: 03.jpg
+        crop:
+        - 148
+        - 122
+        - 764
+        - 456
+        mask: selected/common_redshank/03.perched_alert.mask.png
+        flipX: true
+        title: File:Common redshank (Tringa totanus) breeding Marken.jpg
+        page: https://commons.wikimedia.org/wiki/File:Common_redshank_(Tringa_totanus)_breeding_Marken.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/common_redshank/07.jpg
+        candidate: 07.jpg
+        crop:
+        - 266
+        - 173
+        - 658
+        - 365
+        mask: selected/common_redshank/07.flying1.mask.png
+        flipX: true
+        title: File:Common redshank (Tringa totanus robusta) in flight Myrar.jpg
+        page: https://commons.wikimedia.org/wiki/File:Common_redshank_(Tringa_totanus_robusta)_in_flight_Myrar.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  whimbrel:
+    album:
+      file: selected/whimbrel/01.jpg
+      candidate: 01.jpg
+      crop:
+      - 11
+      - 0
+      - 949
+      - 640
+      flipX: true
+      title: File:Whimbrel Numenius phaeopus.jpg
+      page: https://commons.wikimedia.org/wiki/File:Whimbrel_Numenius_phaeopus.jpg
+      author: Andreas Trepte
+      license: CC BY-SA 2.5
+      licenseUrl: https://creativecommons.org/licenses/by-sa/2.5
+    poses:
+      perched:
+        file: selected/whimbrel/01.jpg
+        candidate: 01.jpg
+        crop:
+        - 188
+        - 32
+        - 664
+        - 580
+        mask: selected/whimbrel/01.perched.mask.png
+        flipX: true
+        title: File:Whimbrel Numenius phaeopus.jpg
+        page: https://commons.wikimedia.org/wiki/File:Whimbrel_Numenius_phaeopus.jpg
+        author: Andreas Trepte
+        license: CC BY-SA 2.5
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.5
+      perched_alert:
+        file: selected/whimbrel/11.jpg
+        candidate: 11.jpg
+        crop:
+        - 88
+        - 102
+        - 783
+        - 476
+        mask: selected/whimbrel/11.perched_alert.mask.png
+        title: File:Eurasian whimbrel (Numenius phaeopus islandicus).jpg
+        page: https://commons.wikimedia.org/wiki/File:Eurasian_whimbrel_(Numenius_phaeopus_islandicus).jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/whimbrel/03.jpg
+        candidate: 03.jpg
+        crop:
+        - 324
+        - 94
+        - 548
+        - 518
+        mask: selected/whimbrel/03.flying1.mask.png
+        flipX: true
+        title: File:Whimbrel (Numenius phaeopus) in flight Myrar.jpg
+        page: https://commons.wikimedia.org/wiki/File:Whimbrel_(Numenius_phaeopus)_in_flight_Myrar.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  black_capped_kingfisher:
+    album:
+      file: selected/black_capped_kingfisher/01.jpg
+      candidate: 01.jpg
+      crop:
+      - 103
+      - 0
+      - 654
+      - 711
+      title: File:Halcyon pileata - Phra Non.jpg
+      page: https://commons.wikimedia.org/wiki/File:Halcyon_pileata_-_Phra_Non.jpg
+      author: JJ Harrison (https://www.jjharrison.com.au/)
+      license: CC BY-SA 3.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+    poses:
+      perched:
+        file: selected/black_capped_kingfisher/01.jpg
+        candidate: 01.jpg
+        crop:
+        - 217
+        - 58
+        - 426
+        - 515
+        mask: selected/black_capped_kingfisher/01.perched.mask.png
+        title: File:Halcyon pileata - Phra Non.jpg
+        page: https://commons.wikimedia.org/wiki/File:Halcyon_pileata_-_Phra_Non.jpg
+        author: JJ Harrison (https://www.jjharrison.com.au/)
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      perched_alert:
+        file: selected/black_capped_kingfisher/06.jpg
+        candidate: 06.jpg
+        crop:
+        - 276
+        - 154
+        - 381
+        - 375
+        mask: selected/black_capped_kingfisher/06.perched_alert.mask.png
+        title: File:Black-capped Kingfisher in Sundarbans National Park February 2026 by Tisha Mukherjee 05.jpg
+        page: https://commons.wikimedia.org/wiki/File:Black-capped_Kingfisher_in_Sundarbans_National_Park_February_2026_by_Tisha_Mukherjee_05.jpg
+        author: Tisha Mukherjee
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/black_capped_kingfisher/17.jpg
+        candidate: 17.jpg
+        crop:
+        - 140
+        - 262
+        - 640
+        - 401
+        mask: selected/black_capped_kingfisher/17.flying1.mask.png
+        flipX: true
+        title: File:Black Capped (cropped).jpg
+        page: https://commons.wikimedia.org/wiki/File:Black_Capped_(cropped).jpg
+        author: Taritganguly
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  northern_shoveler:
+    album:
+      file: selected/northern_shoveler/07.jpg
+      candidate: 07.jpg
+      crop:
+      - 105
+      - 0
+      - 809
+      - 647
+      flipX: true
+      title: File:Northern shoveler male in Marine Park (33296).jpg
+      page: https://commons.wikimedia.org/wiki/File:Northern_shoveler_male_in_Marine_Park_(33296).jpg
+      author: Rhododendrites
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/northern_shoveler/07.jpg
+        candidate: 07.jpg
+        crop:
+        - 245
+        - 111
+        - 528
+        - 505
+        mask: selected/northern_shoveler/07.perched.mask.png
+        flipX: true
+        title: File:Northern shoveler male in Marine Park (33296).jpg
+        page: https://commons.wikimedia.org/wiki/File:Northern_shoveler_male_in_Marine_Park_(33296).jpg
+        author: Rhododendrites
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/northern_shoveler/06.jpg
+        candidate: 06.jpg
+        crop:
+        - 310
+        - 143
+        - 637
+        - 357
+        mask: selected/northern_shoveler/06.perched_alert.mask.png
+        flipX: true
+        title: File:Northern shoveler (Spatula clypeata) female Marken.jpg
+        page: https://commons.wikimedia.org/wiki/File:Northern_shoveler_(Spatula_clypeata)_female_Marken.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/northern_shoveler/09.jpg
+        candidate: 09.jpg
+        crop:
+        - 64
+        - 0
+        - 804
+        - 605
+        mask: selected/northern_shoveler/09.flying1.mask.png
+        title: File:Male northern shoveler in flight-0208.jpg
+        page: https://commons.wikimedia.org/wiki/File:Male_northern_shoveler_in_flight-0208.jpg
+        author: Frank Schulenburg
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  black_headed_gull:
+    album:
+      file: selected/black_headed_gull/07.jpg
+      candidate: 07.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 640
+      flipX: true
+      title: File:Black-headed gull breeding plumage.jpg
+      page: https://commons.wikimedia.org/wiki/File:Black-headed_gull_breeding_plumage.jpg
+      author: Alexis Lours
+      license: CC BY 4.0
+      licenseUrl: https://creativecommons.org/licenses/by/4.0
+    poses:
+      perched:
+        file: selected/black_headed_gull/07.jpg
+        candidate: 07.jpg
+        crop:
+        - 103
+        - 102
+        - 857
+        - 499
+        mask: selected/black_headed_gull/07.perched.mask.png
+        flipX: true
+        title: File:Black-headed gull breeding plumage.jpg
+        page: https://commons.wikimedia.org/wiki/File:Black-headed_gull_breeding_plumage.jpg
+        author: Alexis Lours
+        license: CC BY 4.0
+        licenseUrl: https://creativecommons.org/licenses/by/4.0
+      perched_alert:
+        file: selected/black_headed_gull/01.jpg
+        candidate: 01.jpg
+        crop:
+        - 107
+        - 67
+        - 819
+        - 568
+        mask: selected/black_headed_gull/01.perched_alert.mask.png
+        flipX: true
+        title: File:Chroicocephalus ridibundus 2012a.jpg
+        page: https://commons.wikimedia.org/wiki/File:Chroicocephalus_ridibundus_2012a.jpg
+        author: ArildV
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/black_headed_gull/04.jpg
+        candidate: 04.jpg
+        crop:
+        - 54
+        - 60
+        - 868
+        - 543
+        mask: selected/black_headed_gull/04.flying1.mask.png
+        title: File:090 Wild Black-headed gull in flight at Lake Geneva during sunset Photo by Giles Laurent.jpg
+        page: https://commons.wikimedia.org/wiki/File:090_Wild_Black-headed_gull_in_flight_at_Lake_Geneva_during_sunset_Photo_by_Giles_Laurent.jpg
+        author: Giles Laurent
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  osprey:
+    album:
+      file: selected/osprey/07.jpg
+      candidate: 07.jpg
+      crop:
+      - 330
+      - 0
+      - 630
+      - 640
+      flipX: true
+      title: File:Pandion haliaetus (Osprey).jpg
+      page: https://commons.wikimedia.org/wiki/File:Pandion_haliaetus_(Osprey).jpg
+      author: מינוזיג - MinoZig
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/osprey/07.jpg
+        candidate: 07.jpg
+        crop:
+        - 446
+        - 5
+        - 434
+        - 628
+        mask: selected/osprey/07.perched.mask.png
+        flipX: true
+        title: File:Pandion haliaetus (Osprey).jpg
+        page: https://commons.wikimedia.org/wiki/File:Pandion_haliaetus_(Osprey).jpg
+        author: מינוזיג - MinoZig
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/osprey/08.jpg
+        candidate: 08.jpg
+        crop:
+        - 13
+        - 39
+        - 630
+        - 601
+        mask: selected/osprey/08.perched_alert.mask.png
+        title: File:Osprey. (Pandion haliaetus).jpg
+        page: https://commons.wikimedia.org/wiki/File:Osprey._(Pandion_haliaetus).jpg
+        author: מינוזיג
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/osprey/17.jpg
+        candidate: 17.jpg
+        crop:
+        - 28
+        - 24
+        - 912
+        - 936
+        mask: selected/osprey/17.flying1.mask.png
+        flipX: true
+        title: File:Pandion haliaetus (in flight).JPG
+        page: https://commons.wikimedia.org/wiki/File:Pandion_haliaetus_(in_flight).JPG
+        author: Alpsdake
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  common_kestrel:
+    album:
+      file: selected/common_kestrel/01.jpg
+      candidate: 01.jpg
+      crop:
+      - 58
+      - 0
+      - 902
+      - 1354
+      flipX: true
+      title: File:Common kestrel falco tinnunculus.jpg
+      page: https://commons.wikimedia.org/wiki/File:Common_kestrel_falco_tinnunculus.jpg
+      author: Andreas Trepte
+      license: CC BY-SA 2.5
+      licenseUrl: https://creativecommons.org/licenses/by-sa/2.5
+    poses:
+      perched:
+        file: selected/common_kestrel/01.jpg
+        candidate: 01.jpg
+        crop:
+        - 220
+        - 81
+        - 613
+        - 1273
+        mask: selected/common_kestrel/01.perched.mask.png
+        flipX: true
+        title: File:Common kestrel falco tinnunculus.jpg
+        page: https://commons.wikimedia.org/wiki/File:Common_kestrel_falco_tinnunculus.jpg
+        author: Andreas Trepte
+        license: CC BY-SA 2.5
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.5
+      perched_alert:
+        file: selected/common_kestrel/11.jpg
+        candidate: 11.jpg
+        crop:
+        - 31
+        - 14
+        - 803
+        - 843
+        mask: selected/common_kestrel/11.perched_alert.mask.png
+        title: File:Common kestrel (Falco tinnunculus) female (IMGP1648r1).jpg
+        page: https://commons.wikimedia.org/wiki/File:Common_kestrel_(Falco_tinnunculus)_female_(IMGP1648r1).jpg
+        author: Alexey V. Kurochkin
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/common_kestrel/15.jpg
+        candidate: 15.jpg
+        crop:
+        - 78
+        - 0
+        - 598
+        - 960
+        mask: selected/common_kestrel/15.flying1.mask.png
+        title: File:Kestrel (Falco tinnunculus) male in flight 4.jpg
+        page: https://commons.wikimedia.org/wiki/File:Kestrel_(Falco_tinnunculus)_male_in_flight_4.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  oriental_turtle_dove:
+    album:
+      file: selected/oriental_turtle_dove/10.jpg
+      candidate: 10.jpg
+      crop:
+      - 146
+      - 0
+      - 638
+      - 1440
+      title: File:Oriental Turtle-Dove by Tisha Mukherjee 05.jpg
+      page: https://commons.wikimedia.org/wiki/File:Oriental_Turtle-Dove_by_Tisha_Mukherjee_05.jpg
+      author: Tisha Mukherjee
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/oriental_turtle_dove/10.jpg
+        candidate: 10.jpg
+        crop:
+        - 256
+        - 297
+        - 417
+        - 1123
+        mask: selected/oriental_turtle_dove/10.perched.mask.png
+        title: File:Oriental Turtle-Dove by Tisha Mukherjee 05.jpg
+        page: https://commons.wikimedia.org/wiki/File:Oriental_Turtle-Dove_by_Tisha_Mukherjee_05.jpg
+        author: Tisha Mukherjee
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/oriental_turtle_dove/03.jpg
+        candidate: 03.jpg
+        crop:
+        - 149
+        - 140
+        - 645
+        - 1000
+        mask: selected/oriental_turtle_dove/03.perched_alert.mask.png
+        title: File:Oriental turtle dove in Nepal (79).jpg
+        page: https://commons.wikimedia.org/wiki/File:Oriental_turtle_dove_in_Nepal_(79).jpg
+        author: Krishna Prajapati
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/oriental_turtle_dove/05.jpg
+        candidate: 05.jpg
+        crop:
+        - 500
+        - 12
+        - 429
+        - 603
+        mask: selected/oriental_turtle_dove/05.flying1.mask.png
+        flipX: true
+        title: File:Oriental Turtle-Dove-1.jpg
+        page: https://commons.wikimedia.org/wiki/File:Oriental_Turtle-Dove-1.jpg
+        author: Mildeep
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  asian_barred_owlet:
+    album:
+      file: selected/asian_barred_owlet/01.jpg
+      candidate: 01.jpg
+      crop:
+      - 271
+      - 0
+      - 411
+      - 620
+      title: File:Asian Barred Owlet in Kaziranga National Park March 2025 by Tisha Mukherjee 01.jpg
+      page: https://commons.wikimedia.org/wiki/File:Asian_Barred_Owlet_in_Kaziranga_National_Park_March_2025_by_Tisha_Mukherjee_01.jpg
+      author: Tisha Mukherjee
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/asian_barred_owlet/01.jpg
+        candidate: 01.jpg
+        crop:
+        - 342
+        - 70
+        - 268
+        - 435
+        mask: selected/asian_barred_owlet/01.perched.mask.png
+        title: File:Asian Barred Owlet in Kaziranga National Park March 2025 by Tisha Mukherjee 01.jpg
+        page: https://commons.wikimedia.org/wiki/File:Asian_Barred_Owlet_in_Kaziranga_National_Park_March_2025_by_Tisha_Mukherjee_01.jpg
+        author: Tisha Mukherjee
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/asian_barred_owlet/02.jpg
+        candidate: 02.jpg
+        crop:
+        - 363
+        - 68
+        - 263
+        - 438
+        mask: selected/asian_barred_owlet/02.perched_alert.mask.png
+        flipX: true
+        title: File:Asian Barred Owlet in Kaziranga National Park March 2025 by Tisha Mukherjee 02.jpg
+        page: https://commons.wikimedia.org/wiki/File:Asian_Barred_Owlet_in_Kaziranga_National_Park_March_2025_by_Tisha_Mukherjee_02.jpg
+        author: Tisha Mukherjee
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  white_wagtail:
+    album:
+      file: selected/white_wagtail/07.jpg
+      candidate: 07.jpg
+      crop:
+      - 131
+      - 52
+      - 829
+      - 475
+      flipX: true
+      title: File:Motacilla alba alba - Sète - January 2021.jpg
+      page: https://commons.wikimedia.org/wiki/File:Motacilla_alba_alba_-_S%C3%A8te_-_January_2021.jpg
+      author: Christian Ferrer
+      license: CC BY 4.0
+      licenseUrl: https://creativecommons.org/licenses/by/4.0
+    poses:
+      perched:
+        file: selected/white_wagtail/07.jpg
+        candidate: 07.jpg
+        crop:
+        - 276
+        - 134
+        - 551
+        - 310
+        mask: selected/white_wagtail/07.perched.mask.png
+        flipX: true
+        title: File:Motacilla alba alba - Sète - January 2021.jpg
+        page: https://commons.wikimedia.org/wiki/File:Motacilla_alba_alba_-_S%C3%A8te_-_January_2021.jpg
+        author: Christian Ferrer
+        license: CC BY 4.0
+        licenseUrl: https://creativecommons.org/licenses/by/4.0
+      perched_alert:
+        file: selected/white_wagtail/01.jpg
+        candidate: 01.jpg
+        crop:
+        - 392
+        - 42
+        - 293
+        - 372
+        mask: selected/white_wagtail/01.perched_alert.mask.png
+        flipX: true
+        title: File:Bachstelze - Bergeronnette grise - White wagtail - Motacilla alba - 03.jpg
+        page: https://commons.wikimedia.org/wiki/File:Bachstelze_-_Bergeronnette_grise_-_White_wagtail_-_Motacilla_alba_-_03.jpg
+        author: NorbertNagel
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/white_wagtail/19.jpg
+        candidate: 19.jpg
+        crop:
+        - 213
+        - 60
+        - 528
+        - 434
+        mask: selected/white_wagtail/19.flying1.mask.png
+        title: File:Motacilla alba, Kalkara, (2026) (01).jpg
+        page: https://commons.wikimedia.org/wiki/File:Motacilla_alba,_Kalkara,_(2026)_(01).jpg
+        author: Tranceliner
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  collared_crow:
+    album:
+      file: selected/collared_crow/10.jpg
+      candidate: 10.jpg
+      crop:
+      - 86
+      - 32
+      - 749
+      - 581
+      title: File:Collared Crow (Corvus torquatus), Hong Kong 03.jpg
+      page: https://commons.wikimedia.org/wiki/File:Collared_Crow_(Corvus_torquatus),_Hong_Kong_03.jpg
+      author: andrewlai530
+      license: CC BY 4.0
+      licenseUrl: https://creativecommons.org/licenses/by/4.0
+    poses:
+      perched:
+        file: selected/collared_crow/10.jpg
+        candidate: 10.jpg
+        crop:
+        - 217
+        - 133
+        - 489
+        - 379
+        mask: selected/collared_crow/10.perched.mask.png
+        title: File:Collared Crow (Corvus torquatus), Hong Kong 03.jpg
+        page: https://commons.wikimedia.org/wiki/File:Collared_Crow_(Corvus_torquatus),_Hong_Kong_03.jpg
+        author: andrewlai530
+        license: CC BY 4.0
+        licenseUrl: https://creativecommons.org/licenses/by/4.0
+      perched_alert:
+        file: selected/collared_crow/02.jpg
+        candidate: 02.jpg
+        crop:
+        - 120
+        - 15
+        - 539
+        - 607
+        mask: selected/collared_crow/02.perched_alert.mask.png
+        flipX: true
+        title: File:Corvus torquatus 266775102.jpg
+        page: https://commons.wikimedia.org/wiki/File:Corvus_torquatus_266775102.jpg
+        author: Lawrence Hylton
+        license: CC BY 4.0
+        licenseUrl: https://creativecommons.org/licenses/by/4.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  common_myna:
+    album:
+      file: selected/common_myna/07.jpg
+      candidate: 07.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 640
+      title: File:Acridotheres tristis (feral).jpg
+      page: https://commons.wikimedia.org/wiki/File:Acridotheres_tristis_(feral).jpg
+      author: מינוזיג
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/common_myna/07.jpg
+        candidate: 07.jpg
+        crop:
+        - 0
+        - 61
+        - 878
+        - 481
+        mask: selected/common_myna/07.perched.mask.png
+        title: File:Acridotheres tristis (feral).jpg
+        page: https://commons.wikimedia.org/wiki/File:Acridotheres_tristis_(feral).jpg
+        author: מינוזיג
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/common_myna/08.jpg
+        candidate: 08.jpg
+        crop:
+        - 292
+        - 57
+        - 485
+        - 1102
+        mask: selected/common_myna/08.perched_alert.mask.png
+        title: File:Acridotheres tristis @ Kuala Lumpur 1.jpg
+        page: https://commons.wikimedia.org/wiki/File:Acridotheres_tristis_@_Kuala_Lumpur_1.jpg
+        author: GerifalteDelSabana
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  japanese_tit:
+    album:
+      file: selected/japanese_tit/14.jpg
+      candidate: 14.jpg
+      crop:
+      - 2
+      - 0
+      - 958
+      - 726
+      title: File:Parus minor female.JPG
+      page: https://commons.wikimedia.org/wiki/File:Parus_minor_female.JPG
+      author: Alpsdake
+      license: CC BY-SA 3.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+    poses:
+      perched:
+        file: selected/japanese_tit/14.jpg
+        candidate: 14.jpg
+        crop:
+        - 188
+        - 16
+        - 700
+        - 560
+        mask: selected/japanese_tit/14.perched.mask.png
+        title: File:Parus minor female.JPG
+        page: https://commons.wikimedia.org/wiki/File:Parus_minor_female.JPG
+        author: Alpsdake
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      perched_alert:
+        file: selected/japanese_tit/01.jpg
+        candidate: 01.jpg
+        crop:
+        - 218
+        - 173
+        - 662
+        - 298
+        mask: selected/japanese_tit/01.perched_alert.mask.png
+        flipX: true
+        title: File:Asian Tit in Rabindra Sarobar January 2024 by Tisha Mukherjee 01.jpg
+        page: https://commons.wikimedia.org/wiki/File:Asian_Tit_in_Rabindra_Sarobar_January_2024_by_Tisha_Mukherjee_01.jpg
+        author: Tisha Mukherjee
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  red_flanked_bluetail:
+    album:
+      file: selected/red_flanked_bluetail/13.jpg
+      candidate: 13.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 756
+      title: File:Tarsiger cyanurus (female).JPG
+      page: https://commons.wikimedia.org/wiki/File:Tarsiger_cyanurus_(female).JPG
+      author: Alpsdake
+      license: CC BY-SA 3.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+    poses:
+      perched:
+        file: selected/red_flanked_bluetail/13.jpg
+        candidate: 13.jpg
+        crop:
+        - 29
+        - 63
+        - 878
+        - 547
+        mask: selected/red_flanked_bluetail/13.perched.mask.png
+        title: File:Tarsiger cyanurus (female).JPG
+        page: https://commons.wikimedia.org/wiki/File:Tarsiger_cyanurus_(female).JPG
+        author: Alpsdake
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      perched_alert:
+        file: selected/red_flanked_bluetail/01.jpg
+        candidate: 01.jpg
+        crop:
+        - 193
+        - 0
+        - 592
+        - 640
+        mask: selected/red_flanked_bluetail/01.perched_alert.mask.png
+        title: File:Tarsiger cyanurus.jpg
+        page: https://commons.wikimedia.org/wiki/File:Tarsiger_cyanurus.jpg
+        author: M.Nishimura
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  blue_whistling_thrush:
+    album:
+      file: selected/blue_whistling_thrush/08.jpg
+      candidate: 08.jpg
+      crop:
+      - 41
+      - 0
+      - 919
+      - 640
+      flipX: true
+      title: File:Blue whistling thrush (Myophonus caeruleus) 01.jpg
+      page: https://commons.wikimedia.org/wiki/File:Blue_whistling_thrush_(Myophonus_caeruleus)_01.jpg
+      author: Anjan Kumar Kundu
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/blue_whistling_thrush/08.jpg
+        candidate: 08.jpg
+        crop:
+        - 229
+        - 95
+        - 630
+        - 521
+        mask: selected/blue_whistling_thrush/08.perched.mask.png
+        flipX: true
+        title: File:Blue whistling thrush (Myophonus caeruleus) 01.jpg
+        page: https://commons.wikimedia.org/wiki/File:Blue_whistling_thrush_(Myophonus_caeruleus)_01.jpg
+        author: Anjan Kumar Kundu
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/blue_whistling_thrush/03.jpg
+        candidate: 03.jpg
+        crop:
+        - 299
+        - 95
+        - 349
+        - 468
+        mask: selected/blue_whistling_thrush/03.perched_alert.mask.png
+        title: File:Blue whistling thrush (Myophonus caeruleus) Juv.jpg
+        page: https://commons.wikimedia.org/wiki/File:Blue_whistling_thrush_(Myophonus_caeruleus)_Juv.jpg
+        author: Nirmal Dulal
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  red_billed_leiothrix:
+    album:
+      file: selected/red_billed_leiothrix/09.jpg
+      candidate: 09.jpg
+      crop:
+      - 0
+      - 0
+      - 900
+      - 574
+      title: File:Red-billed Leiothrix Mangoli Nainital Uttarakhand 03.02.2015.jpg
+      page: https://commons.wikimedia.org/wiki/File:Red-billed_Leiothrix_Mangoli_Nainital_Uttarakhand_03.02.2015.jpg
+      author: Dibyendu Ash
+      license: CC BY-SA 3.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+    poses:
+      perched:
+        file: selected/red_billed_leiothrix/09.jpg
+        candidate: 09.jpg
+        crop:
+        - 0
+        - 97
+        - 716
+        - 377
+        mask: selected/red_billed_leiothrix/09.perched.mask.png
+        title: File:Red-billed Leiothrix Mangoli Nainital Uttarakhand 03.02.2015.jpg
+        page: https://commons.wikimedia.org/wiki/File:Red-billed_Leiothrix_Mangoli_Nainital_Uttarakhand_03.02.2015.jpg
+        author: Dibyendu Ash
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      perched_alert:
+        file: selected/red_billed_leiothrix/05.jpg
+        candidate: 05.jpg
+        crop:
+        - 121
+        - 81
+        - 548
+        - 253
+        mask: selected/red_billed_leiothrix/05.perched_alert.mask.png
+        title: File:সোনালী লেওথ্রিক্স (Leiothrix lutea),লাটপাঞ্ছার,কার্শিয়ং, পশ্চিমবঙ্গ .DSC0565.jpg
+        page: https://commons.wikimedia.org/wiki/File:%E0%A6%B8%E0%A7%8B%E0%A6%A8%E0%A6%BE%E0%A6%B2%E0%A7%80_%E0%A6%B2%E0%A7%87%E0%A6%93%E0%A6%A5%E0%A7%8D%E0%A6%B0%E0%A6%BF%E0%A6%95%E0%A7%8D%E0%A6%B8_(Leiothrix_lutea),%E0%A6%B2%E0%A6%BE%E0%A6%9F%E0%A6%AA%E0%A6%BE%E0%A6%9E%E0%A7%8D%E0%A6%9B%E0%A6%BE%E0%A6%B0,%E0%A6%95%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%B6%E0%A6%BF%E0%A6%AF%E0%A6%BC%E0%A6%82,_%E0%A6%AA%E0%A6%B6%E0%A7%8D%E0%A6%9A%E0%A6%BF%E0%A6%AE%E0%A6%AC%E0%A6%99%E0%A7%8D%E0%A6%97_.DSC0565.jpg
+        author: SVKMBFLY
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  black_naped_monarch:
+    album:
+      file: selected/black_naped_monarch/06.jpg
+      candidate: 06.jpg
+      crop:
+      - 169
+      - 101
+      - 586
+      - 596
+      flipX: true
+      title: File:Black Naped monarch.jpg
+      page: https://commons.wikimedia.org/wiki/File:Black_Naped_monarch.jpg
+      author: AnkitBasu91
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/black_naped_monarch/06.jpg
+        candidate: 06.jpg
+        crop:
+        - 271
+        - 204
+        - 382
+        - 390
+        mask: selected/black_naped_monarch/06.perched.mask.png
+        flipX: true
+        title: File:Black Naped monarch.jpg
+        page: https://commons.wikimedia.org/wiki/File:Black_Naped_monarch.jpg
+        author: AnkitBasu91
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/black_naped_monarch/10.jpg
+        candidate: 10.jpg
+        crop:
+        - 525
+        - 92
+        - 236
+        - 317
+        mask: selected/black_naped_monarch/10.perched_alert.mask.png
+        flipX: true
+        title: File:Black Naped Monarch facts 04.jpg
+        page: https://commons.wikimedia.org/wiki/File:Black_Naped_Monarch_facts_04.jpg
+        author: Shiv's fotografia
+        license: CC BY 4.0
+        licenseUrl: https://creativecommons.org/licenses/by/4.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  great_barbet:
+    album:
+      file: selected/great_barbet/05.jpg
+      candidate: 05.jpg
+      crop:
+      - 231
+      - 127
+      - 593
+      - 419
+      flipX: true
+      title: File:Great Barbet by Tisha Mukherjee 08.jpg
+      page: https://commons.wikimedia.org/wiki/File:Great_Barbet_by_Tisha_Mukherjee_08.jpg
+      author: Tisha Mukherjee
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/great_barbet/05.jpg
+        candidate: 05.jpg
+        crop:
+        - 335
+        - 200
+        - 387
+        - 273
+        mask: selected/great_barbet/05.perched.mask.png
+        flipX: true
+        title: File:Great Barbet by Tisha Mukherjee 08.jpg
+        page: https://commons.wikimedia.org/wiki/File:Great_Barbet_by_Tisha_Mukherjee_08.jpg
+        author: Tisha Mukherjee
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        from: perched
+        offsetY: -1
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  scaly_breasted_munia:
+    album:
+      file: selected/scaly_breasted_munia/03.jpg
+      candidate: 03.jpg
+      crop:
+      - 0
+      - 32
+      - 856
+      - 928
+      title: File:Scaly-breasted munia (Lonchura punctulata punctulata) juvenile.jpg
+      page: https://commons.wikimedia.org/wiki/File:Scaly-breasted_munia_(Lonchura_punctulata_punctulata)_juvenile.jpg
+      author: Charles J. Sharp
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/scaly_breasted_munia/03.jpg
+        candidate: 03.jpg
+        crop:
+        - 108
+        - 198
+        - 590
+        - 622
+        mask: selected/scaly_breasted_munia/03.perched.mask.png
+        title: File:Scaly-breasted munia (Lonchura punctulata punctulata) juvenile.jpg
+        page: https://commons.wikimedia.org/wiki/File:Scaly-breasted_munia_(Lonchura_punctulata_punctulata)_juvenile.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        from: perched
+        offsetY: -1
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/scaly_breasted_munia/16.jpg
+        candidate: 16.jpg
+        crop:
+        - 47
+        - 138
+        - 736
+        - 479
+        mask: selected/scaly_breasted_munia/16.flying1.mask.png
+        title: File:Flying (17639696985).jpg
+        page: https://commons.wikimedia.org/wiki/File:Flying_(17639696985).jpg
+        author: Charles Lam from Hong Kong, China
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  velvet_fronted_nuthatch:
+    album:
+      file: selected/velvet_fronted_nuthatch/01.jpg
+      candidate: 01.jpg
+      crop:
+      - 243
+      - 0
+      - 552
+      - 1366
+      title: File:Velvet-fronted Nuthatch from thrissur.jpg
+      page: https://commons.wikimedia.org/wiki/File:Velvet-fronted_Nuthatch_from_thrissur.jpg
+      author: Sajeesh Aluparambil
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/velvet_fronted_nuthatch/01.jpg
+        candidate: 01.jpg
+        crop:
+        - 338
+        - 153
+        - 361
+        - 1012
+        mask: selected/velvet_fronted_nuthatch/01.perched.mask.png
+        title: File:Velvet-fronted Nuthatch from thrissur.jpg
+        page: https://commons.wikimedia.org/wiki/File:Velvet-fronted_Nuthatch_from_thrissur.jpg
+        author: Sajeesh Aluparambil
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/velvet_fronted_nuthatch/04.jpg
+        candidate: 04.jpg
+        crop:
+        - 80
+        - 32
+        - 636
+        - 803
+        mask: selected/velvet_fronted_nuthatch/04.perched_alert.mask.png
+        flipX: true
+        title: File:কালাকপাল বনমালী (Sitta frontalis), সুন্দরবন, বাংলাদেশ.jpg
+        page: https://commons.wikimedia.org/wiki/File:%E0%A6%95%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%95%E0%A6%AA%E0%A6%BE%E0%A6%B2_%E0%A6%AC%E0%A6%A8%E0%A6%AE%E0%A6%BE%E0%A6%B2%E0%A7%80_(Sitta_frontalis),_%E0%A6%B8%E0%A7%81%E0%A6%A8%E0%A7%8D%E0%A6%A6%E0%A6%B0%E0%A6%AC%E0%A6%A8,_%E0%A6%AC%E0%A6%BE%E0%A6%82%E0%A6%B2%E0%A6%BE%E0%A6%A6%E0%A7%87%E0%A6%B6.jpg
+        author: Rusho127
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  white_breasted_waterhen:
+    album:
+      file: selected/white_breasted_waterhen/11.jpg
+      candidate: 11.jpg
+      crop:
+      - 0
+      - 48
+      - 800
+      - 459
+      title: File:White-breasted Waterhen (Amaurornis phoenicurus).jpg
+      page: https://commons.wikimedia.org/wiki/File:White-breasted_Waterhen_(Amaurornis_phoenicurus).jpg
+      author: Lip Kee Yap
+      license: CC BY-SA 2.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+    poses:
+      perched:
+        file: selected/white_breasted_waterhen/11.jpg
+        candidate: 11.jpg
+        crop:
+        - 48
+        - 127
+        - 694
+        - 300
+        mask: selected/white_breasted_waterhen/11.perched.mask.png
+        title: File:White-breasted Waterhen (Amaurornis phoenicurus).jpg
+        page: https://commons.wikimedia.org/wiki/File:White-breasted_Waterhen_(Amaurornis_phoenicurus).jpg
+        author: Lip Kee Yap
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      perched_alert:
+        from: perched
+        offsetY: -1
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/white_breasted_waterhen/05.jpg
+        candidate: 05.jpg
+        crop:
+        - 344
+        - 231
+        - 474
+        - 218
+        mask: selected/white_breasted_waterhen/05.flying1.mask.png
+        flipX: true
+        title: File:White-breasted Waterhen Carrying Prey over Nagdaha, Kathmandu Valley.jpg
+        page: https://commons.wikimedia.org/wiki/File:White-breasted_Waterhen_Carrying_Prey_over_Nagdaha,_Kathmandu_Valley.jpg
+        author: Sunuwargr
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  pied_avocet:
+    album:
+      file: selected/pied_avocet/06.jpg
+      candidate: 06.jpg
+      crop:
+      - 43
+      - 108
+      - 908
+      - 852
+      flipX: true
+      title: File:Pied avocet (Recurvirostra avosetta) 3.jpg
+      page: https://commons.wikimedia.org/wiki/File:Pied_avocet_(Recurvirostra_avosetta)_3.jpg
+      author: Charles J. Sharp
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/pied_avocet/06.jpg
+        candidate: 06.jpg
+        crop:
+        - 201
+        - 260
+        - 592
+        - 575
+        mask: selected/pied_avocet/06.perched.mask.png
+        flipX: true
+        title: File:Pied avocet (Recurvirostra avosetta) 3.jpg
+        page: https://commons.wikimedia.org/wiki/File:Pied_avocet_(Recurvirostra_avosetta)_3.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/pied_avocet/05.jpg
+        candidate: 05.jpg
+        crop:
+        - 141
+        - 125
+        - 588
+        - 355
+        mask: selected/pied_avocet/05.perched_alert.mask.png
+        title: File:Pied avocet (Recurvirostra avosetta) France.jpg
+        page: https://commons.wikimedia.org/wiki/File:Pied_avocet_(Recurvirostra_avosetta)_France.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/pied_avocet/21.jpg
+        candidate: 21.jpg
+        crop:
+        - 58
+        - 59
+        - 620
+        - 407
+        mask: selected/pied_avocet/21.flying1.mask.png
+        title: File:Recurvirostra avosetta flying1.jpg
+        page: https://commons.wikimedia.org/wiki/File:Recurvirostra_avosetta_flying1.jpg
+        author: Lip Kee
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  wood_sandpiper:
+    album:
+      file: selected/wood_sandpiper/10.jpg
+      candidate: 10.jpg
+      crop:
+      - 36
+      - 0
+      - 924
+      - 640
+      flipX: true
+      title: File:Chevalier sylvain Korba009.jpg
+      page: https://commons.wikimedia.org/wiki/File:Chevalier_sylvain_Korba009.jpg
+      author: El Golli Mohamed
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/wood_sandpiper/10.jpg
+        candidate: 10.jpg
+        crop:
+        - 235
+        - 108
+        - 725
+        - 429
+        mask: selected/wood_sandpiper/10.perched.mask.png
+        flipX: true
+        title: File:Chevalier sylvain Korba009.jpg
+        page: https://commons.wikimedia.org/wiki/File:Chevalier_sylvain_Korba009.jpg
+        author: El Golli Mohamed
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/wood_sandpiper/11.jpg
+        candidate: 11.jpg
+        crop:
+        - 304
+        - 115
+        - 639
+        - 422
+        mask: selected/wood_sandpiper/11.perched_alert.mask.png
+        flipX: true
+        title: File:Chevalier sylvain Korba010.jpg
+        page: https://commons.wikimedia.org/wiki/File:Chevalier_sylvain_Korba010.jpg
+        author: El Golli Mohamed
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/wood_sandpiper/20.jpg
+        candidate: 20.jpg
+        crop:
+        - 33
+        - 27
+        - 752
+        - 533
+        mask: selected/wood_sandpiper/20.flying1.mask.png
+        title: File:Wood Sandpiper (Tringa glareola) (53879706937), crop.jpg
+        page: https://commons.wikimedia.org/wiki/File:Wood_Sandpiper_(Tringa_glareola)_(53879706937),_crop.jpg
+        author: Birds of Gilgit-Baltistan from Aliabad, Hunza, Pakistan
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  black_tailed_godwit:
+    album:
+      file: selected/black_tailed_godwit/12.jpg
+      candidate: 12.jpg
+      crop:
+      - 0
+      - 7
+      - 960
+      - 633
+      flipX: true
+      title: File:Icelandic black-tailed godwit (Limosa limosa islandica), Seltjarnarnes, Iceland.jpg
+      page: https://commons.wikimedia.org/wiki/File:Icelandic_black-tailed_godwit_(Limosa_limosa_islandica),_Seltjarnarnes,_Iceland.jpg
+      author: Hobbyfotowiki
+      license: CC0
+      licenseUrl: http://creativecommons.org/publicdomain/zero/1.0/deed.en
+    poses:
+      perched:
+        file: selected/black_tailed_godwit/12.jpg
+        candidate: 12.jpg
+        crop:
+        - 0
+        - 136
+        - 960
+        - 429
+        mask: selected/black_tailed_godwit/12.perched.mask.png
+        flipX: true
+        title: File:Icelandic black-tailed godwit (Limosa limosa islandica), Seltjarnarnes, Iceland.jpg
+        page: https://commons.wikimedia.org/wiki/File:Icelandic_black-tailed_godwit_(Limosa_limosa_islandica),_Seltjarnarnes,_Iceland.jpg
+        author: Hobbyfotowiki
+        license: CC0
+        licenseUrl: http://creativecommons.org/publicdomain/zero/1.0/deed.en
+      perched_alert:
+        file: selected/black_tailed_godwit/14.jpg
+        candidate: 14.jpg
+        crop:
+        - 103
+        - 99
+        - 635
+        - 320
+        mask: selected/black_tailed_godwit/14.perched_alert.mask.png
+        title: File:Black-tailed godwit (Limosa limosa) male breeding.jpg
+        page: https://commons.wikimedia.org/wiki/File:Black-tailed_godwit_(Limosa_limosa)_male_breeding.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/black_tailed_godwit/16.jpg
+        candidate: 16.jpg
+        crop:
+        - 54
+        - 30
+        - 625
+        - 474
+        mask: selected/black_tailed_godwit/16.flying1.mask.png
+        title: File:Black-tailed godwit (Limosa limosa) in flight.jpg
+        page: https://commons.wikimedia.org/wiki/File:Black-tailed_godwit_(Limosa_limosa)_in_flight.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  eurasian_wigeon:
+    album:
+      file: selected/eurasian_wigeon/07.jpg
+      candidate: 07.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 768
+      title: File:Mareca penelope female s2.jpg
+      page: https://commons.wikimedia.org/wiki/File:Mareca_penelope_female_s2.jpg
+      author: Alpsdake
+      license: CC BY-SA 3.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+    poses:
+      perched:
+        file: selected/eurasian_wigeon/07.jpg
+        candidate: 07.jpg
+        crop:
+        - 0
+        - 28
+        - 960
+        - 635
+        mask: selected/eurasian_wigeon/07.perched.mask.png
+        title: File:Mareca penelope female s2.jpg
+        page: https://commons.wikimedia.org/wiki/File:Mareca_penelope_female_s2.jpg
+        author: Alpsdake
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      perched_alert:
+        file: selected/eurasian_wigeon/06.jpg
+        candidate: 06.jpg
+        crop:
+        - 0
+        - 236
+        - 706
+        - 372
+        mask: selected/eurasian_wigeon/06.perched_alert.mask.png
+        title: File:Male Eurasian Wigeon Mareca penelope, Finland.jpg
+        page: https://commons.wikimedia.org/wiki/File:Male_Eurasian_Wigeon_Mareca_penelope,_Finland.jpg
+        author: Nimged
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/eurasian_wigeon/19.jpg
+        candidate: 19.jpg
+        crop:
+        - 0
+        - 49
+        - 960
+        - 451
+        mask: selected/eurasian_wigeon/19.flying1.mask.png
+        title: File:Mareca penelope in flight.jpg
+        page: https://commons.wikimedia.org/wiki/File:Mareca_penelope_in_flight.jpg
+        author: Alpsdake
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  eastern_spot_billed_duck:
+    album:
+      file: selected/eastern_spot_billed_duck/14.jpg
+      candidate: 14.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 800
+      flipX: true
+      title: File:Anas zonorhyncha young feather s2.jpg
+      page: https://commons.wikimedia.org/wiki/File:Anas_zonorhyncha_young_feather_s2.jpg
+      author: Alpsdake
+      license: CC BY-SA 3.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+    poses:
+      perched:
+        file: selected/eastern_spot_billed_duck/14.jpg
+        candidate: 14.jpg
+        crop:
+        - 0
+        - 2
+        - 960
+        - 702
+        mask: selected/eastern_spot_billed_duck/14.perched.mask.png
+        flipX: true
+        title: File:Anas zonorhyncha young feather s2.jpg
+        page: https://commons.wikimedia.org/wiki/File:Anas_zonorhyncha_young_feather_s2.jpg
+        author: Alpsdake
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      perched_alert:
+        file: selected/eastern_spot_billed_duck/13.jpg
+        candidate: 13.jpg
+        crop:
+        - 3
+        - 130
+        - 957
+        - 409
+        mask: selected/eastern_spot_billed_duck/13.perched_alert.mask.png
+        title: File:Eastern Spot-billed Duck (Anas zonorhyncha), captive, RWD.jpg
+        page: https://commons.wikimedia.org/wiki/File:Eastern_Spot-billed_Duck_(Anas_zonorhyncha),_captive,_RWD.jpg
+        author: Dick Daniels (http://carolinabirds.org/)
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/eastern_spot_billed_duck/16.jpg
+        candidate: 16.jpg
+        crop:
+        - 68
+        - 256
+        - 580
+        - 280
+        mask: selected/eastern_spot_billed_duck/16.flying1.mask.png
+        title: File:Low‐altitude flight (4563154220).jpg
+        page: https://commons.wikimedia.org/wiki/File:Low%E2%80%90altitude_flight_(4563154220).jpg
+        author: Takashi Hososhima from Tokyo, Japan
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  whiskered_tern:
+    album:
+      file: selected/whiskered_tern/09.jpg
+      candidate: 09.jpg
+      crop:
+      - 0
+      - 33
+      - 920
+      - 607
+      title: File:Whiskered tern (Chilidonias hybrida) non breeding Tonle Sap.jpg
+      page: https://commons.wikimedia.org/wiki/File:Whiskered_tern_(Chilidonias_hybrida)_non_breeding_Tonle_Sap.jpg
+      author: Charles J. Sharp
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/whiskered_tern/09.jpg
+        candidate: 09.jpg
+        crop:
+        - 28
+        - 140
+        - 705
+        - 399
+        mask: selected/whiskered_tern/09.perched.mask.png
+        title: File:Whiskered tern (Chilidonias hybrida) non breeding Tonle Sap.jpg
+        page: https://commons.wikimedia.org/wiki/File:Whiskered_tern_(Chilidonias_hybrida)_non_breeding_Tonle_Sap.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/whiskered_tern/08.jpg
+        candidate: 08.jpg
+        crop:
+        - 9
+        - 115
+        - 595
+        - 424
+        mask: selected/whiskered_tern/08.perched_alert.mask.png
+        flipX: true
+        title: File:Whiskered tern (Chlidonias hybridus) winter plumage.jpg
+        page: https://commons.wikimedia.org/wiki/File:Whiskered_tern_(Chlidonias_hybridus)_winter_plumage.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/whiskered_tern/18.jpg
+        candidate: 18.jpg
+        crop:
+        - 299
+        - 84
+        - 635
+        - 499
+        mask: selected/whiskered_tern/18.flying1.mask.png
+        flipX: true
+        title: File:Whiskered tern (Chlidonias hybrida javanicus) breeding in flight Kakadu.jpg
+        page: https://commons.wikimedia.org/wiki/File:Whiskered_tern_(Chlidonias_hybrida_javanicus)_breeding_in_flight_Kakadu.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  crested_serpent_eagle:
+    album:
+      file: selected/crested_serpent_eagle/09.jpg
+      candidate: 09.jpg
+      crop:
+      - 40
+      - 0
+      - 718
+      - 1440
+      title: File:Crested Serpent Eagle Mudumalai India Sep22 A7C 02792.jpg
+      page: https://commons.wikimedia.org/wiki/File:Crested_Serpent_Eagle_Mudumalai_India_Sep22_A7C_02792.jpg
+      author: This Photo was taken by Timothy A. Gonsalves.  Feel free to use my photos, but please mention me as the author.  I would much appreciate if you send me an email tagooty@yahoo.com or write on my talk p
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/crested_serpent_eagle/09.jpg
+        candidate: 09.jpg
+        crop:
+        - 165
+        - 176
+        - 468
+        - 1217
+        mask: selected/crested_serpent_eagle/09.perched.mask.png
+        title: File:Crested Serpent Eagle Mudumalai India Sep22 A7C 02792.jpg
+        page: https://commons.wikimedia.org/wiki/File:Crested_Serpent_Eagle_Mudumalai_India_Sep22_A7C_02792.jpg
+        author: This Photo was taken by Timothy A. Gonsalves.  Feel free to use my photos, but please mention me as the author.  I would much appreciate if you send me an email tagooty@yahoo.com or write on my talk p
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/crested_serpent_eagle/02.jpg
+        candidate: 02.jpg
+        crop:
+        - 171
+        - 147
+        - 655
+        - 963
+        mask: selected/crested_serpent_eagle/02.perched_alert.mask.png
+        title: File:Crested serpent-eagle (Spilornis cheela spilogaster).jpg
+        page: https://commons.wikimedia.org/wiki/File:Crested_serpent-eagle_(Spilornis_cheela_spilogaster).jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/crested_serpent_eagle/18.jpg
+        candidate: 18.jpg
+        crop:
+        - 0
+        - 54
+        - 887
+        - 1257
+        mask: selected/crested_serpent_eagle/18.flying1.mask.png
+        title: File:Crested Serpent Eagle - Spilornis cheela ,flight.jpg
+        page: https://commons.wikimedia.org/wiki/File:Crested_Serpent_Eagle_-_Spilornis_cheela_,flight.jpg
+        author: Shino jacob koottanad
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  crested_goshawk:
+    album:
+      file: selected/crested_goshawk/04.jpg
+      candidate: 04.jpg
+      crop:
+      - 289
+      - 0
+      - 384
+      - 551
+      title: File:Accipiter trivirgatus 390628035.jpg
+      page: https://commons.wikimedia.org/wiki/File:Accipiter_trivirgatus_390628035.jpg
+      author: Justin Philbois
+      license: CC0
+      licenseUrl: http://creativecommons.org/publicdomain/zero/1.0/deed.en
+    poses:
+      perched:
+        file: selected/crested_goshawk/04.jpg
+        candidate: 04.jpg
+        crop:
+        - 356
+        - 67
+        - 251
+        - 382
+        mask: selected/crested_goshawk/04.perched.mask.png
+        title: File:Accipiter trivirgatus 390628035.jpg
+        page: https://commons.wikimedia.org/wiki/File:Accipiter_trivirgatus_390628035.jpg
+        author: Justin Philbois
+        license: CC0
+        licenseUrl: http://creativecommons.org/publicdomain/zero/1.0/deed.en
+      perched_alert:
+        file: selected/crested_goshawk/02.jpg
+        candidate: 02.jpg
+        crop:
+        - 119
+        - 10
+        - 322
+        - 754
+        mask: selected/crested_goshawk/02.perched_alert.mask.png
+        title: File:Accipiter trivirgatus PA273291.jpg
+        page: https://commons.wikimedia.org/wiki/File:Accipiter_trivirgatus_PA273291.jpg
+        author: Alnus
+        license: CC BY-SA 3.0
+        licenseUrl: http://creativecommons.org/licenses/by-sa/3.0/
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/crested_goshawk/01.jpg
+        candidate: 01.jpg
+        crop:
+        - 265
+        - 170
+        - 345
+        - 392
+        mask: selected/crested_goshawk/01.flying1.mask.png
+        title: File:Crested goshawk (Lophospiza trivirgata formosae) in flight Qianshan.jpg
+        page: https://commons.wikimedia.org/wiki/File:Crested_goshawk_(Lophospiza_trivirgata_formosae)_in_flight_Qianshan.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  greater_coucal:
+    album:
+      file: selected/greater_coucal/18.jpg
+      candidate: 18.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 640
+      flipX: true
+      title: File:A Greater Coucal at work (50678123033).jpg
+      page: https://commons.wikimedia.org/wiki/File:A_Greater_Coucal_at_work_(50678123033).jpg
+      author: Hari K  Patibanda
+      license: CC BY 2.0
+      licenseUrl: https://creativecommons.org/licenses/by/2.0
+    poses:
+      perched:
+        file: selected/greater_coucal/18.jpg
+        candidate: 18.jpg
+        crop:
+        - 142
+        - 22
+        - 818
+        - 580
+        mask: selected/greater_coucal/18.perched.mask.png
+        flipX: true
+        title: File:A Greater Coucal at work (50678123033).jpg
+        page: https://commons.wikimedia.org/wiki/File:A_Greater_Coucal_at_work_(50678123033).jpg
+        author: Hari K  Patibanda
+        license: CC BY 2.0
+        licenseUrl: https://creativecommons.org/licenses/by/2.0
+      perched_alert:
+        file: selected/greater_coucal/08.jpg
+        candidate: 08.jpg
+        crop:
+        - 129
+        - 188
+        - 536
+        - 310
+        mask: selected/greater_coucal/08.perched_alert.mask.png
+        title: File:Greater Coucal in Tal Chhapar Sanctuary November 2025 by Tisha Mukherjee 02.jpg
+        page: https://commons.wikimedia.org/wiki/File:Greater_Coucal_in_Tal_Chhapar_Sanctuary_November_2025_by_Tisha_Mukherjee_02.jpg
+        author: Tisha Mukherjee
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  barn_swallow:
+    album:
+      file: selected/barn_swallow/02.jpg
+      candidate: 02.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 614
+      title: File:Landsvale.jpg
+      page: https://commons.wikimedia.org/wiki/File:Landsvale.jpg
+      author: Malene Thyssen
+      license: CC BY 2.5
+      licenseUrl: https://creativecommons.org/licenses/by/2.5
+    poses:
+      perched:
+        file: selected/barn_swallow/02.jpg
+        candidate: 02.jpg
+        crop:
+        - 0
+        - 31
+        - 960
+        - 553
+        mask: selected/barn_swallow/02.perched.mask.png
+        title: File:Landsvale.jpg
+        page: https://commons.wikimedia.org/wiki/File:Landsvale.jpg
+        author: Malene Thyssen
+        license: CC BY 2.5
+        licenseUrl: https://creativecommons.org/licenses/by/2.5
+      perched_alert:
+        file: selected/barn_swallow/11.jpg
+        candidate: 11.jpg
+        crop:
+        - 116
+        - 195
+        - 724
+        - 765
+        mask: selected/barn_swallow/11.perched_alert.mask.png
+        title: File:Barn swallow (Hirundo rustica rustica).jpg
+        page: https://commons.wikimedia.org/wiki/File:Barn_swallow_(Hirundo_rustica_rustica).jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/barn_swallow/18.jpg
+        candidate: 18.jpg
+        crop:
+        - 66
+        - 96
+        - 643
+        - 394
+        mask: selected/barn_swallow/18.flying1.mask.png
+        flipX: true
+        title: File:Hirundo rustica gutturalis (in flight).JPG
+        page: https://commons.wikimedia.org/wiki/File:Hirundo_rustica_gutturalis_(in_flight).JPG
+        author: Alpsdake
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  grey_wagtail:
+    album:
+      file: selected/grey_wagtail/18.jpg
+      candidate: 18.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 693
+      title: File:Grey Wagtail (6944094180).jpg
+      page: https://commons.wikimedia.org/wiki/File:Grey_Wagtail_(6944094180).jpg
+      author: Antony Grossy from Conoor, Nilgiris District, Tamil Nadu State, India, India
+      license: CC BY 2.0
+      licenseUrl: https://creativecommons.org/licenses/by/2.0
+    poses:
+      perched:
+        file: selected/grey_wagtail/18.jpg
+        candidate: 18.jpg
+        crop:
+        - 173
+        - 34
+        - 787
+        - 521
+        mask: selected/grey_wagtail/18.perched.mask.png
+        title: File:Grey Wagtail (6944094180).jpg
+        page: https://commons.wikimedia.org/wiki/File:Grey_Wagtail_(6944094180).jpg
+        author: Antony Grossy from Conoor, Nilgiris District, Tamil Nadu State, India, India
+        license: CC BY 2.0
+        licenseUrl: https://creativecommons.org/licenses/by/2.0
+      perched_alert:
+        file: selected/grey_wagtail/16.jpg
+        candidate: 16.jpg
+        crop:
+        - 0
+        - 168
+        - 852
+        - 332
+        mask: selected/grey_wagtail/16.perched_alert.mask.png
+        title: File:Grey Wagtail (6880814750).jpg
+        page: https://commons.wikimedia.org/wiki/File:Grey_Wagtail_(6880814750).jpg
+        author: Antony Grossy from Conoor, Nilgiris District, Tamil Nadu State, India, India
+        license: CC BY 2.0
+        licenseUrl: https://creativecommons.org/licenses/by/2.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  hair_crested_drongo:
+    album:
+      file: selected/hair_crested_drongo/05.jpg
+      candidate: 05.jpg
+      crop:
+      - 0
+      - 0
+      - 619
+      - 767
+      flipX: true
+      title: File:Dicrurus hottentottus-20030823.jpg
+      page: https://commons.wikimedia.org/wiki/File:Dicrurus_hottentottus-20030823.jpg
+      author: Dougjj
+      license: CC BY-SA 3.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+    poses:
+      perched:
+        file: selected/hair_crested_drongo/05.jpg
+        candidate: 05.jpg
+        crop:
+        - 100
+        - 0
+        - 509
+        - 767
+        mask: selected/hair_crested_drongo/05.perched.mask.png
+        flipX: true
+        title: File:Dicrurus hottentottus-20030823.jpg
+        page: https://commons.wikimedia.org/wiki/File:Dicrurus_hottentottus-20030823.jpg
+        author: Dougjj
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      perched_alert:
+        file: selected/hair_crested_drongo/02.jpg
+        candidate: 02.jpg
+        crop:
+        - 331
+        - 269
+        - 542
+        - 827
+        mask: selected/hair_crested_drongo/02.perched_alert.mask.png
+        flipX: true
+        title: File:Dicrurus hottentottus leucops.JPG
+        page: https://commons.wikimedia.org/wiki/File:Dicrurus_hottentottus_leucops.JPG
+        author: Ariefrahman
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  oriental_magpie:
+    album:
+      file: selected/oriental_magpie/12.jpg
+      candidate: 12.jpg
+      crop:
+      - 0
+      - 85
+      - 641
+      - 373
+      title: File:Pica serica (P1060377).jpg
+      page: https://commons.wikimedia.org/wiki/File:Pica_serica_(P1060377).jpg
+      author: 用心阁
+      license: CC BY-SA 3.0
+      licenseUrl: http://creativecommons.org/licenses/by-sa/3.0/
+    poses:
+      perched:
+        file: selected/oriental_magpie/12.jpg
+        candidate: 12.jpg
+        crop:
+        - 57
+        - 150
+        - 515
+        - 243
+        mask: selected/oriental_magpie/12.perched.mask.png
+        title: File:Pica serica (P1060377).jpg
+        page: https://commons.wikimedia.org/wiki/File:Pica_serica_(P1060377).jpg
+        author: 用心阁
+        license: CC BY-SA 3.0
+        licenseUrl: http://creativecommons.org/licenses/by-sa/3.0/
+      perched_alert:
+        file: selected/oriental_magpie/07.jpg
+        candidate: 07.jpg
+        crop:
+        - 154
+        - 96
+        - 806
+        - 456
+        mask: selected/oriental_magpie/07.perched_alert.mask.png
+        flipX: true
+        title: File:Korean magpie in Daejeon (side profile).jpg
+        page: https://commons.wikimedia.org/wiki/File:Korean_magpie_in_Daejeon_(side_profile).jpg
+        author: Yoo Chung
+        license: CC BY-SA 2.5
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.5
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/oriental_magpie/15.jpg
+        candidate: 15.jpg
+        crop:
+        - 0
+        - 0
+        - 960
+        - 720
+        mask: selected/oriental_magpie/15.flying1.mask.png
+        title: File:Taking Off (15360650453).jpg
+        page: https://commons.wikimedia.org/wiki/File:Taking_Off_(15360650453).jpg
+        author: Charles Lam from Hong Kong, China
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  white_cheeked_starling:
+    album:
+      file: selected/white_cheeked_starling/12.jpg
+      candidate: 12.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 1279
+      title: File:Spodiopsar cineraceus, Hong Kong (5477084813).jpg
+      page: https://commons.wikimedia.org/wiki/File:Spodiopsar_cineraceus,_Hong_Kong_(5477084813).jpg
+      author: Charles Lam from Hong Kong, China
+      license: CC BY-SA 2.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+    poses:
+      perched:
+        file: selected/white_cheeked_starling/12.jpg
+        candidate: 12.jpg
+        crop:
+        - 0
+        - 74
+        - 855
+        - 1131
+        mask: selected/white_cheeked_starling/12.perched.mask.png
+        title: File:Spodiopsar cineraceus, Hong Kong (5477084813).jpg
+        page: https://commons.wikimedia.org/wiki/File:Spodiopsar_cineraceus,_Hong_Kong_(5477084813).jpg
+        author: Charles Lam from Hong Kong, China
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      perched_alert:
+        file: selected/white_cheeked_starling/11.jpg
+        candidate: 11.jpg
+        crop:
+        - 51
+        - 162
+        - 909
+        - 518
+        mask: selected/white_cheeked_starling/11.perched_alert.mask.png
+        flipX: true
+        title: File:Spodiopsar cineraceus, Osaka, Japan (6705375201).jpg
+        page: https://commons.wikimedia.org/wiki/File:Spodiopsar_cineraceus,_Osaka,_Japan_(6705375201).jpg
+        author: Charles Lam from Hong Kong, China
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/white_cheeked_starling/01.jpg
+        candidate: 01.jpg
+        crop:
+        - 305
+        - 185
+        - 548
+        - 357
+        mask: selected/white_cheeked_starling/01.flying1.mask.png
+        flipX: true
+        title: File:A bird in flight (7359714972).jpg
+        page: https://commons.wikimedia.org/wiki/File:A_bird_in_flight_(7359714972).jpg
+        author: Takashi Hososhima from Tokyo, Japan
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  chestnut_bulbul:
+    album:
+      file: selected/chestnut_bulbul/01.jpg
+      candidate: 01.jpg
+      crop:
+      - 303
+      - 7
+      - 632
+      - 870
+      title: File:Hemixos castanonotus-A9 00441 (cropped).jpg
+      page: https://commons.wikimedia.org/wiki/File:Hemixos_castanonotus-A9_00441_(cropped).jpg
+      author: Sun Jiao (Interaccoonale)
+      license: CC BY 4.0
+      licenseUrl: https://creativecommons.org/licenses/by/4.0
+    poses:
+      perched:
+        file: selected/chestnut_bulbul/01.jpg
+        candidate: 01.jpg
+        crop:
+        - 413
+        - 158
+        - 413
+        - 567
+        mask: selected/chestnut_bulbul/01.perched.mask.png
+        title: File:Hemixos castanonotus-A9 00441 (cropped).jpg
+        page: https://commons.wikimedia.org/wiki/File:Hemixos_castanonotus-A9_00441_(cropped).jpg
+        author: Sun Jiao (Interaccoonale)
+        license: CC BY 4.0
+        licenseUrl: https://creativecommons.org/licenses/by/4.0
+      perched_alert:
+        file: selected/chestnut_bulbul/05.jpg
+        candidate: 05.jpg
+        crop:
+        - 216
+        - 161
+        - 454
+        - 422
+        mask: selected/chestnut_bulbul/05.perched_alert.mask.png
+        flipX: true
+        title: File:Hemixos castanonotus-A9 00425.jpg
+        page: https://commons.wikimedia.org/wiki/File:Hemixos_castanonotus-A9_00425.jpg
+        author: Sun Jiao (Interaccoonale)
+        license: CC BY 4.0
+        licenseUrl: https://creativecommons.org/licenses/by/4.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  yellow_browed_warbler:
+    album:
+      file: selected/yellow_browed_warbler/12.jpg
+      candidate: 12.jpg
+      crop:
+      - 0
+      - 85
+      - 960
+      - 568
+      flipX: true
+      title: File:Phylloscopus inornatus 456140817.jpg
+      page: https://commons.wikimedia.org/wiki/File:Phylloscopus_inornatus_456140817.jpg
+      author: Wich’yanan (Jay) Limparungpatthanakij
+      license: CC BY 4.0
+      licenseUrl: https://creativecommons.org/licenses/by/4.0
+    poses:
+      perched:
+        file: selected/yellow_browed_warbler/12.jpg
+        candidate: 12.jpg
+        crop:
+        - 141
+        - 192
+        - 774
+        - 355
+        mask: selected/yellow_browed_warbler/12.perched.mask.png
+        flipX: true
+        title: File:Phylloscopus inornatus 456140817.jpg
+        page: https://commons.wikimedia.org/wiki/File:Phylloscopus_inornatus_456140817.jpg
+        author: Wich’yanan (Jay) Limparungpatthanakij
+        license: CC BY 4.0
+        licenseUrl: https://creativecommons.org/licenses/by/4.0
+      perched_alert:
+        from: perched
+        offsetY: -1
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  siberian_rubythroat:
+    album:
+      file: selected/siberian_rubythroat/07.jpg
+      candidate: 07.jpg
+      crop:
+      - 18
+      - 4
+      - 647
+      - 636
+      title: File:Siberian Rubythroat Facts 04.jpg
+      page: https://commons.wikimedia.org/wiki/File:Siberian_Rubythroat_Facts_04.jpg
+      author: Shiv's fotografia
+      license: CC BY 4.0
+      licenseUrl: https://creativecommons.org/licenses/by/4.0
+    poses:
+      perched:
+        file: selected/siberian_rubythroat/07.jpg
+        candidate: 07.jpg
+        crop:
+        - 139
+        - 132
+        - 404
+        - 427
+        mask: selected/siberian_rubythroat/07.perched.mask.png
+        title: File:Siberian Rubythroat Facts 04.jpg
+        page: https://commons.wikimedia.org/wiki/File:Siberian_Rubythroat_Facts_04.jpg
+        author: Shiv's fotografia
+        license: CC BY 4.0
+        licenseUrl: https://creativecommons.org/licenses/by/4.0
+      perched_alert:
+        from: perched
+        offsetY: -1
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/siberian_rubythroat/15.jpg
+        candidate: 15.jpg
+        crop:
+        - 106
+        - 55
+        - 774
+        - 365
+        mask: selected/siberian_rubythroat/15.flying1.mask.png
+        flipX: true
+        title: File:The siberian rubythroat in flight.jpg
+        page: https://commons.wikimedia.org/wiki/File:The_siberian_rubythroat_in_flight.jpg
+        author: Prasan Shrestha
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  plain_prinia:
+    album:
+      file: selected/plain_prinia/06.jpg
+      candidate: 06.jpg
+      crop:
+      - 0
+      - 73
+      - 939
+      - 528
+      title: File:Plain prinia (Prinia inornata herberti) Tonle Sap.jpg
+      page: https://commons.wikimedia.org/wiki/File:Plain_prinia_(Prinia_inornata_herberti)_Tonle_Sap.jpg
+      author: Charles J. Sharp
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/plain_prinia/06.jpg
+        candidate: 06.jpg
+        crop:
+        - 0
+        - 164
+        - 742
+        - 345
+        mask: selected/plain_prinia/06.perched.mask.png
+        title: File:Plain prinia (Prinia inornata herberti) Tonle Sap.jpg
+        page: https://commons.wikimedia.org/wiki/File:Plain_prinia_(Prinia_inornata_herberti)_Tonle_Sap.jpg
+        author: Charles J. Sharp
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        from: perched
+        offsetY: -1
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  pale_thrush:
+    album:
+      file: selected/pale_thrush/08.jpg
+      candidate: 08.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 960
+      title: File:Turdus pallidus (on tree s3).jpg
+      page: https://commons.wikimedia.org/wiki/File:Turdus_pallidus_(on_tree_s3).jpg
+      author: Alpsdake
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/pale_thrush/08.jpg
+        candidate: 08.jpg
+        crop:
+        - 158
+        - 54
+        - 637
+        - 747
+        mask: selected/pale_thrush/08.perched.mask.png
+        title: File:Turdus pallidus (on tree s3).jpg
+        page: https://commons.wikimedia.org/wiki/File:Turdus_pallidus_(on_tree_s3).jpg
+        author: Alpsdake
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/pale_thrush/05.jpg
+        candidate: 05.jpg
+        crop:
+        - 15
+        - 45
+        - 896
+        - 550
+        mask: selected/pale_thrush/05.perched_alert.mask.png
+        title: File:Turdus pallidus (0s2).JPG
+        page: https://commons.wikimedia.org/wiki/File:Turdus_pallidus_(0s2).JPG
+        author: Alpsdake
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  scarlet_minivet:
+    album:
+      file: selected/scarlet_minivet/04.jpg
+      candidate: 04.jpg
+      crop:
+      - 324
+      - 11
+      - 357
+      - 629
+      flipX: true
+      title: File:Scarlet Minivet by Tisha Mukherjee 18.jpg
+      page: https://commons.wikimedia.org/wiki/File:Scarlet_Minivet_by_Tisha_Mukherjee_18.jpg
+      author: Tisha Mukherjee
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/scarlet_minivet/04.jpg
+        candidate: 04.jpg
+        crop:
+        - 385
+        - 138
+        - 233
+        - 476
+        mask: selected/scarlet_minivet/04.perched.mask.png
+        flipX: true
+        title: File:Scarlet Minivet by Tisha Mukherjee 18.jpg
+        page: https://commons.wikimedia.org/wiki/File:Scarlet_Minivet_by_Tisha_Mukherjee_18.jpg
+        author: Tisha Mukherjee
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/scarlet_minivet/06.jpg
+        candidate: 06.jpg
+        crop:
+        - 370
+        - 131
+        - 208
+        - 493
+        mask: selected/scarlet_minivet/06.perched_alert.mask.png
+        title: File:Scarlet Minivet by Tisha Mukherjee 17.jpg
+        page: https://commons.wikimedia.org/wiki/File:Scarlet_Minivet_by_Tisha_Mukherjee_17.jpg
+        author: Tisha Mukherjee
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  black_faced_bunting:
+    album:
+      file: selected/black_faced_bunting/04.jpg
+      candidate: 04.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 960
+      title: File:Emberiza spodocephala personata (male s15).jpg
+      page: https://commons.wikimedia.org/wiki/File:Emberiza_spodocephala_personata_(male_s15).jpg
+      author: Alpsdake
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/black_faced_bunting/04.jpg
+        candidate: 04.jpg
+        crop:
+        - 0
+        - 64
+        - 929
+        - 737
+        mask: selected/black_faced_bunting/04.perched.mask.png
+        title: File:Emberiza spodocephala personata (male s15).jpg
+        page: https://commons.wikimedia.org/wiki/File:Emberiza_spodocephala_personata_(male_s15).jpg
+        author: Alpsdake
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/black_faced_bunting/13.jpg
+        candidate: 13.jpg
+        crop:
+        - 174
+        - 49
+        - 563
+        - 694
+        mask: selected/black_faced_bunting/13.perched_alert.mask.png
+        flipX: true
+        title: File:Emberiza spodocephala (female).JPG
+        page: https://commons.wikimedia.org/wiki/File:Emberiza_spodocephala_(female).JPG
+        author: Alpsdake
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  chinese_blackbird:
+    album:
+      file: selected/chinese_blackbird/07.jpg
+      candidate: 07.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 720
+      flipX: true
+      title: File:Turdus merula mandarinus Hong Kong 6.jpg
+      page: https://commons.wikimedia.org/wiki/File:Turdus_merula_mandarinus_Hong_Kong_6.jpg
+      author: Charles Lam from Hong Kong, China
+      license: CC BY-SA 2.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+    poses:
+      perched:
+        file: selected/chinese_blackbird/07.jpg
+        candidate: 07.jpg
+        crop:
+        - 104
+        - 0
+        - 856
+        - 720
+        mask: selected/chinese_blackbird/07.perched.mask.png
+        flipX: true
+        title: File:Turdus merula mandarinus Hong Kong 6.jpg
+        page: https://commons.wikimedia.org/wiki/File:Turdus_merula_mandarinus_Hong_Kong_6.jpg
+        author: Charles Lam from Hong Kong, China
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      perched_alert:
+        from: perched
+        offsetY: -1
+      wings_spread:
+        from: perched
+      flying1:
+        from: perched
+        offsetY: -3
+      flying2:
+        from: perched
+        offsetY: -5
+      back_turned:
+        from: perched
+        flipX: true
+  little_ringed_plover:
+    album:
+      file: selected/little_ringed_plover/26.jpg
+      candidate: 26.jpg
+      crop:
+      - 0
+      - 0
+      - 960
+      - 960
+      flipX: true
+      title: File:Charadrius dubius curonicus s7.JPG
+      page: https://commons.wikimedia.org/wiki/File:Charadrius_dubius_curonicus_s7.JPG
+      author: Alpsdake
+      license: CC BY-SA 3.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+    poses:
+      perched:
+        file: selected/little_ringed_plover/26.jpg
+        candidate: 26.jpg
+        crop:
+        - 109
+        - 57
+        - 811
+        - 900
+        mask: selected/little_ringed_plover/26.perched.mask.png
+        flipX: true
+        title: File:Charadrius dubius curonicus s7.JPG
+        page: https://commons.wikimedia.org/wiki/File:Charadrius_dubius_curonicus_s7.JPG
+        author: Alpsdake
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      perched_alert:
+        file: selected/little_ringed_plover/27.jpg
+        candidate: 27.jpg
+        crop:
+        - 216
+        - 8
+        - 579
+        - 827
+        mask: selected/little_ringed_plover/27.perched_alert.mask.png
+        title: File:Charadrius dubius curonicus s5.JPG
+        page: https://commons.wikimedia.org/wiki/File:Charadrius_dubius_curonicus_s5.JPG
+        author: Alpsdake
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/little_ringed_plover/05.jpg
+        candidate: 05.jpg
+        crop:
+        - 104
+        - 67
+        - 528
+        - 573
+        mask: selected/little_ringed_plover/05.flying1.mask.png
+        flipX: true
+        title: File:Väiketüll.jpg
+        page: https://commons.wikimedia.org/wiki/File:V%C3%A4iket%C3%BCll.jpg
+        author: Locaguapa
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  pacific_golden_plover:
+    album:
+      file: selected/pacific_golden_plover/09.jpg
+      candidate: 09.jpg
+      crop:
+      - 151
+      - 0
+      - 809
+      - 768
+      flipX: true
+      title: File:Pluvialis fulva 2 - Laem Pak Bia.jpg
+      page: https://commons.wikimedia.org/wiki/File:Pluvialis_fulva_2_-_Laem_Pak_Bia.jpg
+      author: JJ Harrison (https://tiny.jjharrison.com.au/t/3CuTyj5LtxrKUxYI)
+      license: CC BY-SA 3.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+    poses:
+      perched:
+        file: selected/pacific_golden_plover/09.jpg
+        candidate: 09.jpg
+        crop:
+        - 291
+        - 49
+        - 528
+        - 667
+        mask: selected/pacific_golden_plover/09.perched.mask.png
+        flipX: true
+        title: File:Pluvialis fulva 2 - Laem Pak Bia.jpg
+        page: https://commons.wikimedia.org/wiki/File:Pluvialis_fulva_2_-_Laem_Pak_Bia.jpg
+        author: JJ Harrison (https://tiny.jjharrison.com.au/t/3CuTyj5LtxrKUxYI)
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      perched_alert:
+        file: selected/pacific_golden_plover/18.jpg
+        candidate: 18.jpg
+        crop:
+        - 114
+        - 51
+        - 719
+        - 489
+        mask: selected/pacific_golden_plover/18.perched_alert.mask.png
+        title: File:Pacific Golden Plover at Kalipur beach, Diglipur, North Andaman - 04.jpg
+        page: https://commons.wikimedia.org/wiki/File:Pacific_Golden_Plover_at_Kalipur_beach,_Diglipur,_North_Andaman_-_04.jpg
+        author: Satdeep Gill
+        license: CC BY 4.0
+        licenseUrl: https://creativecommons.org/licenses/by/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/pacific_golden_plover/03.jpg
+        candidate: 03.jpg
+        crop:
+        - 157
+        - 9
+        - 650
+        - 856
+        mask: selected/pacific_golden_plover/03.flying1.mask.png
+        flipX: true
+        title: File:Pluvialis fulva taking off - Christopher Watson, crop.jpg
+        page: https://commons.wikimedia.org/wiki/File:Pluvialis_fulva_taking_off_-_Christopher_Watson,_crop.jpg
+        author: Christopher Watson (http://www.comebirdwatching.blogspot.com/)
+        license: CC BY-SA 3.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/3.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
+  eurasian_hoopoe:
+    album:
+      file: selected/eurasian_hoopoe/13.jpg
+      candidate: 13.jpg
+      crop:
+      - 171
+      - 0
+      - 775
+      - 641
+      flipX: true
+      title: File:Huppe fasciée Lac de Tunis.jpg
+      page: https://commons.wikimedia.org/wiki/File:Huppe_fasci%C3%A9e_Lac_de_Tunis.jpg
+      author: El Golli Mohamed
+      license: CC BY-SA 4.0
+      licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+    poses:
+      perched:
+        file: selected/eurasian_hoopoe/13.jpg
+        candidate: 13.jpg
+        crop:
+        - 305
+        - 17
+        - 506
+        - 614
+        mask: selected/eurasian_hoopoe/13.perched.mask.png
+        flipX: true
+        title: File:Huppe fasciée Lac de Tunis.jpg
+        page: https://commons.wikimedia.org/wiki/File:Huppe_fasci%C3%A9e_Lac_de_Tunis.jpg
+        author: El Golli Mohamed
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      perched_alert:
+        file: selected/eurasian_hoopoe/20.jpg
+        candidate: 20.jpg
+        crop:
+        - 172
+        - 121
+        - 707
+        - 446
+        mask: selected/eurasian_hoopoe/20.perched_alert.mask.png
+        flipX: true
+        title: File:060 Eurasian hoopoe in Keoladeo National Park Photo by Giles Laurent.jpg
+        page: https://commons.wikimedia.org/wiki/File:060_Eurasian_hoopoe_in_Keoladeo_National_Park_Photo_by_Giles_Laurent.jpg
+        author: Giles Laurent
+        license: CC BY-SA 4.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/4.0
+      wings_spread:
+        from: flying1
+      flying1:
+        file: selected/eurasian_hoopoe/07.jpg
+        candidate: 07.jpg
+        crop:
+        - 126
+        - 0
+        - 585
+        - 720
+        mask: selected/eurasian_hoopoe/07.flying1.mask.png
+        title: File:Common Hoopoe (Upupa epops) (29981036728).jpg
+        page: https://commons.wikimedia.org/wiki/File:Common_Hoopoe_(Upupa_epops)_(29981036728).jpg
+        author: Imran Shah from Islamabad, Pakistan
+        license: CC BY-SA 2.0
+        licenseUrl: https://creativecommons.org/licenses/by-sa/2.0
+      flying2:
+        from: flying1
+        offsetY: 2
+      back_turned:
+        from: perched
+        flipX: true
