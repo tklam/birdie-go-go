@@ -795,7 +795,7 @@ export class MapScene extends Phaser.Scene {
           await showDialogue([{ speaker: o.name, text: o.props.line }]);
           break;
         case 'shop':
-          await this.shop(o.props.title ?? 'Shop');
+          await this.shop(o);
           break;
       }
     } finally {
@@ -846,13 +846,17 @@ export class MapScene extends Phaser.Scene {
     await showPanel("Tomorrow's weather", lines);
   }
 
-  private async shop(title: string): Promise<void> {
+  /** A shop's stock (shops.yaml, by the object's shop_id), or everything for sale. */
+  private async shop(o: WorldObject): Promise<void> {
     const s = this.session;
+    const def = s.content.shops.find((x) => x.id === o.props.shop_id);
+    const title = def?.title ?? o.props.title ?? 'Shop';
+    const stock = def ? s.content.items.filter((i) => def.stock.includes(i.id)) : s.content.items.filter((i) => i.price > 0);
     const card = s.content.game.transitCard;
     await showMenu(
       () => `${title}  $${s.state.money}`,
       [
-        ...s.content.items.filter((item) => item.price > 0).map((item) => ({
+        ...stock.map((item) => ({
           label: `${item.name} $${item.price}`,
           detail: () => {
             const owned = s.state.items[item.id] ?? 0;

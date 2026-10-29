@@ -1,0 +1,10 @@
+# Shops and their stock (SPEC.md §4.12). Shop objects in the world name one by shop_id.
+- id: plaza_convenience
+  title: Plaza Convenience Store
+  stock: [milk_tea, pineapple_bun, curry_fish_balls, lunch_box, water_bottle, sunscreen, umbrella, dog_treat]
+- id: harbour_outdoors
+  title: Harbour Outdoors
+  stock: [sun_hat, raincoat, windbreaker, jacket, umbrella, wading_boots, whistle, sunscreen, water_bottle]
+- id: po_toi_o_store
+  title: Village Store
+  stock: [milk_tea, pineapple_bun, curry_fish_balls, water_bottle, sticky_rice, sea_salt, dog_treat]

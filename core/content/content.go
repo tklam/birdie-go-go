@@ -77,6 +77,7 @@ func Validate(b *model.ContentBundle) []error {
 	v.ids("enemy", len(b.Enemies), func(i int) string { return b.Enemies[i].ID })
 	missions := v.ids("mission", len(b.Missions), func(i int) string { return b.Missions[i].ID })
 	v.ids("ambient", len(b.Ambient), func(i int) string { return b.Ambient[i].ID })
+	v.ids("shop", len(b.Shops), func(i int) string { return b.Shops[i].ID })
 
 	for _, a := range b.Areas {
 		v.require(a.Name != "", "area %s: name is required", a.ID)
@@ -143,6 +144,12 @@ func Validate(b *model.ContentBundle) []error {
 	}
 	for _, bird := range b.Birds {
 		v.bird(bird)
+	}
+	for _, sh := range b.Shops {
+		v.require(sh.Title != "" && len(sh.Stock) > 0, "shop %s: title and stock are required", sh.ID)
+		for _, it := range sh.Stock {
+			v.require(items[it], "shop %s: unknown item %q", sh.ID, it)
+		}
 	}
 	for _, s := range b.Spots {
 		v.spot(s, areas, birds)

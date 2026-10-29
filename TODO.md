@@ -122,7 +122,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
   - [x] Radio forecast at home; `?debug=weather` overlay
 - [~] Gear gating (§4.6): gates, wading boots (Po Toi O mudflat), night lens (Night Woods); kayak still to do (needs islands)
 - [x] Hidden collectibles: feathers, camera parts, sheet music (9 placed; two new pieces, Egret's Lullaby and Tram Bell Rag)
-- [~] Shop (select, see details, tap again to buy), gear and Kei-built upgrades from parts done; more shops and stock still to do
+- [x] Shops with their own stock (`shops.yaml`): Plaza Convenience Store, Harbour Outdoors, Po Toi O Village Store
 - [x] Students progress through their repertoire; second student Ah Fai in Po Toi O (his house and piano); two new original pieces
 - [ ] More students and songs
 - [ ] *(Parked for future development.)* eBird data for realism: species lists and seasonality per area (Tseung Kwan O, Junk Bay, …) feeding bird tables. Needs a free eBird API key kept outside git; build-time tool only. eBird/Macaulay photos are NOT freely licensed, so don't use them as art.

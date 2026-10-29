@@ -298,7 +298,7 @@ func load(dir string) (*model.ContentBundle, error) {
 	b := &model.ContentBundle{
 		Areas: []model.Area{}, Birds: []model.Bird{}, Spots: []model.Spot{}, Students: []model.Student{},
 		Songs: []model.Song{}, Events: []model.Event{}, Dialogue: []model.Dialogue{}, Music: []model.Music{},
-		Items: []model.Item{}, Hazards: []model.Hazard{}, Enemies: []model.Enemy{}, Missions: []model.Mission{}, Ambient: []model.AmbientNPC{},
+		Items: []model.Item{}, Hazards: []model.Hazard{}, Enemies: []model.Enemy{}, Missions: []model.Mission{}, Ambient: []model.AmbientNPC{}, Shops: []model.Shop{},
 		Transit: model.Transit{Lines: []model.TransitLine{}, Stops: []model.TransitStop{}},
 	}
 
@@ -406,6 +406,18 @@ func load(dir string) (*model.ContentBundle, error) {
 			ID: x.ID, Name: x.Name, Sprite: x.Sprite, Kind: x.Kind, Areas: orEmpty(x.Areas),
 			Slots: orEmpty(x.Slots), PerChunk: x.PerChunk, Lines: orEmpty(x.Lines),
 		})
+	}
+
+	var shops []struct {
+		ID    string   `yaml:"id"`
+		Title string   `yaml:"title"`
+		Stock []string `yaml:"stock"`
+	}
+	if err := readOptional(filepath.Join(dir, "shops.yaml"), &shops); err != nil {
+		return nil, err
+	}
+	for _, x := range shops {
+		b.Shops = append(b.Shops, model.Shop{ID: x.ID, Title: x.Title, Stock: orEmpty(x.Stock)})
 	}
 
 	var missions []missionYAML

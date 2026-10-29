@@ -16,6 +16,7 @@ type ContentBundle struct {
 	Hazards  []Hazard     `json:"hazards"`
 	Enemies  []Enemy      `json:"enemies"`
 	Missions []Mission    `json:"missions"`
+	Shops    []Shop       `json:"shops"`
 	Ambient  []AmbientNPC `json:"ambient"`
 	Transit  Transit      `json:"transit"`
 }
@@ -237,4 +238,12 @@ type DialogueLine struct {
 	Portrait string      `json:"portrait,omitempty"`
 	Text     string      `json:"text"`
 	If       []Condition `json:"if,omitempty"`
+}
+
+// Shop is a shop's name and what it sells (SPEC.md §4.12); shop objects in
+// the world name it by shop_id.
+type Shop struct {
+	ID    string   `json:"id"`
+	Title string   `json:"title"`
+	Stock []string `json:"stock"`
 }

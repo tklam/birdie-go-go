@@ -53,6 +53,7 @@ export interface ContentBundle {
   hazards: Hazard[];
   enemies: Enemy[];
   missions: Mission[];
+  shops: Shop[];
   ambient: AmbientNPC[];
   transit: Transit;
 }
@@ -336,6 +337,15 @@ export interface DialogueLine {
   portrait?: string;
   text: string;
   if?: Condition[];
+}
+/**
+ * Shop is a shop's name and what it sells (SPEC.md §4.12); shop objects in
+ * the world name it by shop_id.
+ */
+export interface Shop {
+  id: string;
+  title: string;
+  stock: string[];
 }
 
 //////////

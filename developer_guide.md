@@ -326,6 +326,7 @@ Encounter tuning lives entirely in YAML. Combo sequences are generated from the 
 ### 5.9 Students, missions, events, dialogue
 - Students: `content/students.yaml` (name, level, home, repertoire, mistake `tendencies`, fee).
 - Missions: `content/missions.yaml`. See SPEC.md §9.5 for the schema and objective types.
+- Shops: `content/shops.yaml` (id, title, stock of item ids); a `shop` object in the world names one with `shop_id` (without it, a shop sells every priced item).
 - Events: `content/events/*.yaml`. See SPEC.md §9.4 for triggers, conditions, and actions.
 - Dialogue: `content/dialogue/*.yaml`:
   ```yaml
