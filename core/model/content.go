@@ -3,19 +3,20 @@ package model
 // ContentBundle is the validated game content emitted by tools/contentbuild
 // and loaded by the client at startup. Lists are never nil in a built bundle.
 type ContentBundle struct {
-	Game     GameInfo   `json:"game"`
-	Areas    []Area     `json:"areas"`
-	Birds    []Bird     `json:"birds"`
-	Spots    []Spot     `json:"spots"`
-	Students []Student  `json:"students"`
-	Songs    []Song     `json:"songs"`
-	Events   []Event    `json:"events"`
-	Dialogue []Dialogue `json:"dialogue"`
-	Music    []Music    `json:"music"`
-	Items    []Item     `json:"items"`
-	Hazards  []Hazard   `json:"hazards"`
-	Enemies  []Enemy    `json:"enemies"`
-	Missions []Mission  `json:"missions"`
+	Game     GameInfo     `json:"game"`
+	Areas    []Area       `json:"areas"`
+	Birds    []Bird       `json:"birds"`
+	Spots    []Spot       `json:"spots"`
+	Students []Student    `json:"students"`
+	Songs    []Song       `json:"songs"`
+	Events   []Event      `json:"events"`
+	Dialogue []Dialogue   `json:"dialogue"`
+	Music    []Music      `json:"music"`
+	Items    []Item       `json:"items"`
+	Hazards  []Hazard     `json:"hazards"`
+	Enemies  []Enemy      `json:"enemies"`
+	Missions []Mission    `json:"missions"`
+	Ambient  []AmbientNPC `json:"ambient"`
 }
 
 // GameInfo is the top-level game metadata from content/game.yaml.

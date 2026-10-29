@@ -78,6 +78,8 @@ export class PhotoScene extends Phaser.Scene {
   private keys!: Record<string, Phaser.Input.Keyboard.Key>;
   private removeBack: () => void = () => {};
   private removeCall: () => void = () => {};
+  /** Other birders in the foreground, clicking away (they can unsettle birds a little). */
+  private photographers: { sprite: Phaser.GameObjects.Sprite; nextShot: number }[] = [];
   /** O Boy's contact call: once per session at bond 40+ (SPEC.md §7.2). */
   private callReady = false;
   private ending = false;
@@ -127,6 +129,7 @@ export class PhotoScene extends Phaser.Scene {
     for (const id of new Set(this.toSpawn)) this.measure(`bird_${id}`);
 
     this.weatherRenderer = this.weather ? new WeatherRenderer(this, 50) : null;
+    this.addPhotographers();
     this.setupInput();
     // Kei's bird-call app names the birds it can hear (SPEC.md §7.2).
     if (state.party.includes('kei') && this.toSpawn.length) {
@@ -231,6 +234,33 @@ export class PhotoScene extends Phaser.Scene {
     this.popup.setText(text).setAlpha(1);
     this.tweens.killTweensOf(this.popup);
     this.tweens.add({ targets: this.popup, alpha: 0, delay: 1300, duration: 400 });
+  }
+
+  /** Birders who frequent this area show up in the foreground (1–2 of them). */
+  private addPhotographers(): void {
+    this.photographers = [];
+    const state = this.session.state;
+    const birders = this.session.content.ambient.some(
+      (a) => a.kind === 'birder' && a.areas.includes(this.spot.area) && (!a.slots.length || a.slots.includes(state.slot)),
+    );
+    if (!birders || !this.textures.exists('photographer_back')) return;
+    const count = this.random() < 0.45 ? 2 : 1;
+    const xs = count === 2 ? [46, 268] : [this.random() < 0.5 ? 46 : 268];
+    for (const x of xs) {
+      const sprite = this.add.sprite(x, 182, 'photographer_back', 0).setOrigin(0.5, 1).setDepth(60).setFlipX(x > 160);
+      this.photographers.push({ sprite, nextShot: this.time.now + 1500 + this.random() * 3000 });
+    }
+  }
+
+  private updatePhotographers(time: number): void {
+    for (const p of this.photographers) {
+      if (time < p.nextShot) continue;
+      p.nextShot = time + 1800 + this.random() * 3500;
+      p.sprite.setFrame(1);
+      this.time.delayedCall(120, () => p.sprite.setFrame(0));
+      // Their shutters unsettle the birds a little.
+      if (this.birds.some((b) => b.state === 'perched')) this.alert = Math.min(100, this.alert + 3);
+    }
   }
 
   /** O Boy chirps; one curious perched bird hops to the perch nearest the viewfinder. */
@@ -403,6 +433,7 @@ export class PhotoScene extends Phaser.Scene {
         }
       }
     }
+    this.updatePhotographers(time);
     this.alert = updateAlert(this.alert, this.alertInput(delta, vfSpeed, false));
     if (shouldFlee(this.alert)) {
       for (const b of this.birds) this.leave(b);

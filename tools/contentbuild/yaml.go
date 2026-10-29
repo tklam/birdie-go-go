@@ -170,6 +170,17 @@ type missionYAML struct {
 	} `yaml:"reward"`
 }
 
+type ambientYAML struct {
+	ID       string   `yaml:"id"`
+	Name     string   `yaml:"name"`
+	Sprite   string   `yaml:"sprite"`
+	Kind     string   `yaml:"kind"`
+	Areas    []string `yaml:"areas"`
+	Slots    []string `yaml:"slots"`
+	PerChunk int      `yaml:"per_chunk"`
+	Lines    []string `yaml:"lines"`
+}
+
 type songYAML struct {
 	ID            string  `yaml:"id"`
 	Title         string  `yaml:"title"`
@@ -224,7 +235,7 @@ func load(dir string) (*model.ContentBundle, error) {
 	b := &model.ContentBundle{
 		Areas: []model.Area{}, Birds: []model.Bird{}, Spots: []model.Spot{}, Students: []model.Student{},
 		Songs: []model.Song{}, Events: []model.Event{}, Dialogue: []model.Dialogue{}, Music: []model.Music{},
-		Items: []model.Item{}, Hazards: []model.Hazard{}, Enemies: []model.Enemy{}, Missions: []model.Mission{},
+		Items: []model.Item{}, Hazards: []model.Hazard{}, Enemies: []model.Enemy{}, Missions: []model.Mission{}, Ambient: []model.AmbientNPC{},
 	}
 
 	var g gameYAML
@@ -273,6 +284,17 @@ func load(dir string) (*model.ContentBundle, error) {
 			h.Breaks = &model.HazardBreak{Item: x.Breaks.Item, Min: x.Breaks.Min}
 		}
 		b.Hazards = append(b.Hazards, h)
+	}
+
+	var ambient []ambientYAML
+	if err := readOptional(filepath.Join(dir, "ambient.yaml"), &ambient); err != nil {
+		return nil, err
+	}
+	for _, x := range ambient {
+		b.Ambient = append(b.Ambient, model.AmbientNPC{
+			ID: x.ID, Name: x.Name, Sprite: x.Sprite, Kind: x.Kind, Areas: orEmpty(x.Areas),
+			Slots: orEmpty(x.Slots), PerChunk: x.PerChunk, Lines: orEmpty(x.Lines),
+		})
 	}
 
 	var missions []missionYAML

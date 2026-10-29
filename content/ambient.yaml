@@ -1,0 +1,56 @@
+# People out and about (SPEC.md §4.3). Birders also show up in photo sessions.
+- id: birder
+  name: Birder
+  sprite: char_birder
+  kind: birder
+  areas: [tko_waterfront, tko_hillside, cwb_country_park, po_toi_o]
+  slots: [morning, afternoon]
+  per_chunk: 1
+  lines:
+    - "Shh... there's a magpie-robin singing in that tree."
+    - "The egrets come in when the tide's low. Patience is everything!"
+    - "Nice camera! What lens are you using?"
+    - "I've been coming here every morning for twenty years. Still haven't seen it all."
+    - "Did you see that little teal bird some people talk about? Like it fell from the stars."
+- id: jogger
+  name: Jogger
+  sprite: char_jogger
+  kind: walker
+  areas: [tko_waterfront, tko_town]
+  slots: [morning, evening]
+  per_chunk: 1
+  lines:
+    - "Morning! Great day for a run along the bay!"
+    - "Watch the boardwalk, it gets slippery when it rains."
+- id: office_worker
+  name: Office Worker
+  sprite: char_office_worker
+  kind: walker
+  areas: [tko_town]
+  slots: [morning, afternoon, evening]
+  per_chunk: 2
+  lines:
+    - "Sorry, can't chat, my MTR is in five minutes!"
+    - "Lunch break. The milk tea at the plaza is the best."
+    - "Is it going to rain? I forgot my umbrella again."
+- id: auntie
+  name: Auntie
+  sprite: char_auntie
+  kind: walker
+  areas: [tko_town, po_toi_o]
+  slots: [morning, afternoon]
+  per_chunk: 1
+  lines:
+    - "Aiya, so hot today! Did you bring water, girl?"
+    - "The fish at the village market is fresh this morning."
+    - "My grandson takes piano lessons too, you know!"
+- id: student
+  name: Student
+  sprite: char_student
+  kind: walker
+  areas: [tko_town, tko_waterfront]
+  slots: [afternoon, evening]
+  per_chunk: 1
+  lines:
+    - "Exams next week... I'm studying, I promise!"
+    - "Have you seen the hopping zombie stories online? So scary!"

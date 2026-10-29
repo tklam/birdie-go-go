@@ -27,14 +27,15 @@ var (
 		model.MistakeWrongNote, model.MistakeMissedNote, model.MistakeExtraNote,
 		model.MistakeRush, model.MistakeDrag, model.MistakeHesitation,
 	}
-	Companions  = []string{"oboy", "kei"}
-	Instruments = []string{"square", "pulse", "triangle", "noise"}
-	ItemKinds   = []string{"gear", "consumable"}
-	GearSlots   = []string{"head", "body", "hand"}
-	EnemyKinds  = []string{"dog", "monster"}
-	Ratings     = []string{"good", "great", "perfect"}
-	WeatherKeys = []string{"cloud", "precip", "temp", "fog", "wind", "uv", "signal"}
-	KeiStages   = []string{"met", "friends", "dating", "engaged", "married"}
+	Companions   = []string{"oboy", "kei"}
+	Instruments  = []string{"square", "pulse", "triangle", "noise"}
+	ItemKinds    = []string{"gear", "consumable"}
+	GearSlots    = []string{"head", "body", "hand"}
+	EnemyKinds   = []string{"dog", "monster"}
+	Ratings      = []string{"good", "great", "perfect"}
+	AmbientKinds = []string{"walker", "birder"}
+	WeatherKeys  = []string{"cloud", "precip", "temp", "fog", "wind", "uv", "signal"}
+	KeiStages    = []string{"met", "friends", "dating", "engaged", "married"}
 
 	TriggerTypes = []string{
 		"enter_area", "talk", "interact", "photo_taken", "photo_session_end", "lesson_complete",
@@ -72,6 +73,7 @@ func Validate(b *model.ContentBundle) []error {
 	hazards := v.ids("hazard", len(b.Hazards), func(i int) string { return b.Hazards[i].ID })
 	v.ids("enemy", len(b.Enemies), func(i int) string { return b.Enemies[i].ID })
 	missions := v.ids("mission", len(b.Missions), func(i int) string { return b.Missions[i].ID })
+	v.ids("ambient", len(b.Ambient), func(i int) string { return b.Ambient[i].ID })
 
 	for _, a := range b.Areas {
 		v.require(a.Name != "", "area %s: name is required", a.ID)
@@ -103,6 +105,18 @@ func Validate(b *model.ContentBundle) []error {
 	}
 	for _, e := range b.Enemies {
 		v.enemy(e, areas, items)
+	}
+	for _, a := range b.Ambient {
+		v.require(a.Name != "" && a.Sprite != "", "ambient %s: name and sprite are required", a.ID)
+		v.require(slices.Contains(AmbientKinds, a.Kind), "ambient %s: kind must be walker or birder", a.ID)
+		v.require(a.PerChunk >= 1 && a.PerChunk <= 6, "ambient %s: per_chunk must be 1–6", a.ID)
+		v.require(len(a.Lines) > 0, "ambient %s: needs at least one line", a.ID)
+		for _, ar := range a.Areas {
+			v.require(areas[ar], "ambient %s: unknown area %q", a.ID, ar)
+		}
+		for _, sl := range a.Slots {
+			v.require(slices.Contains(TimeSlots, sl), "ambient %s: unknown time slot %q", a.ID, sl)
+		}
 	}
 	for _, m := range b.Missions {
 		v.mission(m, refs{areas: areas, students: students}, birds, items)

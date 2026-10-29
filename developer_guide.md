@@ -316,7 +316,19 @@ Background music lives in `content/music/<id>.yaml`: `tempo`, `loop_beats`, and 
 ```
 Encounter tuning lives entirely in YAML. Combo sequences are generated from the enemy's `combos` settings with a seeded RNG, so they're reproducible in tests.
 
-### 5.8 Students, missions, events, dialogue
+### 5.8 Passers-by: `content/ambient.yaml`
+```yaml
+- id: birder
+  name: Birder
+  sprite: char_birder        # 16×24 character sheet
+  kind: birder               # walker | birder (birders photograph birds and appear in photo sessions)
+  areas: [tko_waterfront]
+  slots: [morning, afternoon]
+  per_chunk: 1               # spawned on open tiles of these areas in each loaded chunk, same spots all day
+  lines: ["Shh... there's a magpie-robin singing in that tree."]
+```
+
+### 5.9 Students, missions, events, dialogue
 - Students: `content/students.yaml` (name, level, home, repertoire, mistake `tendencies`, fee).
 - Missions: `content/missions.yaml`. See SPEC.md §9.5 for the schema and objective types.
 - Events: `content/events/*.yaml`. See SPEC.md §9.4 for triggers, conditions, and actions.

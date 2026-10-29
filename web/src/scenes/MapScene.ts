@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
-import type { Enemy, WeatherDay, WeatherParams, WorldIndex, WorldObject } from '../core/types.gen';
+import type { AmbientNPC, Enemy, WeatherDay, WeatherParams, WorldIndex, WorldObject } from '../core/types.gen';
+import { rng } from '../photo/birds';
+import { CHUNK_TILES } from '../world/chunk';
 import { blendAt, easeWeather, mixWeather } from '../weather/blend';
 import { WeatherRenderer } from '../weather/renderer';
 import { MAX_ENERGY, TIME_SLOTS } from '../systems/state';
@@ -11,6 +13,7 @@ import type { Session } from '../systems/session';
 import { showAlbum } from '../ui/album';
 import { Hud } from '../ui/hud';
 import { showMenu } from '../ui/menu';
+import { showDialogue } from '../ui/dialogue';
 import { iris } from '../fx/iris';
 import { modal } from '../ui/overlay';
 import { showPanel } from '../ui/panel';
@@ -38,6 +41,18 @@ const FLUSH_RADIUS = 44;
 
 type Facing = 'down' | 'left' | 'right' | 'up';
 const FACING_ROW: Record<Facing, number> = { down: 0, left: 1, right: 2, up: 3 };
+
+interface Passerby {
+  def: AmbientNPC;
+  sprite: Phaser.GameObjects.Sprite;
+  chunk: string;
+  target: { x: number; y: number };
+  pauseUntil: number;
+  nextShot: number;
+  line: string;
+}
+
+const PASSERBY_SPEED = 26;
 
 interface OverworldNpc {
   object: WorldObject;
@@ -107,6 +122,8 @@ export class MapScene extends Phaser.Scene {
   private birds: OverworldBird[] = [];
   private enemies: OverworldEnemy[] = [];
   private npcs: OverworldNpc[] = [];
+  private passersby: Passerby[] = [];
+  private glints!: Phaser.GameObjects.Particles.ParticleEmitter;
   private kei: Phaser.GameObjects.Sprite | null = null;
   /** ?debug=chunks / ?debug=weather overlays (developer_guide.md §4.4–4.5). */
   private debug: { chunks: boolean; weather: boolean; g?: Phaser.GameObjects.Graphics; text?: Phaser.GameObjects.Text } = { chunks: false, weather: false };
@@ -139,6 +156,7 @@ export class MapScene extends Phaser.Scene {
     this.birds = [];
     this.enemies = [];
     this.npcs = [];
+    this.passersby = [];
     this.kei = null;
     this.flushedChunks.clear();
     this.ready = false;
@@ -181,6 +199,7 @@ export class MapScene extends Phaser.Scene {
     this.tallGrass = this.index.tileNames.indexOf('tall_grass') + 1 || -1;
     this.benchTile = this.index.tileNames.indexOf('bench') + 1 || -1;
     this.makeRustle();
+    this.makeGlints();
 
     this.chunkRenderer = new ChunkRenderer(this, this.index.tileset, this.index.tileSize);
     this.store = new ChunkStore(this.index, workerChunkLoader(`${mapPath(this.mapId)}chunks/`), {
@@ -189,12 +208,14 @@ export class MapScene extends Phaser.Scene {
         this.spawnBirds(c);
         this.spawnEnemies(c);
         this.spawnNpcs(c);
+        this.spawnPassersby(c);
       },
       evicted: (c) => {
         this.chunkRenderer.remove(c);
         this.despawnBirds(c);
         this.despawnEnemies(c);
         this.despawnNpcs(c);
+        this.despawnPassersby(c);
       },
       failed: (key, err) => console.warn(`chunk ${key} failed to load`, err),
     });
@@ -319,6 +340,7 @@ export class MapScene extends Phaser.Scene {
     }
     this.updateKei();
     this.updateNpcs();
+    this.updatePassersby(time, dt);
     if (this.oboy) {
       // Perched on the shoulder away from where she's facing.
       const side = this.facing === 'left' ? 5 : -5;
@@ -496,6 +518,14 @@ export class MapScene extends Phaser.Scene {
         if (d <= reach && (!best || d < best.d)) best = { label, object: o, d };
       }
     }
+    if (!best) {
+      for (const p of this.passersby) {
+        const d = Math.hypot(p.sprite.x - px, p.sprite.y - 6 - py);
+        if (d <= REACH && (!best || d < best.d)) {
+          best = { label: 'Talk', object: { name: p.def.name, type: 'passerby', x: p.sprite.x, y: p.sprite.y, props: { line: p.line } }, d };
+        }
+      }
+    }
     if (best) return best;
     // Benches are tiles, not objects: sit on the one in front of Angie.
     const ts = this.index.tileSize;
@@ -538,6 +568,9 @@ export class MapScene extends Phaser.Scene {
           break;
         case 'bench':
           await this.rest();
+          break;
+        case 'passerby':
+          await showDialogue([{ speaker: o.name, text: o.props.line }]);
           break;
         case 'shop':
           await this.shop(o.props.title ?? 'Shop');
@@ -762,6 +795,105 @@ export class MapScene extends Phaser.Scene {
     items.push({ label: 'Close', run: async () => false });
     await showMenu('Menu', items);
     this.busy = false;
+  }
+
+  // --- Passers-by (SPEC.md §4.3) --------------------------------------------
+
+  /** Spawns each kind of passer-by on open tiles of its areas in a newly loaded chunk (same spots all day). */
+  private spawnPassersby(chunk: ChunkData): void {
+    const s = this.session;
+    const key = chunkKey(chunk.cx, chunk.cy);
+    for (const def of s.content.ambient) {
+      if (def.slots.length && !def.slots.includes(s.state.slot)) continue;
+      if (!this.textures.exists(def.sprite)) continue;
+      const areaIdx = def.areas.map((a) => this.index.areas.indexOf(a)).filter((i) => i >= 0);
+      const open: number[] = [];
+      for (let i = 0; i < chunk.area.length; i++) {
+        if (chunk.collision[i] === 0 && areaIdx.includes(chunk.area[i])) open.push(i);
+      }
+      if (open.length < 20) continue;
+      const random = rng(s.state.worldSeed ^ (s.state.day * 7919) ^ (chunk.cx * 131 + chunk.cy * 977) ^ def.id.length * 31);
+      for (let n = 0; n < def.perChunk; n++) {
+        const i = open[Math.floor(random() * open.length)];
+        const ts = this.index.tileSize;
+        const x = (chunk.cx * CHUNK_TILES + (i % CHUNK_TILES)) * ts + ts / 2;
+        const y = (chunk.cy * CHUNK_TILES + Math.floor(i / CHUNK_TILES)) * ts + ts - 2;
+        const sprite = this.add.sprite(x, y, def.sprite, 0).setOrigin(0.5, 1).setDepth(DEPTH.entities + y);
+        const line = def.lines[Math.floor(random() * def.lines.length)];
+        this.passersby.push({ def, sprite, chunk: key, target: { x, y }, pauseUntil: 0, nextShot: 0, line });
+      }
+    }
+  }
+
+  private despawnPassersby(chunk: ChunkData): void {
+    const key = chunkKey(chunk.cx, chunk.cy);
+    this.passersby = this.passersby.filter((p) => {
+      if (p.chunk !== key) return true;
+      p.sprite.destroy();
+      return false;
+    });
+  }
+
+  /** Passers-by stroll between nearby spots; birders stop to photograph birds. */
+  private updatePassersby(time: number, dt: number): void {
+    const ts = this.index.tileSize;
+    for (const p of this.passersby) {
+      const sx = p.sprite.x;
+      const sy = p.sprite.y;
+      if (p.def.kind === 'birder') {
+        const bird = this.birds.find((b) => !b.flushed && Math.hypot(b.sprite.x - sx, b.sprite.y - sy) < 72);
+        if (bird) {
+          // Face the bird and take pictures every so often.
+          const dx = bird.sprite.x - sx;
+          const dy = bird.sprite.y - sy;
+          const row = Math.abs(dx) > Math.abs(dy) ? (dx < 0 ? 1 : 2) : dy < 0 ? 3 : 0;
+          p.sprite.setFrame(row * 4);
+          if (time >= p.nextShot) {
+            p.nextShot = time + 1200 + Math.random() * 2600;
+            this.glints.emitParticleAt(sx + (dx < 0 ? -4 : 4), sy - 13, 1);
+          }
+          continue;
+        }
+      }
+      if (time < p.pauseUntil) {
+        p.sprite.setFrame((Number(p.sprite.frame.name) >> 2) * 4);
+        continue;
+      }
+      const mx = p.target.x - sx;
+      const my = p.target.y - sy;
+      const m = Math.hypot(mx, my);
+      if (m < 2) {
+        // Pick somewhere new nearby (on an open tile) after a short pause.
+        p.pauseUntil = time + 800 + Math.random() * 3200;
+        for (let tries = 0; tries < 6; tries++) {
+          const tx = sx + (Math.random() - 0.5) * 140;
+          const ty = sy + (Math.random() - 0.5) * 90;
+          if (this.store.collisionAt(Math.floor(tx / ts), Math.floor((ty - 2) / ts)) === 0) {
+            p.target = { x: tx, y: ty };
+            break;
+          }
+        }
+        continue;
+      }
+      const step = Math.min(m, PASSERBY_SPEED * dt);
+      const next = move({ x: sx, y: sy }, (mx / m) * step, (my / m) * step, FEET, (x, y) => this.store.collisionAt(x, y), ts);
+      if (next.x === sx && next.y === sy) p.target = { x: sx, y: sy }; // blocked: rethink
+      const row = Math.abs(mx) > Math.abs(my) ? (mx < 0 ? 1 : 2) : my < 0 ? 3 : 0;
+      p.sprite.setPosition(next.x, next.y).setDepth(DEPTH.entities + next.y).setFrame(row * 4 + 1 + (Math.floor(time / 160) % 3));
+    }
+  }
+
+  private makeGlints(): void {
+    const key = 'camera-glint';
+    if (!this.textures.exists(key)) {
+      const g = this.make.graphics({}, false);
+      g.fillStyle(0xffffff).fillRect(1, 0, 1, 3).fillRect(0, 1, 3, 1);
+      g.generateTexture(key, 3, 3);
+      g.destroy();
+    }
+    this.glints = this.add
+      .particles(0, 0, key, { lifespan: 180, scale: { start: 1, end: 0.4 }, speed: 0, emitting: false })
+      .setDepth(DEPTH.overhead - 2);
   }
 
   // --- NPCs and Kei ------------------------------------------------------------

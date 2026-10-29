@@ -202,6 +202,27 @@
     "frameHeight": 24,
     "placeholder": true
   },
+  "char_auntie": {
+    "type": "spritesheet",
+    "file": "chars/auntie.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
+  "char_birder": {
+    "type": "spritesheet",
+    "file": "chars/birder.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
+  "char_jogger": {
+    "type": "spritesheet",
+    "file": "chars/jogger.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
   "char_kei": {
     "type": "spritesheet",
     "file": "chars/kei.png",
@@ -230,9 +251,23 @@
     "frameHeight": 8,
     "placeholder": true
   },
+  "char_office_worker": {
+    "type": "spritesheet",
+    "file": "chars/office_worker.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
   "char_old_villager": {
     "type": "spritesheet",
     "file": "chars/old_villager.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
+  "char_student": {
+    "type": "spritesheet",
+    "file": "chars/student.png",
     "frameWidth": 16,
     "frameHeight": 24,
     "placeholder": true
@@ -284,6 +319,13 @@
     "file": "birds/ow_red_whiskered_bulbul.png",
     "frameWidth": 8,
     "frameHeight": 8,
+    "placeholder": true
+  },
+  "photographer_back": {
+    "type": "spritesheet",
+    "file": "chars/photographer_back.png",
+    "frameWidth": 32,
+    "frameHeight": 48,
     "placeholder": true
   },
   "portrait_hopping_zombie": {
