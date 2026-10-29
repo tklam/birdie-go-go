@@ -89,7 +89,8 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] Route planner UI with transfers
 - [ ] Stop discovery; line unlocks via events
 - [ ] World map scene (pyramid images, discovered areas, lines)
-- [ ] Teleport waypoints: Kei's real-to-digital gateways, digital-dissolve transition, unlocked through his story
+- [x] Teleport waypoints: Kei's real-to-digital gateways (plaza, country park, Po Toi O), glitch-dissolve transition, unlocked once dating with bond 45+
+- [ ] Visiting Kei's digital realm itself (open question, SPEC §11)
 
 ## M3: Companions (§7)
 - [x] Bond system (outings together +2; story events)

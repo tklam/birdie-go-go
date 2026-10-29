@@ -799,9 +799,22 @@ export interface WorldIndex {
    */
   stops: { [key: string]: Point};
   /**
+   * Gateways maps Kei's gateway ids (objects of type "gateway") to
+   * their positions and titles.
+   */
+  gateways: { [key: string]: Gateway};
+  /**
    * Spawns maps spawn names to world pixel positions.
    */
   spawns: { [key: string]: Point};
+}
+/**
+ * Gateway is a teleport pad in the world.
+ */
+export interface Gateway {
+  x: number /* float64 */;
+  y: number /* float64 */;
+  title: string;
 }
 /**
  * WorldRegion is one Tiled map placed in the world, in pixels.

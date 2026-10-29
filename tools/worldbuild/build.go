@@ -103,6 +103,7 @@ type builder struct {
 	areas  map[string]int
 	spawns map[string]model.Point
 	stops  map[string]model.Point
+	gates  map[string]model.Gateway
 	fill   int
 	names  []string
 }
@@ -128,7 +129,7 @@ func run(worldPath, outDir string, opts options) error {
 	if err != nil {
 		return fmt.Errorf("%s: %w", worldPath, err)
 	}
-	b := &builder{opts: opts, chunks: map[[2]int]*chunk{}, areas: map[string]int{}, spawns: map[string]model.Point{}, stops: map[string]model.Point{}}
+	b := &builder{opts: opts, chunks: map[[2]int]*chunk{}, areas: map[string]int{}, spawns: map[string]model.Point{}, stops: map[string]model.Point{}, gates: map[string]model.Gateway{}}
 	for _, m := range w.Maps {
 		path := filepath.Join(filepath.Dir(worldPath), m.FileName)
 		if err := b.addMap(path, m.X, m.Y); err != nil {
@@ -236,6 +237,9 @@ func (b *builder) addMap(path string, ox, oy int) error {
 						return fmt.Errorf("duplicate spawn %q", o.Name)
 					}
 					b.spawns[o.Name] = model.Point{X: obj.X, Y: obj.Y}
+				}
+				if typ == "gateway" && obj.Props["gateway_id"] != "" {
+					b.gates[obj.Props["gateway_id"]] = model.Gateway{X: obj.X, Y: obj.Y, Title: obj.Props["title"]}
 				}
 				if typ == "stop" && obj.Props["stop_id"] != "" {
 					b.stops[obj.Props["stop_id"]] = model.Point{X: obj.X, Y: obj.Y}
@@ -357,6 +361,7 @@ func (b *builder) write(index model.WorldIndex, outDir string) error {
 	index.Chunks = map[string]string{}
 	index.Spawns = b.spawns
 	index.Stops = b.stops
+	index.Gateways = b.gates
 	index.TileNames = b.names
 	if index.TileNames == nil {
 		index.TileNames = []string{}

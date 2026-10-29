@@ -25,8 +25,18 @@ type WorldIndex struct {
 	AreaCenters map[string]Point `json:"areaCenters"`
 	// Stops maps transit stop ids (objects of type "stop") to world pixels.
 	Stops map[string]Point `json:"stops"`
+	// Gateways maps Kei's gateway ids (objects of type "gateway") to
+	// their positions and titles.
+	Gateways map[string]Gateway `json:"gateways"`
 	// Spawns maps spawn names to world pixel positions.
 	Spawns map[string]Point `json:"spawns"`
+}
+
+// Gateway is a teleport pad in the world.
+type Gateway struct {
+	X     float64 `json:"x"`
+	Y     float64 `json:"y"`
+	Title string  `json:"title"`
 }
 
 // WorldRegion is one Tiled map placed in the world, in pixels.

@@ -197,6 +197,7 @@ func build() *tmap {
 	m.obj("stop_tko_plaza", "stop", 62, 29, map[string]string{"stop_id": "tko_plaza"})
 	m.obj("plaza_shop", "shop", 47, 25, map[string]string{"title": "Plaza Convenience Store"})
 	m.obj("kei", "npc", 40, 27, map[string]string{"npc_id": "kei", "sprite": "char_kei", "requires_flag": "chapter3_started", "unless_flag": "kei_met"})
+	m.obj("gateway_tko_plaza", "gateway", 34, 28, map[string]string{"gateway_id": "tko_plaza", "title": "Plaza Gateway"})
 	m.obj("neighbour", "npc", 54, 28, map[string]string{"npc_id": "neighbour", "sprite": "char_neighbour"})
 	for _, x := range []int{38, 44, 50, 56} {
 		m.put(x, 29, "lamp")
@@ -325,6 +326,8 @@ func clearWaterBay() *tmap {
 	m.fill(56, 49, 6, 1, "reeds")
 
 	m.obj("cwb_stream", "spot", 22, 16, map[string]string{"spot_id": "cwb_stream"})
+	m.obj("gateway_cwb", "gateway", 40, 10, map[string]string{"gateway_id": "cwb_park", "title": "Country Park Gateway"})
+	m.obj("gateway_po_toi_o", "gateway", 44, 50, map[string]string{"gateway_id": "po_toi_o", "title": "Po Toi O Gateway"})
 	m.put(36, 44, "station_sign")
 	m.obj("stop_po_toi_o_village", "stop", 37, 44, map[string]string{"stop_id": "po_toi_o_village"})
 	m.obj("stop_po_toi_o_pier", "stop", 31, 56, map[string]string{"stop_id": "po_toi_o_pier"})

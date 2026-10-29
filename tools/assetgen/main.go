@@ -88,6 +88,7 @@ func gen(assets, tilesets string) error {
 		m["char_"+p.id] = manifestEntry{Type: "spritesheet", File: "chars/" + p.id + ".png", FrameWidth: 16, FrameHeight: 24, Placeholder: true}
 	}
 	m["vehicle_bus"] = manifestEntry{Type: "spritesheet", File: "vehicles/minibus.png", FrameWidth: 32, FrameHeight: 20, Placeholder: true}
+	m["gateway_pad"] = manifestEntry{Type: "spritesheet", File: "vehicles/gateway.png", FrameWidth: 16, FrameHeight: 16, Placeholder: true}
 	m["vehicle_ferry"] = manifestEntry{Type: "spritesheet", File: "vehicles/ferry.png", FrameWidth: 48, FrameHeight: 24, Placeholder: true}
 	m["photographer_back"] = manifestEntry{Type: "spritesheet", File: "chars/photographer_back.png", FrameWidth: 32, FrameHeight: 48, Placeholder: true}
 	for _, e := range enemyArt {

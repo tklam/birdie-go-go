@@ -293,6 +293,13 @@
     "frameHeight": 16,
     "placeholder": true
   },
+  "gateway_pad": {
+    "type": "spritesheet",
+    "file": "vehicles/gateway.png",
+    "frameWidth": 16,
+    "frameHeight": 16,
+    "placeholder": true
+  },
   "owbird_little_egret": {
     "type": "spritesheet",
     "file": "birds/ow_little_egret.png",

@@ -65,3 +65,17 @@
     - dialogue: wedding
     - set_kei_stage: married
     - set_chapter: 6
+
+# Kei's gateways (SPEC.md §4.11): teleports linking the real world with his digital realm.
+- id: kei_gateways
+  trigger: { type: day_start }
+  conditions:
+    - kei_stage: dating
+    - bond_at_least: { who: kei, amount: 45 }
+    - flag_not_set: gateways_online
+  actions:
+    - dialogue: kei_gateways
+    - set_flag: gateways_online
+    - set_flag: "gateway:tko_plaza"
+    - set_flag: "gateway:cwb_park"
+    - set_flag: "gateway:po_toi_o"

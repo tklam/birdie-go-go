@@ -17,6 +17,7 @@ import { Hud } from '../ui/hud';
 import { showMenu } from '../ui/menu';
 import { showDialogue } from '../ui/dialogue';
 import { iris } from '../fx/iris';
+import { glitch } from '../fx/glitch';
 import { modal } from '../ui/overlay';
 import { showPanel } from '../ui/panel';
 import { downloadSave, pickSave } from '../systems/backup';
@@ -125,6 +126,7 @@ export class MapScene extends Phaser.Scene {
   private birds: OverworldBird[] = [];
   private enemies: OverworldEnemy[] = [];
   private npcs: OverworldNpc[] = [];
+  private gateways: { object: WorldObject; sprite: Phaser.GameObjects.Sprite; chunk: string }[] = [];
   private passersby: Passerby[] = [];
   private glints!: Phaser.GameObjects.Particles.ParticleEmitter;
   /** The ride in progress (SPEC.md §4.11), if any. */
@@ -161,6 +163,7 @@ export class MapScene extends Phaser.Scene {
     this.birds = [];
     this.enemies = [];
     this.npcs = [];
+    this.gateways = [];
     this.passersby = [];
     this.ride = null;
     this.kei = null;
@@ -214,6 +217,7 @@ export class MapScene extends Phaser.Scene {
         this.spawnBirds(c);
         this.spawnEnemies(c);
         this.spawnNpcs(c);
+        this.spawnGateways(c);
         this.spawnPassersby(c);
       },
       evicted: (c) => {
@@ -221,6 +225,7 @@ export class MapScene extends Phaser.Scene {
         this.despawnBirds(c);
         this.despawnEnemies(c);
         this.despawnNpcs(c);
+        this.gateways = this.gateways.filter((g) => (g.chunk === chunkKey(c.cx, c.cy) ? (g.sprite.destroy(), false) : true));
         this.despawnPassersby(c);
       },
       failed: (key, err) => console.warn(`chunk ${key} failed to load`, err),
@@ -350,6 +355,7 @@ export class MapScene extends Phaser.Scene {
     }
     this.updateKei();
     this.updateNpcs();
+    for (const g of this.gateways) g.sprite.setVisible(this.gatewayOpen(g.object)).setFrame(Math.floor(time / 300) % 2);
     this.updatePassersby(time, dt);
     if (this.oboy) {
       // Perched on the shoulder away from where she's facing.
@@ -522,7 +528,7 @@ export class MapScene extends Phaser.Scene {
     for (const chunk of this.store.chunks()) {
       for (const o of chunk.objects) {
         const label = labelFor(o);
-        if (!label || (o.type === 'npc' && !this.npcVisible(o))) continue;
+        if (!label || (o.type === 'npc' && !this.npcVisible(o)) || (o.type === 'gateway' && !this.gatewayOpen(o))) continue;
         const reach = o.type === 'spot' ? REACH * 2 : REACH;
         const d = Math.hypot(o.x - px, o.y - py);
         if (d <= reach && (!best || d < best.d)) best = { label, object: o, d };
@@ -581,6 +587,9 @@ export class MapScene extends Phaser.Scene {
           break;
         case 'stop':
           await this.boardAt(o.props.stop_id);
+          return;
+        case 'gateway':
+          await this.useGateway(o);
           return;
         case 'passerby':
           await showDialogue([{ speaker: o.name, text: o.props.line }]);
@@ -860,6 +869,49 @@ export class MapScene extends Phaser.Scene {
     items.push({ label: 'Settings', run: () => this.settingsMenu() });
     items.push({ label: 'Close', run: async () => false });
     await showMenu('Menu', items);
+    this.busy = false;
+  }
+
+  // --- Kei's gateways (SPEC.md §4.11) ----------------------------------------
+
+  private gatewayOpen(o: WorldObject): boolean {
+    return this.session.state.flags[`gateway:${o.props.gateway_id}`] === true;
+  }
+
+  private spawnGateways(chunk: ChunkData): void {
+    if (!this.textures.exists('gateway_pad')) return;
+    for (const o of chunk.objects) {
+      if (o.type !== 'gateway') continue;
+      const sprite = this.add.sprite(o.x, o.y + 8, 'gateway_pad', 0).setOrigin(0.5, 1).setDepth(DEPTH.entities + o.y - 8);
+      this.gateways.push({ object: o, sprite, chunk: chunkKey(chunk.cx, chunk.cy) });
+    }
+  }
+
+  /** Pick another open gateway; pass through the digital realm to it. */
+  private async useGateway(from: WorldObject): Promise<void> {
+    const s = this.session;
+    const open = Object.entries(this.index.gateways).filter(([id]) => id !== from.props.gateway_id && s.state.flags[`gateway:${id}`]);
+    if (open.length === 0) {
+      toast('The gateway hums quietly.');
+      return;
+    }
+    let target: string | null = null;
+    await showMenu(from.props.title ?? 'Gateway', [
+      ...open.map(([id, g]) => ({ label: g.title || id, run: async () => ((target = id), false) })),
+      { label: 'Stay here', run: async () => false },
+    ]);
+    const dest = target ? this.index.gateways[target as string] : undefined;
+    if (!dest) return;
+    this.busy = true;
+    await glitch(this, 'out');
+    this.pos = { x: dest.x, y: dest.y + 14 };
+    this.angie.setPosition(this.pos.x, this.pos.y);
+    this.trail.reset(this.pos.x, this.pos.y);
+    // Let the destination stream in behind the effect.
+    await new Promise((r) => this.time.delayedCall(350, r));
+    await glitch(this, 'in');
+    toast(dest.title || 'Gateway');
+    await s.save();
     this.busy = false;
   }
 
@@ -1309,6 +1361,8 @@ export class MapScene extends Phaser.Scene {
 
 function labelFor(o: WorldObject): string | null {
   switch (o.type) {
+    case 'gateway':
+      return 'Warp';
     case 'stop':
       return 'Board';
     case 'shop':

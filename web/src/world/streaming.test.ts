@@ -15,6 +15,7 @@ const index: WorldIndex = {
   tileNames: [],
   areaCenters: {},
   stops: {},
+  gateways: {},
   chunks: { '0,0': 'a.bin', '1,0': 'b.bin', '1,1': 'c.bin' },
   spawns: {},
 };

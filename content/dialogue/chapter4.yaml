@@ -37,3 +37,10 @@
     - { speaker: kei, text: "Ready, Angie?" }
     - { speaker: oboy, text: "Chirrup!" }
     - { speaker: angie, text: "Ready. Let's keep exploring this city together, all three of us." }
+- id: kei_gateways
+  lines:
+    - { speaker: kei, text: "Angie, I have to show you something. My big project." }
+    - { speaker: kei, text: "I've been building a digital realm, a world made of light and code. And gateways that link it to ours." }
+    - { speaker: kei, text: "Step on a gateway, pass through the realm, and you come out at another one. Plaza, country park, Po Toi O!" }
+    - { speaker: oboy, text: "Chirrup!", if: { party_has: oboy } }
+    - { speaker: angie, text: "O Boy seems to know the way already... Kei, this is incredible." }

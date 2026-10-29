@@ -42,5 +42,21 @@ func genVehicles(assets string) error {
 			k.rect(x+(f*2)%4, 21, 2, 1, cPaleSky) // wake
 		}
 	}
-	return ferry.save(filepath.Join(assets, "vehicles", "ferry.png"))
+	if err := ferry.save(filepath.Join(assets, "vehicles", "ferry.png")); err != nil {
+		return err
+	}
+	// Kei's gateway pad: a glowing ring with a digital shimmer (2 frames).
+	pad := newCanvas(2*16, 16)
+	for f := range 2 {
+		k := pad.cell(f*16, 0)
+		k.ellipse(1, 5, 14, 10, cNavy)
+		k.ellipse(2, 6, 12, 8, cTeal)
+		k.ellipse(4, 7, 8, 6, cPaleSky)
+		for i := range 4 {
+			x := 3 + int(hash3(i, f, 70)%10)
+			y := int(hash3(i, f, 71) % 6)
+			k.rect(x, y, 1, 3, cSky)
+		}
+	}
+	return pad.save(filepath.Join(assets, "vehicles", "gateway.png"))
 }
