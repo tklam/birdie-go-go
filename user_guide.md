@@ -1,0 +1,220 @@
+# Birdie Go Go: Player's Guide
+
+> This guide describes the game as planned. Features arrive over the milestones in [TODO.md](TODO.md).
+
+## Welcome
+
+You are **Angie**, newly moved into a flat in Tseung Kwan O, a new town on the bay at the edge of a big harbour city. You have a camera and a love of music. The city's skyscrapers sit right beside green hills, quiet wetlands, beaches, and islands. Spend your days exploring, photographing birds, and teaching piano. Along the way you'll meet **O Boy**, a little blue-green parrotlet with a mysterious past, and **Kei**, an engineer who can build just about anything.
+
+The city has its rough edges, like stray dogs, the odd strange creature, and fierce weather, but there's no game over, so take your time.
+
+## Getting started
+
+- Open the game in a modern browser on a phone, tablet, or computer. No account is needed.
+- After your first visit you can **install** the game (Add to Home Screen) and play **offline**.
+- Play in **landscape**. If you hold your phone upright, the game will ask you to rotate it.
+- Tap or click **Start**. This also turns on the sound. Headphones help a lot during piano lessons.
+- On your first lesson, the game asks you to **calibrate**: tap along with 8 clicks so it can account for your device's audio delay.
+
+## Controls
+
+### Exploring
+
+| Action | Touch | Mouse | Keyboard |
+|---|---|---|---|
+| Move | Touch the left side and drag (joystick) | Hold the button toward where you want to go | Arrows / WASD |
+| Sneak | Push the joystick only a little | Hold right button while moving | Hold Shift |
+| Action | Tap the **Action** button | Click the target | Space / Enter |
+| Menu | Tap **Menu** (top right) | Menu button | Esc / Tab |
+
+The Action button shows what it will do: **Talk**, **Look**, **Enter**, **Sit**, **Board**, or **Photograph**. If you'd rather tap where you want to go, turn on **Tap to move** in Settings.
+
+### Taking photos
+
+| Action | Touch | Mouse | Keyboard |
+|---|---|---|---|
+| Aim | Drag anywhere on screen | Move the mouse | Arrows / WASD |
+| Focus | Press and hold | Hold the button | Hold Space |
+| Shoot | Let go | Release | Release Space |
+| Zoom | Pinch or zoom buttons | Wheel | Q / E |
+| Leave | **Back** | **Back** | Esc |
+
+### Piano lessons
+
+| Action | Touch | Mouse | Keyboard |
+|---|---|---|---|
+| Flag a mistake | Tap **Mistake!** (or anywhere on the lower half) | Click **Mistake!** | Space / Enter |
+
+## Your day
+
+Each day has three parts: **Morning, Afternoon, and Evening**. A photo session or a piano lesson uses up one part of the day. Walking around and most transit rides are free. Different birds show up at different times of day, in different seasons, and in different weather, so come back to your favorite spots often.
+
+The game saves automatically at the end of each part of the day, when you go indoors, and after rides.
+
+## Exploring the city
+
+The world is big and seamless. You can walk from downtown streets into a hillside park, up a trail to a peak, or down to the harbour without a loading screen. A district's name appears when you enter it.
+
+- **Tall grass** hides birds, and walking through it scares them off. Sneak instead.
+- You can hop down **ledges**, but you can't climb back up.
+- Some places are out of reach at first. New gear opens new paths: wading boots, a folding ladder, a night lens, even a kayak. Some of it comes from the shop and some is built by Kei.
+- Look around for hidden **feathers**, **camera parts**, and **sheet music**.
+- Open the **World Map** from the Menu to see where you've been, your birding spots, and the transit lines.
+
+## Getting around
+
+| | How it works |
+|---|---|
+| **Bus** | Wait at a stop and press **Board**. Ride along and watch the city go by. Tap **Get off at next stop**, or **Skip** to jump to your stop. |
+| **Tram** | Slow, cheap, and charming. It runs along the waterfront of the island. |
+| **Metro** | Go down into a station, pick your destination, and you're there in moments. Rain doesn't affect it. |
+| **Ferry** | Cross the harbour or sail to the outlying islands. Stand on the deck, because seabirds follow the boat and make great photos. Long island trips take up part of the day. |
+| **Teleport** | Later in the game, Kei's gateways link the real world with his digital realm. Use them to jump between places you've unlocked. |
+
+- Pay fares with your **transit card**, and top it up at shops and kiosks.
+- At any stop or station, open the **route planner**, pick where you want to go, and it works out the trip for you, transfers included.
+- New lines and stops open as the story goes on. A stop shows up on your map after your first visit.
+- Your companions ride with you. O Boy travels in a little carrier and has opinions about it.
+
+## Weather
+
+Each region has its own weather. The islands might be foggy and windy while downtown is hot and hazy and the peaks are lost in cloud. As you walk toward the border between two regions, the weather gradually shifts from one to the other.
+
+Weather changes through the day and tends to travel, so rain over the islands this morning may reach the harbour by afternoon.
+
+**Seasons**
+- **Spring**: humid and foggy, with spring migrants passing through.
+- **Summer**: hot, with showers, thunderstorms, and **typhoons**.
+- **Autumn**: clear and dry. This is migration season and the best time for birding.
+- **Winter**: cool and dry. Winter visitors gather in the wetlands.
+
+**Typhoons and rainstorms.** Watch the warning signal in the corner of the screen. At **typhoon signal 8** or higher, ferries stop, most outdoor spots close, and lessons are cancelled, so Angie stays home for a cozy day indoors. Rare seabirds sometimes turn up right after a typhoon passes.
+
+Weather matters for photos:
+- Some birds only show up in certain weather, and most hide during heavy rain.
+- Fog and heavy cloud make focusing slower, and fog hides distant birds.
+- Wind pushes flying birds around, which makes timing trickier.
+
+Listen to the **radio at home** for tomorrow's forecast for each region.
+
+## Energy and weather gear
+
+Angie has an **Energy** meter. Harsh weather wears it down, and so do run-ins with dogs and monsters. Eat, drink, rest on a bench, or sleep at home to recover.
+
+The weather can be an enemy too. Pack the right gear before heading out:
+
+| Hazard | What happens | Bring |
+|---|---|---|
+| ☀️ **High UV** | You get sunburnt and Energy drains | Sun hat, sunscreen, or an umbrella as a parasol |
+| 🌡️ **Heat** | You tire quickly and walk slower | Water bottle (refill at fountains and shops), hat, shade |
+| 🌧️ **Heavy rain** | You get soaked, Energy drains, and your lens fogs up | Umbrella or raincoat |
+| 💨 **Strong wind** | You get pushed sideways and **umbrellas flip and break** | Windbreaker, or a raincoat for windy rain |
+| 🥶 **Cold snap** | You get chilled up on the peaks | Jacket, hot drink |
+| 🌀 **Typhoon** | Outdoors is dangerous | Stay home |
+
+- Hazard icons appear on screen when they affect you.
+- Your **bag** has limited space, so choose what to pack each morning. The radio forecast tells you what to expect.
+- If Energy runs out, Angie gets dizzy and someone helps her to shelter or home. You lose the rest of that part of the day and pay a small clinic fee, but nothing else.
+
+## Encounters
+
+Sometimes you'll run into **wild dogs** on the edge of the city or in country parks. More rarely, especially at night or somewhere remote, you'll meet a **monster**: zombies (watch out for the hopping kind) or creatures from local folklore. Every folklore creature has a weakness rooted in its legend, so listen to what the old villagers tell you. You can always see them coming on the map, and sneaking helps you slip past. If one catches you, you have two choices:
+
+- **Escape**: **tap as fast as you can** (or hammer Space) to outrun it, and dodge when prompted.
+- **Confront**: enter the **button combinations** shown on screen (swipe directions and tap **A**/**B**) before time runs out. Each success wears down the enemy's resolve until it gives up.
+
+| Input | Touch | Mouse | Keyboard |
+|---|---|---|---|
+| Directions | Swipe on the left half | On-screen arrows | Arrows / WASD |
+| A / B | Big buttons on the right | On-screen A / B | Z / X |
+| Mash | Tap anywhere, fast | Click fast | Space, fast |
+
+Tips:
+- Dogs are hard to outrun. Standing your ground (Confront) usually works better, and Angie only shoos them away.
+- An umbrella lets you block, but it can break. A snack can distract a dog so you can slip away.
+- O Boy can squawk to distract an enemy, and Kei's gadgets make things easier.
+- If mashing is hard for you, turn on **Hold instead of mash**, **Slower prompts**, or **Skip encounters** in Settings.
+
+## Bird photography
+
+Find a bird or a marked birding spot and press **Photograph**. The view switches to your camera.
+
+1. **Approach gently.** Moving the viewfinder quickly or shooting over and over fills the **alert meter**. When it's full, the birds fly away.
+2. **Frame it.** Keep the bird near the center (or on a third of the frame) and at a good size.
+3. **Focus.** Hold until the focus indicator settles. Shooting too early gives a blurry photo.
+4. **Wait for the moment.** A bird with its wings spread or in an alert pose scores best. Fast-flying birds can come out blurry.
+5. **Mind your memory card.** You have a limited number of shots per session.
+
+Every photo gets a score and a rating: **★★★ Perfect**, **★★ Great**, **★ Good**, or **Blurry**. Your best shot of each species goes into your **Album** (open it from the Menu), and filling the album unlocks rewards.
+
+## Piano lessons
+
+Visit a student's home and press **Talk** to start a lesson.
+
+1. The piece scrolls across the screen as notes, with a line showing where the student is.
+2. Listen to the student play.
+3. The moment you hear a mistake, tap **Mistake!**
+
+Listen for a **wrong note**, a **missing note**, an **extra note**, playing **too early** or **too late**, and **hesitating**.
+
+You have about a second after a mistake to flag it. Flagging when nothing went wrong costs points, so don't just tap all the time. After the lesson you'll see every mistake the student made and which ones you caught. Good lessons earn more money and help your students improve, and as they progress they'll learn new pieces.
+
+If your taps feel consistently early or late, recalibrate in **Settings**.
+
+## Missions
+
+People around the city will ask for help. A magazine might want a photo of a particular winter visitor, a parent might want extra lessons before a recital, or someone might ask you to take a ferry somewhere. Check active missions in the Menu. Some missions only appear in certain seasons, and new ones may arrive in game updates.
+
+## Companions
+
+Before heading out, choose who comes along: go **alone**, or bring **O Boy**, **Kei**, or **both**. Change your party at home or by talking to a companion.
+
+Spending time together raises your **bond**, which unlocks new ways they can help.
+
+**O Boy** rides on your shoulder.
+- He chirps when a bird is nearby but out of sight.
+- He keeps birds calmer during photo sessions, and later he can call a curious bird closer.
+- He bobs his head to the beat during lessons and reacts when you miss a mistake.
+
+**Kei** follows you around and builds things.
+- His bird-call app names birds you can hear but can't see.
+- He builds gear that opens new areas, trail cameras that take photos while you're busy, and upgrades for your camera.
+- During lessons, his software can show the pitch of what the student plays and replay the mistakes you missed.
+
+Bring **both** and they'll work together, once O Boy gets used to having Kei around.
+
+Companions give **hints**. You still take the photo and catch the mistakes yourself.
+
+## Money and gear
+
+- Earn money from lessons, missions, and photo contests.
+- Spend it at the shop on lenses, faster shutters, bigger memory cards, parts, and transit card top-ups.
+- Once Kei is around, bring him parts and he'll build upgrades.
+
+## Saves and updates
+
+- Your progress is saved **on your device**. To back it up or move to another device, use **Settings → Export save** and **Import save**.
+- Clearing your browser's site data deletes your save, so export one first.
+- When you're online, the game may download **updates** (new areas, missions, and events) in the background. They take effect the next time you're at the title screen or a new day starts. Without a connection, everything you already have still works.
+
+## Settings
+
+- Volume (music, effects, piano)
+- Controls: joystick or tap to move
+- Window color (classic JRPG menu colors)
+- Recalibrate audio delay
+- Text speed
+- Reduced motion (turns off screen wobble and mosaic effects)
+- Encounters: hold instead of mash, slower prompts, skip encounters
+- Export / import save
+
+## Tips
+
+- Always sneak near birds.
+- Visit spots at different times of day, in different seasons, and in different weather to find new species.
+- Check the radio forecast before choosing where to go, especially in typhoon season.
+- Ride the ferry with your camera ready.
+- Pack for the forecast: sunscreen on bright days, a raincoat rather than an umbrella when it's windy.
+- Sneak past dogs you don't want to deal with.
+- Use headphones for lessons, because small phone speakers hide subtle wrong notes.
+- A rushed note and a wrong note sound very different, so listen to the rhythm as well as the pitch.
