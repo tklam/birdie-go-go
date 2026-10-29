@@ -11,3 +11,21 @@
   description: "Help Mei get ready for her school recital: a lesson scoring 70 or more."
   objective: { type: lesson, student: mei, min_score: 70 }
   reward: { money: 300, items: [milk_tea] }
+- id: date_po_toi_o
+  giver: kei
+  title: A Date at Po Toi O
+  description: "Kei suggested a birding afternoon at Po Toi O. Photograph a Little Egret there together."
+  objective: { type: photograph, species: little_egret, min_rating: good, area: po_toi_o }
+  reward: { money: 0, items: [milk_tea] }
+- id: harbour_contest
+  giver: magazine_editor
+  title: Harbour Birds Contest
+  description: "Enter the Harbour Birds photo contest with a perfect Oriental Magpie-Robin shot."
+  objective: { type: photograph, species: oriental_magpie_robin, min_rating: perfect }
+  reward: { money: 1000, items: [] }
+- id: mei_big_recital
+  giver: mei
+  title: The Big Recital
+  description: "Mei's big recital is coming. Get her lesson score to 85 or more."
+  objective: { type: lesson, student: mei, min_score: 85 }
+  reward: { money: 500, items: [] }

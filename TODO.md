@@ -99,8 +99,9 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Kei join event (Chapter 3: sticky shutter, camera shop in the plaza); follower movement; bird-call app in photo sessions
 - [x] Kei `friends` piano ability: faint trace of the notes actually played
 - [ ] Folding ladder (Kei build)
-- [ ] Kei romance stages and abilities through `married`
-- [ ] O Boy jealousy arc → `oboy_accepts_kei`
+- [x] Kei romance stages through `married` (story events)
+- [ ] Kei abilities beyond friends: trail cameras, camera mods, practice drills, home workshop
+- [x] O Boy jealousy arc → `oboy_accepts_kei` (birds jumpier with both along until then)
 - [ ] Combo ability; party-dependent dialogue
 
 ## M4: World and progression
@@ -156,8 +157,9 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] (Later) cloud save sync
 
 ## M6: Story (§8)
-- [~] Chapters 1–3 events and dialogue (placeholder text); Chapters 4–5 and the finale still to do
-- [ ] Wedding scene and shared home
+- [x] Chapters 1–5 and finale events and dialogue (placeholder text: Bird Paradise traveller, magazine, recitals, first date, contest, proposal, wedding)
+- [ ] Write the real story text
+- [~] Wedding (dialogue) done; wedding scene and shared home still to do
 - [ ] Post-game free play
 
 ## M7: Polish

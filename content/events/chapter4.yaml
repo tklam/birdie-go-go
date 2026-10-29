@@ -1,0 +1,67 @@
+# Chapters 4–5 and the finale (SPEC.md §8). Placeholder text until the story is written.
+- id: chapter4_start
+  trigger: { type: day_start }
+  conditions:
+    - kei_stage: friends
+    - bond_at_least: { who: kei, amount: 20 }
+    - flag_not_set: chapter4_started
+  actions:
+    - set_chapter: 4
+    - set_flag: chapter4_started
+    - dialogue: kei_invite
+    - start_mission: date_po_toi_o
+
+- id: first_date
+  trigger: { type: mission_complete, mission: date_po_toi_o }
+  actions:
+    - dialogue: first_date
+    - set_kei_stage: dating
+    - add_bond: { who: kei, amount: 15 }
+
+- id: oboy_accepts_kei
+  trigger: { type: photo_session_end }
+  conditions:
+    - kei_stage: dating
+    - party_has: oboy
+    - party_has: kei
+    - bond_at_least: { who: oboy, amount: 50 }
+    - flag_not_set: oboy_accepts_kei
+  actions:
+    - dialogue: oboy_accepts_kei
+    - set_flag: oboy_accepts_kei
+    - add_bond: { who: kei, amount: 5 }
+
+- id: chapter5_start
+  trigger: { type: day_start }
+  conditions:
+    - kei_stage: dating
+    - flag_set: oboy_accepts_kei
+    - flag_not_set: chapter5_started
+  actions:
+    - set_chapter: 5
+    - set_flag: chapter5_started
+    - dialogue: chapter5_contest
+    - start_mission: harbour_contest
+    - start_mission: mei_big_recital
+
+- id: kei_proposes
+  trigger: { type: mission_complete }
+  conditions:
+    - flag_set: "mission_done:harbour_contest"
+    - flag_set: "mission_done:mei_big_recital"
+    - flag_not_set: kei_proposed
+  actions:
+    - set_flag: kei_proposed
+    - dialogue: kei_proposes
+    - set_kei_stage: engaged
+
+- id: wedding
+  trigger: { type: day_start }
+  conditions:
+    - kei_stage: engaged
+    - flag_not_set: wedding_done
+  actions:
+    - set_flag: wedding_done
+    - dialogue: wedding
+    - set_kei_stage: married
+    - set_chapter: 6

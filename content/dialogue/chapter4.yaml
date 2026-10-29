@@ -1,0 +1,39 @@
+- id: kei_invite
+  lines:
+    - { speaker: kei, text: "Morning, Angie! So... I was thinking." }
+    - { speaker: kei, text: "The egrets at Po Toi O are beautiful in the afternoon light. Would you... like to go birding there? Together?" }
+    - { speaker: angie, text: "Like a date?" }
+    - { speaker: kei, text: "...Like a date." }
+    - { speaker: oboy, text: "Chirp!!", if: { party_has: oboy } }
+    - { speaker: angie, text: "I'd love to. Let's take the minibus from the plaza!" }
+- id: first_date
+  lines:
+    - { speaker: kei, text: "That shot is perfect. The light on the water..." }
+    - { speaker: angie, text: "This was the best afternoon, Kei." }
+    - { speaker: kei, text: "Then let's have many more." }
+- id: oboy_accepts_kei
+  lines:
+    - { speaker: angie, text: "O Boy! You landed on Kei's shoulder!" }
+    - { speaker: kei, text: "Does this mean we're friends now, little traveller?" }
+    - { speaker: oboy, text: "Chirrup!" }
+    - { speaker: angie, text: "I think he's decided you're family." }
+- id: chapter5_contest
+  lines:
+    - { speaker: magazine_editor, text: "Angie! The Harbour Birds photo contest is open. We'd love a perfect Magpie-Robin from you!" }
+    - { speaker: mei, text: "And my big recital is soon, Miss Angie. I want to play it perfectly!" }
+    - { speaker: angie, text: "Two big goals. We can do this!" }
+- id: kei_proposes
+  lines:
+    - { speaker: kei, text: "Angie, can we take a walk along the bay?" }
+    - { speaker: kei, text: "Every day since that sticky shutter has been better than the one before." }
+    - { speaker: kei, text: "I built a little gadget, but this time it's just a ring. Will you marry me?" }
+    - { speaker: angie, text: "Yes! Oh boy... yes!" }
+    - { speaker: oboy, text: "CHIRP CHIRP!", if: { party_has: oboy } }
+- id: wedding
+  lines:
+    - { speaker: angie, text: "Today's the day." }
+    - { speaker: neighbour, text: "Oh, you look lovely! The whole estate came to the waterfront park!" }
+    - { speaker: mei, text: "I'm playing the piano for you, Miss Angie! I practised so hard!" }
+    - { speaker: kei, text: "Ready, Angie?" }
+    - { speaker: oboy, text: "Chirrup!" }
+    - { speaker: angie, text: "Ready. Let's keep exploring this city together, all three of us." }

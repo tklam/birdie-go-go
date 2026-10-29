@@ -453,7 +453,10 @@ export class PhotoScene extends Phaser.Scene {
   private alertInput(dtMs: number, viewfinderSpeed: number, shotFired: boolean) {
     const present = this.birds.filter((b) => b.state === 'perched' || b.state === 'arriving');
     const skittishness = present.reduce((m, b) => Math.max(m, b.species.skittishness), 0);
-    const slowdown = this.session.state.party.includes('oboy') ? OBOY_ALERT_SLOWDOWN : 1;
+    const st = this.session.state;
+    let slowdown = st.party.includes('oboy') ? OBOY_ALERT_SLOWDOWN : 1;
+    // Until O Boy accepts Kei, having both along makes the birds jumpier (SPEC.md §7.2).
+    if (st.party.includes('oboy') && st.party.includes('kei') && !st.flags.oboy_accepts_kei) slowdown = 1.2;
     return { dtMs, viewfinderSpeed, shotFired, skittishness, slowdown };
   }
 
