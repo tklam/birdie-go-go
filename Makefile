@@ -31,7 +31,7 @@ world:
 	$(GO) run ./tools/worldbuild -world content/world/city.world -out $(PUBLIC)/world
 
 assets:
-	$(GO) run ./tools/assetgen gen -assets $(PUBLIC)/assets
+	$(GO) run ./tools/assetgen gen -assets $(PUBLIC)/assets -tilesets content/world/tilesets
 
 gen:
 	$(GO) run $(TYGO) generate

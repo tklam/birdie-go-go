@@ -25,7 +25,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 
 ### Foundation
 - [x] Content schema + validation (`core/content`), with tests; Tseung Kwan O starter content (areas, 3 birds, 2 spots, 1 student, 2 songs, prologue events)
-- [ ] Asset manifest + loader; master palette; `assetgen` placeholders + `check`
+- [~] Asset manifest + loader; master palette; `assetgen` placeholders + `check` (generator and checker done; client loader pending)
 - [ ] Pixel-perfect scaling, letterboxing, rotate-to-landscape prompt
 - [ ] Input layer that unifies touch, mouse, and keyboard
 - [ ] 16-bit UI kit: window frames, pixel font, cursor, dialogue box with portrait, menus

@@ -1,1 +1,205 @@
-{}
+{
+  "bg_garden": {
+    "type": "background",
+    "layers": [
+      "bg_garden_far",
+      "bg_garden_mid",
+      "bg_garden_near"
+    ],
+    "perches": [
+      [
+        30,
+        66
+      ],
+      [
+        58,
+        70
+      ],
+      [
+        297,
+        84
+      ],
+      [
+        120,
+        166
+      ],
+      [
+        200,
+        166
+      ],
+      [
+        78,
+        70
+      ],
+      [
+        250,
+        64
+      ]
+    ],
+    "ground": [
+      150,
+      164
+    ],
+    "placeholder": true
+  },
+  "bg_garden_far": {
+    "type": "image",
+    "file": "backgrounds/bg_garden_far.png",
+    "placeholder": true
+  },
+  "bg_garden_mid": {
+    "type": "image",
+    "file": "backgrounds/bg_garden_mid.png",
+    "placeholder": true
+  },
+  "bg_garden_near": {
+    "type": "image",
+    "file": "backgrounds/bg_garden_near.png",
+    "placeholder": true
+  },
+  "bg_waterfront": {
+    "type": "background",
+    "layers": [
+      "bg_waterfront_far",
+      "bg_waterfront_mid",
+      "bg_waterfront_near"
+    ],
+    "perches": [
+      [
+        40,
+        148
+      ],
+      [
+        96,
+        148
+      ],
+      [
+        180,
+        148
+      ],
+      [
+        232,
+        148
+      ],
+      [
+        262,
+        82
+      ],
+      [
+        290,
+        76
+      ],
+      [
+        151,
+        92
+      ]
+    ],
+    "ground": [
+      168,
+      178
+    ],
+    "placeholder": true
+  },
+  "bg_waterfront_far": {
+    "type": "image",
+    "file": "backgrounds/bg_waterfront_far.png",
+    "placeholder": true
+  },
+  "bg_waterfront_mid": {
+    "type": "image",
+    "file": "backgrounds/bg_waterfront_mid.png",
+    "placeholder": true
+  },
+  "bg_waterfront_near": {
+    "type": "image",
+    "file": "backgrounds/bg_waterfront_near.png",
+    "placeholder": true
+  },
+  "bird_little_egret": {
+    "type": "spritesheet",
+    "file": "birds/little_egret.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ],
+    "placeholder": true
+  },
+  "bird_oriental_magpie_robin": {
+    "type": "spritesheet",
+    "file": "birds/oriental_magpie_robin.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ],
+    "placeholder": true
+  },
+  "bird_red_whiskered_bulbul": {
+    "type": "spritesheet",
+    "file": "birds/red_whiskered_bulbul.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ],
+    "placeholder": true
+  },
+  "char_angie": {
+    "type": "spritesheet",
+    "file": "chars/angie.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
+  "char_oboy": {
+    "type": "spritesheet",
+    "file": "chars/oboy.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_little_egret": {
+    "type": "spritesheet",
+    "file": "birds/ow_little_egret.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_oriental_magpie_robin": {
+    "type": "spritesheet",
+    "file": "birds/ow_oriental_magpie_robin.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_red_whiskered_bulbul": {
+    "type": "spritesheet",
+    "file": "birds/ow_red_whiskered_bulbul.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "tiles_tko": {
+    "type": "spritesheet",
+    "file": "tiles/tko.png",
+    "frameWidth": 16,
+    "frameHeight": 16,
+    "placeholder": true
+  }
+}

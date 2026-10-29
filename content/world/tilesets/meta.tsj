@@ -1,0 +1,67 @@
+{
+  "columns": 5,
+  "image": "../../../web/public/assets/tiles/meta.png",
+  "imageheight": 16,
+  "imagewidth": 80,
+  "margin": 0,
+  "name": "meta",
+  "spacing": 0,
+  "tilecount": 5,
+  "tiledversion": "1.10.2",
+  "tileheight": 16,
+  "tiles": [
+    {
+      "id": 0,
+      "properties": [
+        {
+          "name": "collision",
+          "type": "string",
+          "value": "solid"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "properties": [
+        {
+          "name": "collision",
+          "type": "string",
+          "value": "ledge_south"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "properties": [
+        {
+          "name": "area",
+          "type": "string",
+          "value": "tko_town"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "properties": [
+        {
+          "name": "area",
+          "type": "string",
+          "value": "tko_waterfront"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "properties": [
+        {
+          "name": "area",
+          "type": "string",
+          "value": "tko_hillside"
+        }
+      ]
+    }
+  ],
+  "tilewidth": 16,
+  "type": "tileset",
+  "version": "1.10"
+}
