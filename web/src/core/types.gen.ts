@@ -819,6 +819,16 @@ export interface WorldIndex {
    */
   stops: { [key: string]: Point};
   /**
+   * Landmarks are the places shown on the in-game map (spots, shops,
+   * doors with a title, stops and gateways).
+   */
+  landmarks: Landmark[];
+  /**
+   * Overview is the file name (next to index.json) of a one-pixel-per-tile
+   * picture of the whole map, for the in-game map; empty if none.
+   */
+  overview?: string;
+  /**
    * Gateways maps Kei's gateway ids (objects of type "gateway") to
    * their positions and titles.
    */
@@ -827,6 +837,17 @@ export interface WorldIndex {
    * Spawns maps spawn names to world pixel positions.
    */
   spawns: { [key: string]: Point};
+}
+/**
+ * Landmark is a place marked on the in-game map. ID is the spot, stop or
+ * gateway id (or the object's name).
+ */
+export interface Landmark {
+  type: string;
+  id: string;
+  title?: string;
+  x: number /* float64 */;
+  y: number /* float64 */;
 }
 /**
  * Gateway is a teleport pad in the world.

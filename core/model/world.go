@@ -25,11 +25,27 @@ type WorldIndex struct {
 	AreaCenters map[string]Point `json:"areaCenters"`
 	// Stops maps transit stop ids (objects of type "stop") to world pixels.
 	Stops map[string]Point `json:"stops"`
+	// Landmarks are the places shown on the in-game map (spots, shops,
+	// doors with a title, stops and gateways).
+	Landmarks []Landmark `json:"landmarks"`
+	// Overview is the file name (next to index.json) of a one-pixel-per-tile
+	// picture of the whole map, for the in-game map; empty if none.
+	Overview string `json:"overview,omitempty"`
 	// Gateways maps Kei's gateway ids (objects of type "gateway") to
 	// their positions and titles.
 	Gateways map[string]Gateway `json:"gateways"`
 	// Spawns maps spawn names to world pixel positions.
 	Spawns map[string]Point `json:"spawns"`
+}
+
+// Landmark is a place marked on the in-game map. ID is the spot, stop or
+// gateway id (or the object's name).
+type Landmark struct {
+	Type  string  `json:"type"`
+	ID    string  `json:"id"`
+	Title string  `json:"title,omitempty"`
+	X     float64 `json:"x"`
+	Y     float64 `json:"y"`
 }
 
 // Gateway is a teleport pad in the world.

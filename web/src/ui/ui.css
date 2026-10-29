@@ -270,3 +270,63 @@
   min-height: 48px;
   border-radius: 8px;
 }
+
+/* World map (Menu → Map). */
+.panel.minimap {
+  max-width: none;
+}
+.mm-frame {
+  position: relative;
+  border: var(--px) solid var(--win-shadow);
+  margin: calc(var(--px) * 2) auto;
+}
+.mm-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  image-rendering: pixelated;
+}
+.mm-marker,
+.mm-key {
+  width: 8px;
+  height: 8px;
+  border: 2px solid #101018;
+  box-sizing: content-box;
+}
+.mm-marker {
+  position: absolute;
+  margin: -6px 0 0 -6px;
+}
+.mm-key {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 4px 0 12px;
+}
+.mm-angie {
+  background: #f0d050;
+  border-radius: 50%;
+  animation: blink 0.8s steps(1) infinite;
+}
+.mm-legend .mm-angie {
+  animation: none;
+}
+.mm-spot {
+  background: #78c058;
+  border-radius: 50%;
+}
+.mm-stop {
+  background: #3f7fdf;
+}
+.mm-gateway {
+  background: #3fbf9f;
+  transform: rotate(45deg);
+}
+.mm-shop {
+  background: #e88a2c;
+}
+.mm-door {
+  background: #e890a8;
+}
+.mm-legend {
+  font-size: calc(var(--px) * 6);
+}

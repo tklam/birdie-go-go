@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"image/color"
 	"os"
 	"path/filepath"
 	"sort"
@@ -66,6 +67,9 @@ type tiledMap struct {
 type tiledTileset struct {
 	Name      string `json:"name"`
 	TileCount int    `json:"tilecount"`
+	Columns   int    `json:"columns"`
+	TileWidth int    `json:"tilewidth"`
+	Image     string `json:"image"`
 	Tiles     []struct {
 		ID         int             `json:"id"`
 		Properties []tiledProperty `json:"properties"`
@@ -104,6 +108,8 @@ type builder struct {
 	spawns map[string]model.Point
 	stops  map[string]model.Point
 	gates  map[string]model.Gateway
+	colors []color.NRGBA // average color per atlas tile, for the overview map
+	marks  []model.Landmark
 	fill   int
 	names  []string
 }
@@ -238,6 +244,9 @@ func (b *builder) addMap(path string, ox, oy int) error {
 					}
 					b.spawns[o.Name] = model.Point{X: obj.X, Y: obj.Y}
 				}
+				if mark, ok := landmark(obj); ok {
+					b.marks = append(b.marks, mark)
+				}
 				if typ == "gateway" && obj.Props["gateway_id"] != "" {
 					b.gates[obj.Props["gateway_id"]] = model.Gateway{X: obj.X, Y: obj.Y, Title: obj.Props["title"]}
 				}
@@ -267,6 +276,13 @@ func (b *builder) resolveTilesets(dir string, m tiledMap) (map[int]tileRef, erro
 		if err := json.Unmarshal(data, &t); err != nil {
 			return nil, fmt.Errorf("%s: %w", ts.Source, err)
 		}
+		if t.Name == b.opts.atlas && b.colors == nil && t.Image != "" {
+			cols, err := tileColors(filepath.Join(dir, filepath.Dir(ts.Source), t.Image), t.TileWidth, t.Columns, t.TileCount)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %w", t.Image, err)
+			}
+			b.colors = cols
+		}
 		props := map[int]map[string]string{}
 		for _, tile := range t.Tiles {
 			props[tile.ID] = map[string]string{}
@@ -289,6 +305,31 @@ func (b *builder) resolveTilesets(dir string, m tiledMap) (map[int]tileRef, erro
 		}
 	}
 	return gids, nil
+}
+
+// landmark returns the in-game map marker for an object, if it deserves one.
+func landmark(o model.WorldObject) (model.Landmark, bool) {
+	id := func(prop string) string {
+		if v := o.Props[prop]; v != "" {
+			return v
+		}
+		return o.Name
+	}
+	switch o.Type {
+	case "spot":
+		return model.Landmark{Type: "spot", ID: id("spot_id"), X: o.X, Y: o.Y}, true
+	case "stop":
+		return model.Landmark{Type: "stop", ID: id("stop_id"), X: o.X, Y: o.Y}, true
+	case "gateway":
+		return model.Landmark{Type: "gateway", ID: id("gateway_id"), Title: o.Props["title"], X: o.X, Y: o.Y}, true
+	case "shop":
+		return model.Landmark{Type: "shop", ID: o.Name, Title: o.Props["title"], X: o.X, Y: o.Y}, true
+	case "door":
+		if o.Props["title"] != "" && o.Props["to_map"] != "world" {
+			return model.Landmark{Type: "door", ID: o.Name, Title: o.Props["title"], X: o.X, Y: o.Y}, true
+		}
+	}
+	return model.Landmark{}, false
 }
 
 func (b *builder) chunk(cx, cy int) *chunk {
@@ -362,6 +403,10 @@ func (b *builder) write(index model.WorldIndex, outDir string) error {
 	index.Spawns = b.spawns
 	index.Stops = b.stops
 	index.Gateways = b.gates
+	index.Landmarks = b.marks
+	if index.Landmarks == nil {
+		index.Landmarks = []model.Landmark{}
+	}
 	index.TileNames = b.names
 	if index.TileNames == nil {
 		index.TileNames = []string{}
@@ -389,6 +434,12 @@ func (b *builder) write(index model.WorldIndex, outDir string) error {
 			return err
 		}
 		index.Chunks[fmt.Sprintf("%d,%d", k[0], k[1])] = name
+	}
+	if err := b.writeOverview(filepath.Join(outDir, "overview.png"), index.WidthChunks, index.HeightChunks); err != nil {
+		return err
+	}
+	if b.colors != nil {
+		index.Overview = "overview.png"
 	}
 	out, err := json.Marshal(index)
 	if err != nil {

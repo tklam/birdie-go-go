@@ -17,6 +17,7 @@ import { showAlbum } from '../ui/album';
 import { Hud } from '../ui/hud';
 import { showMenu } from '../ui/menu';
 import { showDialogue } from '../ui/dialogue';
+import { showMinimap, type MapMarker } from '../ui/minimap';
 import { iris } from '../fx/iris';
 import { glitch } from '../fx/glitch';
 import { modal } from '../ui/overlay';
@@ -673,6 +674,38 @@ export class MapScene extends Phaser.Scene {
     );
   }
 
+  /** The city map with Angie and landmarks (SPEC.md §4.10). */
+  private async worldMap(): Promise<boolean> {
+    const world = this.registry.get('world') as WorldIndex;
+    if (!world.overview) {
+      toast('No map available.');
+      return true;
+    }
+    const s = this.session;
+    const indoors = this.mapId !== 'world';
+    const markers: MapMarker[] = world.landmarks
+      .filter((l) => l.type !== 'gateway' || s.state.flags[`gateway:${l.id}`])
+      .map((l) => ({
+        x: l.x,
+        y: l.y,
+        kind: l.type as MapMarker['kind'],
+        label: l.title || s.content.spots.find((x) => x.id === l.id)?.name || s.content.transit.stops.find((x) => x.id === l.id)?.name || l.id,
+      }));
+    // Indoors, show Angie at the door she came in by.
+    const here = indoors ? world.spawns[`${this.mapId.replace(/_(flat|house)$/, '')}_home_out`] ?? null : this.pos;
+    if (here) markers.push({ x: here.x, y: here.y, kind: 'angie' });
+    const area = indoors ? 'Indoors' : (s.content.areas.find((a) => a.id === this.area)?.name ?? 'Map');
+    await showMinimap({
+      title: `Map · ${area}`,
+      imageUrl: `${import.meta.env.BASE_URL}world/${world.overview}`,
+      widthTiles: world.widthChunks * world.chunkTiles,
+      heightTiles: world.heightChunks * world.chunkTiles,
+      tileSize: world.tileSize,
+      markers,
+    });
+    return true;
+  }
+
   /** Volume, accessibility and audio-latency settings (SPEC.md §4.13, §6.4). */
   private async settingsMenu(): Promise<boolean> {
     const s = this.session;
@@ -867,6 +900,7 @@ export class MapScene extends Phaser.Scene {
     this.busy = true;
     const s = this.session;
     const items = [
+      { label: 'Map', run: () => this.worldMap() },
       { label: 'Album', run: async () => (await showAlbum(s.content, s.state, this.registry.get('manifest') as Manifest), true) },
       { label: 'Bag', run: () => this.bag() },
       ...(s.state.joined.includes('kei')

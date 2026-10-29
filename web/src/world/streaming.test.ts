@@ -16,6 +16,7 @@ const index: WorldIndex = {
   areaCenters: {},
   stops: {},
   gateways: {},
+  landmarks: [],
   chunks: { '0,0': 'a.bin', '1,0': 'b.bin', '1,1': 'c.bin' },
   spawns: {},
 };
