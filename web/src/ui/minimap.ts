@@ -6,6 +6,8 @@ export interface MapMarker {
   y: number;
   kind: 'angie' | 'spot' | 'stop' | 'gateway' | 'shop' | 'door';
   label?: string;
+  /** Highlighted (pulsing ring), e.g. birding spots near Angie. */
+  near?: boolean;
 }
 
 const KIND_CLASS: Record<MapMarker['kind'], string> = {
@@ -28,6 +30,8 @@ export function showMinimap(opts: {
   heightTiles: number;
   tileSize: number;
   markers: MapMarker[];
+  /** A line under the map, e.g. the nearby birding spots. */
+  note?: string;
 }): Promise<void> {
   const box = document.createElement('div');
   box.className = 'window panel minimap';
@@ -49,13 +53,19 @@ export function showMinimap(opts: {
   frame.appendChild(img);
   for (const m of opts.markers) {
     const dot = document.createElement('div');
-    dot.className = `mm-marker ${KIND_CLASS[m.kind]}`;
+    dot.className = `mm-marker ${KIND_CLASS[m.kind]}${m.near ? ' mm-near' : ''}`;
     dot.style.left = `${(m.x / opts.tileSize) * scale}px`;
     dot.style.top = `${(m.y / opts.tileSize) * scale}px`;
     if (m.label) dot.title = m.label;
     frame.appendChild(dot);
   }
   box.appendChild(frame);
+  if (opts.note) {
+    const note = document.createElement('div');
+    note.className = 'mm-note';
+    note.textContent = opts.note;
+    box.appendChild(note);
+  }
   const legend = document.createElement('div');
   legend.className = 'mm-legend';
   legend.innerHTML =

@@ -103,8 +103,26 @@ func drawAngie(k cell, dir, frame int) {
 	case dirUp:
 		k.rect(7, 9, 3, 2, cDarkBrown)
 	}
-	// Camera strap across the shirt.
-	k.line(5, 10, 11, 15, cBlack)
+	if dir == dirDown {
+		shimaEnaga(k)
+	} else {
+		// Camera strap across the shirt (the front shows her shirt print instead).
+		k.line(5, 10, 11, 15, cBlack)
+	}
+}
+
+// shimaEnaga prints a tiny Shima-enaga (the white long-tailed tit of
+// Hokkaido) on the front of Angie's shirt: a white fluffball with dot eyes,
+// a tiny beak and its long dark tail.
+func shimaEnaga(k cell) {
+	k.rect(7, 11, 3, 1, cWhite) // round fluffy body
+	k.rect(6, 12, 5, 2, cWhite)
+	k.rect(7, 14, 3, 1, cWhite)
+	k.set(7, 12, cBlack) // dot eyes
+	k.set(9, 12, cBlack)
+	k.set(9, 14, cLightGray)       // wing
+	k.line(10, 14, 11, 14, cBlack) // long tail sticking out
+	k.set(11, 15, cBlack)
 }
 
 // genOBoy writes O Boy's 8×8 overworld sheet: idle, hop.

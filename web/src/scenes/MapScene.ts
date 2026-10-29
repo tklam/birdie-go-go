@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import type { AmbientNPC, Enemy, WeatherDay, WeatherParams, WorldIndex, WorldObject } from '../core/types.gen';
 import { rng } from '../photo/birds';
 import { pathLength, pointAt, ridePath, type Pt } from '../world/path';
+import { arrowToward, edgePoint, nearby } from '../world/nearby';
 import { build, buildStatus, CAMERA_PART, placeTrailCamera, TRAIL_CAMERA, trailCamFlag } from '../systems/gadgets';
 import { floatingButton } from '../ui/panel';
 import { CHUNK_TILES } from '../world/chunk';
@@ -153,6 +154,8 @@ export class MapScene extends Phaser.Scene {
   private hazards: HazardReport | null = null;
   private fainting = false;
   private exiting = false;
+  /** Birding-spot indicators: icons over visible spots, arrows at the edge for nearby ones. */
+  private spotMarks: Phaser.GameObjects.Graphics | null = null;
   /** The tune this place should play (area music outdoors, none indoors). */
   private wantMusic: string | null = null;
   /** Ground value of tall grass (atlas frame + 1), or −1 if the atlas has none. */
@@ -190,6 +193,7 @@ export class MapScene extends Phaser.Scene {
     this.hazards = null;
     this.fainting = false;
     this.exiting = false;
+    this.spotMarks = null;
     this.touch = new TouchControls();
     this.input2 = new InputReader(this, this.touch);
     this.hud = new Hud();
@@ -368,6 +372,7 @@ export class MapScene extends Phaser.Scene {
     for (const g of this.gateways) g.sprite.setVisible(this.gatewayOpen(g.object)).setFrame(Math.floor(time / 300) % 2);
     this.updatePassersby(time, dt);
     this.updateUmbrellas();
+    this.drawSpotMarks(time);
     if (this.oboy) {
       // Perched on the shoulder away from where she's facing.
       const side = this.facing === 'left' ? 5 : -5;
@@ -720,6 +725,12 @@ export class MapScene extends Phaser.Scene {
     const here = indoors ? world.spawns[`${this.mapId.replace(/_(flat|house)$/, '')}_home_out`] ?? null : this.pos;
     if (here) markers.push({ x: here.x, y: here.y, kind: 'angie' });
     const area = indoors ? 'Indoors' : (s.content.areas.find((a) => a.id === this.area)?.name ?? 'Map');
+    const spotName = (id: string) => s.content.spots.find((x) => x.id === id)?.name ?? id;
+    const close = here ? nearby(world.landmarks.filter((l) => l.type === 'spot'), here.x, here.y, MapScene.SPOT_RADIUS) : [];
+    for (const m of markers) if (m.kind === 'spot' && close.some((c) => c.x === m.x && c.y === m.y)) m.near = true;
+    const note = close.length
+      ? `Nearby: ${close.map((c) => `${spotName(c.id)} ${arrowToward(here?.x ?? 0, here?.y ?? 0, c.x, c.y)}`).join(', ')}`
+      : 'No birding spots nearby.';
     await showMinimap({
       title: `Map · ${area}`,
       imageUrl: `${import.meta.env.BASE_URL}world/${world.overview}`,
@@ -727,6 +738,7 @@ export class MapScene extends Phaser.Scene {
       heightTiles: world.heightChunks * world.chunkTiles,
       tileSize: world.tileSize,
       markers,
+      note,
     });
     return true;
   }
@@ -1217,6 +1229,45 @@ export class MapScene extends Phaser.Scene {
     return name !== 'road' && name !== 'road_line';
   }
 
+  /** Birding spots within this many px get an edge arrow when off screen. */
+  private static readonly SPOT_RADIUS = 640;
+
+  private drawSpotMarks(time: number): void {
+    if (this.mapId !== 'world') return;
+    const world = this.registry.get('world') as WorldIndex;
+    this.spotMarks ??= this.add.graphics().setScrollFactor(0).setDepth(DEPTH.overhead + 30);
+    const g = this.spotMarks.clear();
+    const cam = this.cameras.main.worldView;
+    const view = { x: Math.round(cam.x), y: Math.round(cam.y), w: cam.width || 320, h: cam.height || 180 };
+    const spots = world.landmarks.filter((l) => l.type === 'spot');
+    const bob = Math.floor(time / 400) % 2;
+    for (const s of nearby(spots, this.pos.x, this.pos.y, MapScene.SPOT_RADIUS)) {
+      // The bottom strip is left free for the HUD window.
+      const edge = edgePoint({ ...view, h: view.h - 30 }, s.x, s.y, 12);
+      if (!edge || (s.x >= view.x && s.x < view.x + view.w && s.y >= view.y && s.y < view.y + view.h - 30)) {
+        // On screen: a small camera icon bobbing above the spot.
+        cameraIcon(g, Math.round(s.x - view.x), Math.round(s.y - view.y) - 18 - bob);
+        continue;
+      }
+      // Off screen: a camera icon at the edge with a pointer toward the spot.
+      const ex = Math.round(edge.x);
+      const ey = Math.round(edge.y);
+      g.fillStyle(0x101018, 0.6).fillCircle(ex, ey, 7);
+      cameraIcon(g, ex, ey);
+      const a = Math.atan2(s.y - (view.y + view.h / 2), s.x - (view.x + view.w / 2));
+      const tipX = ex + Math.cos(a) * 10;
+      const tipY = ey + Math.sin(a) * 10;
+      g.fillStyle(0xf0d050, 1).fillTriangle(
+        tipX,
+        tipY,
+        ex + Math.cos(a + 2.5) * 6,
+        ey + Math.sin(a + 2.5) * 6,
+        ex + Math.cos(a - 2.5) * 6,
+        ey + Math.sin(a - 2.5) * 6,
+      );
+    }
+  }
+
   /** Whether it's raining enough for umbrellas where Angie is (outdoors only). */
   private raining(): boolean {
     return !!this.weatherRenderer && (this.weatherNow?.precip ?? 0) >= 0.25;
@@ -1516,6 +1567,14 @@ export class MapScene extends Phaser.Scene {
       anims.create({ key: 'oboy-idle', frames: anims.generateFrameNumbers('char_oboy', { frames: [0, 0, 0, 1] }), frameRate: 3, repeat: -1 });
     }
   }
+}
+
+/** A tiny camera icon (7×5) centred on (x, y), drawn on a camera-fixed Graphics. */
+function cameraIcon(g: Phaser.GameObjects.Graphics, x: number, y: number): void {
+  g.fillStyle(0x101018, 1).fillRect(x - 4, y - 3, 9, 7);
+  g.fillStyle(0xf0f0f0, 1).fillRect(x - 3, y - 2, 7, 5);
+  g.fillStyle(0x101018, 1).fillRect(x - 1, y - 1, 3, 3);
+  g.fillStyle(0xf0f0f0, 1).fillRect(x - 3, y - 4, 2, 1);
 }
 
 function labelFor(o: WorldObject): string | null {

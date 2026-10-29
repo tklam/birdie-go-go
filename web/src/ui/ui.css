@@ -330,3 +330,26 @@
 .mm-legend {
   font-size: calc(var(--px) * 6);
 }
+.mm-near::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border: 2px solid #f0d050;
+  border-radius: 50%;
+  animation: mm-pulse 1s ease-out infinite;
+}
+@keyframes mm-pulse {
+  from {
+    transform: scale(0.6);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+.mm-note {
+  color: #f0d050;
+  font-size: calc(var(--px) * 6);
+  margin-bottom: calc(var(--px) * 2);
+}
