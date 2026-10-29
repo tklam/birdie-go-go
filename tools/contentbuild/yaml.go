@@ -21,6 +21,10 @@ type gameYAML struct {
 	StartSpawn     string `yaml:"start_spawn"`
 	// Slots between active-mission reminders; 0 turns them off.
 	MissionReminderSlots int `yaml:"mission_reminder_slots"`
+	BedtimeReminder      struct {
+		EverySeconds int      `yaml:"every_seconds"`
+		Lines        []string `yaml:"lines"`
+	} `yaml:"bedtime_reminder"`
 }
 
 type areaYAML struct {
@@ -265,7 +269,13 @@ func load(dir string) (*model.ContentBundle, error) {
 	if err := readYAML(filepath.Join(dir, "game.yaml"), &g); err != nil {
 		return nil, err
 	}
-	b.Game = model.GameInfo(g)
+	b.Game = model.GameInfo{
+		Title: g.Title, ContentVersion: g.ContentVersion, StartMap: g.StartMap, StartSpawn: g.StartSpawn,
+		MissionReminderSlots: g.MissionReminderSlots,
+	}
+	if br := g.BedtimeReminder; br.EverySeconds != 0 || len(br.Lines) > 0 {
+		b.Game.BedtimeReminder = &model.BedtimeReminder{EverySeconds: br.EverySeconds, Lines: append([]string{}, br.Lines...)}
+	}
 
 	var areas []areaYAML
 	if err := readOptional(filepath.Join(dir, "areas.yaml"), &areas); err != nil {

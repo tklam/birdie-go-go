@@ -4,3 +4,11 @@ start_map: world
 start_spawn: estate_plaza
 # Every this many time slots, a toast reminds you of an active mission (0 = never).
 mission_reminder_slots: 3
+# In the evening, away from home, a toast every this many seconds of play
+# suggests heading home to sleep (0 = never). The lines take turns.
+bedtime_reminder:
+  every_seconds: 90
+  lines:
+    - "It's getting late. Time to head home and rest."
+    - "Angie yawns. Her bed at home is calling."
+    - "The streetlights are on. Home to sleep, then a new day!"

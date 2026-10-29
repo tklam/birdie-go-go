@@ -30,6 +30,16 @@ type GameInfo struct {
 	// MissionReminderSlots is how many time slots pass between reminders
 	// about an active mission (SPEC.md §9.5); 0 turns reminders off.
 	MissionReminderSlots int `json:"missionReminderSlots,omitempty"`
+	// BedtimeReminder nudges Angie home in the evening (SPEC.md §3.1).
+	BedtimeReminder *BedtimeReminder `json:"bedtimeReminder,omitempty"`
+}
+
+// BedtimeReminder is a toast shown every EverySeconds of real time while
+// Angie is away from home in the evening; Lines take turns. EverySeconds 0
+// turns it off.
+type BedtimeReminder struct {
+	EverySeconds int      `json:"everySeconds,omitempty"`
+	Lines        []string `json:"lines"`
 }
 
 // Area is a logical district of the world (SPEC.md §4.3).

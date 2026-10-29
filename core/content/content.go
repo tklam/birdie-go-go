@@ -198,6 +198,10 @@ func (v *validator) game(g model.GameInfo) {
 	v.require(g.StartMap != "", "game: start_map is required")
 	v.require(g.StartSpawn != "", "game: start_spawn is required")
 	v.require(g.MissionReminderSlots >= 0, "game: mission_reminder_slots %d must not be negative", g.MissionReminderSlots)
+	if br := g.BedtimeReminder; br != nil {
+		v.require(br.EverySeconds >= 0, "game: bedtime_reminder.every_seconds %d must not be negative", br.EverySeconds)
+		v.require(br.EverySeconds == 0 || len(br.Lines) > 0, "game: bedtime_reminder needs lines when every_seconds is set")
+	}
 }
 
 // ids checks that IDs are well-formed and unique, and returns them as a set.

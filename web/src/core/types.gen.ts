@@ -72,6 +72,19 @@ export interface GameInfo {
    * about an active mission (SPEC.md §9.5); 0 turns reminders off.
    */
   missionReminderSlots?: number /* int */;
+  /**
+   * BedtimeReminder nudges Angie home in the evening (SPEC.md §3.1).
+   */
+  bedtimeReminder?: BedtimeReminder;
+}
+/**
+ * BedtimeReminder is a toast shown every EverySeconds of real time while
+ * Angie is away from home in the evening; Lines take turns. EverySeconds 0
+ * turns it off.
+ */
+export interface BedtimeReminder {
+  everySeconds?: number /* int */;
+  lines: string[];
 }
 /**
  * Area is a logical district of the world (SPEC.md §4.3).

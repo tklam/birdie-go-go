@@ -49,7 +49,7 @@ The Action button shows what it will do: **Talk**, **Enter**, **Sleep**, **Photo
 
 Each day has three parts: **Morning, Afternoon, and Evening**. A photo session or a piano lesson uses up one part of the day. Walking around and most transit rides are free. Different birds show up at different times of day, in different seasons, and in different weather, so come back to your favorite spots often.
 
-The game saves automatically at the end of each part of the day, when you go through a door, and before photo sessions and lessons. When the evening is over, go home and **Sleep** in your bed to start the next day.
+The game saves automatically at the end of each part of the day, when you go through a door, and before photo sessions and lessons. When the evening is over, go home and **Sleep** in your bed to start the next day. If you stay out in the evening, a reminder appears now and then at the top of the screen.
 
 ## Exploring the city
 

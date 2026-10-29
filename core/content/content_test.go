@@ -61,6 +61,10 @@ func TestValidateErrors(t *testing.T) {
 		{"missing title", func(b *model.ContentBundle) { b.Game.Title = "" }, "title is required"},
 		{"bad version", func(b *model.ContentBundle) { b.Game.ContentVersion = "v1" }, "MAJOR.MINOR.PATCH"},
 		{"missing start", func(b *model.ContentBundle) { b.Game.StartMap = "" }, "start_map"},
+		{"negative mission reminder", func(b *model.ContentBundle) { b.Game.MissionReminderSlots = -1 }, "mission_reminder_slots"},
+		{"bedtime reminder without lines", func(b *model.ContentBundle) {
+			b.Game.BedtimeReminder = &model.BedtimeReminder{EverySeconds: 60}
+		}, "needs lines"},
 		{"bad id", func(b *model.ContentBundle) { b.Areas[0].ID = "TKO Town" }, "snake_case"},
 		{"duplicate id", func(b *model.ContentBundle) { b.Areas = append(b.Areas, b.Areas[0]) }, "duplicate id"},
 		{"bird skittishness", func(b *model.ContentBundle) { b.Birds[0].Skittishness = 2 }, "skittishness"},

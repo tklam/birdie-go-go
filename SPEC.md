@@ -72,6 +72,7 @@ Day starts → choose time slot activity → explore overworld → task (photo /
 - Each day has three slots: **Morning, Afternoon, Evening**.
 - A photo session or a lesson consumes one slot. Walking around the overworld is free.
 - Bird availability depends on time slot, area, season, and weather.
+- In the evening, while Angie is away from home, a toast every `bedtime_reminder.every_seconds` of play (set in `content/game.yaml`, with its `lines`) suggests heading home to sleep. The first comes a few seconds into the evening.
 - Seasons change every 14 days (Spring, Summer, Autumn, Winter).
 - Weather is simulated per area and changes per time slot (§4.9).
 

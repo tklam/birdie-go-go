@@ -64,6 +64,10 @@ interface Passerby {
 }
 
 const PASSERBY_SPEED = 26;
+/** Angie's flat, where she sleeps. */
+const HOME_MAP = 'angie_flat';
+/** The first bedtime reminder of an evening waits until any area toast has gone. */
+const BEDTIME_FIRST_MS = 8000;
 
 interface OverworldNpc {
   object: WorldObject;
@@ -154,6 +158,9 @@ export class MapScene extends Phaser.Scene {
   private weatherNow: WeatherParams | null = null;
   /** Time (ms) of O Boy's next idle chirp on the map. */
   private nextChirp = 0;
+  /** When the next bedtime reminder shows (0 = not scheduled), and whose turn it is. */
+  private nextBedtime = 0;
+  private bedtimeTurn = 0;
   private weatherRenderer: WeatherRenderer | null = null;
   private hazards: HazardReport | null = null;
   private fainting = false;
@@ -320,6 +327,24 @@ export class MapScene extends Phaser.Scene {
     this.remindMission();
   }
 
+  /**
+   * In the evening, away from home, a toast now and then suggests going
+   * home to sleep (SPEC.md §3.1). The first comes a few seconds in.
+   */
+  private updateBedtime(time: number): void {
+    const r = this.session.content.game.bedtimeReminder;
+    const away = this.session.state.slot === 'evening' && this.mapId !== HOME_MAP;
+    if (!away || !r?.everySeconds || !r.lines.length) {
+      this.nextBedtime = 0;
+      return;
+    }
+    if (!this.ready || this.busy || modal.open) return;
+    if (this.nextBedtime === 0) this.nextBedtime = time + BEDTIME_FIRST_MS;
+    if (time < this.nextBedtime) return;
+    toast(r.lines[this.bedtimeTurn++ % r.lines.length], 3500);
+    this.nextBedtime = time + r.everySeconds * 1000;
+  }
+
   /** Now and then, a toast about an active mission (SPEC.md §9.5). */
   private remindMission(): void {
     const title = this.session.missionReminder();
@@ -411,6 +436,7 @@ export class MapScene extends Phaser.Scene {
     this.updateHazards(delta);
     this.hud.update(this.session.state, this.weatherLabel(), this.hazards?.exposed.map((e) => e.hazard.status) ?? []);
     this.updateMusic();
+    this.updateBedtime(time);
     this.drawDebug();
     if (input.menu && this.ready && !this.busy) void this.openMenu();
     const target = this.ready && !this.busy ? this.interactionTarget() : null;
@@ -480,9 +506,9 @@ export class MapScene extends Phaser.Scene {
     s.state.money -= fee;
     s.state.energy = 60;
     await s.endSlot();
-    s.state.position = { map: 'angie_flat', spawn: 'front_door' };
+    s.state.position = { map: HOME_MAP, spawn: 'front_door' };
     await s.save();
-    this.scene.restart({ map: 'angie_flat', spawn: 'front_door', title: "Angie's flat" });
+    this.scene.restart({ map: HOME_MAP, spawn: 'front_door', title: "Angie's flat" });
   }
 
   /** The blended weather at a world position, or null if unknown. */
