@@ -16,10 +16,10 @@ Milestones are ordered, and each one ends in something playable. `§n` refers to
 - [x] Optional update server skeleton: health, manifest, pack files, CORS
 - [x] PWA: manifest + service worker precaching
 - [x] PWA: offline start verified in headless Chromium (service worker precaches game, content, chunks, font)
-- [ ] PWA: verify install and offline play on a real phone
+- [ ] *(Parked for future development.)* PWA: verify install and offline play on a real phone
 - [x] CI workflow written (lint, test, build with TinyGo)
-- [ ] CI: confirm it passes on GitHub after the first push
-- [ ] HTTPS dev server for phone testing (needs an approved plugin, e.g. `@vitejs/plugin-basic-ssl`)
+- [ ] *(Parked for future development.)* CI: confirm it passes on GitHub after the first push
+- [ ] *(Parked for future development.)* HTTPS dev server for phone testing (needs an approved plugin, e.g. `@vitejs/plugin-basic-ssl`)
 
 ## M1: Vertical slice
 Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park on Junk Bay) with both minigames working, offline.
@@ -96,14 +96,14 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 ## M3: Companions (§7)
 - [x] Bond system (outings together +2; story events)
 - [x] O Boy join event (Chapter 1: rumour on day 2, guaranteed parrotlet at the waterfront, naming scene, joins the party); shoulder perch; alert slowdown in photo scenes
-- [~] O Boy: bobs to the beat in lessons; contact call at bond 40+ (Call button / C); voice from real parrotlet recordings (chirps, call, squawk); spotting and travel carrier still to do
+- [~] O Boy: bobs to the beat in lessons; contact call at bond 40+ (Call button / C); voice from real parrotlet recordings (chirps, call, squawk); spotting and travel carrier parked for future development
 - [x] Party selection (Menu → Party)
 - [x] Kei join event (Chapter 3: sticky shutter, camera shop in the plaza); follower movement; bird-call app in photo sessions
 - [x] Kei `friends` piano ability: faint trace of the notes actually played
-- [ ] Folding ladder (Kei build)
+- [ ] *(Parked for future development.)* Folding ladder (Kei build)
 - [x] Kei romance stages through `married` (story events)
 - [x] Kei's workshop: trail cameras (dating; photograph a bird each morning), tracking AF and stabilizer (engaged) from camera parts; first-visit intro
-- [ ] Kei: practice drills for students, home workshop (married)
+- [ ] *(Parked for future development.)* Kei: practice drills for students, home workshop (married)
 - [x] O Boy jealousy arc → `oboy_accepts_kei` (birds jumpier with both along until then)
 - [ ] Combo ability; party-dependent dialogue
 
@@ -164,11 +164,11 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 
 ## M5: Content updates (optional server, §9.6)
 - [x] `make pack VERSION=x.y.z`: validated content pack + manifest entry with size and SHA-256
-- [ ] Map updates in packs (replaced chunks / new regions)
+- [ ] *(Parked for future development.)* Map updates in packs (replaced chunks / new regions)
 - [x] `server/cmd/birdie-server`: serve manifest and packs, CORS, immutable caching
 - [x] Client: background manifest check (`?updates=` or VITE_UPDATE_SERVER), SHA-256 check, validation in the Go core (`content.validate`), IndexedDB storage, merge by id at next start
 - [~] Live missions via packs work (verified end to end); real-world date windows still to do
-- [ ] Graceful handling of removed or expired IDs in saves
+- [ ] *(Parked for future development.)* Graceful handling of removed or expired IDs in saves
 - [ ] (Later) cloud save sync
 
 ## M6: Story (§8)
@@ -181,7 +181,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Settings: music/sound volume, encounter accessibility (hold, slow prompts, skip), lesson timing recalibration
 - [~] Settings: window color, text speed, reduced motion done; control scheme still to do
 - [~] Accessibility: reduced motion done (fades for wipes/glitch, no shake/flash, calm rain); captions for audio cues and color-blind-safe UI still to do
-- [ ] Low-end phone performance pass
+- [ ] *(Parked for future development.)* Low-end phone performance pass
 - [~] Replace placeholder art and music with final 16-bit assets (characters redrawn in a top-down adventure style; birds from real photos; tiles and music still placeholders)
 
 ## Open questions
