@@ -390,15 +390,17 @@ func details(s *sprite, p charSpec, dir, headY, bodyY int) {
 }
 
 // shimaEnaga prints a tiny Shima-enaga (the white long-tailed tit of
-// Hokkaido) on the front of Angie's shirt: a white fluffball with dot eyes
-// and its long dark tail.
+// Hokkaido) on the front of Angie's shirt, in side profile so it reads as a
+// bird: a round white body, one eye, a tiny beak, a dark wing and the long
+// tail.
 func shimaEnaga(s *sprite, y int) {
-	s.rect(6, y+1, 3, 1, cWhite)
+	s.rect(6, y+1, 3, 1, cWhite) // round body
 	s.rect(5, y+2, 5, 2, cWhite)
 	s.rect(6, y+4, 3, 1, cWhite)
-	s.set(6, y+2, cBlack) // dot eyes
-	s.set(8, y+2, cBlack)
-	s.set(8, y+3, cLightGray) // wing
-	s.set(10, y+3, cBlack)    // long tail
+	s.set(6, y+2, cBlack)    // eye
+	s.set(4, y+2, cDarkGray) // tiny beak
+	s.set(8, y+3, cDarkGray) // wing
+	s.set(9, y+3, cDarkGray)
+	s.set(10, y+3, cBlack) // long tail
 	s.set(11, y+4, cBlack)
 }
