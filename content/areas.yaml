@@ -29,3 +29,21 @@
     summer: { cloud: [0.6, 0.3], precip: [0.35, 0.25], temp: [28, 1.5], fog: [0.1, 0.1], wind: [0.4, 0.25] }
     autumn: { cloud: [0.35, 0.2], precip: [0.12, 0.15], temp: [22, 2.5], fog: [0.1, 0.1], wind: [0.4, 0.2] }
     winter: { cloud: [0.5, 0.2], precip: [0.12, 0.1], temp: [13, 2.5], fog: [0.25, 0.15], wind: [0.55, 0.2] }
+- id: cwb_country_park
+  name: Clear Water Bay Country Park
+  music: bgm_trail
+  altitude: 0.25
+  climate:
+    spring: { cloud: [0.7, 0.2], precip: [0.3, 0.3], temp: [20, 2.5], fog: [0.4, 0.25], wind: [0.35, 0.2] }
+    summer: { cloud: [0.55, 0.3], precip: [0.35, 0.25], temp: [29, 1.5], fog: [0.08, 0.08], wind: [0.35, 0.25] }
+    autumn: { cloud: [0.3, 0.2], precip: [0.1, 0.15], temp: [23, 2.5], fog: [0.08, 0.08], wind: [0.35, 0.2] }
+    winter: { cloud: [0.45, 0.2], precip: [0.1, 0.1], temp: [14, 2.5], fog: [0.2, 0.15], wind: [0.45, 0.2] }
+- id: po_toi_o
+  name: Po Toi O
+  music: bgm_waterfront
+  altitude: 0
+  climate:
+    spring: { cloud: [0.65, 0.2], precip: [0.3, 0.3], temp: [21, 2.5], fog: [0.5, 0.25], wind: [0.45, 0.2] }
+    summer: { cloud: [0.5, 0.3], precip: [0.3, 0.25], temp: [30, 1.5], fog: [0.05, 0.05], wind: [0.45, 0.25] }
+    autumn: { cloud: [0.3, 0.2], precip: [0.1, 0.15], temp: [25, 2.5], fog: [0.08, 0.08], wind: [0.45, 0.2] }
+    winter: { cloud: [0.45, 0.2], precip: [0.1, 0.1], temp: [16, 2.5], fog: [0.15, 0.1], wind: [0.55, 0.2] }

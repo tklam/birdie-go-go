@@ -44,9 +44,16 @@ func run(dir string, force bool) error {
 	if err := writeJSON(path, m.tiled("tilesets")); err != nil {
 		return err
 	}
+	east := clearWaterBay()
+	if err := writeJSON(filepath.Join(dir, "clear_water_bay.tmj"), east.tiled("tilesets")); err != nil {
+		return err
+	}
 	world := map[string]any{
 		"type": "world", "onlyShowAdjacentMaps": false,
-		"maps": []map[string]any{{"fileName": "tko.tmj", "x": 0, "y": 0, "width": m.w * tileSize, "height": m.h * tileSize}},
+		"maps": []map[string]any{
+			{"fileName": "tko.tmj", "x": 0, "y": 0, "width": m.w * tileSize, "height": m.h * tileSize},
+			{"fileName": "clear_water_bay.tmj", "x": m.w * tileSize, "y": 0, "width": east.w * tileSize, "height": east.h * tileSize},
+		},
 	}
 	if err := writeJSON(filepath.Join(dir, "city.world"), world); err != nil {
 		return err
@@ -249,6 +256,83 @@ func build() *tmap {
 	m.obj("mudflat_egrets", "bird", 6, 50, map[string]string{"species": "little_egret", "count": "2"})
 	m.obj("park_robins", "bird", 50, 50, map[string]string{"species": "oriental_magpie_robin", "count": "2"})
 	return m
+}
+
+// clearWaterBay lays out the region east of Tseung Kwan O: Clear Water Bay
+// Country Park (woodland trails, a stream) and the Po Toi O fishing-village
+// cove. Its west edge lines up with TKO's east edge: hill trail (rows 0–19),
+// road (rows 30–32) and waterfront boardwalk (rows 54–55).
+func clearWaterBay() *tmap {
+	const w, h = 64, 64
+	m := newMap(w, h)
+	// Country park: woodland over most of the region.
+	m.area(0, 40, "cwb_country_park")
+	m.fill(0, 0, w, 40, "hill_grass")
+	for i := range 70 {
+		x, y := int(hash(i, 1)%w), 1+int(hash(i, 2)%38)
+		m.tree(x, y)
+	}
+	for i := range 40 {
+		m.put(int(hash(i, 3)%w), int(hash(i, 4)%40), "fern")
+	}
+	for i := range 12 {
+		m.put(int(hash(i, 5)%w), int(hash(i, 6)%40), "rock")
+	}
+	// Trails: the hill trail continues east, the road becomes a trail, and a
+	// north–south trail joins them.
+	m.fill(0, 6, 40, 2, "trail")
+	m.fill(0, 30, 30, 3, "road")
+	m.fill(0, 31, 30, 1, "road_line")
+	m.fill(30, 30, 14, 3, "trail")
+	m.fill(38, 6, 3, 50, "trail")
+	// A stream with stepping stones.
+	m.fill(20, 12, 2, 28, "stream")
+	m.fill(20, 31, 2, 1, "stepping_stones")
+	m.fill(20, 7, 2, 1, "stepping_stones")
+	m.fill(14, 18, 6, 4, "tall_grass")
+	m.fill(46, 20, 10, 4, "tall_grass")
+	m.fill(24, 24, 10, 1, "ledge")
+
+	// Po Toi O: a fishing-village cove in the south-east.
+	m.area(40, h, "po_toi_o")
+	m.fill(0, 40, w, 14, "hill_grass")
+	m.fill(0, 44, w, 10, "pavement")
+	m.fill(0, 54, w, 2, "boardwalk")
+	m.fill(0, 56, w, 1, "railing")
+	m.fill(0, 57, w, 7, "water")
+	m.fill(38, 40, 3, 4, "trail")
+	for i, x := range []int{6, 16, 26, 44, 54} {
+		m.fill(x, 44, 6, 1, "village_roof")
+		m.fill(x, 45, 6, 2, "village_wall")
+		if i%2 == 0 {
+			m.put(x+6, 48, "fishing_net")
+		}
+	}
+	// A gap in the railing and a pier into the cove, with boats.
+	m.fill(30, 56, 3, 1, "boardwalk")
+	m.fill(30, 57, 3, 6, "pier")
+	m.put(28, 59, "boat")
+	m.put(34, 61, "boat")
+	m.put(12, 54, "bench")
+	m.put(50, 54, "bench")
+	m.fill(56, 49, 6, 4, "mud")
+	m.fill(56, 49, 6, 1, "reeds")
+
+	m.obj("cwb_stream", "spot", 22, 16, map[string]string{"spot_id": "cwb_stream"})
+	m.obj("po_toi_o_pier", "spot", 31, 60, map[string]string{"spot_id": "po_toi_o_pier"})
+	m.obj("forest_birds", "bird", 30, 14, map[string]string{"species": "oriental_magpie_robin", "count": "2"})
+	m.obj("cove_egrets", "bird", 58, 51, map[string]string{"species": "little_egret", "count": "2"})
+	m.obj("village_dogs", "enemy", 22, 50, map[string]string{"enemy_id": "stray_dog_pack"})
+	m.obj("pier_ghost", "enemy", 31, 58, map[string]string{"enemy_id": "water_ghost"})
+	return m
+}
+
+// hash is a small deterministic integer hash for scattering decorations.
+func hash(i, salt int) uint32 {
+	h := uint32(i)*2654435761 + uint32(salt)*40503
+	h ^= h >> 15
+	h *= 2246822519
+	return h ^ (h >> 13)
 }
 
 // room lays out a 20×12 interior: walls around a floor, with the exit

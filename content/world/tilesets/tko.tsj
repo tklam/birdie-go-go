@@ -1,12 +1,12 @@
 {
   "columns": 8,
   "image": "../../../web/public/assets/tiles/tko.png",
-  "imageheight": 96,
+  "imageheight": 112,
   "imagewidth": 128,
   "margin": 0,
   "name": "tko",
   "spacing": 0,
-  "tilecount": 48,
+  "tilecount": 56,
   "tiledversion": "1.10.2",
   "tileheight": 16,
   "tiles": [
@@ -627,6 +627,111 @@
           "name": "name",
           "type": "string",
           "value": "counter"
+        },
+        {
+          "name": "solid",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "properties": [
+        {
+          "name": "name",
+          "type": "string",
+          "value": "village_wall"
+        },
+        {
+          "name": "solid",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": 49,
+      "properties": [
+        {
+          "name": "name",
+          "type": "string",
+          "value": "village_roof"
+        },
+        {
+          "name": "solid",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": 50,
+      "properties": [
+        {
+          "name": "name",
+          "type": "string",
+          "value": "pier"
+        }
+      ]
+    },
+    {
+      "id": 51,
+      "properties": [
+        {
+          "name": "name",
+          "type": "string",
+          "value": "stream"
+        },
+        {
+          "name": "solid",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": 52,
+      "properties": [
+        {
+          "name": "name",
+          "type": "string",
+          "value": "stepping_stones"
+        }
+      ]
+    },
+    {
+      "id": 53,
+      "properties": [
+        {
+          "name": "name",
+          "type": "string",
+          "value": "fern"
+        }
+      ]
+    },
+    {
+      "id": 54,
+      "properties": [
+        {
+          "name": "name",
+          "type": "string",
+          "value": "boat"
+        },
+        {
+          "name": "solid",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": 55,
+      "properties": [
+        {
+          "name": "name",
+          "type": "string",
+          "value": "fishing_net"
         },
         {
           "name": "solid",

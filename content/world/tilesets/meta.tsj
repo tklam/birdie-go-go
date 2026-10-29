@@ -1,12 +1,12 @@
 {
-  "columns": 5,
+  "columns": 7,
   "image": "../../../web/public/assets/tiles/meta.png",
   "imageheight": 16,
-  "imagewidth": 80,
+  "imagewidth": 112,
   "margin": 0,
   "name": "meta",
   "spacing": 0,
-  "tilecount": 5,
+  "tilecount": 7,
   "tiledversion": "1.10.2",
   "tileheight": 16,
   "tiles": [
@@ -57,6 +57,26 @@
           "name": "area",
           "type": "string",
           "value": "tko_hillside"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "properties": [
+        {
+          "name": "area",
+          "type": "string",
+          "value": "cwb_country_park"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "properties": [
+        {
+          "name": "area",
+          "type": "string",
+          "value": "po_toi_o"
         }
       ]
     }

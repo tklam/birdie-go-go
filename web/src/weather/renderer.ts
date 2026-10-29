@@ -44,7 +44,7 @@ export class WeatherRenderer {
     // Fog drifts with the wind.
     this.fogDrift += (Math.cos(p.windDir) * (0.2 + p.wind) * dtMs) / 120;
     this.fog.tilePositionX = Math.round(this.fogDrift);
-    this.fog.setAlpha(Math.min(0.75, p.fog * 0.85));
+    this.fog.setAlpha(Math.min(0.6, p.fog * 0.65));
 
     // Rain: more drops with more precipitation, slanted by the wind.
     const drops = p.precip < 0.12 ? 0 : Math.round((p.precip - 0.1) * 26);

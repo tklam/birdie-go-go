@@ -28,6 +28,9 @@ var Tiles = []Tile{
 	{Name: "piano_left", Solid: true}, {Name: "piano_right", Solid: true}, {Name: "bed_top", Solid: true}, {Name: "bed_bottom", Solid: true},
 	{Name: "table", Solid: true}, {Name: "chair", Solid: true}, {Name: "sofa", Solid: true}, {Name: "plant", Solid: true},
 	{Name: "rug"}, {Name: "doormat"}, {Name: "bookshelf", Solid: true}, {Name: "counter", Solid: true},
+	// Country park and fishing village.
+	{Name: "village_wall", Solid: true}, {Name: "village_roof", Solid: true}, {Name: "pier"}, {Name: "stream", Solid: true},
+	{Name: "stepping_stones"}, {Name: "fern"}, {Name: "boat", Solid: true}, {Name: "fishing_net", Solid: true},
 }
 
 // AtlasColumns is the width of the atlas in tiles.
@@ -54,6 +57,8 @@ var Meta = []struct {
 	{"area_tko_town", "area", "tko_town"},
 	{"area_tko_waterfront", "area", "tko_waterfront"},
 	{"area_tko_hillside", "area", "tko_hillside"},
+	{"area_cwb_country_park", "area", "cwb_country_park"},
+	{"area_po_toi_o", "area", "po_toi_o"},
 }
 
 // MetaID returns the local id of a meta tile by name.

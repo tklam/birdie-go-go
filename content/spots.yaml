@@ -17,3 +17,19 @@
   birds:
     - { species: red_whiskered_bulbul, weight: 5 }
     - { species: oriental_magpie_robin, weight: 4 }
+- id: cwb_stream
+  name: Woodland Stream
+  area: cwb_country_park
+  background: bg_garden
+  shots: 12
+  birds:
+    - { species: oriental_magpie_robin, weight: 4 }
+    - { species: red_whiskered_bulbul, weight: 4 }
+- id: po_toi_o_pier
+  name: Po Toi O Pier
+  area: po_toi_o
+  background: bg_waterfront
+  shots: 12
+  birds:
+    - { species: little_egret, weight: 5 }
+    - { species: oriental_magpie_robin, weight: 1 }

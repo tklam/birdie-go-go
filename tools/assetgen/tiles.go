@@ -319,6 +319,63 @@ var tileArt = map[string]func(k cell){
 		k.line(0, 11, 15, 11, cLightGray)
 		k.rect(13, 8, 1, 2, cDarkGray)
 	},
+	"village_wall": func(k cell) {
+		k.rect(0, 0, tile, tile, cSand)
+		k.rect(0, 13, tile, 3, cDarkConcrete)
+		k.rect(5, 4, 6, 6, cNavy)
+		k.rect(6, 5, 4, 4, cWindow)
+		k.line(0, 12, 15, 12, cTan)
+	},
+	"village_roof": func(k cell) {
+		k.rect(0, 0, tile, tile, cTeal)
+		for y := 1; y < tile; y += 3 {
+			k.line(0, y, 15, y, cDarkTeal)
+		}
+		k.rect(0, 14, tile, 2, cDarkGray)
+	},
+	"pier": func(k cell) {
+		k.rect(0, 0, tile, tile, cSea)
+		k.rect(1, 0, 14, tile, cBrown)
+		for y := 2; y < tile; y += 4 {
+			k.line(1, y, 14, y, cDarkBrown)
+		}
+		k.rect(1, 0, 1, tile, cDarkBrown)
+		k.rect(14, 0, 1, tile, cDarkBrown)
+	},
+	"stream": func(k cell) {
+		k.rect(0, 0, tile, tile, cLightSea)
+		k.line(1, 5, 5, 5, cPaleSky)
+		k.line(8, 11, 13, 11, cPaleSky)
+		k.speckle(0, 0, tile, tile, cSea, 0.08, 43)
+	},
+	"stepping_stones": func(k cell) {
+		k.rect(0, 0, tile, tile, cLightSea)
+		k.ellipse(1, 2, 6, 5, cGray)
+		k.ellipse(9, 8, 6, 5, cGray)
+		k.ellipse(2, 10, 5, 4, cLightGray)
+	},
+	"fern": func(k cell) {
+		k.rect(0, 0, tile, tile, cDarkGreen)
+		k.speckle(0, 0, tile, tile, cGreen, 0.3, 44)
+		for x := 2; x < tile; x += 5 {
+			k.line(x, 14, x+3, 4, cLightGreen)
+			k.line(x+1, 14, x-1, 6, cGreen)
+		}
+	},
+	"boat": func(k cell) {
+		k.rect(0, 0, tile, tile, cSea)
+		k.ellipse(1, 3, 14, 10, cWhite)
+		k.ellipse(3, 5, 10, 6, cTan)
+		k.line(1, 8, 14, 8, cRed)
+	},
+	"fishing_net": func(k cell) {
+		k.rect(0, 0, tile, tile, cBrown)
+		for i := 0; i < tile; i += 3 {
+			k.line(i, 0, 0, i, cTan)
+			k.line(15-i, 15, 15, 15-i, cTan)
+		}
+		k.rect(0, 13, tile, 3, cDarkBrown)
+	},
 	"awning": func(k cell) {
 		for x := 0; x < tile; x += 4 {
 			k.rect(x, 0, 2, 10, cRed)
@@ -330,11 +387,13 @@ var tileArt = map[string]func(k cell){
 
 // metaArt colors for the collision/areas layers (editor-only; never drawn in game).
 var metaColors = map[string]uint8{
-	"solid":               cRed,
-	"ledge_south":         cOrange,
-	"area_tko_town":       cPurple,
-	"area_tko_waterfront": cBlue,
-	"area_tko_hillside":   cGreen,
+	"solid":                 cRed,
+	"ledge_south":           cOrange,
+	"area_tko_town":         cPurple,
+	"area_tko_waterfront":   cBlue,
+	"area_tko_hillside":     cGreen,
+	"area_cwb_country_park": cDarkGreen,
+	"area_po_toi_o":         cTeal,
 }
 
 // genTiles writes the TKO atlas and meta tileset images plus their Tiled
