@@ -171,12 +171,6 @@ still carries the CC BY-SA terms of the other frames.
   - Source: <https://commons.wikimedia.org/wiki/File:Pacific_Parrotlet_(Forpus_coelestis)_-pet-8a.jpg>
   - Used for: back_turned (recolored)
 
-- **Forpus coelestis - male pet.jpg** (`selected/pacific_parrotlet/08.jpg`)
-  - Author: Jhwodchuck at English Wikipedia
-  - License: Public domain
-  - Source: <https://commons.wikimedia.org/wiki/File:Forpus_coelestis_-_male_pet.jpg>
-  - Used for: flying2 (mirrored, recolored)
-
 - **Forpus coelestis osilo.jpg** (`selected/pacific_parrotlet/10.jpg`)
   - Author: Massimiliano Federici
   - License: [CC BY-SA 3.0](http://creativecommons.org/licenses/by-sa/3.0/)
@@ -195,11 +189,17 @@ still carries the CC BY-SA terms of the other frames.
   - Source: <https://commons.wikimedia.org/wiki/File:Female_Blue_and_Male_Green_Pacific_Parrotlets.jpg>
   - Used for: album portrait (blue bird recolored)
 
-- **MrPickles.jpg** (`selected/pacific_parrotlet/22.jpg`)
-  - Author: Zaitsevx
+- **Blue mutant in flight.JPG** (`selected/pacific_parrotlet/fly_lovebird_blue.jpg`): a lovebird (*Agapornis*), as no free photo shows a parrotlet in flight
+  - Author: TheAlphaWolf
+  - License: [CC BY-SA 3.0](http://creativecommons.org/licenses/by-sa/3.0/)
+  - Source: <https://commons.wikimedia.org/wiki/File:Blue_mutant_in_flight.JPG>
+  - Used for: flying1 (mirrored, recolored to O Boy's teal)
+
+- **162 Rosy-faced lovebird in flight in Damaraland Photo by Giles Laurent.jpg** (`selected/pacific_parrotlet/fly_lovebird_rosy.jpg`)
+  - Author: Giles Laurent
   - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
-  - Source: <https://commons.wikimedia.org/wiki/File:MrPickles.jpg>
-  - Used for: flying1 (mirrored, recolored)
+  - Source: <https://commons.wikimedia.org/wiki/File:162_Rosy-faced_lovebird_in_flight_in_Damaraland_Photo_by_Giles_Laurent.jpg>
+  - Used for: flying2 (recolored to O Boy's teal)
 
 ## Eurasian Tree Sparrow (`eurasian_tree_sparrow`)
 
