@@ -108,6 +108,8 @@ export class MapScene extends Phaser.Scene {
   private enemies: OverworldEnemy[] = [];
   private npcs: OverworldNpc[] = [];
   private kei: Phaser.GameObjects.Sprite | null = null;
+  /** ?debug=chunks / ?debug=weather overlays (developer_guide.md §4.4–4.5). */
+  private debug: { chunks: boolean; weather: boolean; g?: Phaser.GameObjects.Graphics; text?: Phaser.GameObjects.Text } = { chunks: false, weather: false };
   private flushedChunks = new Set<string>();
   private ready = false;
   private loaded = false;
@@ -221,6 +223,15 @@ export class MapScene extends Phaser.Scene {
     cam.startFollow(this.angie, true, 1, 1);
     if (data.title) toast(data.title);
     if (this.mapId === 'world') this.weatherRenderer = new WeatherRenderer(this);
+    const flags = new URLSearchParams(location.search).getAll('debug');
+    this.debug = { chunks: flags.includes('chunks'), weather: flags.includes('weather') };
+    if (this.debug.chunks || this.debug.weather) {
+      this.debug.g = this.add.graphics().setDepth(DEPTH.overhead + 100);
+      this.debug.text = this.add
+        .text(2, 2, '', { fontFamily: 'monospace', fontSize: '8px', color: '#ffff80', backgroundColor: '#000000a0' })
+        .setScrollFactor(0)
+        .setDepth(DEPTH.overhead + 101);
+    }
     this.loaded = true;
 
     void this.arrive(data);
@@ -328,6 +339,7 @@ export class MapScene extends Phaser.Scene {
     this.updateHazards(delta);
     this.hud.update(this.session.state, this.weatherLabel(), this.hazards?.exposed.map((e) => e.hazard.status) ?? []);
     this.updateMusic();
+    this.drawDebug();
     if (input.menu && this.ready && !this.busy) void this.openMenu();
     const target = this.ready && !this.busy ? this.interactionTarget() : null;
     this.touch.setAction(target?.label ?? null);
@@ -419,6 +431,33 @@ export class MapScene extends Phaser.Scene {
     const signal = w.typhoonSignal[slot];
     const name = named.charAt(0).toUpperCase() + named.slice(1);
     return `${name} ${Math.round(this.weatherNow.temp)}°C${signal ? ` T${signal}` : ''}`;
+  }
+
+  private drawDebug(): void {
+    const { g, text } = this.debug;
+    if (!g || !text) return;
+    g.clear();
+    const lines: string[] = [];
+    if (this.debug.chunks) {
+      const px = this.store.chunkPx;
+      let n = 0;
+      for (const c of this.store.chunks()) {
+        n++;
+        g.lineStyle(1, 0xff00ff, 0.8).strokeRect(c.cx * px, c.cy * px, px, px);
+      }
+      lines.push(`chunks ${n} baking ${this.chunkRenderer.pendingCount} fps ${Math.round(this.game.loop.actualFps)}`);
+    }
+    if (this.debug.weather && this.weatherNow) {
+      const w = this.weatherNow;
+      const weights = blendAt((cx, cy) => this.store.get(cx, cy), this.pos.x, this.pos.y - 4, this.index.tileSize);
+      const mix = [...weights].map(([a, v]) => `${this.index.areas[a]} ${Math.round(v * 100)}%`).join(', ');
+      lines.push(
+        `cloud ${w.cloud.toFixed(2)} rain ${w.precip.toFixed(2)} fog ${w.fog.toFixed(2)} wind ${w.wind.toFixed(2)} ${Math.round(w.temp)}C uv ${w.uv.toFixed(1)}`,
+        `blend: ${mix}`,
+      );
+      if (this.hazards) lines.push(`hazards: ${this.hazards.exposed.map((e) => e.hazard.id).join(', ') || '-'} energy ${this.session.state.energy.toFixed(1)}`);
+    }
+    text.setText(lines.join('\n'));
   }
 
   /** Starts the wanted tune once audio is unlocked (retried every frame, cheap). */
@@ -874,7 +913,6 @@ export class MapScene extends Phaser.Scene {
       return;
     }
     this.busy = true;
-    toast(`${e.enemy.name}!`);
     await this.leaveTo('Encounter', { enemyId: e.enemy.id, returnTo: 'Map', returnData: {} });
   }
 
