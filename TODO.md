@@ -133,7 +133,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Bedtime reminders in the evening away from home (`bedtime_reminder`)
 - [x] Townspeople at stops who explain the minibus, ferry and gateways
 - [x] Morning bills (electricity, phone, water and gas, rent) from `game.yaml`
-- [ ] Rain balance: spring and summer are wet in ~60–70% of slots; consider lowering `precip` in `areas.yaml`
+- [x] Rain balance: spring ~35% and summer ~40% wet slots (was 60–70%), autumn and winter mostly dry
 - [x] 104 bird species from freely licensed photos (birdphoto + segmentation masks + vision-checked auto picks), spread over the four spots by habitat and season
 - [x] Paged album for 100+ species
 - [ ] More birding spots (wetland, hills, islands) so waders, ducks and raptors have proper habitats
