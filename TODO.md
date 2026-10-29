@@ -82,7 +82,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] On-map vehicles from timetables (no off-screen sim)
 - [x] Bus rides on the map with route prefetch and Skip (Green Minibus 16: TKO Plaza ↔ Po Toi O)
 - [x] Trams (Harbourfront Tram, three stops); get off at intermediate stops (planner)
-- [~] Metro: Harbour Line (Tseung Kwan O ↔ Harbour Island), destination via the planner, underground fade; station interiors and an in-car scene still to do
+- [x] Metro: Harbour and Wetland Lines, destination via the planner, a platform and in-car scene (route strip, tunnel lights, Skip)
 - [x] Ferry rides on the map (Junk Bay Pier ↔ Po Toi O Pier)
 - [x] Ferry deck photos (Deck button on ferry rides, `ferry_deck` spot)
 - [x] Fares paid with the Harbour Pass transit card; top-ups at shops and stop kiosks (save v3)

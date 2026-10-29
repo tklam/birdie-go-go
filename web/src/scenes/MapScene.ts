@@ -131,6 +131,8 @@ export interface MapSceneData {
   encounter?: { enemyId: string; outcome: 'won' | 'escaped' | 'lost' | 'skipped' };
   spotId?: string;
   studentId?: string;
+  /** Legs still to ride after the metro (transfers). */
+  legs?: TransitLeg[];
 }
 
 /** Where a map's index and chunks live under the site root. */
@@ -239,6 +241,7 @@ export class MapScene extends Phaser.Scene {
     this.gateways = [];
     this.sparkles = [];
     this.gates = [];
+    this.underground = false;
     this.passersby = [];
     this.ride = null;
     this.kei = null;
@@ -393,6 +396,9 @@ export class MapScene extends Phaser.Scene {
     }
     await s.save();
     this.busy = false;
+    // Transfers after a metro ride carry on from the station.
+    const [leg, ...rest] = data.legs ?? [];
+    if (leg) this.startLeg(leg, rest);
     this.remindMission();
   }
 
@@ -1587,37 +1593,34 @@ export class MapScene extends Phaser.Scene {
   }
 
   /**
-   * The metro runs underground: down the steps, a moment in the dark, and up
-   * at the destination (SPEC.md §4.11). The clock advances by the ride.
+   * The metro (SPEC.md §4.11): pays the clock for the wait and ride, puts
+   * Angie at the destination station and plays the platform and in-car
+   * scene; any further legs continue when the map comes back.
    */
   private async rideMetro(leg: TransitLeg, next: TransitLeg[]): Promise<void> {
     const s = this.session;
     this.underground = true;
     const line = s.content.transit.lines.find((l) => l.id === leg.line);
-    toast(`${line?.name ?? 'Metro'}: going down to the platform...`);
-    this.cameras.main.fadeOut(400, 0, 0, 0);
-    await new Promise((r) => this.time.delayedCall(900, r));
+    const name = (id: string) => s.content.transit.stops.find((x) => x.id === id)?.name ?? id;
     s.slotMinutes += leg.wait + leg.ride;
     discoverStop(s.state, leg.to);
     await s.fire({ type: 'ride_complete', params: { line: leg.line } });
     await s.checkMissions({ ride: { line: leg.line, stop: leg.to } });
     const stop = this.index.stops[leg.to];
-    if (stop) {
-      this.pos = { x: stop.x, y: stop.y + 4 };
-      this.angie.setPosition(this.pos.x, this.pos.y);
-      this.trail.reset(this.pos.x, this.pos.y);
-    }
-    // Let the station's surroundings stream in before coming up.
-    this.store.update(wantedChunks({ x: this.pos.x - 160, y: this.pos.y - 90, w: 320, h: 180 }, this.store.chunkPx, this.index, 1, { x: 0, y: 0 }));
-    this.cameras.main.fadeIn(400, 0, 0, 0);
-    this.underground = false;
-    const [after, ...rest] = next;
-    if (after) {
-      this.startLeg(after, rest);
+    if (stop) s.state.position = { map: 'world', x: Math.round(stop.x), y: Math.round(stop.y + 4) };
+    await s.save();
+    const order = line?.stops ?? [leg.from, leg.to];
+    const a = order.indexOf(leg.from);
+    const b = order.indexOf(leg.to);
+    const ids = a >= 0 && b >= 0 ? (a <= b ? order.slice(a, b + 1) : order.slice(b, a + 1).reverse()) : [leg.from, leg.to];
+    if (!this.scene.manager.keys['Metro']) {
+      this.scene.restart({ title: name(leg.to), legs: next });
       return;
     }
-    toast(`Arrived at ${s.content.transit.stops.find((x) => x.id === leg.to)?.name ?? leg.to}.`);
-    await s.save();
+    this.cameras.main.fadeOut(300, 0, 0, 0);
+    this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () =>
+      this.scene.start('Metro', { lineName: line?.name ?? 'Metro', stops: ids.map(name), legs: next }),
+    );
   }
 
   private updateRide(time: number, dt: number): void {

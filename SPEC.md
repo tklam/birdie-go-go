@@ -256,7 +256,7 @@ Rules:
 - **Ferry deck**: on a ferry leg a **Deck** button starts a photo session at the `ferry_deck` spot (seabirds; costs a photo session's Energy and the slot); the trip ends there, and Angie comes back at its destination.
 - **Vehicles on the map** come from `transit.vehicles` (polled twice a second, moved along their heading in between); only those near the camera get sprites.
 - **World map**: transit lines (open, with a discovered stop) are drawn over the overview; areas Angie hasn't entered (flag `area:<id>`) are darkened using `overview_areas.png` (worldbuild: one grey pixel per tile = area index); − and + zoom ×1–×3 around Angie, and the view scrolls.
-- **Modes on the map**: buses, trams and ferries are drawn from the timetables; the metro runs underground: boarding fades to black, the clock advances by the wait and ride, and Angie comes up at the destination station.
+- **Modes on the map**: buses, trams and ferries are drawn from the timetables; the metro runs underground: the Metro scene shows the platform as the train pulls in, then the car (tunnel lights, riders, a route strip of the stops passed) and a chime on arrival; the clock advances by the wait and ride, Angie comes up at the destination station and any further legs continue from there.
 - **Discovery and unlocks**: walking near a stop (or arriving at one) discovers it (flag `stop:<id>`), and only discovered stops show on the world map. Lines with `locked: true` need an `unlock_line` event (flag `line:<id>`); `unlock_teleport` opens a gateway; `stop_discovered` is a condition.
 
 ### 4.12 Energy, weather hazards and outdoor gear
