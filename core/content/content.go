@@ -10,6 +10,7 @@ import (
 	"slices"
 
 	"birdiegogo/core/model"
+	"birdiegogo/core/transit"
 )
 
 var (
@@ -132,6 +133,7 @@ func Validate(b *model.ContentBundle) []error {
 			v.require(stops[st], "line %s: unknown stop %q", l.ID, st)
 		}
 		v.require(len(l.Path) >= 2, "line %s: path needs at least two points", l.ID)
+		v.service(l)
 	}
 	for _, st := range b.Transit.Stops {
 		v.require(st.Name != "", "stop %s: name is required", st.ID)
@@ -424,5 +426,28 @@ func (v *validator) event(e model.Event, r refs) {
 			area, _ := a.Value.(string)
 			v.require(r.areas[area], "event %s: unknown area %q", e.ID, area)
 		}
+	}
+}
+
+// service checks a line's timetable fields; empty ones take the defaults of
+// core/transit.
+func (v *validator) service(l model.TransitLine) {
+	v.require(l.Headway >= 0, "line %s: headway must be ≥ 0", l.ID)
+	first, last := float64(transit.DefaultFirst), float64(transit.DefaultLast)
+	var err error
+	if l.First != "" {
+		if first, err = transit.ParseClock(l.First); err != nil {
+			v.require(false, "line %s: first: %v", l.ID, err)
+			return
+		}
+	}
+	if l.Last != "" {
+		if last, err = transit.ParseClock(l.Last); err != nil {
+			v.require(false, "line %s: last: %v", l.ID, err)
+			return
+		}
+	}
+	if err := transit.CheckService(first, last); err != nil {
+		v.require(false, "line %s: %v", l.ID, err)
 	}
 }

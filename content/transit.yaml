@@ -1,5 +1,7 @@
 # Transit (SPEC.md §4.11). Paths are world-pixel waypoints from the first stop
-# to the last; rides run them either way.
+# to the last; rides run them either way. Timetables: each terminus sends a
+# vehicle every `headway` in-game minutes from `first` to `last` ("HH:MM";
+# defaults 15, "06:00", "23:30").
 stops:
   - { id: tko_plaza, name: Tseung Kwan O Plaza }
   - { id: po_toi_o_village, name: Po Toi O Village }
@@ -13,6 +15,9 @@ lines:
     stops: [tko_plaza, po_toi_o_village]
     path: [[1000, 472], [1000, 504], [2168, 504], [2168, 712], [2136, 712]]
     speed: 110
+    headway: 10
+    first: "06:00"
+    last: "23:30"
   - id: ferry_junk_bay
     name: Junk Bay Ferry
     mode: ferry
@@ -20,3 +25,6 @@ lines:
     stops: [tko_pier, po_toi_o_pier]
     path: [[1144, 888], [1144, 968], [2040, 968], [2040, 904]]
     speed: 70
+    headway: 30
+    first: "07:00"
+    last: "22:00"

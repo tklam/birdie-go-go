@@ -240,6 +240,12 @@ Rules:
 - **Companions** ride along. O Boy travels in a small carrier on the metro and buses (with his own opinions about it).
 - **Transit missions**: some tasks involve going somewhere specific, or photographing from the ferry deck.
 
+*As built (`core/transit`):*
+- **Clock**: transit times are in-game minutes, absolute from day 0 at midnight (`day × 1440 + minutes`). A ride on the map runs one in-game minute per real second, so a line's `speed` in px/s is also px per in-game minute.
+- **Timetables**: every day each terminus sends a vehicle every `headway` minutes (default 15) from `first` to `last` (`"HH:MM"`, defaults 06:00 and 23:30; `last` may pass midnight, up to a day after `first`). Vehicles run the whole path at constant speed without dwelling, forward trips from the first stop and backward trips from the last. `VehicleAt(line, t)` derives every running vehicle's position, heading and progress from the timetable alone; trips that started the evening before are still on the road after midnight.
+- **Stops along a line**: the first and last stops sit on the path's ends; intermediate stops snap to the nearest point of the path past the previous stop (from their world-index positions), or are spaced evenly when they have none.
+- **Planner**: a time-dependent multi-criteria search over stops. Each leg is one vehicle from its boarding stop to any later stop of the line, so a fare is paid once per boarding and staying aboard is not a transfer. The best itinerary has the earliest arrival, then the lowest fare, then the fewest transfers; full ties go to the line listed first in content. Callers pass the unlocked lines and any suspended modes (e.g. ferry at signal 8+); with no allowed connection the planner reports the destination as unreachable. `ignoreTimetable` boards every leg immediately (no waits).
+
 ### 4.12 Energy, weather hazards and outdoor gear
 Weather isn't just scenery; it can also be an **enemy**.
 

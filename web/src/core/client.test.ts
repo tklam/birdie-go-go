@@ -96,4 +96,30 @@ describe('CoreClient', () => {
     worker.reply({ id: 1, ok: true, result });
     await expect(day).resolves.toEqual(result);
   });
+
+  it('sends transit.load, transit.plan and transit.vehicles with typed payloads', async () => {
+    const worker = new FakeWorker();
+    const core = new CoreClient(worker);
+    const transit = {
+      stops: [{ id: 'a', name: 'A' }, { id: 'b', name: 'B' }],
+      lines: [{ id: 'bus', name: 'Bus', mode: 'bus', fare: 8, stops: ['a', 'b'], path: [[0, 0], [600, 0]] as [number, number][], speed: 60, headway: 10 }],
+    };
+    const loaded = core.transitLoad({ transit, stopPositions: { a: { x: 0, y: 0 } } });
+    expect(worker.sent[0]).toEqual({ id: 1, op: 'transit.load', payload: { transit, stopPositions: { a: { x: 0, y: 0 } } } });
+    worker.reply({ id: 1, ok: true, result: { lines: 1, stops: 2 } });
+    await expect(loaded).resolves.toEqual({ lines: 1, stops: 2 });
+
+    const plan = core.transitPlan({ from: 'a', to: 'b', time: 360, excludeModes: ['ferry'] });
+    expect(worker.sent[1]).toEqual({ id: 2, op: 'transit.plan', payload: { from: 'a', to: 'b', time: 360, excludeModes: ['ferry'] } });
+    const leg = { line: 'bus', mode: 'bus', from: 'a', to: 'b', direction: 1, wait: 0, depart: 360, arrive: 370, ride: 10, fare: 8, path: [[0, 0], [600, 0]] };
+    const itinerary = { from: 'a', to: 'b', depart: 360, arrive: 370, duration: 10, fare: 8, transfers: 0, legs: [leg] };
+    worker.reply({ id: 2, ok: true, result: itinerary });
+    await expect(plan).resolves.toEqual(itinerary);
+
+    const vehicles = core.transitVehicles({ lines: ['bus'], time: 363 });
+    expect(worker.sent[2]).toEqual({ id: 3, op: 'transit.vehicles', payload: { lines: ['bus'], time: 363 } });
+    const result = { vehicles: [{ line: 'bus', direction: 1, depart: 360, x: 180, y: 0, dx: 1, dy: 0, progress: 0.3 }] };
+    worker.reply({ id: 3, ok: true, result });
+    await expect(vehicles).resolves.toEqual(result);
+  });
 });

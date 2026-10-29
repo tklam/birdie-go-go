@@ -769,6 +769,9 @@ export interface PackInfo {
  * TransitLine is a bus, tram, metro or ferry line (SPEC.md §4.11). Vehicles
  * ride on the map along Path (world pixels), which passes through the
  * line's stops in order.
+ * Transit times are in-game minutes. A ride on the map advances the clock one
+ * in-game minute per real second, so Speed in px/s is also px per in-game
+ * minute.
  */
 export interface TransitLine {
   id: string;
@@ -785,6 +788,19 @@ export interface TransitLine {
    * Speed on the map in px/s.
    */
   speed: number /* float64 */;
+  /**
+   * Headway is the minutes between departures from each terminus (default
+   * 15).
+   */
+  headway?: number /* float64 */;
+  /**
+   * First and Last are the first and last departure times from each
+   * terminus as "HH:MM" (defaults 06:00 and 23:30). First is before
+   * 24:00; Last may pass midnight (e.g. "25:30") but stays within a day
+   * of First.
+   */
+  first?: string;
+  last?: string;
 }
 /**
  * TransitStop is a named stop; its position comes from the world index.
@@ -799,6 +815,138 @@ export interface TransitStop {
 export interface Transit {
   lines: TransitLine[];
   stops: TransitStop[];
+}
+/**
+ * TransitLoadPayload gives the core worker the network for later
+ * transit.plan and transit.vehicles calls.
+ */
+export interface TransitLoadPayload {
+  transit: Transit;
+  /**
+   * StopPositions are the stops' world-pixel positions from the world
+   * index. They place intermediate stops along their lines' paths; a
+   * line's first and last stops are always its path's end points.
+   */
+  stopPositions?: { [key: string]: Point};
+}
+/**
+ * TransitLoadResult summarizes the loaded network.
+ */
+export interface TransitLoadResult {
+  lines: number /* int */;
+  stops: number /* int */;
+}
+/**
+ * TransitPlanPayload asks for the best itinerary between two stops.
+ */
+export interface TransitPlanPayload {
+  from: string;
+  to: string;
+  /**
+   * Time is the departure time in absolute in-game minutes (day × 1440 +
+   * minutes since midnight).
+   */
+  time: number /* float64 */;
+  /**
+   * Lines limits the plan to these lines (the unlocked ones); empty means
+   * all.
+   */
+  lines?: string[];
+  /**
+   * ExcludeModes leaves out suspended modes (e.g. ferry at typhoon signal
+   * 8+).
+   */
+  excludeModes?: string[];
+  /**
+   * IgnoreTimetable boards every leg on arrival (no waits).
+   */
+  ignoreTimetable?: boolean;
+}
+/**
+ * TransitLeg is one ride on one vehicle.
+ */
+export interface TransitLeg {
+  line: string;
+  mode: string;
+  from: string;
+  to: string;
+  /**
+   * Direction is 1 along the line's stop order, -1 against it.
+   */
+  direction: number /* int */;
+  /**
+   * Wait is the minutes spent at From before boarding.
+   */
+  wait: number /* float64 */;
+  depart: number /* float64 */;
+  arrive: number /* float64 */;
+  /**
+   * Ride is Arrive − Depart.
+   */
+  ride: number /* float64 */;
+  fare: number /* int */;
+  /**
+   * Path is the world-pixel polyline of this ride, from From to To.
+   */
+  path: number /* float64 */[][];
+}
+/**
+ * TransitItinerary is the planner's answer: legs in travel order.
+ */
+export interface TransitItinerary {
+  from: string;
+  to: string;
+  depart: number /* float64 */;
+  arrive: number /* float64 */;
+  duration: number /* float64 */;
+  fare: number /* int */;
+  transfers: number /* int */;
+  legs: TransitLeg[];
+}
+/**
+ * TransitVehiclesPayload asks where the vehicles of some lines are.
+ */
+export interface TransitVehiclesPayload {
+  /**
+   * Lines to report; empty means every line.
+   */
+  lines?: string[];
+  /**
+   * Time in absolute in-game minutes.
+   */
+  time: number /* float64 */;
+}
+/**
+ * TransitVehicle is one vehicle's timetabled position.
+ */
+export interface TransitVehicle {
+  line: string;
+  /**
+   * Direction is 1 along the line's stop order, -1 against it.
+   */
+  direction: number /* int */;
+  /**
+   * Depart is when this trip left its first terminus (absolute minutes);
+   * with Line and Direction it identifies the vehicle.
+   */
+  depart: number /* float64 */;
+  /**
+   * X and Y in world pixels; DX and DY the unit heading.
+   */
+  x: number /* float64 */;
+  y: number /* float64 */;
+  dx: number /* float64 */;
+  dy: number /* float64 */;
+  /**
+   * Progress along the trip, 0–1.
+   */
+  progress: number /* float64 */;
+}
+/**
+ * TransitVehiclesResult lists the vehicles in service, by line then trip.
+ */
+export interface TransitVehiclesResult {
+  vehicles: TransitVehicle[];
 }
 
 //////////
