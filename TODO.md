@@ -93,7 +93,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] Bond system
 - [x] O Boy join event (Chapter 1: rumour on day 2, guaranteed parrotlet at the waterfront, naming scene, joins the party); shoulder perch; alert slowdown in photo scenes
 - [~] O Boy: bobs to the beat in lessons done; contact call, spotting, travel carrier still to do
-- [ ] Party selection (home / talk to companion)
+- [x] Party selection (Menu → Party)
 - [x] Kei join event (Chapter 3: sticky shutter, camera shop in the plaza); follower movement; bird-call app in photo sessions
 - [x] Kei `friends` piano ability: faint trace of the notes actually played
 - [ ] Folding ladder (Kei build)

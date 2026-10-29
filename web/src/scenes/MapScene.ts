@@ -559,6 +559,31 @@ export class MapScene extends Phaser.Scene {
     );
   }
 
+  /** Choose who comes along (SPEC.md §7): alone, O Boy, Kei, or both. */
+  private async partyMenu(): Promise<void> {
+    const s = this.session;
+    const names: Record<string, string> = { oboy: 'O Boy', kei: 'Kei' };
+    await showMenu(
+      'Who comes along?',
+      [
+        ...s.state.joined.map((id) => ({
+          label: `${names[id] ?? id}: ${s.state.party.includes(id) ? 'with you' : 'at home'}`,
+          run: async () => {
+            if (s.state.party.includes(id)) s.state.party = s.state.party.filter((x) => x !== id);
+            else s.state.party = [...s.state.party, id];
+            if (id === 'oboy' && !s.state.party.includes('oboy')) {
+              this.oboy?.destroy();
+              this.oboy = null;
+            }
+            if (id === 'kei' && s.state.party.includes('kei')) this.trail.reset(this.pos.x, this.pos.y);
+            return false;
+          },
+        })),
+        { label: 'Done', run: async () => false },
+      ],
+    );
+  }
+
   /** The bag: wear/remove gear, use snacks and sunscreen. */
   private async bag(): Promise<boolean> {
     const s = this.session;
@@ -640,6 +665,17 @@ export class MapScene extends Phaser.Scene {
     const items = [
       { label: 'Album', run: async () => (await showAlbum(s.content, s.state, this.registry.get('manifest') as Manifest), true) },
       { label: 'Bag', run: () => this.bag() },
+      ...(s.state.joined.length
+        ? [
+            {
+              label: 'Party',
+              run: async () => {
+                await this.partyMenu();
+                return true;
+              },
+            },
+          ]
+        : []),
       {
         label: 'Missions',
         run: async () => {
