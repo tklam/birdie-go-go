@@ -510,3 +510,16 @@ button.album-btn:disabled {
   background: #cc79a7;
   clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
+
+/* Rhythm mini game (SPEC.md §4.14): one big drum button bottom-right. */
+.btn.rhythm-drum {
+  width: 96px;
+  height: 96px;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  font-size: 14px;
+  color: #f07070;
+}
+.btn.rhythm-hidden {
+  display: none;
+}
