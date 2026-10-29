@@ -548,3 +548,42 @@ func TestRenderPoseRecolorAndMarks(t *testing.T) {
 		t.Error("mark off the bird should be an error")
 	}
 }
+
+func TestDeriveFrame(t *testing.T) {
+	src := make([]int, frameSize*frameSize)
+	for i := range src {
+		src[i] = -1
+	}
+	src[0] = 3                     // top-left
+	src[frameSize+1] = 4           // (1, 1)
+	src[frameSize*frameSize-1] = 5 // bottom-right: moved off the frame
+	tests := []struct {
+		name   string
+		flip   bool
+		dx, dy int
+		want   map[[2]int]int
+	}{
+		{"copy", false, 0, 0, map[[2]int]int{{0, 0}: 3, {1, 1}: 4, {31, 31}: 5}},
+		{"flip", true, 0, 0, map[[2]int]int{{31, 0}: 3, {30, 1}: 4, {0, 31}: 5}},
+		{"shift", false, 1, -1, map[[2]int]int{{2, 0}: 4}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := deriveFrame(src, tt.flip, tt.dx, tt.dy)
+			n := 0
+			for i, v := range got {
+				if v < 0 {
+					continue
+				}
+				n++
+				at := [2]int{i % frameSize, i / frameSize}
+				if tt.want[at] != v {
+					t.Errorf("pixel %v = %d, want %d", at, v, tt.want[at])
+				}
+			}
+			if n != len(tt.want) {
+				t.Errorf("%d opaque pixels, want %d", n, len(tt.want))
+			}
+		})
+	}
+}

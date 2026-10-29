@@ -66,7 +66,15 @@ type Credit struct {
 // Pose describes how one sprite frame is cut from a photo. Coordinates are
 // source-photo pixels.
 type Pose struct {
-	File   string `yaml:"file"`
+	// From reuses another pose's finished frame instead of a photo, moved by
+	// OffsetX/OffsetY and mirrored with FlipX. Other settings are ignored.
+	From string `yaml:"from"`
+	File string `yaml:"file"`
+	// Mask is an optional grayscale PNG the size of the photo (white = bird,
+	// path relative to sources.yaml),
+	// e.g. from a segmentation model. It replaces the color flood fill; drop,
+	// keep and keepParts still apply.
+	Mask   string `yaml:"mask"`
 	Crop   []int  `yaml:"crop"` // x, y, w, h
 	FlipX  bool   `yaml:"flipX"`
 	Credit `yaml:",inline"`
@@ -141,7 +149,20 @@ func main() {
 	check := flag.String("check", "", "only check the PNGs in this directory against the palette rules")
 	debug := flag.String("debug", "", "optional directory for cutout debug images")
 	only := flag.String("species", "", "only process this species")
+	credits := flag.String("credits", "", "print CREDITS.md sections for these comma-separated species instead")
 	flag.Parse()
+
+	if *credits != "" {
+		src, err := loadSources(*sources)
+		if err == nil {
+			err = writeCredits(os.Stdout, src, strings.Split(*credits, ","), birdNames("content/birds.yaml"))
+		}
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "birdphoto credits:", err)
+			os.Exit(1)
+		}
+		return
+	}
 
 	if *check != "" {
 		if err := checkDir(*check); err != nil {
@@ -203,17 +224,38 @@ func run(sourcesPath, outDir, debugDir, only string) error {
 				return fmt.Errorf("%s: unknown pose %q", name, p)
 			}
 		}
+		frames := map[string][]int{}
+		// Photo poses first, then poses derived from them.
+		for _, derived := range []bool{false, true} {
+			for _, pose := range poseOrder {
+				p := sp.Poses[pose]
+				if p == nil {
+					return fmt.Errorf("%s: missing pose %q", name, pose)
+				}
+				if (p.From != "") != derived {
+					continue
+				}
+				if derived {
+					src, ok := frames[p.From]
+					if !ok || sp.Poses[p.From].From != "" {
+						return fmt.Errorf("%s %s: from %q must name a pose made from a photo", name, pose, p.From)
+					}
+					frames[pose] = deriveFrame(src, p.FlipX, p.OffsetX, p.OffsetY)
+					continue
+				}
+				if p.Mask != "" && !filepath.IsAbs(p.Mask) {
+					p.Mask = filepath.Join(base, p.Mask)
+				}
+				idx, err := renderPose(filepath.Join(base, p.File), pose, p, debugPath(debugDir, name+"_"+pose))
+				if err != nil {
+					return fmt.Errorf("%s %s: %w", name, pose, err)
+				}
+				frames[pose] = idx
+			}
+		}
 		sheet := image.NewNRGBA(image.Rect(0, 0, frameSize*len(poseOrder), frameSize))
 		for i, pose := range poseOrder {
-			p := sp.Poses[pose]
-			if p == nil {
-				return fmt.Errorf("%s: missing pose %q", name, pose)
-			}
-			idx, err := renderPose(filepath.Join(base, p.File), pose, p, debugPath(debugDir, name+"_"+pose))
-			if err != nil {
-				return fmt.Errorf("%s %s: %w", name, pose, err)
-			}
-			drawIndexed(sheet, idx, frameSize, frameSize, i*frameSize, 0)
+			drawIndexed(sheet, frames[pose], frameSize, frameSize, i*frameSize, 0)
 		}
 		if err := writePNG(filepath.Join(outDir, name+".png"), sheet); err != nil {
 			return err
@@ -334,21 +376,29 @@ func renderPose(path, pose string, p *Pose, debug string) ([]int, error) {
 		}
 		seeds = append(seeds, image.Pt(s[0], s[1]).Sub(r.Min))
 	}
-	mask := cutout(crop, cutoutParams{
-		Tolerance:  orDefault(p.Tolerance, 14),
-		Step:       p.Step,
-		Clusters:   p.Clusters,
-		MinShare:   p.MinShare,
-		Blur:       intOr(p.Blur, 1),
-		Seeds:      seeds,
-		Keep:       keep,
-		Drop:       drop,
-		Clip:       clip,
-		Enclosed:   p.Enclosed,
-		Erode:      intOr(p.Erode, 1),
-		KeepParts:  p.KeepParts,
-		BorderMask: p.Sides,
-	})
+	var mask []bool
+	if p.Mask != "" {
+		mask, err = loadMask(p.Mask, r, keep, drop, p.KeepParts)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		mask = cutout(crop, cutoutParams{
+			Tolerance:  orDefault(p.Tolerance, 14),
+			Step:       p.Step,
+			Clusters:   p.Clusters,
+			MinShare:   p.MinShare,
+			Blur:       intOr(p.Blur, 1),
+			Seeds:      seeds,
+			Keep:       keep,
+			Drop:       drop,
+			Clip:       clip,
+			Enclosed:   p.Enclosed,
+			Erode:      intOr(p.Erode, 1),
+			KeepParts:  p.KeepParts,
+			BorderMask: p.Sides,
+		})
+	}
 	if debug != "" {
 		if err := writeDebug(debug, crop, mask); err != nil {
 			return nil, err
@@ -563,4 +613,74 @@ func writeDebug(path string, crop *rgbImage, mask []bool) error {
 		}
 	}
 	return writePNG(path, out)
+}
+
+// deriveFrame copies a finished frame (palette indices, -1 transparent),
+// mirrored if flip and moved by (dx, dy) frame pixels.
+func deriveFrame(src []int, flip bool, dx, dy int) []int {
+	out := make([]int, len(src))
+	for i := range out {
+		out[i] = -1
+	}
+	for y := range frameSize {
+		for x := range frameSize {
+			sx := x
+			if flip {
+				sx = frameSize - 1 - x
+			}
+			v := src[y*frameSize+sx]
+			tx, ty := x+dx, y+dy
+			if v < 0 || tx < 0 || ty < 0 || tx >= frameSize || ty >= frameSize {
+				continue
+			}
+			out[ty*frameSize+tx] = v
+		}
+	}
+	return out
+}
+
+// loadMask reads a segmentation mask (white = bird) for the crop r of the
+// photo, then applies the keep and drop polygons (crop coordinates) and keeps
+// the largest part (plus parts ≥ keepParts of it).
+func loadMask(path string, r image.Rectangle, keep, drop [][]fpoint, keepParts float64) ([]bool, error) {
+	img, err := readImage(path)
+	if err != nil {
+		return nil, fmt.Errorf("mask: %w", err)
+	}
+	if !r.In(img.Bounds()) {
+		return nil, fmt.Errorf("mask %v is smaller than the crop %v", img.Bounds(), r)
+	}
+	w, h := r.Dx(), r.Dy()
+	fg := make([]bool, w*h)
+	for y := range h {
+		for x := range w {
+			g := color.GrayModel.Convert(img.At(r.Min.X+x, r.Min.Y+y)).(color.Gray)
+			pt := fpoint{float64(x) + 0.5, float64(y) + 0.5}
+			on := g.Y >= 128
+			for _, poly := range keep {
+				on = on || pointInPolygon(pt, poly)
+			}
+			for _, poly := range drop {
+				on = on && !pointInPolygon(pt, poly)
+			}
+			fg[y*w+x] = on
+		}
+	}
+	return keepLargest(w, h, fg, keepParts), nil
+}
+
+// birdNames reads display names from the content's birds.yaml (best effort:
+// missing names fall back to ids).
+func birdNames(path string) map[string]string {
+	var birds []struct {
+		ID   string `yaml:"id"`
+		Name string `yaml:"name"`
+	}
+	names := map[string]string{}
+	if data, err := os.ReadFile(path); err == nil && yaml.Unmarshal(data, &birds) == nil {
+		for _, b := range birds {
+			names[b.ID] = b.Name
+		}
+	}
+	return names
 }

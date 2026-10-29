@@ -47,6 +47,9 @@ var palette = color.Palette{
 	hex(0xe8e0c8),           // 33 road line
 	hex(0xb06048),           // 34 brick
 	hex(0x6aa8d0),           // 35 window
+	hex(0x6e7428),           // 36 olive (bird plumage)
+	hex(0xb4b840),           // 37 yellow-green (bird plumage)
+	hex(0x9a4424),           // 38 chestnut (bird plumage)
 }
 
 // Palette indices by name, for readable drawing code.
@@ -87,6 +90,9 @@ const (
 	cRoadLine
 	cBrick
 	cWindow
+	cOlive
+	cYellowGreen
+	cChestnut
 )
 
 func hex(v uint32) color.NRGBA {

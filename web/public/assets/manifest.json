@@ -1,7 +1,67 @@
 {
+  "album_asian_koel": {
+    "type": "image",
+    "file": "birds/album_asian_koel.png"
+  },
+  "album_black_collared_starling": {
+    "type": "image",
+    "file": "birds/album_black_collared_starling.png"
+  },
+  "album_black_kite": {
+    "type": "image",
+    "file": "birds/album_black_kite.png"
+  },
+  "album_blue_rock_thrush": {
+    "type": "image",
+    "file": "birds/album_blue_rock_thrush.png"
+  },
+  "album_bull_headed_shrike": {
+    "type": "image",
+    "file": "birds/album_bull_headed_shrike.png"
+  },
+  "album_chinese_pond_heron": {
+    "type": "image",
+    "file": "birds/album_chinese_pond_heron.png"
+  },
+  "album_common_kingfisher": {
+    "type": "image",
+    "file": "birds/album_common_kingfisher.png"
+  },
+  "album_common_tailorbird": {
+    "type": "image",
+    "file": "birds/album_common_tailorbird.png"
+  },
+  "album_crested_myna": {
+    "type": "image",
+    "file": "birds/album_crested_myna.png"
+  },
+  "album_eurasian_tree_sparrow": {
+    "type": "image",
+    "file": "birds/album_eurasian_tree_sparrow.png"
+  },
+  "album_fork_tailed_sunbird": {
+    "type": "image",
+    "file": "birds/album_fork_tailed_sunbird.png"
+  },
+  "album_great_egret": {
+    "type": "image",
+    "file": "birds/album_great_egret.png"
+  },
+  "album_light_vented_bulbul": {
+    "type": "image",
+    "file": "birds/album_light_vented_bulbul.png"
+  },
   "album_little_egret": {
     "type": "image",
     "file": "birds/album_little_egret.png"
+  },
+  "album_long_tailed_shrike": {
+    "type": "image",
+    "file": "birds/album_long_tailed_shrike.png"
+  },
+  "album_masked_laughingthrush": {
+    "type": "image",
+    "file": "birds/album_masked_laughingthrush.png"
   },
   "album_oriental_magpie_robin": {
     "type": "image",
@@ -11,9 +71,29 @@
     "type": "image",
     "file": "birds/album_pacific_parrotlet.png"
   },
+  "album_pacific_reef_heron": {
+    "type": "image",
+    "file": "birds/album_pacific_reef_heron.png"
+  },
   "album_red_whiskered_bulbul": {
     "type": "image",
     "file": "birds/album_red_whiskered_bulbul.png"
+  },
+  "album_spotted_dove": {
+    "type": "image",
+    "file": "birds/album_spotted_dove.png"
+  },
+  "album_swinhoes_white_eye": {
+    "type": "image",
+    "file": "birds/album_swinhoes_white_eye.png"
+  },
+  "album_white_throated_kingfisher": {
+    "type": "image",
+    "file": "birds/album_white_throated_kingfisher.png"
+  },
+  "album_yellow_crested_cockatoo": {
+    "type": "image",
+    "file": "birds/album_yellow_crested_cockatoo.png"
   },
   "bg_garden": {
     "type": "background",
@@ -139,9 +219,219 @@
     "file": "backgrounds/bg_waterfront_near.png",
     "placeholder": true
   },
+  "bird_asian_koel": {
+    "type": "spritesheet",
+    "file": "birds/asian_koel.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ]
+  },
+  "bird_black_collared_starling": {
+    "type": "spritesheet",
+    "file": "birds/black_collared_starling.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ]
+  },
+  "bird_black_kite": {
+    "type": "spritesheet",
+    "file": "birds/black_kite.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ]
+  },
+  "bird_blue_rock_thrush": {
+    "type": "spritesheet",
+    "file": "birds/blue_rock_thrush.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ]
+  },
+  "bird_bull_headed_shrike": {
+    "type": "spritesheet",
+    "file": "birds/bull_headed_shrike.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ]
+  },
+  "bird_chinese_pond_heron": {
+    "type": "spritesheet",
+    "file": "birds/chinese_pond_heron.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ]
+  },
+  "bird_common_kingfisher": {
+    "type": "spritesheet",
+    "file": "birds/common_kingfisher.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ]
+  },
+  "bird_common_tailorbird": {
+    "type": "spritesheet",
+    "file": "birds/common_tailorbird.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ]
+  },
+  "bird_crested_myna": {
+    "type": "spritesheet",
+    "file": "birds/crested_myna.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ]
+  },
+  "bird_eurasian_tree_sparrow": {
+    "type": "spritesheet",
+    "file": "birds/eurasian_tree_sparrow.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ]
+  },
+  "bird_fork_tailed_sunbird": {
+    "type": "spritesheet",
+    "file": "birds/fork_tailed_sunbird.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ]
+  },
+  "bird_great_egret": {
+    "type": "spritesheet",
+    "file": "birds/great_egret.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ]
+  },
+  "bird_light_vented_bulbul": {
+    "type": "spritesheet",
+    "file": "birds/light_vented_bulbul.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ]
+  },
   "bird_little_egret": {
     "type": "spritesheet",
     "file": "birds/little_egret.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ]
+  },
+  "bird_long_tailed_shrike": {
+    "type": "spritesheet",
+    "file": "birds/long_tailed_shrike.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ]
+  },
+  "bird_masked_laughingthrush": {
+    "type": "spritesheet",
+    "file": "birds/masked_laughingthrush.png",
     "frameWidth": 32,
     "frameHeight": 32,
     "frames": [
@@ -181,9 +471,79 @@
       "back_turned"
     ]
   },
+  "bird_pacific_reef_heron": {
+    "type": "spritesheet",
+    "file": "birds/pacific_reef_heron.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ]
+  },
   "bird_red_whiskered_bulbul": {
     "type": "spritesheet",
     "file": "birds/red_whiskered_bulbul.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ]
+  },
+  "bird_spotted_dove": {
+    "type": "spritesheet",
+    "file": "birds/spotted_dove.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ]
+  },
+  "bird_swinhoes_white_eye": {
+    "type": "spritesheet",
+    "file": "birds/swinhoes_white_eye.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ]
+  },
+  "bird_white_throated_kingfisher": {
+    "type": "spritesheet",
+    "file": "birds/white_throated_kingfisher.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ]
+  },
+  "bird_yellow_crested_cockatoo": {
+    "type": "spritesheet",
+    "file": "birds/yellow_crested_cockatoo.png",
     "frameWidth": 32,
     "frameHeight": 32,
     "frames": [
@@ -307,9 +667,114 @@
     "frameHeight": 16,
     "placeholder": true
   },
+  "owbird_asian_koel": {
+    "type": "spritesheet",
+    "file": "birds/ow_asian_koel.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_black_collared_starling": {
+    "type": "spritesheet",
+    "file": "birds/ow_black_collared_starling.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_black_kite": {
+    "type": "spritesheet",
+    "file": "birds/ow_black_kite.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_blue_rock_thrush": {
+    "type": "spritesheet",
+    "file": "birds/ow_blue_rock_thrush.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_bull_headed_shrike": {
+    "type": "spritesheet",
+    "file": "birds/ow_bull_headed_shrike.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_chinese_pond_heron": {
+    "type": "spritesheet",
+    "file": "birds/ow_chinese_pond_heron.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_common_kingfisher": {
+    "type": "spritesheet",
+    "file": "birds/ow_common_kingfisher.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_common_tailorbird": {
+    "type": "spritesheet",
+    "file": "birds/ow_common_tailorbird.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_crested_myna": {
+    "type": "spritesheet",
+    "file": "birds/ow_crested_myna.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_eurasian_tree_sparrow": {
+    "type": "spritesheet",
+    "file": "birds/ow_eurasian_tree_sparrow.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_fork_tailed_sunbird": {
+    "type": "spritesheet",
+    "file": "birds/ow_fork_tailed_sunbird.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_great_egret": {
+    "type": "spritesheet",
+    "file": "birds/ow_great_egret.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_light_vented_bulbul": {
+    "type": "spritesheet",
+    "file": "birds/ow_light_vented_bulbul.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
   "owbird_little_egret": {
     "type": "spritesheet",
     "file": "birds/ow_little_egret.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_long_tailed_shrike": {
+    "type": "spritesheet",
+    "file": "birds/ow_long_tailed_shrike.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_masked_laughingthrush": {
+    "type": "spritesheet",
+    "file": "birds/ow_masked_laughingthrush.png",
     "frameWidth": 8,
     "frameHeight": 8,
     "placeholder": true
@@ -328,9 +793,44 @@
     "frameHeight": 8,
     "placeholder": true
   },
+  "owbird_pacific_reef_heron": {
+    "type": "spritesheet",
+    "file": "birds/ow_pacific_reef_heron.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
   "owbird_red_whiskered_bulbul": {
     "type": "spritesheet",
     "file": "birds/ow_red_whiskered_bulbul.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_spotted_dove": {
+    "type": "spritesheet",
+    "file": "birds/ow_spotted_dove.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_swinhoes_white_eye": {
+    "type": "spritesheet",
+    "file": "birds/ow_swinhoes_white_eye.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_white_throated_kingfisher": {
+    "type": "spritesheet",
+    "file": "birds/ow_white_throated_kingfisher.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_yellow_crested_cockatoo": {
+    "type": "spritesheet",
+    "file": "birds/ow_yellow_crested_cockatoo.png",
     "frameWidth": 8,
     "frameHeight": 8,
     "placeholder": true

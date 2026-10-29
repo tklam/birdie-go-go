@@ -7,7 +7,7 @@ import (
 
 // masterPalette is a copy of the master palette in tools/assetgen/palette.go
 // (SPEC.md §1.3), without the transparent entry at index 0. The order matches
-// assetgen's indices 1..35. TestPaletteMatchesAssetgen keeps the two in sync.
+// assetgen's indices 1..38. TestPaletteMatchesAssetgen keeps the two in sync.
 var masterPalette = []color.NRGBA{
 	hex(0x101018), // 1 black
 	hex(0x3a3a4a), // 2 dark gray
@@ -44,6 +44,9 @@ var masterPalette = []color.NRGBA{
 	hex(0xe8e0c8), // 33 road line
 	hex(0xb06048), // 34 brick
 	hex(0x6aa8d0), // 35 window
+	hex(0x6e7428), // 36 olive
+	hex(0xb4b840), // 37 yellow-green
+	hex(0x9a4424), // 38 chestnut
 }
 
 // paletteNames maps readable names (used in sources.yaml) to masterPalette
@@ -56,7 +59,8 @@ var paletteNames = map[string]int{
 	"teal": 19, "dark_teal": 20, "blue": 21, "navy": 22, "sky": 23,
 	"pale_sky": 24, "sea": 25, "light_sea": 26, "concrete": 27,
 	"dark_concrete": 28, "pink": 29, "purple": 30, "asphalt": 31,
-	"road_line": 32, "brick": 33, "window": 34,
+	"road_line": 32, "brick": 33, "window": 34, "olive": 35, "yellow_green": 36,
+	"chestnut": 37,
 }
 
 func hex(v uint32) color.NRGBA {

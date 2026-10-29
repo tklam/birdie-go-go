@@ -7,6 +7,14 @@
     - { species: little_egret, weight: 4 }
     - { species: oriental_magpie_robin, weight: 3, slots: [morning, afternoon] }
     - { species: red_whiskered_bulbul, weight: 2 }
+    - { species: great_egret, weight: 2 }
+    - { species: chinese_pond_heron, weight: 2 }
+    - { species: black_collared_starling, weight: 2 }
+    - { species: crested_myna, weight: 2 }
+    - { species: spotted_dove, weight: 2 }
+    - { species: eurasian_tree_sparrow, weight: 2 }
+    - { species: black_kite, weight: 1 }
+    - { species: common_kingfisher, weight: 1 }
     # Chapter 1: a shimmering blue-green bird from the Bird Paradise rests here (SPEC.md §8).
     - { species: pacific_parrotlet, weight: 2, always: true, requires_flag: chapter1_started, unless_flag: oboy_found }
 - id: tko_estate_garden
@@ -17,6 +25,16 @@
   birds:
     - { species: red_whiskered_bulbul, weight: 5 }
     - { species: oriental_magpie_robin, weight: 4 }
+    - { species: eurasian_tree_sparrow, weight: 4 }
+    - { species: spotted_dove, weight: 3 }
+    - { species: light_vented_bulbul, weight: 3 }
+    - { species: swinhoes_white_eye, weight: 3 }
+    - { species: crested_myna, weight: 3 }
+    - { species: black_collared_starling, weight: 2 }
+    - { species: common_tailorbird, weight: 2 }
+    - { species: long_tailed_shrike, weight: 1 }
+    - { species: yellow_crested_cockatoo, weight: 1, slots: [morning, evening] }
+    - { species: asian_koel, weight: 1, slots: [morning] }
 - id: cwb_stream
   name: Woodland Stream
   area: cwb_country_park
@@ -25,6 +43,15 @@
   birds:
     - { species: oriental_magpie_robin, weight: 4 }
     - { species: red_whiskered_bulbul, weight: 4 }
+    - { species: swinhoes_white_eye, weight: 3 }
+    - { species: masked_laughingthrush, weight: 3, slots: [morning, afternoon] }
+    - { species: fork_tailed_sunbird, weight: 2 }
+    - { species: common_tailorbird, weight: 2 }
+    - { species: white_throated_kingfisher, weight: 2 }
+    - { species: common_kingfisher, weight: 1 }
+    - { species: asian_koel, weight: 1 }
+    - { species: bull_headed_shrike, weight: 1 }
+    - { species: black_kite, weight: 1 }
 - id: po_toi_o_pier
   name: Po Toi O Pier
   area: po_toi_o
@@ -33,3 +60,9 @@
   birds:
     - { species: little_egret, weight: 5 }
     - { species: oriental_magpie_robin, weight: 1 }
+    - { species: pacific_reef_heron, weight: 4 }
+    - { species: blue_rock_thrush, weight: 3 }
+    - { species: black_kite, weight: 3 }
+    - { species: great_egret, weight: 2 }
+    - { species: white_throated_kingfisher, weight: 2 }
+    - { species: spotted_dove, weight: 1 }
