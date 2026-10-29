@@ -118,7 +118,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
   - [x] Blend field in `worldbuild` + tests
   - [x] Client blend sampling (pure TS) + tests
   - [~] WeatherRenderer: rain, dithered fog, cloud/evening tint done (haze line-scroll, sway, waves, ambience, muffled interiors still to do)
-  - [~] Weather in photo scenes (focus time, sharpness, visuals) done; weather-dependent bird tables and sheltering still to do
+  - [x] Weather in photo scenes (focus time, sharpness, visuals), weather-dependent bird tables and sheltering
   - [x] Radio forecast at home; `?debug=weather` overlay
 - [ ] Gear gating (§4.6)
 - [ ] Hidden collectibles: feathers, camera parts, sheet music
@@ -148,7 +148,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Gear slots; Bag menu to wear gear and use consumables; convenience store in the mall plaza
 - [ ] Bag capacity and packing at home
 - [x] Hazard gear items: sun hat, sunscreen, umbrella (breaks in strong wind), raincoat, windbreaker, jacket, water bottle; snacks (milk tea, pineapple bun)
-- [~] Weather effects in the photo scene (slower focus, lower sharpness); soaked/overheated status effects still to do
+- [x] Weather effects in the photo scene (slower focus, lower sharpness); soaked/overheated status effects
 - [x] `enemies.yaml`; enemy roaming, detection (sight, sneaking, tall grass), chase on the map
 - [x] Encounter transition (iris) + Encounter Scene
 - [x] Escape: mash meter + dodge prompts

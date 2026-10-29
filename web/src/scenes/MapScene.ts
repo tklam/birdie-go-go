@@ -690,7 +690,10 @@ export class MapScene extends Phaser.Scene {
             if (choice !== 'photo') return;
           }
           if (!this.spendEnergy(activityCost(this.session.content.game.energy, 'photo'))) return;
-          await this.leaveTo('Photo', { spotId, returnTo: 'Map', weather: this.weatherNow });
+          const slot = TIME_SLOTS.indexOf(this.session.state.slot);
+          const named = this.weatherDay?.areas.find((a) => a.area === this.area)?.named[slot];
+          const statuses = this.hazards?.exposed.map((e) => e.hazard.id) ?? [];
+          await this.leaveTo('Photo', { spotId, returnTo: 'Map', weather: this.weatherNow, named, statuses });
           return;
         }
         case 'npc': {

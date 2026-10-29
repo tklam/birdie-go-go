@@ -218,7 +218,7 @@ Your settings are kept when you start a new game.
 ## Tips
 
 - Always sneak near birds.
-- Visit spots at different times of day, in different seasons, and in different weather to find new species.
+- Visit spots at different times of day, in different seasons, and in different weather to find new species. Some birds only show up in certain weather: terns over the bay in rain, seabirds blown in by storms. Rain also sends many birds into shelter, so fewer come by. Arriving soaked fogs your lens (slower focus), and heat haze softens your shots.
 - Check the radio forecast before choosing where to go, especially in typhoon season.
 - Ride the ferry with your camera ready.
 - Pack for the forecast: sunscreen on bright days, a raincoat rather than an umbrella when it's windy.

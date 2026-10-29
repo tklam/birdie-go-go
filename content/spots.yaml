@@ -60,6 +60,8 @@
     - { species: grey_wagtail, weight: 2 }
     - { species: little_ringed_plover, weight: 2 }
     - { species: pacific_golden_plover, weight: 2 }
+    # Terns hunt low over the bay in rain.
+    - { species: whiskered_tern, weight: 4, weather: [rain, rainstorm, thunderstorm] }
 - id: tko_estate_garden
   name: Estate Garden
   area: tko_town
@@ -124,6 +126,8 @@
     - { species: black_faced_bunting, weight: 2 }
     - { species: chinese_blackbird, weight: 2 }
     - { species: eurasian_hoopoe, weight: 2 }
+    # Swallows feed low before rain.
+    - { species: barn_swallow, weight: 3, weather: [cloudy, drizzle] }
 - id: cwb_stream
   name: Woodland Stream
   area: cwb_country_park
@@ -187,6 +191,8 @@
     - { species: black_faced_bunting, weight: 2 }
     - { species: chinese_blackbird, weight: 2 }
     - { species: eurasian_hoopoe, weight: 2 }
+    # Whistling thrushes sing in the rain.
+    - { species: blue_whistling_thrush, weight: 3, weather: [drizzle, rain] }
 - id: po_toi_o_pier
   name: Po Toi O Pier
   area: po_toi_o
@@ -235,3 +241,6 @@
     - { species: whiskered_tern, weight: 2 }
     - { species: little_ringed_plover, weight: 2 }
     - { species: pacific_golden_plover, weight: 2 }
+    # Storms blow seabirds in; ospreys ride the wind.
+    - { species: whiskered_tern, weight: 5, weather: [rainstorm, thunderstorm, typhoon] }
+    - { species: osprey, weight: 3, weather: [windy] }

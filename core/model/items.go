@@ -59,6 +59,16 @@ type Hazard struct {
 	// Breaks names an item that breaks under this hazard past AtLeast.
 	Breaks      *HazardBreak `json:"breaks,omitempty"`
 	CounteredBy []string     `json:"counteredBy"`
+	// Photo is how the status carries into a photo session (SPEC.md §4.12).
+	Photo *HazardPhoto `json:"photo,omitempty"`
+}
+
+// HazardPhoto scales the camera while Angie has the hazard's status: a
+// fogged lens focuses slower (FocusScale > 1), heat haze lowers sharpness
+// (SharpnessScale < 1). 0 means no change.
+type HazardPhoto struct {
+	FocusScale     float64 `json:"focusScale,omitempty"`
+	SharpnessScale float64 `json:"sharpnessScale,omitempty"`
 }
 
 // HazardWhen triggers on a weather parameter (cloud, precip, temp, fog, wind,

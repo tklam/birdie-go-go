@@ -262,7 +262,8 @@ Weather isn't just scenery; it can also be an **enemy**.
 - The HUD shows active hazards as icons with a level. The radio forecast warns about tomorrow's UV, heat, rain, and wind so the player can **pack accordingly**.
 - **Gear slots**: head (hat), body (raincoat / windbreaker / jacket), hand (umbrella or parasol), plus a bag with limited space for consumables (sunscreen, water, snacks, plasters). Packing is a small daily choice: the bag doesn't fit everything.
 - Status effects wear off indoors, in shelter, or with the right item.
-- In the photo scene, the *Soaked* and *Overheated* statuses carry over: a fogged lens means longer focus, and heat haze lowers sharpness.
+- In the photo scene, the *Soaked* and *Overheated* statuses carry over: a fogged lens means longer focus, and heat haze lowers sharpness. *As built:* a hazard's optional `photo: { focus_scale, sharpness_scale }` in `hazards.yaml` applies while Angie is exposed when a session starts (heavy rain ×1.3 focus time, heat ×0.8 sharpness).
+- **Weather birds and sheltering.** A spot's bird entry may list `weather` (named weathers); it only appears then (e.g. terns in rain, storm-blown seabirds at the pier, ospreys on windy days). Birds shelter from rain: one visitor fewer in rain, two fewer in rainstorms, thunderstorms and typhoons.
 
 **No game over.** If Energy reaches 0, Angie gets dizzy and sits down. A passer-by (or a companion) helps her to the nearest shelter, clinic, or home. The rest of the time slot is lost, she pays a small clinic fee, and her gear may need repair (Kei can fix it once he's around). Story progress is never lost.
 

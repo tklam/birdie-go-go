@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Spot } from '../core/types.gen';
-import { available, idlePose, landingSpots, pickSpecies, rng, visitors } from './birds';
+import { available, idlePose, landingSpots, pickSpecies, rng, shelterPenalty, visitors } from './birds';
 
 const spot: Spot = {
   id: 'park',
@@ -83,5 +83,16 @@ describe('idlePose', () => {
     const r = rng(5);
     const poses = Array.from({ length: 200 }, () => idlePose(r, 80));
     expect(poses.filter((p) => p === 'perched_alert').length).toBeGreaterThan(100);
+  });
+});
+
+describe('weather', () => {
+  it('limits weather birds and shelters from rain', () => {
+    const spot = { birds: [{ species: 'a', weight: 1 }, { species: 'storm', weight: 1, weather: ['rain', 'rainstorm'] }] } as unknown as Spot;
+    const ids = (weather?: string) => available(spot, { slot: 'morning', season: 'spring', flags: {}, weather }).map((b) => b.species);
+    expect(ids()).toEqual(['a']);
+    expect(ids('clear')).toEqual(['a']);
+    expect(ids('rain')).toEqual(['a', 'storm']);
+    expect([shelterPenalty('clear'), shelterPenalty('rain'), shelterPenalty('rainstorm')]).toEqual([0, 1, 2]);
   });
 });

@@ -123,6 +123,9 @@ type SpotBird struct {
 	// Always guarantees one appearance per session while available (story
 	// birds).
 	Always bool `json:"always,omitempty"`
+	// Weather limits the entry to these named weathers (e.g. storm birds
+	// in rain); empty means any weather.
+	Weather []string `json:"weather,omitempty"`
 }
 
 // Student is a piano student (SPEC.md §6.5).

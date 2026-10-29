@@ -85,6 +85,7 @@ type spotYAML struct {
 		RequiresFlag string   `yaml:"requires_flag"`
 		UnlessFlag   string   `yaml:"unless_flag"`
 		Always       bool     `yaml:"always"`
+		Weather      []string `yaml:"weather"`
 	} `yaml:"birds"`
 }
 
@@ -156,6 +157,10 @@ type hazardYAML struct {
 		Min  float64 `yaml:"min"`
 	} `yaml:"breaks"`
 	CounteredBy []string `yaml:"countered_by"`
+	Photo       *struct {
+		FocusScale     float64 `yaml:"focus_scale"`
+		SharpnessScale float64 `yaml:"sharpness_scale"`
+	} `yaml:"photo"`
 }
 
 type enemyYAML struct {
@@ -357,6 +362,9 @@ func load(dir string) (*model.ContentBundle, error) {
 		if x.Breaks != nil {
 			h.Breaks = &model.HazardBreak{Item: x.Breaks.Item, Min: x.Breaks.Min}
 		}
+		if x.Photo != nil {
+			h.Photo = &model.HazardPhoto{FocusScale: x.Photo.FocusScale, SharpnessScale: x.Photo.SharpnessScale}
+		}
 		b.Hazards = append(b.Hazards, h)
 	}
 
@@ -434,7 +442,7 @@ func load(dir string) (*model.ContentBundle, error) {
 		for _, sb := range x.Birds {
 			s.Birds = append(s.Birds, model.SpotBird{
 				Species: sb.Species, Weight: sb.Weight, Slots: sb.Slots, Seasons: sb.Seasons,
-				RequiresFlag: sb.RequiresFlag, UnlessFlag: sb.UnlessFlag, Always: sb.Always,
+				RequiresFlag: sb.RequiresFlag, UnlessFlag: sb.UnlessFlag, Always: sb.Always, Weather: sb.Weather,
 			})
 		}
 		b.Spots = append(b.Spots, s)

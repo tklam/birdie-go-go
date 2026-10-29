@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { FOCUS_TIME_MS, SHUTTER_THRESHOLD, weatherOptics, withMods } from './optics';
+import { FOCUS_TIME_MS, SHUTTER_THRESHOLD, weatherOptics, withMods, withStatuses } from './optics';
 
 const clear = { cloud: 0, precip: 0, temp: 25, fog: 0, wind: 0, windDir: 0, uv: 8 };
 
@@ -21,5 +21,13 @@ describe('withMods', () => {
     const base = { focusTimeMs: 1000, shutterThreshold: 100 };
     expect(withMods(base, {})).toEqual(base);
     expect(withMods(base, { af_module: 1, stabilizer: 1 })).toEqual({ focusTimeMs: 700, shutterThreshold: 140 });
+  });
+});
+
+describe('withStatuses', () => {
+  it('scales focus and sharpness by exposed hazards', () => {
+    const o = { focusTimeMs: 600, shutterThreshold: 100 };
+    expect(withStatuses(o, [])).toEqual(o);
+    expect(withStatuses(o, [{ photo: { focusScale: 1.5 } }, { photo: { sharpnessScale: 0.8 } }, {}])).toEqual({ focusTimeMs: 900, shutterThreshold: 80 });
   });
 });

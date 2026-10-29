@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
 import type { Bird, Spot, WeatherParams } from '../core/types.gen';
 import { WeatherRenderer } from '../weather/renderer';
-import { weatherOptics, withMods } from '../photo/optics';
-import { available, idlePose, landingSpots, rng, visitors, type Pose } from '../photo/birds';
+import { weatherOptics, withMods, withStatuses } from '../photo/optics';
+import { available, idlePose, landingSpots, rng, shelterPenalty, visitors, type Pose } from '../photo/birds';
 import type { Manifest, ManifestEntry } from '../systems/assets';
 import { frameIndex } from '../systems/assets';
 import {
@@ -55,6 +55,10 @@ export interface PhotoSceneData {
   returnTo?: string;
   /** The weather at the spot when the session started (SPEC.md §4.9). */
   weather?: WeatherParams | null;
+  /** The named weather there (clear, rain, …): some birds only come in some weather. */
+  named?: string;
+  /** Hazards Angie was exposed to on the way (SPEC.md §4.12): soaked, overheated, … */
+  statuses?: string[];
 }
 
 /** The birding action view (SPEC.md §5). */
@@ -116,7 +120,8 @@ export class PhotoScene extends Phaser.Scene {
     this.vf = { x: 160, y: 90 };
     this.vfLast = { ...this.vf };
     this.weather = data.weather ?? null;
-    this.optics = withMods(weatherOptics(this.weather), state.items);
+    const exposed = content.hazards.filter((h) => data.statuses?.includes(h.id));
+    this.optics = withStatuses(withMods(weatherOptics(this.weather), state.items), exposed);
 
     this.layers = (this.bgEntry.layers ?? []).map((id, i) => this.add.image(0, 0, id).setOrigin(0, 0).setDepth(i));
     this.graphics = this.add.graphics().setDepth(100);
@@ -126,14 +131,21 @@ export class PhotoScene extends Phaser.Scene {
     this.add.text(4, 170, spot.name, { ...PIXEL_TEXT, color: '#f0f0f0' }).setDepth(101).setShadow(1, 1, '#101018', 0);
 
     // Visitors for this session, chosen by the spot's bird table.
-    const table = available(spot, { slot: state.slot, season: season(state.day), flags: state.flags });
-    this.toSpawn = visitors(table, 3 + Math.floor(this.random() * 3), this.random);
+    const table = available(spot, { slot: state.slot, season: season(state.day), flags: state.flags, weather: data.named });
+    // Birds shelter from rain: fewer visitors (SPEC.md §4.9).
+    this.toSpawn = visitors(table, Math.max(1, 3 + Math.floor(this.random() * 3) - shelterPenalty(data.named)), this.random);
     this.nextSpawn = this.time.now + 600;
     for (const id of new Set(this.toSpawn)) this.measure(`bird_${id}`);
 
     this.weatherRenderer = this.weather ? new WeatherRenderer(this, 50) : null;
     this.addPhotographers();
     this.setupInput();
+    // Statuses carried in from the map: a fogged lens, heat haze.
+    const effects = exposed.filter((h) => h.photo);
+    if (effects.length) {
+      const what = (h: (typeof effects)[number]) => `${h.status}: ${h.photo?.focusScale ? 'the lens fogs up' : 'heat haze softens shots'}`;
+      this.time.delayedCall(1800, () => this.showPopup(effects.map(what).join(' · ')));
+    }
     // Kei's bird-call app names the birds it can hear (SPEC.md §7.2).
     if (state.party.includes('kei') && this.toSpawn.length) {
       const names = [...new Set(this.toSpawn)].map((id) => content.birds.find((b) => b.id === id)?.name ?? id);

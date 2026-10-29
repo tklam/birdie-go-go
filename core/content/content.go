@@ -37,6 +37,7 @@ var (
 	TransitModes = []string{"bus", "tram", "metro", "ferry"}
 	WeatherKeys  = []string{"cloud", "precip", "temp", "fog", "wind", "uv", "signal"}
 	KeiStages    = []string{"met", "friends", "dating", "engaged", "married"}
+	NamedWeather = []string{"typhoon", "thunderstorm", "rainstorm", "rain", "drizzle", "foggy", "windy", "hazy", "cloudy", "clear"}
 
 	TriggerTypes = []string{
 		"enter_area", "talk", "interact", "photo_taken", "photo_session_end", "lesson_complete",
@@ -269,6 +270,9 @@ func (v *validator) spot(s model.Spot, areas, birds map[string]bool) {
 		for _, season := range sb.Seasons {
 			v.require(slices.Contains(Seasons, season), "spot %s: unknown season %q", s.ID, season)
 		}
+		for _, w := range sb.Weather {
+			v.require(slices.Contains(NamedWeather, w), "spot %s: unknown weather %q", s.ID, w)
+		}
 	}
 }
 
@@ -310,6 +314,9 @@ func (v *validator) hazard(h model.Hazard, items map[string]bool) {
 	v.require(h.Name != "" && h.Status != "", "hazard %s: name and status are required", h.ID)
 	v.require(slices.Contains(WeatherKeys, h.When.Param), "hazard %s: unknown weather parameter %q", h.ID, h.When.Param)
 	v.require(h.When.Min != nil || h.When.Max != nil, "hazard %s: when needs min or max", h.ID)
+	if p := h.Photo; p != nil {
+		v.require(p.FocusScale >= 0 && p.SharpnessScale >= 0, "hazard %s: photo scales must be ≥ 0", h.ID)
+	}
 	v.require(h.DrainPerMin >= 0, "hazard %s: drain must be ≥ 0", h.ID)
 	if h.Severe != nil {
 		v.require(h.Severe.DrainPerMin >= h.DrainPerMin, "hazard %s: severe drain must be ≥ the normal drain", h.ID)

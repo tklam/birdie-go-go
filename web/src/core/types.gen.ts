@@ -198,6 +198,11 @@ export interface SpotBird {
    * birds).
    */
   always?: boolean;
+  /**
+   * Weather limits the entry to these named weathers (e.g. storm birds
+   * in rain); empty means any weather.
+   */
+  weather?: string[];
 }
 /**
  * Student is a piano student (SPEC.md §6.5).
@@ -471,6 +476,19 @@ export interface Hazard {
    */
   breaks?: HazardBreak;
   counteredBy: string[];
+  /**
+   * Photo is how the status carries into a photo session (SPEC.md §4.12).
+   */
+  photo?: HazardPhoto;
+}
+/**
+ * HazardPhoto scales the camera while Angie has the hazard's status: a
+ * fogged lens focuses slower (FocusScale > 1), heat haze lowers sharpness
+ * (SharpnessScale < 1). 0 means no change.
+ */
+export interface HazardPhoto {
+  focusScale?: number /* float64 */;
+  sharpnessScale?: number /* float64 */;
 }
 /**
  * HazardWhen triggers on a weather parameter (cloud, precip, temp, fog, wind,

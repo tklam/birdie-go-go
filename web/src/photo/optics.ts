@@ -1,4 +1,4 @@
-import type { WeatherParams } from '../core/types.gen';
+import type { Hazard, WeatherParams } from '../core/types.gen';
 
 /** The default lens and body (SPEC.md §5); gear upgrades change these later. */
 export const FOCUS_TIME_MS = 600;
@@ -21,4 +21,19 @@ export function weatherOptics(w: WeatherParams | null | undefined): { focusTimeM
     // Heavy rain lowers the sharpness ceiling.
     shutterThreshold: Math.round(SHUTTER_THRESHOLD * (1 - Math.min(1, w.precip) * 0.4)),
   };
+}
+
+/**
+ * Statuses Angie brings from the map (SPEC.md §4.12): each exposed hazard's
+ * photo effect scales focus time (a fogged lens) and the sharpness ceiling
+ * (heat haze).
+ */
+export function withStatuses(o: { focusTimeMs: number; shutterThreshold: number }, exposed: readonly Pick<Hazard, 'photo'>[]) {
+  let focus = 1;
+  let sharp = 1;
+  for (const h of exposed) {
+    if (h.photo?.focusScale) focus *= h.photo.focusScale;
+    if (h.photo?.sharpnessScale) sharp *= h.photo.sharpnessScale;
+  }
+  return { focusTimeMs: Math.round(o.focusTimeMs * focus), shutterThreshold: Math.round(o.shutterThreshold * sharp) };
 }

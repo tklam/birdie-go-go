@@ -14,15 +14,23 @@ export function rng(seed: number): () => number {
 }
 
 /** Bird-table entries available now (slot, season, flags; weight > 0). */
-export function available(spot: Spot, ctx: { slot: TimeSlot; season: Season; flags: GameState['flags'] }): SpotBird[] {
+export function available(spot: Spot, ctx: { slot: TimeSlot; season: Season; flags: GameState['flags']; weather?: string }): SpotBird[] {
   return spot.birds.filter(
     (b) =>
       b.weight > 0 &&
       (!b.slots?.length || b.slots.includes(ctx.slot)) &&
       (!b.seasons?.length || b.seasons.includes(ctx.season)) &&
       (!b.requiresFlag || ctx.flags[b.requiresFlag] === true) &&
-      (!b.unlessFlag || ctx.flags[b.unlessFlag] !== true),
+      (!b.unlessFlag || ctx.flags[b.unlessFlag] !== true) &&
+      (!b.weather?.length || (!!ctx.weather && b.weather.includes(ctx.weather))),
   );
+}
+
+const SHELTER: Record<string, number> = { rain: 1, rainstorm: 2, thunderstorm: 2, typhoon: 2 };
+
+/** Birds shelter from rain: fewer visitors in rain (1 fewer) and storms (2 fewer). */
+export function shelterPenalty(weather: string | undefined): number {
+  return SHELTER[weather ?? ''] ?? 0;
 }
 
 /**
