@@ -48,6 +48,22 @@ func run(dir string, force bool) error {
 	if err := writeJSON(filepath.Join(dir, "clear_water_bay.tmj"), east.tiled("tilesets")); err != nil {
 		return err
 	}
+	more := []struct {
+		file string
+		m    *tmap
+		x, y int
+	}{
+		{"sai_kung.tmj", saiKung(), 160, 0},
+		{"old_town.tmj", oldTown(), 0, 104},
+		{"lion_ridge.tmj", lionRidge(), 96, 104},
+		{"border_fields.tmj", borderFields(), 160, 96},
+		{"lantern_island.tmj", lanternIsland(), 224, 0},
+	}
+	for _, r := range more {
+		if err := writeJSON(filepath.Join(dir, r.file), r.m.tiled("tilesets")); err != nil {
+			return err
+		}
+	}
 	pebble := pebbleIsland()
 	if err := writeJSON(filepath.Join(dir, "pebble_island.tmj"), pebble.tiled("tilesets")); err != nil {
 		return err
@@ -70,6 +86,11 @@ func run(dir string, force bool) error {
 			{"fileName": "pebble_island.tmj", "x": (m.w + east.w) * tileSize, "y": 56 * tileSize, "width": pebble.w * tileSize, "height": pebble.h * tileSize},
 		},
 	}
+	maps := world["maps"].([]map[string]any)
+	for _, r := range more {
+		maps = append(maps, map[string]any{"fileName": r.file, "x": r.x * tileSize, "y": r.y * tileSize, "width": r.m.w * tileSize, "height": r.m.h * tileSize})
+	}
+	world["maps"] = maps
 	if err := writeJSON(filepath.Join(dir, "city.world"), world); err != nil {
 		return err
 	}

@@ -120,6 +120,8 @@ Hilly terrain is expressed with cliffs, stairs, slopes, and ledges (§4.5). Real
 - **Passers-by** (`content/ambient.yaml`) wander their areas: joggers, office workers, aunties, students and **birders**. Birders stop to photograph nearby birds, and one or two of them show up in the foreground of photo sessions in their areas, clicking away (their shutters unsettle the birds a little). Anyone can be talked to for a line of small talk.
 - The world is authored in Tiled as a **world** (`.world`) of many region maps (`.tmj`) placed side by side, built into chunks by a Go tool (§9.7). Layers: `ground`, `detail`, `collision`, `overhead` (above characters: canopies, roofs, footbridges), `areas` (painted area IDs), and `objects` (spawns, doors, NPCs, birding spots, transit stops, routes).
 
+**Districts (as built).** Twenty areas in ten regions: Tseung Kwan O (town centre, Junk Bay waterfront, hillside trail), Clear Water Bay (country park, Po Toi O), Harbour Island (waterfront, peak trail), Fishpond Wetlands, Pebble Island (village, beach), Sai Kung (seafront, volcano geopark), Old Town (typhoon shelter, market with bird garden), Lion Ridge (ridge, 1960s estate), Border Fields (Long Valley-style farmland, walled village) and Lantern Island (tea plateau, stilt village). Regions that touch can be walked between; the rest are linked by buses, metro lines and ferries.
+
 ### 4.4 Movement
 - **Free 8-directional movement** (pixel-based, not grid-locked) with collision against the `collision` layer and solid objects; slides along walls.
 - Two speeds: **walk** and **sneak**. Sneaking is quiet and slower — important around birds.

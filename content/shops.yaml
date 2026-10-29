@@ -11,3 +11,9 @@
 - id: pebble_snacks
   title: Island Snack Shack
   stock: [milk_tea, pineapple_bun, curry_fish_balls, water_bottle, sunscreen, sun_hat, sea_salt]
+- id: old_town_market
+  title: Market Stall
+  stock: [milk_tea, pineapple_bun, curry_fish_balls, lunch_box, water_bottle, umbrella, dog_treat, sticky_rice]
+- id: estate_market
+  title: Cooked Food Market
+  stock: [milk_tea, curry_fish_balls, lunch_box, pineapple_bun, water_bottle]

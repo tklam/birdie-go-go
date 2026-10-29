@@ -3,7 +3,7 @@
   name: Birder
   sprite: char_birder
   kind: birder
-  areas: [tko_waterfront, tko_hillside, cwb_country_park, po_toi_o, island_harbourfront, island_peak, wetlands, pebble_village, pebble_beach]
+  areas: [tko_waterfront, tko_hillside, cwb_country_park, po_toi_o, island_harbourfront, island_peak, wetlands, pebble_village, pebble_beach, geopark, lion_ridge, long_valley, tea_plateau, stilt_village]
   slots: [morning, afternoon]
   per_chunk: 1
   lines:
@@ -16,7 +16,7 @@
   name: Jogger
   sprite: char_jogger
   kind: walker
-  areas: [tko_waterfront, tko_town, island_harbourfront, pebble_beach]
+  areas: [tko_waterfront, tko_town, island_harbourfront, pebble_beach, sai_kung_town, old_town_harbour]
   slots: [morning, evening]
   per_chunk: 1
   lines:
@@ -26,7 +26,7 @@
   name: Office Worker
   sprite: char_office_worker
   kind: walker
-  areas: [tko_town, island_harbourfront]
+  areas: [tko_town, island_harbourfront, old_town_market, lion_estate]
   slots: [morning, afternoon, evening]
   per_chunk: 2
   lines:
@@ -37,7 +37,7 @@
   name: Auntie
   sprite: char_auntie
   kind: walker
-  areas: [tko_town, po_toi_o, pebble_village]
+  areas: [tko_town, po_toi_o, pebble_village, old_town_market, lion_estate, walled_village, sai_kung_town]
   slots: [morning, afternoon]
   per_chunk: 1
   lines:

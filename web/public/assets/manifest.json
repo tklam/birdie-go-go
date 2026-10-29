@@ -2009,9 +2009,23 @@
     "frameHeight": 24,
     "placeholder": true
   },
+  "char_bird_uncle": {
+    "type": "spritesheet",
+    "file": "chars/bird_uncle.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
   "char_birder": {
     "type": "spritesheet",
     "file": "chars/birder.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
+  "char_estate_grandpa": {
+    "type": "spritesheet",
+    "file": "chars/estate_grandpa.png",
     "frameWidth": 16,
     "frameHeight": 24,
     "placeholder": true
@@ -2023,9 +2037,23 @@
     "frameHeight": 24,
     "placeholder": true
   },
+  "char_farmer": {
+    "type": "spritesheet",
+    "file": "chars/farmer.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
   "char_ferry_deckhand": {
     "type": "spritesheet",
     "file": "chars/ferry_deckhand.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
+  "char_geologist": {
+    "type": "spritesheet",
+    "file": "chars/geologist.png",
     "frameWidth": 16,
     "frameHeight": 24,
     "placeholder": true
@@ -2107,9 +2135,37 @@
     "frameHeight": 24,
     "placeholder": true
   },
+  "char_ridge_hiker": {
+    "type": "spritesheet",
+    "file": "chars/ridge_hiker.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
+  "char_sampan_lady": {
+    "type": "spritesheet",
+    "file": "chars/sampan_lady.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
+  "char_seafood_auntie": {
+    "type": "spritesheet",
+    "file": "chars/seafood_auntie.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
   "char_siu_ming": {
     "type": "spritesheet",
     "file": "chars/siu_ming.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
+  "char_stilt_grandma": {
+    "type": "spritesheet",
+    "file": "chars/stilt_grandma.png",
     "frameWidth": 16,
     "frameHeight": 24,
     "placeholder": true
@@ -2121,9 +2177,23 @@
     "frameHeight": 24,
     "placeholder": true
   },
+  "char_tea_picker": {
+    "type": "spritesheet",
+    "file": "chars/tea_picker.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
   "char_uncle_chan": {
     "type": "spritesheet",
     "file": "chars/uncle_chan.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
+  "char_village_elder": {
+    "type": "spritesheet",
+    "file": "chars/village_elder.png",
     "frameWidth": 16,
     "frameHeight": 24,
     "placeholder": true

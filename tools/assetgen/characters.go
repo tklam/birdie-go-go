@@ -48,6 +48,17 @@ var people = []charSpec{
 	{id: "uncle_chan", hair: cLightGray, top: cTan, bottom: cDarkGray, skin: cSkinShadow, shoes: cBlack, hairStyle: "short", bottomStyle: "pants", camera: true, hat: true, hatColor: cNavy},
 	{id: "siu_ming", hair: cBlack, top: cYellow, bottom: cBlue, skin: cSkin, shoes: cWhite, hairStyle: "messy", bottomStyle: "shorts", child: true},
 	{id: "old_fisherman", hair: cWhite, top: cNavy, bottom: cTan, skin: cSkinShadow, shoes: cBlack, hairStyle: "short", bottomStyle: "pants", hat: true, hatColor: cSand},
+	// Locals with stories to tell (SPEC.md §4.14).
+	{id: "seafood_auntie", hair: cBlack, top: cRed, bottom: cNavy, skin: cSkin, shoes: cWhite, hairStyle: "bun", bottomStyle: "pants"},
+	{id: "geologist", hair: cDarkBrown, top: cOrange, bottom: cTan, skin: cSkin, shoes: cBrown, hairStyle: "short", bottomStyle: "shorts", glasses: true, hat: true, hatColor: cTan},
+	{id: "sampan_lady", hair: cGray, top: cBlue, bottom: cBlack, skin: cSkinShadow, shoes: cBlack, hairStyle: "bun", bottomStyle: "pants", hat: true, hatColor: cSand},
+	{id: "bird_uncle", hair: cLightGray, top: cWhite, bottom: cDarkGray, skin: cSkinShadow, shoes: cBlack, hairStyle: "short", bottomStyle: "pants"},
+	{id: "estate_grandpa", hair: cWhite, top: cLightGray, bottom: cNavy, skin: cSkin, shoes: cBrown, hairStyle: "short", bottomStyle: "pants", glasses: true},
+	{id: "ridge_hiker", hair: cBlack, top: cGreen, bottom: cDarkGray, skin: cSkin, shoes: cRed, hairStyle: "ponytail", bottomStyle: "shorts", hat: true, hatColor: cOrange},
+	{id: "farmer", hair: cBlack, top: cTan, bottom: cBrown, skin: cSkinShadow, shoes: cDarkBrown, hairStyle: "short", bottomStyle: "pants", hat: true, hatColor: cSand},
+	{id: "village_elder", hair: cWhite, top: cNavy, bottom: cBlack, skin: cSkinShadow, shoes: cBlack, hairStyle: "short", bottomStyle: "pants"},
+	{id: "tea_picker", hair: cBlack, top: cTeal, bottom: cDarkGreen, skin: cSkin, shoes: cBrown, hairStyle: "ponytail", bottomStyle: "pants", hat: true, hatColor: cSand},
+	{id: "stilt_grandma", hair: cWhite, top: cPurple, bottom: cBlack, skin: cSkinShadow, shoes: cBlack, hairStyle: "bun", bottomStyle: "pants"},
 	// People who point Angie to the buses and ferries.
 	{id: "minibus_driver", hair: cBlack, top: cGreen, bottom: cDarkGray, skin: cSkinShadow, shoes: cBlack, hairStyle: "short", bottomStyle: "pants", hat: true, hatColor: cDarkGreen},
 	{id: "ferry_deckhand", hair: cDarkBrown, top: cOrange, bottom: cNavy, skin: cSkinShadow, shoes: cBlack, hairStyle: "short", bottomStyle: "pants", hat: true, hatColor: cNavy},

@@ -393,6 +393,16 @@ var metaColors = map[string]uint8{
 	"area_wetlands":            cYellowGreen,
 	"area_pebble_village":      cBrick,
 	"area_pebble_beach":        cSand,
+	"area_sai_kung_town":       cSea,
+	"area_geopark":             cDarkGray,
+	"area_old_town_market":     cRed,
+	"area_old_town_harbour":    cNavy,
+	"area_lion_ridge":          cDarkGreen,
+	"area_lion_estate":         cConcrete,
+	"area_long_valley":         cLightGreen,
+	"area_walled_village":      cBrick,
+	"area_tea_plateau":         cGreen,
+	"area_stilt_village":       cBrown,
 }
 
 // genTiles writes the TKO atlas and meta tileset images plus their Tiled

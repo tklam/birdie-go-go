@@ -16,6 +16,12 @@ stops:
   - { id: island_station, name: Harbour Island Station }
   - { id: wetland_station, name: Wetlands Station }
   - { id: pebble_pier, name: Pebble Island Pier }
+  - { id: sai_kung_town, name: Sai Kung Bus Terminus }
+  - { id: sai_kung_pier, name: Sai Kung Pier }
+  - { id: old_town_station, name: Old Town Station }
+  - { id: lion_station, name: Lion Ridge Station }
+  - { id: border_station, name: Border Fields Station }
+  - { id: lantern_pier, name: Lantern Island Pier }
 lines:
   - id: minibus_16
     name: Green Minibus 16
@@ -59,8 +65,8 @@ lines:
     name: Harbour Line
     mode: metro
     fare: 10
-    stops: [tko_station, island_station]
-    path: [[968, 520], [968, 1180], [664, 1180], [664, 1352]]
+    stops: [tko_station, island_station, old_town_station]
+    path: [[968, 520], [968, 1180], [664, 1180], [664, 1352], [664, 2072], [488, 2072]]
     speed: 400
     headway: 4
   - id: wetland_line
@@ -82,3 +88,29 @@ lines:
     headway: 40
     first: "07:00"
     last: "21:00"
+  - id: minibus_1a
+    name: Green Minibus 1A
+    mode: bus
+    fare: 9
+    stops: [tko_plaza, sai_kung_town]
+    path: [[1000, 472], [1000, 504], [2168, 504], [2168, 104], [2664, 104]]
+    speed: 110
+    headway: 12
+  - id: ridge_line
+    name: Ridge Line
+    mode: metro
+    fare: 10
+    stops: [old_town_station, lion_station, border_station]
+    path: [[488, 2072], [488, 2296], [2376, 2296], [2664, 2296], [2664, 1992]]
+    speed: 400
+    headway: 5
+  - id: lantern_ferry
+    name: Lantern Ferry
+    mode: ferry
+    fare: 20
+    stops: [sai_kung_pier, lantern_pier]
+    path: [[3064, 328], [3064, 360], [3700, 360], [3700, 880], [4344, 880], [4344, 696]]
+    speed: 75
+    headway: 45
+    first: "07:00"
+    last: "20:30"

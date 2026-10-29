@@ -65,6 +65,16 @@ var Meta = []struct {
 	{"area_wetlands", "area", "wetlands"},
 	{"area_pebble_village", "area", "pebble_village"},
 	{"area_pebble_beach", "area", "pebble_beach"},
+	{"area_sai_kung_town", "area", "sai_kung_town"},
+	{"area_geopark", "area", "geopark"},
+	{"area_old_town_market", "area", "old_town_market"},
+	{"area_old_town_harbour", "area", "old_town_harbour"},
+	{"area_lion_ridge", "area", "lion_ridge"},
+	{"area_lion_estate", "area", "lion_estate"},
+	{"area_long_valley", "area", "long_valley"},
+	{"area_walled_village", "area", "walled_village"},
+	{"area_tea_plateau", "area", "tea_plateau"},
+	{"area_stilt_village", "area", "stilt_village"},
 }
 
 // MetaID returns the local id of a meta tile by name.
