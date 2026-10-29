@@ -231,6 +231,7 @@ export class MapScene extends Phaser.Scene {
     this.busy = true;
     await this.waitForWorld();
     const s = this.session;
+    if (data.from === 'Photo' || data.from === 'Piano') s.growBond();
     if (data.from === 'Photo') {
       await s.fire({ type: 'photo_session_end', params: data.spotId ? { spot: data.spotId } : {} });
       const area = s.content.spots.find((x) => x.id === data.spotId)?.area ?? '';

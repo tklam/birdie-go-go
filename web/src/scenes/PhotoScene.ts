@@ -77,6 +77,9 @@ export class PhotoScene extends Phaser.Scene {
   private bboxes = new Map<string, Rect[]>();
   private keys!: Record<string, Phaser.Input.Keyboard.Key>;
   private removeBack: () => void = () => {};
+  private removeCall: () => void = () => {};
+  /** O Boy's contact call: once per session at bond 40+ (SPEC.md §7.2). */
+  private callReady = false;
   private ending = false;
   private returnTo = 'Map';
   private optics = weatherOptics(null);
@@ -131,7 +134,13 @@ export class PhotoScene extends Phaser.Scene {
       this.time.delayedCall(700, () => this.showPopup(`Kei's app hears: ${names.join(', ')}`));
     }
     this.removeBack = floatingButton('Back', 'back', () => void this.end());
-    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.removeBack());
+    this.callReady = state.party.includes('oboy') && state.bond.oboy >= 40;
+    this.removeCall = this.callReady ? floatingButton('Call', 'call', () => this.contactCall()) : () => {};
+    this.input.keyboard?.on('keydown-C', () => this.contactCall());
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      this.removeBack();
+      this.removeCall();
+    });
     void iris(this, 'in');
   }
 
@@ -222,6 +231,37 @@ export class PhotoScene extends Phaser.Scene {
     this.popup.setText(text).setAlpha(1);
     this.tweens.killTweensOf(this.popup);
     this.tweens.add({ targets: this.popup, alpha: 0, delay: 1300, duration: 400 });
+  }
+
+  /** O Boy chirps; one curious perched bird hops to the perch nearest the viewfinder. */
+  private contactCall(): void {
+    if (!this.callReady || this.ending || modal.open) return;
+    const perches = this.bgEntry.perches ?? [];
+    const bird = this.birds.find((b) => b.state === 'perched');
+    if (!bird || perches.length === 0) {
+      this.showPopup('O Boy chirps... nobody answers.');
+      return;
+    }
+    this.callReady = false;
+    this.removeCall();
+    const [px, py] = perches.reduce((best, p) =>
+      Math.hypot(p[0] - this.vf.x, p[1] - this.vf.y) < Math.hypot(best[0] - this.vf.x, best[1] - this.vf.y) ? p : best,
+    );
+    this.showPopup(`O Boy calls! The ${bird.species.name} comes closer.`);
+    bird.state = 'arriving';
+    bird.sprite.setFlipX(px < bird.sprite.x);
+    this.tweens.add({
+      targets: bird.sprite,
+      x: px,
+      y: py,
+      duration: Math.max(300, (Math.hypot(px - bird.sprite.x, py - bird.sprite.y) / bird.species.speed) * 1000),
+      ease: 'Sine.easeInOut',
+      onComplete: () => {
+        bird.state = 'perched';
+        this.setPose(bird, 'perched_alert');
+        bird.leaveAt = this.time.now + 8000;
+      },
+    });
   }
 
   // --- Birds -------------------------------------------------------------

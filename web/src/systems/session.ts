@@ -103,6 +103,13 @@ export class Session {
     return w;
   }
 
+  /** Outings together raise bond with everyone along (SPEC.md §7.1). */
+  growBond(amount = 2): void {
+    for (const who of this.state.party) {
+      if (who === 'oboy' || who === 'kei') this.state.bond[who] = Math.min(100, this.state.bond[who] + amount);
+    }
+  }
+
   /** Completes any missions met by a photo session or a lesson, with rewards and mission_complete events. */
   async checkMissions(done: { photos?: PhotoResult[]; lesson?: { studentId: string; score: number } }): Promise<void> {
     const met = [
