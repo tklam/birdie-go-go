@@ -54,7 +54,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] Optional tap-to-move (A* within loaded chunks)
 
 ### Photo (§5)
-- [x] Photo scene with parallax background (fade entry; iris wipe later)
+- [x] Photo scene with parallax background and iris-wipe entry
 - [x] 3 species with behavior AI (arrive, perch/idle poses, hop, wade, leave): red-whiskered bulbul, oriental magpie-robin, little egret
 - [x] Viewfinder: relative drag (touch), follow (mouse), arrows; hold-to-focus, release-to-shoot
 - [x] Shot scoring (§5.3), unit tested
@@ -103,14 +103,14 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] More districts beyond Tseung Kwan O: Clear Water Bay country park and peaks, fishing village cove, harbourfront, peak trails, country park, NW wetlands, villages, beaches, an outlying island
 - [ ] Seasons with palette-swapped foliage
 - [ ] Regional weather (§4.9)
-  - [ ] Climate profiles in `areas.yaml` + validation
+  - [x] Climate profiles in `areas.yaml` + validation
   - [ ] `core/weather`: drifting regional front, local variation, smoothing, deterministic, tested
   - [ ] Typhoon fronts + signals; rainstorm warnings; effects on transit, spots, lessons
-  - [ ] Blend field in `worldbuild` + tests
-  - [ ] Client blend sampling (pure TS) + tests
-  - [ ] WeatherRenderer: rain, fog, haze line-scroll, tint, sway, waves, ambience, muffled interiors
-  - [ ] Weather in photo scenes; weather-dependent bird tables; sheltering
-  - [ ] Radio forecast at home; `?debug=weather`
+  - [x] Blend field in `worldbuild` + tests
+  - [x] Client blend sampling (pure TS) + tests
+  - [~] WeatherRenderer: rain, dithered fog, cloud/evening tint done (haze line-scroll, sway, waves, ambience, muffled interiors still to do)
+  - [~] Weather in photo scenes (focus time, sharpness, visuals) done; weather-dependent bird tables and sheltering still to do
+  - [~] Radio forecast at home done; `?debug=weather` still to do
 - [ ] Gear gating (§4.6)
 - [ ] Hidden collectibles: feathers, camera parts, sheet music
 - [ ] Shop, gear, Kei-built upgrades from parts
