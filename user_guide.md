@@ -168,13 +168,13 @@ People around the city will ask for help. A magazine might want a photo of a par
 
 ## Companions
 
-Before heading out, choose who comes along: go **alone**, or bring **O Boy**, **Kei**, or **both**. Change your party at home or by talking to a companion.
+Before heading out, choose who comes along: go **alone**, or bring **O Boy**, **Kei**, or **both**, from **Menu → Party**.
 
 Spending time together raises your **bond**, which unlocks new ways they can help.
 
 **O Boy** rides on your shoulder.
 - He chirps when a bird is nearby but out of sight.
-- He keeps birds calmer during photo sessions, and later he can call a curious bird closer.
+- He keeps birds calmer during photo sessions. Once you're close (bond 40+), tap **Call** (or press C) once per session and he'll call a curious bird closer.
 - He bobs his head to the beat during lessons and reacts when you miss a mistake.
 
 **Kei** follows you around and builds things.

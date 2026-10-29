@@ -372,10 +372,10 @@ Difficulty controls mistake count, spacing (min 1.5 s apart), and subtlety. Stud
 
 ## 7. Companions & Party
 
-Party options for any outing: **Alone, O Boy, Kei, O Boy + Kei** (once each has joined). Party is changed at Angie's home or by talking to a companion on the map.
+Party options for any outing: **Alone, O Boy, Kei, O Boy + Kei** (once each has joined). The party is changed from the menu (Menu → Party).
 
 ### 7.1 Bond
-- `bond.oboy`, `bond.kei`: 0–100. Raised by outings together, gifts, story scenes.
+- `bond.oboy`, `bond.kei`: 0–100. Raised by outings together (+2 per photo session or lesson with them along), gifts, story scenes.
 - Thresholds unlock stronger abilities and story events.
 
 ### 7.2 Abilities
