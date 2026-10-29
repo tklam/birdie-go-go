@@ -114,6 +114,8 @@ export class MapScene extends Phaser.Scene {
   private wantMusic: string | null = null;
   /** Ground value of tall grass (atlas frame + 1), or −1 if the atlas has none. */
   private tallGrass = -1;
+  /** Ground value of benches, or −1. */
+  private benchTile = -1;
   private rustle!: Phaser.GameObjects.Particles.ParticleEmitter;
   private busy = false;
 
@@ -164,6 +166,7 @@ export class MapScene extends Phaser.Scene {
     this.index = index;
     this.makeAnimations();
     this.tallGrass = this.index.tileNames.indexOf('tall_grass') + 1 || -1;
+    this.benchTile = this.index.tileNames.indexOf('bench') + 1 || -1;
     this.makeRustle();
 
     this.chunkRenderer = new ChunkRenderer(this, this.index.tileset, this.index.tileSize);
@@ -434,6 +437,11 @@ export class MapScene extends Phaser.Scene {
       }
     }
     if (best) return best;
+    // Benches are tiles, not objects: sit on the one in front of Angie.
+    const ts = this.index.tileSize;
+    if (this.benchTile > 0 && this.store.groundAt(Math.floor(px / ts), Math.floor(py / ts)) === this.benchTile) {
+      return { label: 'Sit', object: { name: 'bench', type: 'bench', x: px, y: py, props: {} } };
+    }
     // Near unflushed overworld birds: photograph at the area's spot.
     const bird = this.birds.find((b) => !b.flushed && Math.hypot(b.sprite.x - this.pos.x, b.sprite.y - this.pos.y) < 40);
     const spot = bird && this.session.content.spots.find((s) => s.area === this.area);
@@ -466,6 +474,9 @@ export class MapScene extends Phaser.Scene {
           break;
         case 'radio':
           await this.radio();
+          break;
+        case 'bench':
+          await this.rest();
           break;
         case 'shop':
           await this.shop(o.props.title ?? 'Shop');
@@ -559,6 +570,21 @@ export class MapScene extends Phaser.Scene {
       ],
     );
     return true;
+  }
+
+  /** A short rest on a bench restores some Energy (SPEC.md §4.12). */
+  private async rest(): Promise<void> {
+    const s = this.session;
+    if (s.state.energy >= MAX_ENERGY) {
+      toast('Angie enjoys the view for a moment.');
+      return;
+    }
+    this.cameras.main.fadeOut(300, 0, 0, 0);
+    await new Promise((r) => this.time.delayedCall(500, r));
+    const before = s.state.energy;
+    s.state.energy = Math.min(MAX_ENERGY, s.state.energy + 20);
+    this.cameras.main.fadeIn(300, 0, 0, 0);
+    toast(`A nice rest on the bench. Energy +${Math.round(s.state.energy - before)}`);
   }
 
   private async sleep(): Promise<void> {

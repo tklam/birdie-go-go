@@ -122,7 +122,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 
 ## M4b: Hazards and encounters (§4.12–4.13)
 - [x] Energy meter in the HUD, recovery (snacks, indoors, sleep); no-game-over faint flow (helped home, lost slot, fee)
-- [ ] Rest on benches
+- [x] Rest on benches (+20 Energy)
 - [x] `uv` weather parameter in `core/weather`
 - [x] `hazards.yaml` + `hazards.ts`: UV, heat, heavy rain, strong wind, cold, typhoon; status effects; tests
 - [x] Gear slots; Bag menu to wear gear and use consumables; convenience store in the mall plaza
