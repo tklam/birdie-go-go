@@ -455,6 +455,8 @@ All story is data-driven (§9.4). The dialogue is a full first draft (content/di
 ### 9.1 Overview
 The game is a **static web app** — no server is needed to play. An **optional Go server** delivers content updates (maps, tasks, missions, events) and, later, cloud saves.
 
+**App updates.** The service worker uses the prompt strategy: a newly deployed version downloads in the background and waits, so a running game keeps its own cached files (world chunks are content-hashed and streamed lazily, so swapping them mid-session would leave blank areas). The title screen offers **Update now**; during play a single toast says a new version is ready; otherwise it takes over on the next launch. Saves migrate forward on load (§9.8).
+
 ```
 ┌──────────────── Browser (static files, PWA) ─────────────────┐
 │  TypeScript + Phaser 3           Web Worker                   │

@@ -205,7 +205,7 @@ Companions give **hints**. You still take the photo and catch the mistakes yours
 
 - Your progress is saved **on your device**. To back it up or move to another device, use **Settings → Export save** and **Import save**.
 - Clearing your browser's site data deletes your save, so export one first.
-- When you're online, the game may download **updates** (new areas, missions, and events) in the background. They take effect the next time you're at the title screen or a new day starts. Without a connection, everything you already have still works.
+- When you're online, the game may download **updates** (new areas, missions, and events) in the background. They take effect the next time you're at the title screen or a new day starts. Without a connection, everything you already have still works. When a new version of the game itself is ready, you'll see a short notice; it loads from **Update now** on the title screen, or by itself the next time you start the game. Your saves carry over.
 
 ## Settings
 

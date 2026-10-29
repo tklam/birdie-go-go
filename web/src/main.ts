@@ -12,6 +12,9 @@ import { PianoScene } from './scenes/PianoScene';
 import { TitleScene } from './scenes/TitleScene';
 import { fitZoom, GAME_HEIGHT, GAME_WIDTH } from './systems/display';
 import { overlay, setOverlayZoom } from './ui/overlay';
+import { registerSW } from 'virtual:pwa-register';
+import { onAppUpdate, setAppUpdate } from './systems/appUpdate';
+import { toast } from './ui/toast';
 
 const currentZoom = () => fitZoom(window.innerWidth, window.innerHeight, window.devicePixelRatio);
 
@@ -38,6 +41,12 @@ window.addEventListener('resize', () => {
   const zoom = currentZoom();
   game.scale.setZoom(zoom);
   setOverlayZoom(zoom);
+});
+
+// App updates wait for the title screen or the next launch (SPEC.md §9.1).
+const updateSW = registerSW({ onNeedRefresh: () => setAppUpdate(() => void updateSW(true)) });
+onAppUpdate(() => {
+  if (!game.scene.isActive('Title')) toast('A new version is ready. It loads from the title screen or next time you start.', 5000);
 });
 
 // Exposed for automated browser checks and debugging.

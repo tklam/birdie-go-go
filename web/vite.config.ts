@@ -56,7 +56,9 @@ export default defineConfig({
   plugins: [
     goRebuild(),
     VitePWA({
-      registerType: 'autoUpdate',
+      // A new version waits until the title screen or the next launch, so it
+      // never replaces cached files under a running game (SPEC.md §9.1).
+      registerType: 'prompt',
       includeAssets: ['icon.svg'],
       manifest: {
         name: 'Birdie Go Go',

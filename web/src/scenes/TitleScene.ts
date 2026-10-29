@@ -9,6 +9,7 @@ import { oboyChirp } from '../audio/oboy';
 import { TEXT } from '../ui/text';
 import { toast } from '../ui/toast';
 import { applyPacks, checkForUpdates, IndexedDBPackStore, updateServer } from '../systems/updates';
+import { appUpdateReady, applyAppUpdate, onAppUpdate } from '../systems/appUpdate';
 
 /** Title screen: New Game / Continue. Records <body data-boot> for automated checks. */
 export class TitleScene extends Phaser.Scene {
@@ -63,6 +64,15 @@ export class TitleScene extends Phaser.Scene {
             this.start();
           },
         ]);
+        // A new app version: offer it here, where nothing unsaved can be lost.
+        if (appUpdateReady()) {
+          options.push(['Update now', () => applyAppUpdate()]);
+          status.setText('A new version is ready.');
+        } else {
+          onAppUpdate(() => {
+            if (this.scene.isActive()) this.scene.restart();
+          });
+        }
         this.menu(options);
       },
       (err: unknown) => {
