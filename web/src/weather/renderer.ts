@@ -8,20 +8,21 @@ const H = 180;
 
 /**
  * Draws the current (blended, eased) weather over the map in 16-bit style:
- * a cloud/evening tint, a dithered fog layer and slanted rain (SPEC.md §4.9).
+ * a cloud/evening tint, a smooth still haze for fog and slanted rain (SPEC.md §4.9).
+ * Fog is deliberately plain: a moving dither pattern over the tiles was
+ * uncomfortable to look at.
  * Everything is fixed to the camera.
  */
 export class WeatherRenderer {
   private readonly tint: Phaser.GameObjects.Rectangle;
-  private readonly fog: Phaser.GameObjects.TileSprite;
+  private readonly fog: Phaser.GameObjects.Rectangle;
   private readonly rain: Phaser.GameObjects.Particles.ParticleEmitter;
-  private fogDrift = 0;
   private slant = 0;
 
   constructor(scene: Phaser.Scene, depth: number = DEPTH.overhead + 10) {
     makeTextures(scene);
     this.tint = scene.add.rectangle(0, 0, W, H, 0x101030, 0).setOrigin(0, 0).setScrollFactor(0).setDepth(depth);
-    this.fog = scene.add.tileSprite(0, 0, W, H, 'weather-fog').setOrigin(0, 0).setScrollFactor(0).setDepth(depth + 1).setAlpha(0);
+    this.fog = scene.add.rectangle(0, 0, W, H, 0xe8eef4, 1).setOrigin(0, 0).setScrollFactor(0).setDepth(depth + 1).setAlpha(0);
     this.rain = scene.add
       .particles(0, 0, 'weather-drop', {
         x: { min: -40, max: W + 40 },
@@ -41,10 +42,8 @@ export class WeatherRenderer {
     const dusk = slot === 'evening' ? 0.28 : 0;
     this.tint.setFillStyle(slot === 'evening' ? 0x1b2050 : 0x202838, Math.min(0.55, p.cloud * 0.18 + p.precip * 0.18 + dusk));
 
-    // Fog drifts with the wind.
-    this.fogDrift += (Math.cos(p.windDir) * (0.2 + p.wind) * dtMs) / 120;
-    this.fog.tilePositionX = Math.round(this.fogDrift);
-    this.fog.setAlpha(Math.min(0.6, p.fog * 0.65));
+    // Fog: a still, even haze, only once it's noticeable (fog > 0.3).
+    this.fog.setAlpha(fogAlpha(p.fog));
 
     // Rain: more drops with more precipitation, slanted by the wind.
     const drops = p.precip < 0.12 ? 0 : Math.round((p.precip - 0.1) * 26);
@@ -63,31 +62,17 @@ export class WeatherRenderer {
   }
 }
 
+/** How opaque the fog haze is for a fog level: none below 0.3, rising to 0.45. */
+export function fogAlpha(fog: number): number {
+  return Math.max(0, Math.min(0.45, (fog - 0.3) * 0.65));
+}
+
 /** Generates the small pixel textures once per game. */
 function makeTextures(scene: Phaser.Scene): void {
   if (!scene.textures.exists('weather-drop')) {
     const g = scene.make.graphics({}, false);
     g.fillStyle(0xc8e8f8, 0.9).fillRect(0, 0, 1, 3).fillStyle(0x8cc8f0, 0.7).fillRect(0, 3, 1, 2);
     g.generateTexture('weather-drop', 1, 5);
-    g.destroy();
-  }
-  if (!scene.textures.exists('weather-fog')) {
-    // A 16×16 ordered-dither tile of pale pixels: a classic 16-bit fog.
-    const g = scene.make.graphics({}, false);
-    const bayer = [
-      [0, 8, 2, 10],
-      [12, 4, 14, 6],
-      [3, 11, 1, 9],
-      [15, 7, 13, 5],
-    ];
-    for (let y = 0; y < 16; y++) {
-      for (let x = 0; x < 16; x++) {
-        // Soft blobs: density varies across the tile.
-        const density = 6 + 5 * Math.sin((x / 16) * Math.PI * 2) * Math.cos((y / 16) * Math.PI * 2);
-        if (bayer[y % 4][x % 4] < density) g.fillStyle(0xe8eef4, 1).fillRect(x, y, 1, 1);
-      }
-    }
-    g.generateTexture('weather-fog', 16, 16);
     g.destroy();
   }
 }
