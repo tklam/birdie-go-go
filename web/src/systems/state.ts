@@ -4,7 +4,7 @@
 import type { ContentBundle } from '../core/types.gen';
 
 /** Bumped whenever GameState changes shape; see migrations in save.ts. */
-export const CURRENT_SAVE_VERSION = 3;
+export const CURRENT_SAVE_VERSION = 4;
 
 export const TIME_SLOTS = ['morning', 'afternoon', 'evening'] as const;
 export type TimeSlot = (typeof TIME_SLOTS)[number];
@@ -112,6 +112,8 @@ export interface GameState {
   active: Record<string, number>;
   /** Transit card balance (SPEC.md §4.11). Added in save version 3. */
   card: number;
+  /** Things left in the cupboard at home (SPEC.md §4.12). Added in save version 4. */
+  stored: Record<string, number>;
 }
 
 export const GEAR_SLOTS = ['head', 'body', 'hand'] as const;
@@ -154,6 +156,7 @@ export function newGame(content: ContentBundle, seed: number): GameState {
     position: { map: content.game.startMap, spawn: content.game.startSpawn },
     settings: defaultSettings(),
     card: content.game.transitCard?.startBalance ?? 0,
+    stored: {},
     energy: MAX_ENERGY,
     equipped: {},
     active: {},

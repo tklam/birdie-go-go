@@ -39,6 +39,9 @@ type GameInfo struct {
 	Bills []Bill `json:"bills,omitempty"`
 	// TransitCard pays fares (SPEC.md §4.11); nil means fares come from cash.
 	TransitCard *TransitCard `json:"transitCard,omitempty"`
+	// BagCapacity is how many bought supplies fit in Angie's bag (SPEC.md
+	// §4.12); 0 means no limit.
+	BagCapacity int `json:"bagCapacity,omitempty"`
 }
 
 // TransitCard is the rechargeable fare card: its in-game name, the balance

@@ -205,6 +205,7 @@ func (v *validator) game(g model.GameInfo) {
 	v.require(semver.MatchString(g.ContentVersion), "game: content_version %q must be MAJOR.MINOR.PATCH", g.ContentVersion)
 	v.require(g.StartMap != "", "game: start_map is required")
 	v.require(g.StartSpawn != "", "game: start_spawn is required")
+	v.require(g.BagCapacity >= 0, "game: bag_capacity %d must not be negative", g.BagCapacity)
 	v.require(g.MissionReminderSlots >= 0, "game: mission_reminder_slots %d must not be negative", g.MissionReminderSlots)
 	if br := g.BedtimeReminder; br != nil {
 		v.require(br.EverySeconds >= 0, "game: bedtime_reminder.every_seconds %d must not be negative", br.EverySeconds)

@@ -24,6 +24,7 @@ import { glitch } from '../fx/glitch';
 import { activityCost, crossedLow, walkCost } from '../systems/economy';
 import { collect, isCollected } from '../systems/collectibles';
 import { closedGateAt, gateFrom, spotBlocked, type Gate } from '../systems/gates';
+import { bagUsed, pack, stow, takesSpace, unpack } from '../systems/bag';
 import { clockLabel, discoverStop, openLines, payFare, stopFlag, topUp } from '../systems/transit';
 import { closureReason, hazardForecast, warningAnnouncement, warningTag, warningsAt, type Warnings } from '../systems/warnings';
 import { modal } from '../ui/overlay';
@@ -772,6 +773,9 @@ export class MapScene extends Phaser.Scene {
         case 'bed':
           await this.sleep();
           break;
+        case 'storage':
+          await this.packBag();
+          return;
         case 'radio':
           await this.radio();
           break;
@@ -861,8 +865,8 @@ export class MapScene extends Phaser.Scene {
               return true;
             }
             s.state.money -= item.price;
-            s.state.items[item.id] = (s.state.items[item.id] ?? 0) + 1;
-            toast(`Bought ${item.name}.`);
+            const where = stow(s.state, item, s.content.game.bagCapacity ?? 0, s.content.items);
+            toast(where === 'bag' ? `Bought ${item.name}.` : `Bought ${item.name}. Your bag is full, so it's sent home.`, 3000);
             await s.save();
             return true;
           },
@@ -1069,6 +1073,48 @@ export class MapScene extends Phaser.Scene {
     );
   }
 
+  /**
+   * Packing at home (SPEC.md §4.12): move supplies between the cupboard and
+   * the bag, which only fits so much.
+   */
+  private async packBag(): Promise<void> {
+    const s = this.session;
+    const cap = s.content.game.bagCapacity ?? 0;
+    const supplies = s.content.items.filter((i) => takesSpace(i) && ((s.state.items[i.id] ?? 0) > 0 || (s.state.stored[i.id] ?? 0) > 0));
+    if (supplies.length === 0) {
+      toast('Nothing to pack. The shop sells snacks and supplies.');
+      return;
+    }
+    let selected = 0;
+    for (;;) {
+      let picked: { item: (typeof supplies)[number]; dir: 'in' | 'out' } | null = null;
+      const opts = { selected, tapToSelect: true };
+      await showMenu(
+        () => `Pack · bag ${bagUsed(s.state.items, s.content.items)}${cap ? `/${cap}` : ''}`,
+        [
+          ...supplies.map((item) => ({
+            label: `${item.name}: bag ${s.state.items[item.id] ?? 0} · home ${s.state.stored[item.id] ?? 0}`,
+            detail: () => 'Choose it again to pack one into the bag.',
+            run: async () => ((picked = { item, dir: 'in' as const }), false),
+          })),
+          ...supplies
+            .filter((item) => (s.state.items[item.id] ?? 0) > 0)
+            .map((item) => ({ label: `Leave a ${item.name} at home`, run: async () => ((picked = { item, dir: 'out' }), false) })),
+          { label: 'Done', run: async () => false },
+        ],
+        opts,
+      );
+      selected = opts.selected ?? 0;
+      const choice = picked as { item: (typeof supplies)[number]; dir: 'in' | 'out' } | null;
+      if (!choice) break;
+      if (choice.dir === 'out') unpack(s.state, choice.item);
+      else if (!pack(s.state, choice.item, cap, s.content.items)) {
+        toast((s.state.stored[choice.item.id] ?? 0) > 0 ? 'Your bag is full.' : `No ${choice.item.name} left at home.`);
+      }
+    }
+    await s.save();
+  }
+
   /** The bag: wear/remove gear, use snacks and sunscreen. */
   private async bag(): Promise<boolean> {
     const s = this.session;
@@ -1078,7 +1124,7 @@ export class MapScene extends Phaser.Scene {
       return true;
     }
     await showMenu(
-      `Bag · Energy ${Math.ceil(s.state.energy)}`,
+      `Bag${s.content.game.bagCapacity ? ` ${bagUsed(s.state.items, s.content.items)}/${s.content.game.bagCapacity}` : ''} · Energy ${Math.ceil(s.state.energy)}`,
       [
         ...owned.map((item) => {
           const worn = Object.values(s.state.equipped).includes(item.id);
@@ -1974,6 +2020,8 @@ function labelFor(o: WorldObject): string | null {
       return 'Shop';
     case 'radio':
       return 'Listen';
+    case 'storage':
+      return 'Pack';
     case 'bed':
       return 'Sleep';
     case 'spot':

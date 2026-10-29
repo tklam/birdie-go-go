@@ -146,7 +146,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] `uv` weather parameter in `core/weather`
 - [x] `hazards.yaml` + `hazards.ts`: UV, heat, heavy rain, strong wind, cold, typhoon; status effects; tests
 - [x] Gear slots; Bag menu to wear gear and use consumables; convenience store in the mall plaza
-- [ ] Bag capacity and packing at home
+- [x] Bag capacity and packing at home (cupboard, save v4)
 - [x] Hazard gear items: sun hat, sunscreen, umbrella (breaks in strong wind), raincoat, windbreaker, jacket, water bottle; snacks (milk tea, pineapple bun)
 - [x] Weather effects in the photo scene (slower focus, lower sharpness); soaked/overheated status effects
 - [x] `enemies.yaml`; enemy roaming, detection (sight, sneaking, tall grass), chase on the map

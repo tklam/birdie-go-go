@@ -89,6 +89,11 @@ export interface GameInfo {
    * TransitCard pays fares (SPEC.md §4.11); nil means fares come from cash.
    */
   transitCard?: TransitCard;
+  /**
+   * BagCapacity is how many bought supplies fit in Angie's bag (SPEC.md
+   * §4.12); 0 means no limit.
+   */
+  bagCapacity?: number /* int */;
 }
 /**
  * TransitCard is the rechargeable fare card: its in-game name, the balance

@@ -400,6 +400,7 @@ func angieFlat() *tmap {
 	m.obj("angie_bed", "bed", 2, 3, nil)
 	m.put(16, 2, "bookshelf")
 	m.put(17, 2, "bookshelf")
+	m.obj("cupboard", "storage", 16, 2, nil)
 	m.fill(13, 2, 2, 1, "counter")
 	m.obj("radio", "radio", 14, 2, nil)
 	m.put(9, 5, "table")

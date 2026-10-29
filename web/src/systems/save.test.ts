@@ -151,6 +151,7 @@ describe('save version 2 migration', () => {
     delete v1.equipped;
     delete v1.active;
     delete v1.card;
+    delete v1.stored;
     const state = deserialize(JSON.stringify(v1));
     expect(state.saveVersion).toBe(CURRENT_SAVE_VERSION);
     expect(state.energy).toBe(100);
@@ -164,8 +165,18 @@ describe('save version 3 migration', () => {
     const v2 = { ...sample() } as Record<string, unknown>;
     v2.saveVersion = 2;
     delete v2.card;
+    delete v2.stored;
     const state = deserialize(JSON.stringify(v2));
-    expect(state.saveVersion).toBe(3);
+    expect(state.saveVersion).toBe(CURRENT_SAVE_VERSION);
     expect(state.card).toBe(50);
+  });
+});
+
+describe('save version 4 migration', () => {
+  it('adds an empty cupboard', () => {
+    const v3 = { ...sample() } as Record<string, unknown>;
+    v3.saveVersion = 3;
+    delete v3.stored;
+    expect(deserialize(JSON.stringify(v3)).stored).toEqual({});
   });
 });

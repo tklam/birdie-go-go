@@ -106,6 +106,8 @@ Listen to the **radio at home** for tomorrow's forecast for each region.
 
 Angie has an **Energy** meter. Walking outdoors slowly tires her, and steep hill trails tire her much faster. Each photo session and lesson also costs some Energy, and she can't start one when she's too tired. Harsh weather wears Energy down too, and so do run-ins with dogs and monsters. Eat, drink, rest on a bench, or sleep at home to recover; snacks and lunch boxes are sold at the shop.
 
+Your **bag** holds 8 supplies (snacks, drinks, sunscreen and so on); gear and camera parts don't take space. If it's full, the shop sends what you buy home. Use the **cupboard** in your flat to pack what you'll need for the day.
+
 The weather can be an enemy too. Pack the right gear before heading out:
 
 | Hazard | What happens | Bring |

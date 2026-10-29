@@ -21,6 +21,8 @@ export const MIGRATIONS: Readonly<Record<number, Migration>> = {
   1: (save) => ({ ...save, saveVersion: 2, energy: 100, equipped: {}, active: {} }),
   // v3 adds the transit card balance (SPEC.md §4.11), starting with a little on it.
   2: (save) => ({ ...save, saveVersion: 3, card: 50 }),
+  // v4 adds the cupboard at home (SPEC.md §4.12).
+  3: (save) => ({ ...save, saveVersion: 4, stored: {} }),
 };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -57,7 +59,7 @@ export function migrate(
   return out;
 }
 
-const RECORD_FIELDS = ['flags', 'firedEvents', 'items', 'album', 'students', 'bond', 'equipped', 'active'] as const;
+const RECORD_FIELDS = ['flags', 'firedEvents', 'items', 'album', 'students', 'bond', 'equipped', 'active', 'stored'] as const;
 const NUMBER_FIELDS = ['worldSeed', 'chapter', 'day', 'money', 'energy', 'card'] as const;
 const ARRAY_FIELDS = ['party', 'joined'] as const;
 
