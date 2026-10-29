@@ -128,8 +128,9 @@ tools/
   internal/tko/  the TKO tile catalogue shared by assetgen and mapgen
   bench/         streaming benchmark (Node + headless Chromium)
 server/
-  cmd/birdie-server/  flags: -addr, -packs, -allow-origin
+  cmd/birdie-server/  flags: -addr, -packs, -allow-origin, -saves (cloud saves; off when empty)
   internal/updates/   manifest + pack serving (immutable caching)
+  internal/saves/     cloud saves under random sync codes (POST/PUT/GET /api/save)
 ```
 
 `web/go.mod` exists only to keep `web/` (including Go files that some npm packages ship in `node_modules`) out of the root Go module.
@@ -386,7 +387,7 @@ make build        # → dist/ (static site: HTML, JS, core.wasm, content, world 
 - **Optional update server:**
   ```sh
   make pack VERSION=1.1.0     # validates content/, writes packs/base-1.1.0.pack and updates packs/manifest.json
-  go run ./server/cmd/birdie-server -addr :8080 -packs ./packs
+  go run ./server/cmd/birdie-server -addr :8080 -packs ./packs -saves ./saves
   ```
   A pack is JSON `{id, version, minClient, content}`; clients merge its content over theirs by id (missions, events, dialogue, birds, spots, items, transit, …). Map changes in packs are *(planned)*. Try it locally with `?updates=http://localhost:8080`; the pack applies on the next start.
   The game finds the server through `VITE_UPDATE_SERVER` at build time or the `?updates=` URL parameter. Run it behind HTTPS and enable CORS for the game's origin.

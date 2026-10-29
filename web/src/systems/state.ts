@@ -87,6 +87,8 @@ export interface Settings {
   captions: boolean;
   /** Blue/orange instead of green/red, and distinct map marker shapes. */
   colorBlindSafe: boolean;
+  /** The cloud-save sync code on the optional server ('' = none yet). */
+  cloudCode: string;
 }
 
 export interface GameState {
@@ -142,6 +144,7 @@ export function defaultSettings(): Settings {
     skipEncounters: false,
     captions: false,
     colorBlindSafe: false,
+    cloudCode: '',
   };
 }
 

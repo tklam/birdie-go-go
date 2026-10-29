@@ -24,6 +24,8 @@ import { iris } from '../fx/iris';
 import { glitch } from '../fx/glitch';
 import { activityCost, crossedLow, walkCost } from '../systems/economy';
 import { collect, isCollected } from '../systems/collectibles';
+import { cloudDownload, cloudUpload, formatCode, normalizeCode } from '../systems/cloud';
+import { updateServer } from '../systems/updates';
 import { closedGateAt, gateFrom, openWaterAt, spotBlocked, type Gate } from '../systems/gates';
 import { bagUsed, pack, stow, takesSpace, unpack } from '../systems/bag';
 import { clockLabel, discoverStop, openLines, payFare, stopFlag, topUp } from '../systems/transit';
@@ -1022,6 +1024,58 @@ export class MapScene extends Phaser.Scene {
     return true;
   }
 
+  /**
+   * Cloud saves on the optional server (SPEC.md §9.6): upload under the sync
+   * code (made on the first upload), or download by code on another device.
+   */
+  private async cloudMenu(): Promise<void> {
+    const s = this.session;
+    const server = updateServer();
+    if (!server) return;
+    const st = s.state.settings;
+    await showMenu(
+      () => `Cloud save${st.cloudCode ? ` · ${formatCode(st.cloudCode)}` : ''}`,
+      [
+        {
+          label: 'Upload this save',
+          detail: () => (st.cloudCode ? 'Updates the save under your code.' : 'Makes a sync code for this save.'),
+          run: async () => {
+            try {
+              st.cloudCode = await cloudUpload(server, s.state, st.cloudCode);
+              await s.save();
+              await showPanel('Uploaded', [`Your sync code: ${formatCode(st.cloudCode)}`, 'Enter it on another device to download this save.']);
+            } catch (err) {
+              await showPanel('Upload failed', [err instanceof Error ? err.message : String(err)]);
+            }
+            return true;
+          },
+        },
+        {
+          label: 'Download a save',
+          detail: () => 'Replaces the game on this device with the save under a sync code.',
+          run: async () => {
+            const code = normalizeCode(window.prompt('Sync code (12 letters and numbers):') ?? '');
+            if (!code) return true;
+            try {
+              const state = await cloudDownload(server, code);
+              state.settings.cloudCode = code;
+              s.state = state;
+              applyUiPrefs(s.state.settings);
+              await s.save();
+              this.scene.restart({});
+              return false;
+            } catch (err) {
+              await showPanel('Download failed', [err instanceof Error ? err.message : String(err)]);
+              return true;
+            }
+          },
+        },
+        { label: 'Back', run: async () => false },
+      ],
+      { tapToSelect: true },
+    );
+  }
+
   /** Volume, accessibility and audio-latency settings (SPEC.md §4.13, §6.4). */
   private async settingsMenu(): Promise<boolean> {
     const s = this.session;
@@ -1372,6 +1426,17 @@ export class MapScene extends Phaser.Scene {
           return true;
         },
       },
+      ...(updateServer()
+        ? [
+            {
+              label: 'Cloud save',
+              run: async () => {
+                await this.cloudMenu();
+                return true;
+              },
+            },
+          ]
+        : []),
       {
         label: 'Import save',
         run: async () => {

@@ -564,6 +564,7 @@ Objective types: `photograph`, `lesson` (student, min score), `visit`, `ride` (l
 - Packs **override by ID**; removals must be listed explicitly (`remove:`).
 - Saves reference content by ID; IDs that disappear are ignored gracefully (e.g. an expired live mission).
 - Offline or with no server configured, the game simply uses the content it already has.
+- **Cloud saves** (server started with `-saves`): Settings → Cloud save uploads the save (the first upload makes a sync code, kept in settings) or downloads one by code, replacing the local game; downloads go through the normal save migrations.
 
 **Optional server API**
 | Method & path | Purpose |
@@ -571,7 +572,8 @@ Objective types: `photograph`, `lesson` (student, min score), `visit`, `ride` (l
 | `GET /updates/manifest.json` | Available content packs |
 | `GET /updates/packs/{id}-{version}.pack` | Pack file (zip: content JSON + chunk files) |
 | `GET /api/health` | Liveness |
-| `GET /api/save`, `PUT /api/save` | *(later)* cloud save sync |
+| `POST /api/save` | Cloud save: store a save, returns a new random 12-character sync code |
+| `PUT /api/save/{code}`, `GET /api/save/{code}` | Cloud save: update or fetch the save under a code (no accounts; the code is the key; JSON saves up to 2 MB) |
 
 ### 9.7 World streaming (huge map)
 - **Build** (`tools/worldbuild`): reads the Tiled `.world` (many `.tmj` region maps) and outputs:

@@ -169,7 +169,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Client: background manifest check (`?updates=` or VITE_UPDATE_SERVER), SHA-256 check, validation in the Go core (`content.validate`), IndexedDB storage, merge by id at next start
 - [x] Live missions via packs work (verified end to end), with real-world date windows
 - [ ] *(Parked for future development.)* Graceful handling of removed or expired IDs in saves
-- [ ] (Later) cloud save sync
+- [x] Cloud save sync (sync codes on the optional server; Settings → Cloud save)
 
 ## M6: Story (§8)
 - [x] Chapters 1–5 and finale events and dialogue (placeholder text: Bird Paradise traveller, magazine, recitals, first date, contest, proposal, wedding)

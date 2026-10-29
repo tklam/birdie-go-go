@@ -16,8 +16,12 @@ import (
 
 // NewHandler returns the server's HTTP handler. packsDir holds manifest.json
 // and the pack files; allowOrigin is the CORS origin allowed to read them.
-func NewHandler(packsDir, allowOrigin string) http.Handler {
+// extra registers more routes on the same mux (e.g. cloud saves).
+func NewHandler(packsDir, allowOrigin string, extra ...func(*http.ServeMux)) http.Handler {
 	mux := http.NewServeMux()
+	for _, register := range extra {
+		register(mux)
+	}
 	mux.HandleFunc("GET /api/health", func(w http.ResponseWriter, _ *http.Request) {
 		writeJSON(w, map[string]bool{"ok": true})
 	})
@@ -74,7 +78,8 @@ func cors(origin string, next http.Handler) http.Handler {
 		w.Header().Set("Access-Control-Allow-Origin", origin)
 		w.Header().Set("Vary", "Origin")
 		if r.Method == http.MethodOptions {
-			w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
+			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS")
+			w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 			w.WriteHeader(http.StatusNoContent)
 			return
 		}

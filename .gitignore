@@ -23,3 +23,6 @@ art/birds/candidates/
 # AI assistant session data (transcripts, memory, settings) never belongs in the repo
 .claude/
 *.jsonl
+
+# Cloud saves kept by the local update server (make server).
+/saves/

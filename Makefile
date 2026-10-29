@@ -59,7 +59,7 @@ build: core content world web/node_modules
 	cd web && npx tsc --noEmit && npx vite build --outDir ../dist --emptyOutDir
 
 server:
-	$(GO) run ./server/cmd/birdie-server -addr :8080 -packs packs
+	$(GO) run ./server/cmd/birdie-server -addr :8080 -packs packs -saves saves
 
 # Build a content update pack: make pack VERSION=1.1.0 [ID=base] [MIN_CLIENT=0.1.0]
 pack: content
