@@ -102,7 +102,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Kei `friends` piano ability: faint trace of the notes actually played
 - [ ] Folding ladder (Kei build)
 - [x] Kei romance stages through `married` (story events)
-- [x] Kei's workshop: trail cameras (dating; photograph a bird each morning), tracking AF and stabilizer (engaged) from camera parts
+- [x] Kei's workshop: trail cameras (dating; photograph a bird each morning), tracking AF and stabilizer (engaged) from camera parts; first-visit intro
 - [ ] Kei: practice drills for students, home workshop (married)
 - [x] O Boy jealousy arc → `oboy_accepts_kei` (birds jumpier with both along until then)
 - [ ] Combo ability; party-dependent dialogue
@@ -129,6 +129,11 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Missions (§9.5): photograph and lesson objectives, rewards, Menu → Missions; Chapter 2 missions (magazine egret shot, Mei's recital)
 - [ ] Contests, transit missions, live missions from updates
 - [x] Trail cameras
+- [x] Mission reminders every few time slots (`mission_reminder_slots`)
+- [x] Bedtime reminders in the evening away from home (`bedtime_reminder`)
+- [x] Townspeople at stops who explain the minibus, ferry and gateways
+- [x] Morning bills (electricity, phone, water and gas, rent) from `game.yaml`
+- [ ] Rain balance: spring and summer are wet in ~60–70% of slots; consider lowering `precip` in `areas.yaml`
 - [x] 104 bird species from freely licensed photos (birdphoto + segmentation masks + vision-checked auto picks), spread over the four spots by habitat and season
 - [x] Paged album for 100+ species
 - [ ] More birding spots (wetland, hills, islands) so waders, ducks and raptors have proper habitats
@@ -137,6 +142,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 ## M4b: Hazards and encounters (§4.12–4.13)
 - [x] Energy meter in the HUD, recovery (snacks, indoors, sleep); no-game-over faint flow (helped home, lost slot, fee)
 - [x] Rest on benches (+20 Energy)
+- [x] Everyday Energy costs: walking outdoors (scaled by area `walk_effort`, hills cost more), photo sessions and lessons; too tired to start when low; low-Energy warning; more food
 - [x] `uv` weather parameter in `core/weather`
 - [x] `hazards.yaml` + `hazards.ts`: UV, heat, heavy rain, strong wind, cold, typhoon; status effects; tests
 - [x] Gear slots; Bag menu to wear gear and use consumables; convenience store in the mall plaza
@@ -149,6 +155,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Confront: combo sequences (swipe directions + A/B), time windows, enemy resolve; tests
 - [x] Wild dogs (driven off)
 - [x] Hopping zombie (jiangshi) and water ghost (shui gwai) with folklore weaknesses
+- [x] Tougher enemies, more spawn points, each spawn cleared separately
 - [ ] First folklore creatures, each with a lore-based weakness
 - [x] Companion assists in encounters: O Boy's squawk (one combo step fewer), Kei's whistle vs dogs (−25% resolve) and flash vs monsters (longer windows, from dating)
 - [ ] Gear assists in encounters: umbrella block, whistle item
