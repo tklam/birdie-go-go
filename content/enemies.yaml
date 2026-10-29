@@ -1,0 +1,53 @@
+# Enemies (SPEC.md §4.13). Dogs are only driven off; monsters can be defeated.
+# Monsters come from Hong Kong / Cantonese folklore; designs are original.
+- id: stray_dog_pack
+  name: Stray Dogs
+  kind: dog
+  sprite: enemy_stray_dog
+  portrait: portrait_stray_dog
+  areas: [tko_hillside]
+  slots: [afternoon, evening]
+  sight: 64
+  speed: 80
+  resolve: 40
+  damage: 8
+  combo_length: [2, 3]
+  window_ms: [2000, 1400]
+  mash_rate: 6.5
+  weakness: dog_treat
+  drops: []
+  lore: "Don't run from dogs. Stand tall, stay calm, and they'll lose interest."
+- id: hopping_zombie
+  name: Hopping Zombie
+  kind: monster
+  sprite: enemy_hopping_zombie
+  portrait: portrait_hopping_zombie
+  areas: [tko_hillside]
+  slots: [evening]
+  sight: 56
+  speed: 55
+  resolve: 70
+  damage: 12
+  combo_length: [3, 5]
+  window_ms: [1900, 1100]
+  mash_rate: 5.0
+  weakness: sticky_rice
+  drops: [{ item: camera_part, chance: 0.5 }]
+  lore: "The old folks say a jiangshi hops after your breath, and sticky rice draws out its chill."
+- id: water_ghost
+  name: Water Ghost
+  kind: monster
+  sprite: enemy_water_ghost
+  portrait: portrait_water_ghost
+  areas: [tko_waterfront]
+  slots: [evening]
+  sight: 72
+  speed: 45
+  resolve: 60
+  damage: 10
+  combo_length: [3, 4]
+  window_ms: [1800, 1200]
+  mash_rate: 5.5
+  weakness: sea_salt
+  drops: [{ item: camera_part, chance: 0.4 }]
+  lore: "Fishermen say a shui gwai lingers by the water at dusk. A pinch of sea salt keeps it at bay."

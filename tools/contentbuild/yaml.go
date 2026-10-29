@@ -128,6 +128,29 @@ type hazardYAML struct {
 	CounteredBy []string `yaml:"countered_by"`
 }
 
+type enemyYAML struct {
+	ID          string   `yaml:"id"`
+	Name        string   `yaml:"name"`
+	Kind        string   `yaml:"kind"`
+	Sprite      string   `yaml:"sprite"`
+	Portrait    string   `yaml:"portrait"`
+	Areas       []string `yaml:"areas"`
+	Slots       []string `yaml:"slots"`
+	Sight       float64  `yaml:"sight"`
+	Speed       float64  `yaml:"speed"`
+	Resolve     int      `yaml:"resolve"`
+	Damage      int      `yaml:"damage"`
+	ComboLength [2]int   `yaml:"combo_length"`
+	WindowMs    [2]int   `yaml:"window_ms"`
+	MashRate    float64  `yaml:"mash_rate"`
+	Weakness    string   `yaml:"weakness"`
+	Drops       []struct {
+		Item   string  `yaml:"item"`
+		Chance float64 `yaml:"chance"`
+	} `yaml:"drops"`
+	Lore string `yaml:"lore"`
+}
+
 type songYAML struct {
 	ID            string  `yaml:"id"`
 	Title         string  `yaml:"title"`
@@ -182,7 +205,7 @@ func load(dir string) (*model.ContentBundle, error) {
 	b := &model.ContentBundle{
 		Areas: []model.Area{}, Birds: []model.Bird{}, Spots: []model.Spot{}, Students: []model.Student{},
 		Songs: []model.Song{}, Events: []model.Event{}, Dialogue: []model.Dialogue{}, Music: []model.Music{},
-		Items: []model.Item{}, Hazards: []model.Hazard{},
+		Items: []model.Item{}, Hazards: []model.Hazard{}, Enemies: []model.Enemy{},
 	}
 
 	var g gameYAML
@@ -231,6 +254,23 @@ func load(dir string) (*model.ContentBundle, error) {
 			h.Breaks = &model.HazardBreak{Item: x.Breaks.Item, Min: x.Breaks.Min}
 		}
 		b.Hazards = append(b.Hazards, h)
+	}
+
+	var enemies []enemyYAML
+	if err := readOptional(filepath.Join(dir, "enemies.yaml"), &enemies); err != nil {
+		return nil, err
+	}
+	for _, x := range enemies {
+		e := model.Enemy{
+			ID: x.ID, Name: x.Name, Kind: x.Kind, Sprite: x.Sprite, Portrait: x.Portrait,
+			Areas: orEmpty(x.Areas), Slots: orEmpty(x.Slots), Sight: x.Sight, Speed: x.Speed,
+			Resolve: x.Resolve, Damage: x.Damage, ComboLength: x.ComboLength, WindowMs: x.WindowMs,
+			MashRate: x.MashRate, Weakness: x.Weakness, Drops: []model.Drop{}, Lore: x.Lore,
+		}
+		for _, d := range x.Drops {
+			e.Drops = append(e.Drops, model.Drop(d))
+		}
+		b.Enemies = append(b.Enemies, e)
 	}
 
 	var birds []birdYAML

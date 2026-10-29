@@ -8,3 +8,7 @@
 - { id: water_bottle, name: Water Bottle, kind: consumable, price: 10, counters: [heat], restores: 15, duration_slots: 1, description: "Cools you down. +15 Energy." }
 - { id: milk_tea, name: Milk Tea, kind: consumable, price: 18, counters: [], restores: 25, description: "Silky Hong Kong milk tea. +25 Energy." }
 - { id: pineapple_bun, name: Pineapple Bun, kind: consumable, price: 12, counters: [], restores: 20, description: "Warm, crumbly, no pineapple inside. +20 Energy." }
+- { id: dog_treat, name: Dog Treat, kind: consumable, price: 15, counters: [], description: "Distracts a dog so you can slip away." }
+- { id: sticky_rice, name: Sticky Rice, kind: consumable, price: 20, counters: [], description: "An old folk remedy against hopping zombies." }
+- { id: sea_salt, name: Sea Salt, kind: consumable, price: 15, counters: [], description: "Fishermen swear it keeps water ghosts away." }
+- { id: camera_part, name: Camera Part, kind: consumable, price: 0, counters: [], description: "A useful part. Kei might build something with it one day." }

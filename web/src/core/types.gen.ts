@@ -19,6 +19,7 @@ export interface ContentBundle {
   music: Music[];
   items: Item[];
   hazards: Hazard[];
+  enemies: Enemy[];
 }
 /**
  * GameInfo is the top-level game metadata from content/game.yaml.
@@ -198,6 +199,73 @@ export interface DialogueLine {
   portrait?: string;
   text: string;
   if?: Condition[];
+}
+
+//////////
+// source: enemies.go
+
+/**
+ * Enemy is a hostile creature met on the map (SPEC.md §4.13): wild dogs are
+ * only driven off; zombies and folklore creatures can be defeated.
+ */
+export interface Enemy {
+  id: string;
+  name: string;
+  /**
+   * Kind is "dog" or "monster".
+   */
+  kind: string;
+  /**
+   * Sprite is the manifest id of the overworld sheet (2 frames, 16×16);
+   * Portrait is the encounter sprite sheet (2 frames, 48×48).
+   */
+  sprite: string;
+  portrait: string;
+  /**
+   * Where and when it roams.
+   */
+  areas: string[];
+  slots: string[];
+  /**
+   * Sight is how far it notices Angie in px (halved while she sneaks);
+   * Speed is its chase speed in px/s.
+   */
+  sight: number /* float64 */;
+  speed: number /* float64 */;
+  /**
+   * Resolve is worn down by successful combos; Damage is Energy lost per
+   * failed combo or when caught while escaping.
+   */
+  resolve: number /* int */;
+  damage: number /* int */;
+  /**
+   * Combo lengths and time windows scale from easy to hard as resolve drops.
+   */
+  comboLength: number /* int */[];
+  windowMs: number /* int */[];
+  /**
+   * MashRate is the taps per second needed to outrun it.
+   */
+  mashRate: number /* float64 */;
+  /**
+   * Weakness is an item that halves its resolve when used in the encounter.
+   */
+  weakness?: string;
+  /**
+   * Drops are rewards for defeating a monster.
+   */
+  drops: Drop[];
+  /**
+   * Lore is the hint villagers give about it.
+   */
+  lore: string;
+}
+/**
+ * Drop is a possible reward.
+ */
+export interface Drop {
+  item: string;
+  chance: number /* float64 */;
 }
 
 //////////

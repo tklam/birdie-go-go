@@ -480,7 +480,7 @@ export class MapScene extends Phaser.Scene {
     await showMenu(
       `${title}  $${s.state.money}`,
       [
-        ...s.content.items.map((item) => ({
+        ...s.content.items.filter((item) => item.price > 0).map((item) => ({
           label: `${item.name} $${item.price}`,
           run: async () => {
             if (s.state.money < item.price) {

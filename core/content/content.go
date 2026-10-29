@@ -31,6 +31,7 @@ var (
 	Instruments = []string{"square", "pulse", "triangle", "noise"}
 	ItemKinds   = []string{"gear", "consumable"}
 	GearSlots   = []string{"head", "body", "hand"}
+	EnemyKinds  = []string{"dog", "monster"}
 	WeatherKeys = []string{"cloud", "precip", "temp", "fog", "wind", "uv", "signal"}
 	KeiStages   = []string{"met", "friends", "dating", "engaged", "married"}
 
@@ -68,6 +69,7 @@ func Validate(b *model.ContentBundle) []error {
 	music := v.ids("music", len(b.Music), func(i int) string { return b.Music[i].ID })
 	items := v.ids("item", len(b.Items), func(i int) string { return b.Items[i].ID })
 	hazards := v.ids("hazard", len(b.Hazards), func(i int) string { return b.Hazards[i].ID })
+	v.ids("enemy", len(b.Enemies), func(i int) string { return b.Enemies[i].ID })
 
 	for _, a := range b.Areas {
 		v.require(a.Name != "", "area %s: name is required", a.ID)
@@ -96,6 +98,9 @@ func Validate(b *model.ContentBundle) []error {
 	}
 	for _, h := range b.Hazards {
 		v.hazard(h, items)
+	}
+	for _, e := range b.Enemies {
+		v.enemy(e, areas, items)
 	}
 	for _, bird := range b.Birds {
 		v.bird(bird)
@@ -254,6 +259,29 @@ func (v *validator) hazard(h model.Hazard, items map[string]bool) {
 	}
 	for _, it := range h.CounteredBy {
 		v.require(items[it], "hazard %s: countered by unknown item %q", h.ID, it)
+	}
+}
+
+func (v *validator) enemy(e model.Enemy, areas, items map[string]bool) {
+	v.require(e.Name != "" && e.Sprite != "" && e.Portrait != "", "enemy %s: name, sprite and portrait are required", e.ID)
+	v.require(slices.Contains(EnemyKinds, e.Kind), "enemy %s: kind must be dog or monster", e.ID)
+	v.require(len(e.Areas) > 0, "enemy %s: areas is empty", e.ID)
+	for _, a := range e.Areas {
+		v.require(areas[a], "enemy %s: unknown area %q", e.ID, a)
+	}
+	for _, s := range e.Slots {
+		v.require(slices.Contains(TimeSlots, s), "enemy %s: unknown time slot %q", e.ID, s)
+	}
+	v.require(e.Sight > 0 && e.Speed > 0, "enemy %s: sight and speed must be > 0", e.ID)
+	v.require(e.Resolve > 0 && e.Damage >= 0, "enemy %s: resolve must be > 0 and damage ≥ 0", e.ID)
+	v.require(e.ComboLength[0] >= 1 && e.ComboLength[0] <= e.ComboLength[1] && e.ComboLength[1] <= 8, "enemy %s: combo_length must be 1 ≤ min ≤ max ≤ 8", e.ID)
+	v.require(e.WindowMs[0] >= e.WindowMs[1] && e.WindowMs[1] >= 300, "enemy %s: window_ms must go from easy (long) to hard (short), ≥ 300", e.ID)
+	v.require(e.MashRate > 0, "enemy %s: mash_rate must be > 0", e.ID)
+	v.require(e.Weakness == "" || items[e.Weakness], "enemy %s: unknown weakness item %q", e.ID, e.Weakness)
+	v.require(e.Kind == "monster" || len(e.Drops) == 0, "enemy %s: only monsters drop items", e.ID)
+	for _, d := range e.Drops {
+		v.require(items[d.Item], "enemy %s: unknown drop %q", e.ID, d.Item)
+		v.require(d.Chance > 0 && d.Chance <= 1, "enemy %s: drop chance must be in (0, 1]", e.ID)
 	}
 }
 

@@ -24,7 +24,7 @@ import { newGame, type AlbumEntry } from './state';
 
 const content: ContentBundle = {
   game: { title: 'T', contentVersion: '0', startMap: 'tko', startSpawn: 'estate_plaza' },
-  areas: [], birds: [], spots: [], students: [], songs: [], events: [], dialogue: [], music: [], items: [], hazards: [],
+  areas: [], birds: [], spots: [], students: [], songs: [], events: [], dialogue: [], music: [], items: [], hazards: [], enemies: [],
 };
 
 const frame: Rect = { x: 0, y: 0, w: 120, h: 90 };
