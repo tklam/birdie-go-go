@@ -699,7 +699,9 @@ export interface GradedMistake extends Mistake {
 
 /**
  * Mission is a task beyond the main story (SPEC.md §9.5): started by an
- * event's start_mission action, completed when its objective is met.
+ * event's start_mission action, or offered on its own at the start of a day
+ * while Available holds and the real date is inside Window; completed when
+ * its objective is met.
  */
 export interface Mission {
   id: string;
@@ -708,11 +710,29 @@ export interface Mission {
   description: string;
   objective: Objective;
   reward: Reward;
+  /**
+   * Available are conditions (as in events) under which the mission is
+   * offered at day start. Missions with neither Available nor Window are
+   * only started by events.
+   */
+  available?: Condition[];
+  /**
+   * Window limits a live mission to real-world dates; it expires after To.
+   */
+  window?: MissionWindow;
+}
+/**
+ * MissionWindow is an inclusive range of real dates, "YYYY-MM-DD".
+ */
+export interface MissionWindow {
+  from: string;
+  to: string;
 }
 /**
  * Objective is what completes a mission. Type "photograph" needs Species
  * (and optionally MinRating good|great|perfect, Area); "lesson" needs
- * Student and MinScore.
+ * Student and MinScore; "ride" needs Line and/or Stop (ride that line, or
+ * arrive at that stop); "visit" needs Area.
  */
 export interface Objective {
   type: string;
@@ -721,6 +741,8 @@ export interface Objective {
   area?: string;
   student?: string;
   minScore?: number /* int */;
+  line?: string;
+  stop?: string;
 }
 /**
  * Reward is given on completion.

@@ -16,6 +16,8 @@ import (
 var (
 	semver = regexp.MustCompile(`^\d+\.\d+\.\d+$`)
 	idRe   = regexp.MustCompile(`^[a-z0-9_]+$`)
+	// isoDate is a real-world date, YYYY-MM-DD.
+	isoDate = regexp.MustCompile(`^\d{4}-\d{2}-\d{2}$`)
 )
 
 // Vocabularies shared with the client (SPEC.md §5, §6, §9.4).
@@ -124,7 +126,7 @@ func Validate(b *model.ContentBundle) []error {
 		}
 	}
 	stops := v.ids("stop", len(b.Transit.Stops), func(i int) string { return b.Transit.Stops[i].ID })
-	v.ids("line", len(b.Transit.Lines), func(i int) string { return b.Transit.Lines[i].ID })
+	lines := v.ids("line", len(b.Transit.Lines), func(i int) string { return b.Transit.Lines[i].ID })
 	for _, l := range b.Transit.Lines {
 		v.require(l.Name != "", "line %s: name is required", l.ID)
 		v.require(slices.Contains(TransitModes, l.Mode), "line %s: unknown mode %q", l.ID, l.Mode)
@@ -140,7 +142,7 @@ func Validate(b *model.ContentBundle) []error {
 		v.require(st.Name != "", "stop %s: name is required", st.ID)
 	}
 	for _, m := range b.Missions {
-		v.mission(m, refs{areas: areas, students: students}, birds, items)
+		v.mission(m, refs{areas: areas, students: students, lines: lines, stops: stops}, birds, items)
 	}
 	for _, bird := range b.Birds {
 		v.bird(bird)
@@ -192,7 +194,7 @@ func Validate(b *model.ContentBundle) []error {
 }
 
 type refs struct {
-	areas, spots, students, dialogue, missions map[string]bool
+	areas, spots, students, dialogue, missions, lines, stops map[string]bool
 }
 
 type validator struct {
@@ -380,8 +382,20 @@ func (v *validator) mission(m model.Mission, r refs, birds, items map[string]boo
 	case "lesson":
 		v.require(r.students[o.Student], "mission %s: unknown student %q", m.ID, o.Student)
 		v.require(o.MinScore >= 0 && o.MinScore <= 100, "mission %s: min_score must be 0–100", m.ID)
+	case "ride":
+		v.require(o.Line != "" || o.Stop != "", "mission %s: a ride needs a line or a stop", m.ID)
+		v.require(o.Line == "" || r.lines[o.Line], "mission %s: unknown line %q", m.ID, o.Line)
+		v.require(o.Stop == "" || r.stops[o.Stop], "mission %s: unknown stop %q", m.ID, o.Stop)
+	case "visit":
+		v.require(r.areas[o.Area], "mission %s: unknown area %q", m.ID, o.Area)
 	default:
 		v.errs = append(v.errs, fmt.Errorf("mission %s: unknown objective type %q", m.ID, o.Type))
+	}
+	for _, c := range m.Available {
+		v.require(slices.Contains(ConditionTypes, c.Type), "mission %s: unknown condition %q", m.ID, c.Type)
+	}
+	if w := m.Window; w != nil {
+		v.require(isoDate.MatchString(w.From) && isoDate.MatchString(w.To) && w.From <= w.To, "mission %s: window needs from ≤ to as YYYY-MM-DD", m.ID)
 	}
 	v.require(m.Reward.Money >= 0, "mission %s: reward money must be ≥ 0", m.ID)
 	for _, it := range m.Reward.Items {

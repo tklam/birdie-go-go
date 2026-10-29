@@ -206,11 +206,18 @@ type missionYAML struct {
 		Area      string `yaml:"area"`
 		Student   string `yaml:"student"`
 		MinScore  int    `yaml:"min_score"`
+		Line      string `yaml:"line"`
+		Stop      string `yaml:"stop"`
 	} `yaml:"objective"`
 	Reward struct {
 		Money int      `yaml:"money"`
 		Items []string `yaml:"items"`
 	} `yaml:"reward"`
+	Available map[string]any `yaml:"available"`
+	Window    *struct {
+		From string `yaml:"from"`
+		To   string `yaml:"to"`
+	} `yaml:"window"`
 }
 
 type ambientYAML struct {
@@ -429,6 +436,8 @@ func load(dir string) (*model.ContentBundle, error) {
 			ID: x.ID, Giver: x.Giver, Title: x.Title, Description: x.Description,
 			Objective: model.Objective(x.Objective),
 			Reward:    model.Reward{Money: x.Reward.Money, Items: orEmpty(x.Reward.Items)},
+			Available: conditionsFromMap(x.Available),
+			Window:    window(x.Window),
 		})
 	}
 
@@ -630,4 +639,14 @@ func orEmpty(s []string) []string {
 		return []string{}
 	}
 	return s
+}
+
+func window(w *struct {
+	From string `yaml:"from"`
+	To   string `yaml:"to"`
+}) *model.MissionWindow {
+	if w == nil {
+		return nil
+	}
+	return &model.MissionWindow{From: w.From, To: w.To}
 }

@@ -541,6 +541,8 @@ Events live in `content/events/*.yaml`:
 ```
 Objective types: `photograph`, `lesson` (student, min score), `visit`, `ride` (line or stop), `collect`, `talk`.
 
+*As built:* `photograph`, `lesson`, `ride` (`line` and/or `stop`: completed on arriving by that line or at that stop) and `visit` (`area`: completed on entering it). A mission with `available` (event conditions as a map) and/or `window` (`from`/`to`, real local dates) is offered on its own at the start of a day while its conditions hold and today is in the window; a live mission still active after its window ends is withdrawn (flag `mission_expired:<id>`) and isn't offered again. Contests are seasonal photograph missions (the winter spoonbill contest, the autumn wader watch).
+
 **Reminders.** Every `mission_reminder_slots` time slots (set in `content/game.yaml`; 0 turns them off), a toast names one active mission when Angie is back on the map; active missions take turns. Loading a save with active missions shows one reminder right away.
 
 ### 9.6 Content packs and updates

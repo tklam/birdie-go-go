@@ -664,7 +664,10 @@ export class MapScene extends Phaser.Scene {
     this.wantMusic = this.session.content.areas.find((a) => a.id === area)?.music ?? null;
     const name = this.session.content.areas.find((a) => a.id === area)?.name ?? area;
     toast(name);
-    if (!first) void this.session.fire({ type: 'enter_area', params: { area } });
+    if (!first) {
+      const s = this.session;
+      void s.fire({ type: 'enter_area', params: { area } }).then(() => s.checkMissions({ visit: area }));
+    }
   }
 
   // --- Interaction -------------------------------------------------------
@@ -1486,6 +1489,7 @@ export class MapScene extends Phaser.Scene {
     discoverStop(s.state, r.to);
     r.vehicle.destroy();
     await s.fire({ type: 'ride_complete', params: { line: r.line } });
+    await s.checkMissions({ ride: { line: r.line, stop: r.to } });
     const [leg, ...rest] = r.next;
     if (leg) {
       toast(`Change at ${name}.`);

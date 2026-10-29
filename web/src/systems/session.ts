@@ -6,7 +6,19 @@ import { IndexedDBSaveStore, MemorySaveStore, type SaveStore } from './save';
 import { newGame, type GameState } from './state';
 import { tickConsumables } from './hazards';
 import { runTrailCameras } from './gadgets';
-import { completeMission, lessonMissionsMet, photoMissionsMet, reminderMission, startMission, type PhotoResult } from './missions';
+import {
+  completeMission,
+  expireMissions,
+  isoDate,
+  lessonMissionsMet,
+  offerMissions,
+  photoMissionsMet,
+  reminderMission,
+  rideMissionsMet,
+  startMission,
+  visitMissionsMet,
+  type PhotoResult,
+} from './missions';
 import { showPanel } from '../ui/panel';
 import { advanceSlot } from './time';
 import { billsDue, payBills } from './economy';
@@ -122,6 +134,20 @@ export class Session {
     for (const t of albumMilestones(this.state, this.content.events)) await this.fire(t);
   }
 
+  /**
+   * Offers the missions available today (seasonal ones, live ones in their
+   * real-date window) and ends live ones whose window has passed (SPEC.md §9.5).
+   */
+  async updateLiveMissions(now = new Date()): Promise<void> {
+    const today = isoDate(now);
+    for (const m of expireMissions(this.state, this.content, today)) {
+      await showPanel(`Mission ended: ${m.title}`, ['Its time is up. Maybe next time!']);
+    }
+    for (const m of offerMissions(this.state, this.content, today)) {
+      await showPanel(`New mission: ${m.title}`, [m.description]);
+    }
+  }
+
   /** Deducts the bills due this morning and shows what was paid (SPEC.md §3.2). */
   private async payMorningBills(): Promise<void> {
     const due = billsDue(this.content.game.bills, this.state.day);
@@ -152,6 +178,7 @@ export class Session {
         );
       }
       await this.payMorningBills();
+      await this.updateLiveMissions();
       if (caught.length) await this.checkAlbum();
     }
     for (const t of triggers) await this.fire(t);
@@ -187,10 +214,17 @@ export class Session {
   }
 
   /** Completes any missions met by a photo session or a lesson, with rewards and mission_complete events. */
-  async checkMissions(done: { photos?: PhotoResult[]; lesson?: { studentId: string; score: number } }): Promise<void> {
+  async checkMissions(done: {
+    photos?: PhotoResult[];
+    lesson?: { studentId: string; score: number };
+    ride?: { line: string; stop: string };
+    visit?: string;
+  }): Promise<void> {
     const met = [
       ...(done.photos ? photoMissionsMet(this.state, this.content, done.photos) : []),
       ...(done.lesson ? lessonMissionsMet(this.state, this.content, done.lesson.studentId, done.lesson.score) : []),
+      ...(done.ride ? rideMissionsMet(this.state, this.content, done.ride.line, done.ride.stop) : []),
+      ...(done.visit ? visitMissionsMet(this.state, this.content, done.visit) : []),
     ];
     for (const m of met) {
       completeMission(this.state, m);

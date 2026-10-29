@@ -1,6 +1,19 @@
 import { describe, expect, it } from 'vitest';
 import type { ContentBundle, Mission } from '../core/types.gen';
-import { activeMissions, completeMission, doneFlag, lessonMissionsMet, photoMissionsMet, reminderMission, startMission } from './missions';
+import {
+  activeMissions,
+  completeMission,
+  doneFlag,
+  expireMissions,
+  isoDate,
+  lessonMissionsMet,
+  offerMissions,
+  photoMissionsMet,
+  reminderMission,
+  rideMissionsMet,
+  startMission,
+  visitMissionsMet,
+} from './missions';
 import { newGame } from './state';
 
 const egret: Mission = {
@@ -66,5 +79,38 @@ describe('missions', () => {
     expect(s.flags[doneFlag('egret_cover')]).toBe(true);
     expect(activeMissions(s, content)).toEqual([]);
     expect(startMission(s, 'egret_cover')).toBe(false);
+  });
+});
+
+describe('ride, visit and live missions', () => {
+  const ride: Mission = { ...egret, id: 'ferry', objective: { type: 'ride', line: 'ferry_junk_bay' } };
+  const visit: Mission = { ...egret, id: 'hike', objective: { type: 'visit', area: 'tko_hillside' } };
+  const winter: Mission = { ...egret, id: 'winter', available: [{ type: 'season', value: 'winter' }] };
+  const live: Mission = { ...egret, id: 'live', window: { from: '2026-12-01', to: '2026-12-31' } };
+  const all = { missions: [ride, visit, winter, live] };
+
+  it('completes rides and visits', () => {
+    const s = fresh();
+    startMission(s, 'ferry');
+    startMission(s, 'hike');
+    expect(rideMissionsMet(s, all, 'minibus_16', 'x')).toEqual([]);
+    expect(rideMissionsMet(s, all, 'ferry_junk_bay', 'po_toi_o_pier').map((m) => m.id)).toEqual(['ferry']);
+    expect(visitMissionsMet(s, all, 'tko_hillside').map((m) => m.id)).toEqual(['hike']);
+  });
+
+  it('offers seasonal and live missions, and expires live ones', () => {
+    const s = fresh();
+    expect(offerMissions(s, all, '2026-11-30').map((m) => m.id)).toEqual([]);
+    s.day = 43; // winter
+    expect(offerMissions(s, all, '2026-12-05').map((m) => m.id)).toEqual(['winter', 'live']);
+    expect(offerMissions(s, all, '2026-12-06')).toEqual([]);
+    expect(expireMissions(s, all, '2026-12-31')).toEqual([]);
+    expect(expireMissions(s, all, '2027-01-01').map((m) => m.id)).toEqual(['live']);
+    expect(activeMissions(s, all).map((m) => m.id)).toEqual(['winter']);
+    expect(offerMissions(s, all, '2026-12-10')).toEqual([]);
+  });
+
+  it('formats local dates', () => {
+    expect(isoDate(new Date(2026, 0, 5))).toBe('2026-01-05');
   });
 });

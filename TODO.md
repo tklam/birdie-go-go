@@ -127,7 +127,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] More students and songs: Mrs Ho (retired teacher, ho_flat) and three new pieces (Evening Tea, Egret's Lullaby, Tram Bell Rag)
 - [ ] *(Parked for future development.)* eBird data for realism: species lists and seasonality per area (Tseung Kwan O, Junk Bay, …) feeding bird tables. Needs a free eBird API key kept outside git; build-time tool only. eBird/Macaulay photos are NOT freely licensed, so don't use them as art.
 - [x] Missions (§9.5): photograph and lesson objectives, rewards, Menu → Missions; Chapter 2 missions (magazine egret shot, Mei's recital)
-- [ ] Contests, transit missions, live missions from updates
+- [x] Contests, transit missions, live missions (`ride`/`visit` objectives, `available` and real-date `window`)
 - [x] Trail cameras
 - [x] Mission reminders every few time slots (`mission_reminder_slots`)
 - [x] Bedtime reminders in the evening away from home (`bedtime_reminder`)
@@ -167,7 +167,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] *(Parked for future development.)* Map updates in packs (replaced chunks / new regions)
 - [x] `server/cmd/birdie-server`: serve manifest and packs, CORS, immutable caching
 - [x] Client: background manifest check (`?updates=` or VITE_UPDATE_SERVER), SHA-256 check, validation in the Go core (`content.validate`), IndexedDB storage, merge by id at next start
-- [~] Live missions via packs work (verified end to end); real-world date windows still to do
+- [x] Live missions via packs work (verified end to end), with real-world date windows
 - [ ] *(Parked for future development.)* Graceful handling of removed or expired IDs in saves
 - [ ] (Later) cloud save sync
 

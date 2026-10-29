@@ -29,3 +29,40 @@
   description: "Mei's big recital is coming. Get her lesson score to 85 or more."
   objective: { type: lesson, student: mei, min_score: 85 }
   reward: { money: 500, items: [] }
+# Missions offered on their own at the start of a day (SPEC.md §9.5).
+- id: ferry_feature
+  giver: magazine_editor
+  title: Across Junk Bay
+  description: "Harbour Birds is writing about the bay. Ride the Junk Bay ferry and tell them what the gulls get up to."
+  objective: { type: ride, line: ferry_junk_bay }
+  reward: { money: 150, items: [] }
+  available: { chapter_at_least: 2 }
+- id: country_park_walk
+  giver: neighbour
+  title: A Walk in the Hills
+  description: "Mrs Chan says the Clear Water Bay Country Park is lovely this time of year. Go and see for yourself."
+  objective: { type: visit, area: cwb_country_park }
+  reward: { money: 80, items: [water_bottle] }
+  available: { chapter_at_least: 1 }
+- id: spoonbill_contest
+  giver: magazine_editor
+  title: Winter Visitors Contest
+  description: "The Harbour Birds winter contest: a great photo of a Black-faced Spoonbill. Look along the shore."
+  objective: { type: photograph, species: black_faced_spoonbill, min_rating: great }
+  reward: { money: 350, items: [camera_part] }
+  available: { season: winter, chapter_at_least: 2 }
+- id: wader_contest
+  giver: birding_society
+  title: Autumn Wader Watch
+  description: "The Birding Society's autumn challenge: a great photo of a Whimbrel on the Po Toi O mudflat."
+  objective: { type: photograph, species: whimbrel, min_rating: great, area: po_toi_o }
+  reward: { money: 400, items: [] }
+  available: { season: autumn, chapter_at_least: 2 }
+# A live mission: only offered between these real-world dates.
+- id: new_year_birdwatch
+  giver: birding_society
+  title: New Year Birdwatch
+  description: "Start the year with birds! The Birding Society asks for a good photo of a Japanese Tit before the holiday ends."
+  objective: { type: photograph, species: japanese_tit, min_rating: good }
+  reward: { money: 200, items: [milk_tea] }
+  window: { from: "2026-12-26", to: "2027-01-10" }
