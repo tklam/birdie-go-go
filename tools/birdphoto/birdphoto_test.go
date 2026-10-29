@@ -96,7 +96,7 @@ func TestQuantizeFrameLimits(t *testing.T) {
 			if tc.max > 1 && len(used) < 2 {
 				t.Errorf("used only %d colors for a rainbow", len(used))
 			}
-			set := chooseColors([]weightedLab{{rgbToLab(255, 0, 0), 1}}, tc.forced, tc.max)
+			set := chooseColors([]weightedLab{{rgbToLab(255, 0, 0), 1}}, tc.forced, nil, tc.max)
 			for _, f := range tc.forced {
 				found := false
 				for _, s := range set {
@@ -117,7 +117,7 @@ func TestChooseColorsPicksExactPaletteColors(t *testing.T) {
 	for _, p := range want {
 		samples = append(samples, weightedLab{paletteLab[p], 10})
 	}
-	got := chooseColors(samples, nil, 15)
+	got := chooseColors(samples, nil, nil, 15)
 	if len(got) != 3 {
 		t.Fatalf("got %v, want exactly the 3 sample colors", got)
 	}
@@ -438,5 +438,113 @@ func TestRenderPoseSynthetic(t *testing.T) {
 	}
 	if b.Dx() != 30 {
 		t.Errorf("sprite width with outline = %d, want 28+2", b.Dx())
+	}
+}
+
+// A clip outline removes everything outside it, and the background inside
+// it is still flood-filled although the whole crop border lies outside
+// (the color model then comes from the ring around the outline).
+func TestCutoutClip(t *testing.T) {
+	img, inBird := syntheticBird()
+	// Something else touching the crop border and reaching into the clip.
+	for y := 20; y < 40; y++ {
+		for x := 0; x < 14; x++ {
+			img.set(x, y, 30, 200, 30)
+		}
+	}
+	clip := [][]fpoint{{{12, 10}, {68, 10}, {68, 50}, {12, 50}}}
+	mask := cutout(img, cutoutParams{Tolerance: 14, Clip: clip})
+	var wrong int
+	for y := 0; y < img.H; y++ {
+		for x := 0; x < img.W; x++ {
+			if mask[y*img.W+x] != inBird(x, y) {
+				wrong++
+			}
+		}
+	}
+	if wrong > 0 {
+		t.Errorf("%d pixels misclassified with a clip outline", wrong)
+	}
+}
+
+func TestChooseColorsExclude(t *testing.T) {
+	red := paletteNames["red"]
+	samples := []weightedLab{{paletteLab[red], 1}}
+	for _, p := range chooseColors(samples, nil, []int{red}, 4) {
+		if p == red {
+			t.Errorf("excluded color %d was chosen", red)
+		}
+	}
+	// Forced wins over exclude.
+	if got := chooseColors(samples, []int{red}, []int{red}, 1); len(got) != 1 || got[0] != red {
+		t.Errorf("forced and excluded color: got %v, want [%d]", got, red)
+	}
+}
+
+func TestProtectWeightsAndBlendBack(t *testing.T) {
+	mask := make([]bool, 10*10)
+	for i := range mask {
+		mask[i] = true
+	}
+	left := [][]fpoint{{{0, 0}, {5, 0}, {5, 10}, {0, 10}}}
+	wt := protectWeights(10, 10, mask, image.Rect(0, 0, 10, 10), 2, 2, left)
+	want := []float64{1, 0, 1, 0}
+	for i := range want {
+		if math.Abs(wt[i]-want[i]) > 1e-9 {
+			t.Fatalf("weights %v, want %v", wt, want)
+		}
+	}
+	f := newFrame(2, 1)
+	orig := []float64{200, 0, 0, 200, 0, 0}
+	f.Pix = []float64{0, 0, 200, 0, 0, 200}
+	f.blendBack(orig, []float64{1, 0.5})
+	if f.Pix[0] != 200 || f.Pix[2] != 0 || f.Pix[3] != 100 || f.Pix[5] != 100 {
+		t.Errorf("blendBack: %v", f.Pix)
+	}
+}
+
+// renderPose with recolor, tint, protect and marks: the red body turns
+// teal, the protected eye area keeps its color and the mark paints a pixel.
+func TestRenderPoseRecolorAndMarks(t *testing.T) {
+	src, _ := syntheticBird()
+	img := image.NewNRGBA(image.Rect(0, 0, src.W, src.H))
+	for y := 0; y < src.H; y++ {
+		for x := 0; x < src.W; x++ {
+			r, g, b := src.at(x, y)
+			img.SetNRGBA(x, y, color.NRGBA{uint8(r), uint8(g), uint8(b), 255})
+		}
+	}
+	path := t.TempDir() + "/bird.png"
+	if err := writePNG(path, img); err != nil {
+		t.Fatal(err)
+	}
+	pose := &Pose{
+		NoLevels: true,
+		Recolor:  []HueShift{{From: 40, To: 178, Width: 30, Chroma: 0.5}},
+		Protect:  [][]float64{{20, 20, 30, 20, 30, 40, 20, 40}},
+		Marks:    []Mark{{At: []float64{56, 27}, Color: "white"}},
+	}
+	idx, err := renderPose(path, "perched", pose, "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	counts := map[int]int{}
+	for _, p := range idx {
+		counts[p]++
+	}
+	if counts[paletteNames["white"]] != 1 {
+		t.Errorf("want exactly one white (marked) pixel, got %d", counts[paletteNames["white"]])
+	}
+	teal := counts[paletteNames["teal"]] + counts[paletteNames["dark_teal"]]
+	if teal < 100 {
+		t.Errorf("recolored body has only %d teal pixels: %v", teal, counts)
+	}
+	if counts[paletteNames["red"]] == 0 {
+		t.Errorf("protected area lost its red: %v", counts)
+	}
+
+	pose.Marks = []Mark{{At: []float64{2, 2}}}
+	if _, err := renderPose(path, "perched", pose, ""); err == nil {
+		t.Error("mark off the bird should be an error")
 	}
 }

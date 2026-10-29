@@ -16,8 +16,9 @@ type weightedLab struct {
 // chooseColors picks at most maxColors masterPalette indices that minimize
 // the summed squared Lab error of the samples (greedy additions followed by
 // swap refinement). forced indices are always included and count toward the
-// limit. The result is sorted.
-func chooseColors(samples []weightedLab, forced []int, maxColors int) []int {
+// limit; excluded indices are never picked (forced wins). The result is
+// sorted.
+func chooseColors(samples []weightedLab, forced, exclude []int, maxColors int) []int {
 	n := len(paletteLab)
 	// d[s][p]: squared distance of sample s to palette color p.
 	d := make([][]float64, len(samples))
@@ -39,6 +40,12 @@ func chooseColors(samples []weightedLab, forced []int, maxColors int) []int {
 		return total
 	}
 	in := make([]bool, n)
+	banned := make([]bool, n)
+	for _, e := range exclude {
+		if e >= 0 && e < n {
+			banned[e] = true
+		}
+	}
 	var set []int
 	for _, f := range forced {
 		if f >= 0 && f < n && !in[f] && len(set) < maxColors {
@@ -57,7 +64,7 @@ func chooseColors(samples []weightedLab, forced []int, maxColors int) []int {
 	for len(set) < maxColors {
 		bestC, bestP := cur, -1
 		for p := 0; p < n; p++ {
-			if in[p] {
+			if in[p] || banned[p] {
 				continue
 			}
 			if c := cost(append(set, p)); c < bestC-1e-9 {
@@ -85,7 +92,7 @@ func chooseColors(samples []weightedLab, forced []int, maxColors int) []int {
 			}
 			old := set[k]
 			for p := 0; p < n; p++ {
-				if in[p] {
+				if in[p] || banned[p] {
 					continue
 				}
 				set[k] = p
@@ -141,6 +148,7 @@ var bayer4 = [4][4]float64{
 type quantizeOptions struct {
 	MaxColors int     // ≤ 15
 	Forced    []int   // palette indices that must be in the set (e.g. outline)
+	Exclude   []int   // palette indices that are never used
 	Dither    float64 // ordered-dither amplitude in 0..255 units (0 = off)
 }
 
@@ -171,7 +179,7 @@ func quantizeFrame(f *rgbaFrame, opt quantizeOptions) []int {
 		}
 		return x.B < y.B
 	})
-	set := chooseColors(samples, opt.Forced, opt.MaxColors)
+	set := chooseColors(samples, opt.Forced, opt.Exclude, opt.MaxColors)
 	out := make([]int, f.W*f.H)
 	for i := range out {
 		out[i] = -1

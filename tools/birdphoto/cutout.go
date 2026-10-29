@@ -79,6 +79,7 @@ type cutoutParams struct {
 	Seeds      []image.Point // extra flood-fill start points (their colors join the background model)
 	Keep       [][]fpoint    // polygons always kept (foreground)
 	Drop       [][]fpoint    // polygons always removed (background)
+	Clip       [][]fpoint    // if set, pixels outside every clip polygon are removed (an outer bird outline)
 	Enclosed   int           // if >0, enclosed background-colored regions of at least this many pixels are removed too
 	Erode      int           // fringe erosion in pixels
 	KeepParts  float64       // keep extra components with area ≥ KeepParts × largest (0 = largest only)
@@ -193,13 +194,24 @@ func cutout(img *rgbImage, p cutoutParams) []bool {
 	}
 	dropped := make([]bool, w*h)
 	kept := make([]bool, w*h)
-	if len(p.Drop) > 0 || len(p.Keep) > 0 {
+	clipped := make([]bool, w*h) // outside every clip polygon
+	explicit := make([]bool, w*h)
+	if len(p.Drop) > 0 || len(p.Keep) > 0 || len(p.Clip) > 0 {
 		for y := 0; y < h; y++ {
 			for x := 0; x < w; x++ {
 				c := fpoint{float64(x) + 0.5, float64(y) + 0.5}
+				if len(p.Clip) > 0 {
+					inside := false
+					for _, poly := range p.Clip {
+						inside = inside || pointInPolygon(c, poly)
+					}
+					clipped[idx(x, y)] = !inside
+					dropped[idx(x, y)] = !inside
+				}
 				for _, poly := range p.Drop {
 					if pointInPolygon(c, poly) {
 						dropped[idx(x, y)] = true
+						explicit[idx(x, y)] = true
 					}
 				}
 				for _, poly := range p.Keep {
@@ -217,6 +229,23 @@ func cutout(img *rgbImage, p cutoutParams) []bool {
 	for _, pt := range border {
 		if i := idx(pt.X, pt.Y); !dropped[i] && !kept[i] {
 			samples = append(samples, labs[i])
+		}
+	}
+	// With a clip outline the background right around the bird is the ring
+	// of pixels just outside it (the crop border may be clipped away
+	// entirely).
+	if len(p.Clip) > 0 {
+		for y := 0; y < h; y++ {
+			for x := 0; x < w; x++ {
+				i := idx(x, y)
+				if !clipped[i] || explicit[i] || kept[i] {
+					continue
+				}
+				if (x > 0 && !clipped[i-1]) || (x < w-1 && !clipped[i+1]) ||
+					(y > 0 && !clipped[i-w]) || (y < h-1 && !clipped[i+w]) {
+					samples = append(samples, labs[i])
+				}
+			}
 		}
 	}
 	k := p.Clusters

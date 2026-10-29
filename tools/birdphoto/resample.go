@@ -91,7 +91,29 @@ func fitSize(w, h, size int) (int, int) {
 // lowest opaque row at fh-1-pad and centers horizontally; anything else
 // centers both ways (by opaque bounds). dx/dy nudge the result.
 func placeInFrame(src *rgbaFrame, fw, fh int, anchor string, pad, dx, dy int) *rgbaFrame {
-	// Opaque bounds of src.
+	out := newFrame(fw, fh)
+	off, ok := placeOffset(src, fw, fh, anchor, pad, dx, dy)
+	if !ok {
+		return out
+	}
+	for y := 0; y < src.H; y++ {
+		for x := 0; x < src.W; x++ {
+			tx, ty := x+off.X, y+off.Y
+			s := y*src.W + x
+			if tx < 0 || ty < 0 || tx >= fw || ty >= fh || src.Alpha[s] <= 0 {
+				continue
+			}
+			t := ty*fw + tx
+			out.Alpha[t] = src.Alpha[s]
+			copy(out.Pix[3*t:3*t+3], src.Pix[3*s:3*s+3])
+		}
+	}
+	return out
+}
+
+// placeOffset returns where placeInFrame puts src: frame pixel = src pixel
+// + offset. ok is false if src has no opaque pixel.
+func placeOffset(src *rgbaFrame, fw, fh int, anchor string, pad, dx, dy int) (image.Point, bool) {
 	minX, minY, maxX, maxY := src.W, src.H, -1, -1
 	for y := 0; y < src.H; y++ {
 		for x := 0; x < src.W; x++ {
@@ -101,9 +123,8 @@ func placeInFrame(src *rgbaFrame, fw, fh int, anchor string, pad, dx, dy int) *r
 			}
 		}
 	}
-	out := newFrame(fw, fh)
 	if maxX < 0 {
-		return out
+		return image.Point{}, false
 	}
 	bw, bh := maxX-minX+1, maxY-minY+1
 	ox := (fw-bw)/2 + dx
@@ -111,19 +132,7 @@ func placeInFrame(src *rgbaFrame, fw, fh int, anchor string, pad, dx, dy int) *r
 	if anchor == "bottom" {
 		oy = fh - 1 - pad - (bh - 1) + dy
 	}
-	for y := 0; y < bh; y++ {
-		for x := 0; x < bw; x++ {
-			tx, ty := ox+x, oy+y
-			if tx < 0 || ty < 0 || tx >= fw || ty >= fh {
-				continue
-			}
-			s := (minY+y)*src.W + minX + x
-			t := ty*fw + tx
-			out.Alpha[t] = src.Alpha[s]
-			copy(out.Pix[3*t:3*t+3], src.Pix[3*s:3*s+3])
-		}
-	}
-	return out
+	return image.Pt(ox-minX, oy-minY), true
 }
 
 // flipX mirrors a frame horizontally in place.

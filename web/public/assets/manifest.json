@@ -7,6 +7,10 @@
     "type": "image",
     "file": "birds/album_oriental_magpie_robin.png"
   },
+  "album_pacific_parrotlet": {
+    "type": "image",
+    "file": "birds/album_pacific_parrotlet.png"
+  },
   "album_red_whiskered_bulbul": {
     "type": "image",
     "file": "birds/album_red_whiskered_bulbul.png"
@@ -175,8 +179,7 @@
       "flying1",
       "flying2",
       "back_turned"
-    ],
-    "placeholder": true
+    ]
   },
   "bird_red_whiskered_bulbul": {
     "type": "spritesheet",

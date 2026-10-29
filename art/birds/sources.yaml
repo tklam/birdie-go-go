@@ -251,3 +251,144 @@ species:
         author: "Hobbyfotowiki"
         license: "CC0"
         licenseUrl: "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  # O Boy, the companion: a blue-green (teal) color mutation. Green and washed-out
+  # blue photos are recolored to teal before quantization (recolor/tint, see
+  # tools/birdphoto/recolor.go; protect keeps beak and eye) and greens are excluded,
+  # so every frame uses the same teal/dark teal tones. marks put a 1-px dark eye.
+  # No licensed flight photos exist: wings_spread uses a bird drooping a half-open
+  # wing, flying1/flying2 forward-leaning birds without feet.
+  pacific_parrotlet:
+    album:
+      file: selected/pacific_parrotlet/21.jpg
+      candidate: 21.jpg
+      crop: [0, 30, 405, 270]
+      dither: 16
+      recolor: [{from: 255, to: 185, width: 45, spread: 0.4, minChroma: 2, chroma: 2, maxChroma: 40}]
+      title: "File:Female Blue and Male Green Pacific Parrotlets.jpg"
+      page: "https://commons.wikimedia.org/wiki/File:Female_Blue_and_Male_Green_Pacific_Parrotlets.jpg"
+      author: "Susan C. Griffin"
+      license: "CC BY-SA 4.0"
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0"
+    poses:
+      perched:
+        file: selected/pacific_parrotlet/02.jpg
+        candidate: 02.jpg
+        crop: [20, 88, 345, 322]
+        size: 27
+        tolerance: 10
+        colors: 9
+        exclude: [dark_green, green, light_green, pale_green]
+        sharpen: 0.4
+        clip: [[28, 368, 90, 318, 130, 278, 160, 232, 200, 186, 232, 146, 252, 116, 288, 96, 322, 100, 350, 128, 355, 162, 345, 202, 325, 228, 308, 252, 300, 290, 280, 322, 255, 348, 240, 362, 242, 408, 188, 408, 185, 368, 175, 370, 140, 357, 100, 357, 55, 370]]
+        keep: [[45, 358, 95, 322, 135, 290, 165, 245, 205, 200, 240, 160, 262, 128, 292, 108, 318, 112, 338, 135, 340, 160, 330, 195, 312, 222, 298, 255, 288, 292, 268, 320, 245, 340, 232, 352, 232, 395, 198, 395, 196, 357, 175, 357, 140, 343, 100, 343]]
+        recolor: [{from: 100, to: 177, width: 35, spread: 0.6, minChroma: 2, chroma: 3, maxChroma: 38}]
+        tint: {hue: 178, chroma: 25, minL: 25, maxL: 95}
+        protect: [[292, 142, 314, 142, 314, 162, 292, 162], [328, 145, 356, 140, 364, 170, 352, 200, 330, 195]]
+        marks: [{at: [302, 152]}]
+        title: "File:Forpus coelestis -Peru -male-8.jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Forpus_coelestis_-Peru_-male-8.jpg"
+        author: "peterdehaas2317"
+        license: "CC BY 2.0"
+        licenseUrl: "https://creativecommons.org/licenses/by/2.0"
+      perched_alert:
+        file: selected/pacific_parrotlet/14.jpg
+        candidate: 14.jpg
+        crop: [225, 370, 435, 665]
+        size: 27
+        tolerance: 20
+        erode: 2
+        colors: 9
+        exclude: [dark_green, green, light_green, pale_green]
+        sharpen: 0.4
+        clip: [[430, 420, 470, 388, 520, 375, 570, 382, 605, 405, 630, 430, 652, 470, 645, 510, 615, 520, 625, 580, 625, 650, 615, 720, 600, 790, 585, 835, 545, 870, 470, 880, 400, 915, 320, 985, 265, 1030, 228, 1020, 255, 940, 295, 860, 325, 780, 365, 680, 395, 580, 412, 480]]
+        keep: [[445, 425, 480, 398, 525, 392, 568, 400, 598, 420, 620, 445, 635, 475, 630, 500, 600, 505, 605, 580, 605, 650, 598, 720, 580, 765, 560, 815, 535, 850, 465, 862, 395, 900, 320, 965, 265, 1010, 252, 995, 275, 935, 312, 860, 342, 780, 380, 680, 410, 580, 428, 480]]
+        recolor: [{from: 250, to: 182, width: 70, spread: 0.3, minChroma: 1.5, chroma: 4, maxChroma: 38}]
+        tint: {hue: 182, chroma: 28, minL: 25, maxL: 80}
+        protect: [[544, 432, 568, 432, 568, 456, 544, 456], [598, 415, 640, 425, 655, 470, 645, 510, 605, 510]]
+        marks: [{at: [556, 444]}]
+        drop: [[578, 768, 640, 768, 640, 812, 590, 814]]
+        title: "File:Forpus Coelestis blue.jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Forpus_Coelestis_blue.jpg"
+        author: "BKlitz"
+        license: "CC BY-SA 3.0"
+        licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0"
+      wings_spread:
+        file: selected/pacific_parrotlet/10.jpg
+        candidate: 10.jpg
+        crop: [30, 40, 370, 420]
+        flipX: true
+        size: 28
+        tolerance: 10
+        erode: 2
+        colors: 9
+        exclude: [dark_green, green, light_green, pale_green]
+        sharpen: 0.4
+        clip: [[38, 60, 80, 45, 150, 42, 205, 55, 235, 95, 290, 110, 335, 140, 350, 200, 345, 270, 360, 330, 395, 440, 375, 455, 330, 420, 290, 400, 250, 395, 215, 400, 165, 385, 150, 360, 125, 310, 90, 260, 60, 240, 45, 200, 38, 150]]
+        keep: [[50, 70, 100, 58, 160, 58, 200, 70, 225, 105, 285, 125, 320, 155, 330, 210, 330, 270, 345, 330, 375, 430, 330, 405, 280, 385, 240, 380, 200, 385, 170, 370, 140, 310, 100, 250, 70, 225, 55, 190, 50, 140]]
+        recolor: [{from: 180, to: 180, width: 50, spread: 0.4, minChroma: 2, chroma: 2.8, maxChroma: 42}]
+        protect: [[94, 98, 118, 98, 118, 122, 94, 122], [36, 115, 62, 115, 64, 185, 36, 185]]
+        marks: [{at: [106, 110]}]
+        title: "File:Forpus coelestis osilo.jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Forpus_coelestis_osilo.jpg"
+        author: "Massimiliano Federici"
+        license: "CC BY-SA 3.0"
+        licenseUrl: "http://creativecommons.org/licenses/by-sa/3.0/"
+      flying1:
+        file: selected/pacific_parrotlet/22.jpg
+        candidate: 22.jpg
+        crop: [100, 20, 640, 500]
+        flipX: true
+        size: 28
+        tolerance: 10
+        colors: 9
+        exclude: [dark_green, green, light_green, pale_green]
+        sharpen: 0.4
+        clip: [[112, 320, 150, 285, 230, 268, 300, 258, 400, 192, 480, 155, 580, 100, 650, 60, 705, 25, 728, 30, 715, 70, 670, 160, 645, 250, 610, 350, 560, 430, 470, 480, 380, 510, 300, 505, 210, 490, 175, 450, 135, 440, 115, 390]]
+        keep: [[130, 330, 160, 300, 230, 285, 300, 275, 400, 210, 480, 175, 580, 120, 650, 80, 700, 48, 705, 65, 660, 160, 630, 250, 595, 345, 545, 420, 460, 470, 380, 495, 300, 490, 215, 475, 185, 440, 140, 420, 125, 385]]
+        recolor: [{from: 235, to: 182, width: 60, spread: 0.3, minChroma: 2, chroma: 5, maxChroma: 40}]
+        protect: [[205, 308, 235, 308, 235, 336, 205, 336], [125, 350, 190, 350, 190, 450, 125, 450]]
+        marks: [{at: [220, 322]}]
+        title: "File:MrPickles.jpg"
+        page: "https://commons.wikimedia.org/wiki/File:MrPickles.jpg"
+        author: "Zaitsevx"
+        license: "CC BY-SA 4.0"
+        licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0"
+      flying2:
+        file: selected/pacific_parrotlet/08.jpg
+        candidate: 08.jpg
+        crop: [150, 60, 740, 1000]
+        flipX: true
+        size: 28
+        tolerance: 10
+        colors: 9
+        exclude: [dark_green, green, light_green, pale_green]
+        sharpen: 0.4
+        clip: [[175, 170, 200, 95, 260, 72, 340, 82, 420, 135, 470, 210, 560, 300, 610, 400, 660, 500, 700, 600, 740, 700, 790, 790, 850, 870, 878, 980, 865, 1055, 790, 1055, 720, 975, 640, 890, 560, 830, 520, 790, 440, 755, 385, 730, 320, 655, 255, 565, 220, 470, 200, 440, 190, 350, 165, 300, 160, 230]]
+        keep: [[190, 170, 210, 110, 260, 88, 335, 98, 410, 148, 460, 225, 545, 315, 595, 410, 645, 505, 685, 605, 725, 705, 775, 800, 835, 880, 860, 985, 850, 1040, 800, 1040, 735, 965, 650, 880, 560, 815, 510, 775, 430, 740, 390, 715, 330, 640, 270, 560, 235, 470, 218, 440, 208, 350, 182, 300, 175, 230]]
+        recolor: [{from: 115, to: 178, width: 35, spread: 0.6, minChroma: 3}]
+        protect: [[298, 150, 328, 150, 328, 180, 298, 180], [165, 195, 260, 195, 265, 300, 235, 355, 190, 340, 165, 260]]
+        marks: [{at: [313, 165]}]
+        title: "File:Forpus coelestis - male pet.jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Forpus_coelestis_-_male_pet.jpg"
+        author: "Jhwodchuck at English Wikipedia"
+        license: "Public domain"
+        licenseUrl: ""
+      back_turned:
+        file: selected/pacific_parrotlet/05.jpg
+        candidate: 05.jpg
+        crop: [165, 55, 275, 390]
+        size: 27
+        tolerance: 10
+        colors: 9
+        exclude: [dark_green, green, light_green, pale_green]
+        sharpen: 0.4
+        clip: [[340, 63, 372, 61, 405, 64, 425, 82, 436, 102, 438, 130, 425, 150, 405, 155, 398, 180, 393, 215, 388, 245, 378, 275, 368, 305, 362, 325, 345, 340, 315, 335, 290, 335, 270, 365, 245, 405, 215, 440, 168, 440, 170, 410, 182, 365, 196, 312, 212, 285, 222, 255, 232, 215, 247, 175, 267, 135, 292, 104, 314, 86]]
+        keep: [[345, 76, 372, 72, 400, 74, 415, 90, 420, 110, 418, 135, 400, 145, 388, 175, 382, 215, 377, 245, 368, 275, 358, 305, 340, 325, 300, 322, 275, 345, 250, 385, 220, 425, 180, 428, 190, 370, 205, 315, 220, 290, 232, 255, 242, 215, 257, 178, 277, 140, 303, 115, 322, 96]]
+        recolor: [{from: 125, to: 178, width: 30, spread: 0.6, minChroma: 3}]
+        protect: [[381, 80, 405, 80, 405, 104, 381, 104], [412, 92, 440, 92, 442, 150, 412, 150]]
+        marks: [{at: [393, 92]}]
+        title: "File:Pacific Parrotlet (Forpus coelestis) -pet-8a.jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Pacific_Parrotlet_(Forpus_coelestis)_-pet-8a.jpg"
+        author: "Ruth Rogers"
+        license: "CC BY 2.0"
+        licenseUrl: "https://creativecommons.org/licenses/by/2.0"

@@ -144,3 +144,54 @@ distributed under CC BY-SA.
   - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
   - Source: <https://commons.wikimedia.org/wiki/File:Egretta_garzetta_in_flight_s3.JPG>
   - Used for: wings_spread
+
+## Pacific parrotlet (`pacific_parrotlet`, O Boy)
+
+O Boy is a blue-green (teal) color mutation. Frames from green or washed-out
+blue photos were recolored to teal by `tools/birdphoto` (hue remap and tint,
+see `recolor` in `art/birds/sources.yaml`); that recoloring is a modification
+of the photo. Three of these photos are CC BY 2.0 (attribution required, no
+share-alike) and one is in the public domain; the sprite sheet as a whole
+still carries the CC BY-SA terms of the other frames.
+
+- **Forpus coelestis -Peru -male-8.jpg** (`selected/pacific_parrotlet/02.jpg`)
+  - Author: peterdehaas2317
+  - License: [CC BY 2.0](https://creativecommons.org/licenses/by/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Forpus_coelestis_-Peru_-male-8.jpg>
+  - Used for: perched (recolored)
+
+- **Pacific Parrotlet (Forpus coelestis) -pet-8a.jpg** (`selected/pacific_parrotlet/05.jpg`)
+  - Author: Ruth Rogers
+  - License: [CC BY 2.0](https://creativecommons.org/licenses/by/2.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Pacific_Parrotlet_(Forpus_coelestis)_-pet-8a.jpg>
+  - Used for: back_turned (recolored)
+
+- **Forpus coelestis - male pet.jpg** (`selected/pacific_parrotlet/08.jpg`)
+  - Author: Jhwodchuck at English Wikipedia
+  - License: Public domain
+  - Source: <https://commons.wikimedia.org/wiki/File:Forpus_coelestis_-_male_pet.jpg>
+  - Used for: flying2 (mirrored, recolored)
+
+- **Forpus coelestis osilo.jpg** (`selected/pacific_parrotlet/10.jpg`)
+  - Author: Massimiliano Federici
+  - License: [CC BY-SA 3.0](http://creativecommons.org/licenses/by-sa/3.0/)
+  - Source: <https://commons.wikimedia.org/wiki/File:Forpus_coelestis_osilo.jpg>
+  - Used for: wings_spread (mirrored, color boosted)
+
+- **Forpus Coelestis blue.jpg** (`selected/pacific_parrotlet/14.jpg`)
+  - Author: BKlitz
+  - License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Forpus_Coelestis_blue.jpg>
+  - Used for: perched_alert (recolored)
+
+- **Female Blue and Male Green Pacific Parrotlets.jpg** (`selected/pacific_parrotlet/21.jpg`)
+  - Author: Susan C. Griffin
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:Female_Blue_and_Male_Green_Pacific_Parrotlets.jpg>
+  - Used for: album portrait (blue bird recolored)
+
+- **MrPickles.jpg** (`selected/pacific_parrotlet/22.jpg`)
+  - Author: Zaitsevx
+  - License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+  - Source: <https://commons.wikimedia.org/wiki/File:MrPickles.jpg>
+  - Used for: flying1 (mirrored, recolored)

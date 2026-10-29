@@ -7,10 +7,13 @@
 //
 // For each species, sources.yaml names a photo, crop and cutout settings for
 // each of the six poses. The tool removes the background (flood fill from
-// the crop border with a Lab color tolerance), scales the bird into a 32×32
-// frame with area averaging, quantizes it to ≤15 master-palette colors and
-// writes <species>.png (192×32, frames in poseOrder) and album_<species>.png
-// (96×64 portrait with background).
+// the crop border, or from a hand-drawn clip outline, with a Lab color
+// tolerance), scales the bird into a 32×32 frame with area averaging,
+// optionally recolors it (recolor/tint in recolor.go, e.g. green plumage to
+// the teal of a color mutation, with protect polygons for beak and eye),
+// quantizes it to ≤15 master-palette colors (minus any excluded ones),
+// paints marks such as a 1-px eye and writes <species>.png (192×32, frames
+// in poseOrder) and album_<species>.png (96×64 portrait with background).
 package main
 
 import (
@@ -21,6 +24,7 @@ import (
 	"image/color"
 	_ "image/jpeg"
 	"image/png"
+	"math"
 	"os"
 	"path/filepath"
 	"sort"
@@ -77,27 +81,41 @@ type Pose struct {
 	Seeds     [][]int     `yaml:"seeds"`     // extra background seed points [x, y]
 	Keep      [][]float64 `yaml:"keep"`      // polygons [x1,y1,x2,y2,...] always kept
 	Drop      [][]float64 `yaml:"drop"`      // polygons always removed
+	Clip      [][]float64 `yaml:"clip"`      // outer outlines: everything outside them is removed
 	Enclosed  int         `yaml:"enclosed"`  // remove enclosed background-colored regions ≥ this area
 	Erode     *int        `yaml:"erode"`     // fringe erosion (default 1)
 	KeepParts float64     `yaml:"keepParts"` // keep components ≥ this fraction of the largest
 	Sides     []bool      `yaml:"sides"`     // border sides that seed the fill [top,right,bottom,left]
 
 	// Framing and color.
-	Anchor     string   `yaml:"anchor"`  // bottom | center (default: bottom for perched poses)
-	Size       int      `yaml:"size"`    // long side of the bird in pixels (default 28)
-	OffsetX    int      `yaml:"offsetX"` // nudge in frame pixels
-	OffsetY    int      `yaml:"offsetY"`
-	AlphaCut   float64  `yaml:"alphaCut"`   // coverage threshold (default 0.5)
-	Saturation float64  `yaml:"saturation"` // chroma multiplier (default 1.15)
-	Contrast   float64  `yaml:"contrast"`   // lightness contrast (default 1.1)
-	Brightness float64  `yaml:"brightness"` // lightness offset
-	Outline    string   `yaml:"outline"`    // palette color name or "none" (default black)
-	Colors     int      `yaml:"colors"`     // max colors incl. outline (default 12, at most 15)
-	Require    []string `yaml:"require"`    // palette color names forced into the set
-	Dither     float64  `yaml:"dither"`     // ordered-dither amplitude (default 0)
-	Despeckle  float64  `yaml:"despeckle"`  // max ΔE of isolated pixels to clean up (default 25, <0 = off)
-	NoLevels   bool     `yaml:"noLevels"`   // skip the automatic lightness stretch
-	Sharpen    *float64 `yaml:"sharpen"`    // unsharp-mask amount on lightness (default 0.6)
+	Anchor     string      `yaml:"anchor"`  // bottom | center (default: bottom for perched poses)
+	Size       int         `yaml:"size"`    // long side of the bird in pixels (default 28)
+	OffsetX    int         `yaml:"offsetX"` // nudge in frame pixels
+	OffsetY    int         `yaml:"offsetY"`
+	AlphaCut   float64     `yaml:"alphaCut"`   // coverage threshold (default 0.5)
+	Saturation float64     `yaml:"saturation"` // chroma multiplier (default 1.15)
+	Contrast   float64     `yaml:"contrast"`   // lightness contrast (default 1.1)
+	Brightness float64     `yaml:"brightness"` // lightness offset
+	Outline    string      `yaml:"outline"`    // palette color name or "none" (default black)
+	Colors     int         `yaml:"colors"`     // max colors incl. outline (default 12, at most 15)
+	Require    []string    `yaml:"require"`    // palette color names forced into the set
+	Exclude    []string    `yaml:"exclude"`    // palette color names never used (e.g. greens for a blue bird)
+	Dither     float64     `yaml:"dither"`     // ordered-dither amplitude (default 0)
+	Despeckle  float64     `yaml:"despeckle"`  // max ΔE of isolated pixels to clean up (default 25, <0 = off)
+	NoLevels   bool        `yaml:"noLevels"`   // skip the automatic lightness stretch
+	Sharpen    *float64    `yaml:"sharpen"`    // unsharp-mask amount on lightness (default 0.6)
+	Recolor    []HueShift  `yaml:"recolor"`    // LCh hue remaps applied before saturation/contrast (recolor.go)
+	Protect    [][]float64 `yaml:"protect"`    // polygons (source pixels) that recolor and tint leave alone, e.g. beak and eye
+	Tint       *Tint       `yaml:"tint"`       // color for near-gray pixels, applied after recolor (recolor.go)
+	Marks      []Mark      `yaml:"marks"`      // single pixels painted after quantization (e.g. the eye)
+}
+
+// Mark paints the frame pixel that a source-photo point lands on, after
+// quantization. Use it for details that area averaging washes out at 32×32,
+// such as a small dark eye. The pixel must be part of the bird.
+type Mark struct {
+	At    []float64 `yaml:"at"`    // x, y in source-photo pixels
+	Color string    `yaml:"color"` // palette color name (default black)
 }
 
 // Album describes the portrait crop (background kept).
@@ -106,12 +124,15 @@ type Album struct {
 	Crop       []int  `yaml:"crop"` // x, y, w, h; trimmed to 3:2 around its center
 	FlipX      bool   `yaml:"flipX"`
 	Credit     `yaml:",inline"`
-	Saturation float64  `yaml:"saturation"` // default 1.1
-	Contrast   float64  `yaml:"contrast"`   // default 1.05
-	Brightness float64  `yaml:"brightness"`
-	Dither     float64  `yaml:"dither"` // default 0
-	Colors     int      `yaml:"colors"` // default 15
-	Require    []string `yaml:"require"`
+	Saturation float64    `yaml:"saturation"` // default 1.1
+	Contrast   float64    `yaml:"contrast"`   // default 1.05
+	Brightness float64    `yaml:"brightness"`
+	Dither     float64    `yaml:"dither"` // default 0
+	Colors     int        `yaml:"colors"` // default 15
+	Require    []string   `yaml:"require"`
+	Exclude    []string   `yaml:"exclude"`
+	Recolor    []HueShift `yaml:"recolor"`
+	Tint       *Tint      `yaml:"tint"`
 }
 
 func main() {
@@ -302,6 +323,10 @@ func renderPose(path, pose string, p *Pose, debug string) ([]int, error) {
 	if err != nil {
 		return nil, err
 	}
+	clip, err := polygons(p.Clip, r.Min)
+	if err != nil {
+		return nil, err
+	}
 	var seeds []image.Point
 	for _, s := range p.Seeds {
 		if len(s) != 2 {
@@ -318,6 +343,7 @@ func renderPose(path, pose string, p *Pose, debug string) ([]int, error) {
 		Seeds:      seeds,
 		Keep:       keep,
 		Drop:       drop,
+		Clip:       clip,
 		Enclosed:   p.Enclosed,
 		Erode:      intOr(p.Erode, 1),
 		KeepParts:  p.KeepParts,
@@ -355,6 +381,18 @@ func renderPose(path, pose string, p *Pose, debug string) ([]int, error) {
 	if !p.NoLevels {
 		small.autoLevels(12, 94)
 	}
+	if len(p.Recolor) > 0 || p.Tint != nil {
+		protect, err := polygons(p.Protect, r.Min)
+		if err != nil {
+			return nil, err
+		}
+		orig := append([]float64(nil), small.Pix...)
+		small.recolor(p.Recolor)
+		small.tint(p.Tint)
+		if len(protect) > 0 {
+			small.blendBack(orig, protectWeights(crop.W, crop.H, mask, bounds, ow, oh, protect))
+		}
+	}
 	small.adjust(orDefault(p.Saturation, 1.15), orDefault(p.Contrast, 1.1), p.Brightness)
 	sharp := 0.6
 	if p.Sharpen != nil {
@@ -377,6 +415,35 @@ func renderPose(path, pose string, p *Pose, debug string) ([]int, error) {
 	if err != nil {
 		return nil, err
 	}
+	marks := map[int]int{} // frame pixel -> palette index
+	if off, ok := placeOffset(small, frameSize, frameSize, anchor, pad, p.OffsetX, p.OffsetY); ok {
+		for _, m := range p.Marks {
+			if len(m.At) != 2 {
+				return nil, fmt.Errorf("mark at must be [x, y], got %v", m.At)
+			}
+			name := m.Color
+			if name == "" {
+				name = "black"
+			}
+			ci, ok := paletteNames[name]
+			if !ok {
+				return nil, fmt.Errorf("unknown mark color %q", name)
+			}
+			// Source point -> crop -> scaled bird -> (flipped) -> frame.
+			sx := int(math.Floor((m.At[0] - float64(r.Min.X+bounds.Min.X)) * float64(ow) / float64(bounds.Dx())))
+			sy := int(math.Floor((m.At[1] - float64(r.Min.Y+bounds.Min.Y)) * float64(oh) / float64(bounds.Dy())))
+			if p.FlipX {
+				sx = ow - 1 - sx
+			}
+			fx, fy := sx+off.X, sy+off.Y
+			if sx < 0 || sy < 0 || sx >= ow || sy >= oh || fx < 0 || fy < 0 || fx >= frameSize || fy >= frameSize ||
+				frame.Alpha[fy*frameSize+fx] <= 0 {
+				return nil, fmt.Errorf("mark %v is not on the bird", m.At)
+			}
+			marks[fy*frameSize+fx] = ci
+			forced = append(forced, ci)
+		}
+	}
 	outlineIdx := -1
 	if outline != "none" {
 		i, ok := paletteNames[outline]
@@ -391,9 +458,16 @@ func renderPose(path, pose string, p *Pose, debug string) ([]int, error) {
 		colors = 12
 	}
 	colors = min(colors, 15)
-	idx := quantizeFrame(frame, quantizeOptions{MaxColors: colors, Forced: forced, Dither: p.Dither})
+	excluded, err := colorIndices(p.Exclude)
+	if err != nil {
+		return nil, err
+	}
+	idx := quantizeFrame(frame, quantizeOptions{MaxColors: colors, Forced: forced, Exclude: excluded, Dither: p.Dither})
 	if de := orDefault(p.Despeckle, 25); de > 0 {
 		idx = despeckle(idx, frameSize, frameSize, de)
+	}
+	for i, c := range marks {
+		idx[i] = c
 	}
 	if outlineIdx >= 0 {
 		idx = addOutline(idx, frameSize, frameSize, outlineIdx)
@@ -414,6 +488,8 @@ func renderAlbum(path string, a *Album) (*image.NRGBA, error) {
 	r = trimAspect(r, albumW, albumH)
 	full := fromImage(img, r)
 	small := downscale(full, nil, image.Rect(0, 0, full.W, full.H), albumW, albumH)
+	small.recolor(a.Recolor)
+	small.tint(a.Tint)
 	small.adjust(orDefault(a.Saturation, 1.1), orDefault(a.Contrast, 1.05), a.Brightness)
 	if a.FlipX {
 		small.flipX()
@@ -426,7 +502,11 @@ func renderAlbum(path string, a *Album) (*image.NRGBA, error) {
 	if colors <= 0 || colors > 15 {
 		colors = 15
 	}
-	idx := quantizeFrame(small, quantizeOptions{MaxColors: colors, Forced: forced, Dither: a.Dither})
+	excluded, err := colorIndices(a.Exclude)
+	if err != nil {
+		return nil, err
+	}
+	idx := quantizeFrame(small, quantizeOptions{MaxColors: colors, Forced: forced, Exclude: excluded, Dither: a.Dither})
 	out := image.NewNRGBA(image.Rect(0, 0, albumW, albumH))
 	drawIndexed(out, idx, albumW, albumH, 0, 0)
 	return out, nil
