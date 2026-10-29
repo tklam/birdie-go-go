@@ -466,6 +466,10 @@ func (b *builder) write(index model.WorldIndex, outDir string) error {
 	}
 	if b.colors != nil {
 		index.Overview = "overview.png"
+		if err := b.writeOverviewAreas(filepath.Join(outDir, "overview_areas.png"), index.WidthChunks, index.HeightChunks); err != nil {
+			return err
+		}
+		index.OverviewAreas = "overview_areas.png"
 	}
 	out, err := json.Marshal(index)
 	if err != nil {

@@ -82,3 +82,26 @@ func (b *builder) writeOverview(path string, widthChunks, heightChunks int) erro
 	}
 	return f.Close()
 }
+
+// writeOverviewAreas writes one grey pixel per tile whose value is the
+// tile's area index (absent chunks are 0), matching the overview.
+func (b *builder) writeOverviewAreas(path string, widthChunks, heightChunks int) error {
+	w, h := widthChunks*chunkTiles, heightChunks*chunkTiles
+	img := image.NewGray(image.Rect(0, 0, w, h))
+	for y := range h {
+		for x := range w {
+			if ch, ok := b.chunks[[2]int{x / chunkTiles, y / chunkTiles}]; ok {
+				img.Pix[y*img.Stride+x] = ch.area[(y%chunkTiles)*chunkTiles+x%chunkTiles]
+			}
+		}
+	}
+	f, err := os.Create(filepath.Clean(path))
+	if err != nil {
+		return err
+	}
+	if err := png.Encode(f, img); err != nil {
+		f.Close()
+		return err
+	}
+	return f.Close()
+}

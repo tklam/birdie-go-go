@@ -31,6 +31,9 @@ type WorldIndex struct {
 	// Overview is the file name (next to index.json) of a one-pixel-per-tile
 	// picture of the whole map, for the in-game map; empty if none.
 	Overview string `json:"overview,omitempty"`
+	// OverviewAreas is a matching grey image whose value per tile is the
+	// tile's area index (into Areas), for the map's undiscovered-area fog.
+	OverviewAreas string `json:"overviewAreas,omitempty"`
 	// Gateways maps Kei's gateway ids (objects of type "gateway") to
 	// their positions and titles.
 	Gateways map[string]Gateway `json:"gateways"`

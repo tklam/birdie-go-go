@@ -255,6 +255,7 @@ Rules:
 - **Boarding** is the route planner: the stop lists every stop reachable on open lines from now, sorted by arrival, each with its fare; the detail line shows the legs, departure times, changes and arrival. The whole fare is paid up front; waits advance the clock; at a change the next leg starts from the transfer stop. Skip jumps to the end of the current leg.
 - **Ferry deck**: on a ferry leg a **Deck** button starts a photo session at the `ferry_deck` spot (seabirds; costs a photo session's Energy and the slot); the trip ends there, and Angie comes back at its destination.
 - **Vehicles on the map** come from `transit.vehicles` (polled twice a second, moved along their heading in between); only those near the camera get sprites.
+- **World map**: transit lines (open, with a discovered stop) are drawn over the overview; areas Angie hasn't entered (flag `area:<id>`) are darkened using `overview_areas.png` (worldbuild: one grey pixel per tile = area index); − and + zoom ×1–×3 around Angie, and the view scrolls.
 - **Discovery and unlocks**: walking near a stop (or arriving at one) discovers it (flag `stop:<id>`), and only discovered stops show on the world map. Lines with `locked: true` need an `unlock_line` event (flag `line:<id>`); `unlock_teleport` opens a gateway; `stop_discovered` is a condition.
 
 ### 4.12 Energy, weather hazards and outdoor gear

@@ -1157,6 +1157,11 @@ export interface WorldIndex {
    */
   overview?: string;
   /**
+   * OverviewAreas is a matching grey image whose value per tile is the
+   * tile's area index (into Areas), for the map's undiscovered-area fog.
+   */
+  overviewAreas?: string;
+  /**
    * Gateways maps Kei's gateway ids (objects of type "gateway") to
    * their positions and titles.
    */

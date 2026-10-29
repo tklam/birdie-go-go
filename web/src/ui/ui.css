@@ -329,10 +329,49 @@
 .panel.minimap {
   max-width: none;
 }
+.mm-view {
+  overflow: auto;
+  margin: calc(var(--px) * 2) auto;
+  border: var(--px) solid var(--win-shadow);
+  touch-action: pan-x pan-y;
+  scrollbar-width: none;
+}
 .mm-frame {
   position: relative;
-  border: var(--px) solid var(--win-shadow);
-  margin: calc(var(--px) * 2) auto;
+}
+.mm-lines {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.mm-line {
+  fill: none;
+  stroke-width: 0.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.85;
+}
+.mm-line-bus {
+  stroke: #3fbf9f;
+}
+.mm-line-ferry {
+  stroke: #f0f0f0;
+  stroke-dasharray: 1.5 1;
+}
+.mm-line-tram,
+.mm-line-metro {
+  stroke: #e8b23c;
+}
+button.album-btn {
+  background: none;
+  border: none;
+  font: inherit;
+}
+button.album-btn:disabled {
+  opacity: 0.4;
 }
 .mm-image {
   width: 100%;

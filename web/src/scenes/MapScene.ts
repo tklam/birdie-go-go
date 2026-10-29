@@ -690,6 +690,8 @@ export class MapScene extends Phaser.Scene {
     if (!area || area === this.area) return;
     const first = this.area === null;
     this.area = area;
+    // Entered areas are lifted from the map's fog (SPEC.md §4.10).
+    this.session.state.flags[`area:${area}`] = true;
     this.wantMusic = this.session.content.areas.find((a) => a.id === area)?.music ?? null;
     const name = this.session.content.areas.find((a) => a.id === area)?.name ?? area;
     toast(name);
@@ -955,6 +957,11 @@ export class MapScene extends Phaser.Scene {
     const note = close.length
       ? `Nearby: ${close.map((c) => `${spotName(c.id)} ${arrowToward(here?.x ?? 0, here?.y ?? 0, c.x, c.y)}`).join(', ')}`
       : 'No birding spots nearby.';
+    // Lines with a discovered stop, among those Angie can ride.
+    const open = openLines(s.content.transit.lines, s.state);
+    const lines = s.content.transit.lines
+      .filter((l) => open.includes(l.id) && l.stops.some((id) => s.state.flags[stopFlag(id)]))
+      .map((l) => ({ points: l.path, mode: l.mode }));
     await showMinimap({
       title: `Map · ${area}`,
       imageUrl: `${import.meta.env.BASE_URL}world/${world.overview}`,
@@ -962,6 +969,10 @@ export class MapScene extends Phaser.Scene {
       heightTiles: world.heightChunks * world.chunkTiles,
       tileSize: world.tileSize,
       markers,
+      lines,
+      fog: world.overviewAreas
+        ? { url: `${import.meta.env.BASE_URL}world/${world.overviewAreas}`, discovered: (a) => s.state.flags[`area:${world.areas[a]}`] === true }
+        : undefined,
       note,
     });
     return true;

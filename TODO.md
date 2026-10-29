@@ -89,7 +89,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Route planner UI with transfers (boarding menu, multi-leg rides, game clock)
 - [x] Stop discovery; line unlocks via events (`unlock_line`, `unlock_teleport`, `stop_discovered`)
 - [x] World map (Menu → Map): one-pixel-per-tile overview built by worldbuild, markers for Angie, birding spots, transit, open gateways, shop and homes
-- [ ] World map: zoom levels for a much larger world, discovered-areas fog, transit lines
+- [x] World map: zoom levels (×1–×3, scrolls to Angie), discovered-areas fog (`overview_areas.png`), transit lines
 - [x] Teleport waypoints: Kei's gateways (digitalization/undigitalization through his digital kingdom) (plaza, country park, Po Toi O), glitch-dissolve transition, unlocked once dating with bond 45+
 - [ ] Visiting Kei's digital realm itself (open question, SPEC §11)
 
