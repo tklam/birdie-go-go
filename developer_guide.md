@@ -2,7 +2,7 @@
 
 This guide covers how to set up, run, extend, and ship Birdie Go Go. The game rules live in [SPEC.md](SPEC.md), and the rules for agents live in [AGENTS.md](AGENTS.md).
 
-> Status: design phase. The commands and paths below describe the planned setup (milestone M0 in [TODO.md](TODO.md)).
+> Status: M0 done, M1 (the Tseung Kwan O vertical slice) mostly done. Items marked *(planned)* describe later milestones in [TODO.md](TODO.md).
 
 ## 1. Prerequisites
 
@@ -43,18 +43,22 @@ Then open http://localhost:5173. `make dev` does the following:
 
 | Target | What it does |
 |---|---|
-| `make dev` | Builds core, content, and world, then runs Vite in watch mode |
-| `make core` | Builds `web/public/core.wasm` with TinyGo |
+| `make dev` | Builds core, content, and world, then runs Vite in watch mode; edits under `core/`, `content/`, `content/world/` or `content/interiors/` rebuild and reload |
+| `make core` | Builds `web/public/core.wasm` (TinyGo if installed, else standard Go) |
 | `make content` | Validates `content/` and emits the content bundle |
-| `make world` | Builds world chunks, the weather blend field, transit paths, and the world-map pyramid |
-| `make assets` | Regenerates placeholder assets (`tools/assetgen`) |
+| `make world` | Builds the city world and every interior into streamed chunks (weather blend field, transit paths and world-map pyramid are *(planned)*) |
+| `make assets` | Regenerates placeholder art, using real-photo bird sheets from `art/birds/out/` when present |
 | `make gen` | Regenerates `web/src/core/types.gen.ts` from `core/model` |
 | `make test` | Runs `go test ./...` and `vitest run` |
-| `make lint` | Runs `go vet`, `staticcheck`, `eslint`, `tsc --noEmit`, and `assetgen check` (palettes) |
-| `make bench` | Runs the headless streaming benchmark and fails if a budget is exceeded |
+| `make lint` | Runs `gofmt`, `go vet`, `staticcheck`, `eslint`, `tsc --noEmit`, and `assetgen check` (palettes) |
+| `make bench` | Builds, then runs the headless streaming benchmark (`tools/bench/bench.mjs`); fails if a budget is exceeded |
 | `make build` | Builds a production static site into `dist/` |
 | `make server` | Runs the optional update server (`server/cmd/birdie-server`) |
-| `make pack` | Builds a content update pack from `content/` against a base version |
+| `make pack` | *(planned, M5)* builds a content update pack |
+
+One-off tools:
+- `go run ./tools/mapgen -force` regenerates the placeholder Tseung Kwan O map and interiors. Don't run it once the maps have been edited in Tiled.
+- `go run ./tools/birdphoto -sources art/birds/sources.yaml -out art/birds/out` turns real bird photos into sprite sheets (see §6), then `make assets`.
 
 ## 4. Architecture
 
@@ -72,46 +76,60 @@ Optional (Go): update server → content packs; later cloud saves
 ### 4.1 Frontend layout
 ```
 web/src/
-  main.ts              Phaser config: 320×180, pixelArt, roundPixels, integer zoom
-  scenes/              Boot, Title, Map, Photo, Piano, Transit, Encounter, Album, Home, WorldMap
+  main.ts              Phaser config (320×180, pixelArt, integer zoom); registers scenes; exposes window.__game
+  scenes/              Boot (assets, content, world index) · Title (New Game / Continue) · Map (overworld and
+                       interiors) · Photo · Piano · Calibration
   systems/
-    input.ts           unified touch/mouse/keyboard → actions (move vector, action, sneak)
-    audio.ts           AudioContext unlock, SoundFont synth, sequencer for music/SFX
-    events.ts          trigger dispatch, conditions, actions (pure TS)
-    party.ts           companions, bond, follower trail
-    time.ts            day / slot / season
-    save.ts            IndexedDB save, autosave, export/import, migrations
-    streaming.ts       chunk window, prefetch, LRU, baking scheduler
-    entities.ts        live-zone simulation, spatial hash
-    weather.ts         blend-field sampling (pure) + WeatherRenderer
-    photoScore.ts      shot scoring (pure)
-    hazards.ts         hazard evaluation from blended weather + gear → statuses, Energy drain (pure)
-    combo.ts           encounter input: combo sequences, mash rate, timing windows (pure)
-    enemies.ts         enemy roaming, noise/sight detection, chase
-    pathfinding.ts     A* within loaded chunks (pure)
-    updates.ts         update manifest, pack download, apply
-  core/                worker bridge (typed request/response) + types.gen.ts (generated)
-  ui/                  16-bit windows, pixel font, dialogue, menus, joystick, action button
+    session.ts         Session: content + GameState + core + saves + event runner (registry 'session')
+    state.ts           GameState, newGame, seasons
+    events.ts          trigger matching, conditions, state actions, EventHost (pure)
+    time.ts            time slots and days
+    save.ts            versioned saves, migrations, IndexedDB/memory stores, export/import
+    backup.ts          download/upload of save files
+    photoScore.ts      shot scoring, alert meter, album bests (pure)
+    party.ts           FollowerTrail for companions (pure)
+    input.ts           keyboard + touch joystick → move/sneak/action/menu
+    assets.ts          manifest types, loader queueing
+    display.ts         pixel-perfect zoom (whole device pixels)
+  world/
+    chunk.ts           chunk format decoding (pure)
+    streaming.ts       wanted-chunk window, ChunkStore (LRU, collision/area/ground queries) (pure)
+    movement.ts        tile collision with wall sliding and south-only ledges (pure)
+    chunk.worker.ts    fetch + gunzip + decode off the main thread
+    loader.ts          one cached worker loader per map
+    ChunkRenderer.ts   bakes chunks into pooled render textures (one per frame)
+  photo/birds.ts       bird tables, landing spots, idle poses (pure)
+  piano/               song timing, roll layout, results, calibration math, lesson bookkeeping (pure)
+  audio/               AudioEngine (offline additive piano, metronome, SFX) + voice math (pure)
+  core/                worker bridge (client.ts, core.worker.ts) + types.gen.ts (generated)
+  ui/                  DOM overlay: 16-bit windows, dialogue, menu, panel, HUD, album, toast, touch controls, pixel font
 ```
 
-**Pixel-perfect rendering:** Phaser runs at 320×180 with `pixelArt: true` and `roundPixels: true`. The canvas is scaled by the largest integer that fits the screen, and the rest is letterboxed. The HTML overlay uses the same scale factor, with a bitmap pixel font (`image-rendering: pixelated`), so windows line up exactly with the canvas.
+**Registry keys:** `core` (CoreClient), `audio` (AudioEngine), `manifest`, `content`, `world` (city index), `session`, plus `lastPhotos` and `lastLesson` written by the task scenes.
+
+**Pixel-perfect rendering:** Phaser runs at 320×180 with `pixelArt: true` and `roundPixels: true`. The canvas is scaled by the largest whole number of *device* pixels that fits the screen, and the rest is letterboxed. The DOM overlay uses the same scale through the CSS variable `--px` and the Press Start 2P pixel font, so windows line up with the canvas.
 
 ### 4.2 Go layout
 ```
 core/
   model/       shared types (tygo source)
-  lesson/      Generate(song, student, difficulty, seed) → Performance, Key; Grade(key, flags, offset) → Result
-  weather/     Day(seed, day, areas, climate) → per-area per-slot Params; Forecast; typhoon fronts
-  transit/     Network from transit.yaml; Plan(from, to, time) → Route; VehicleAt(line, t) → position
-  content/     schema, Validate(bundle) → []error
-  wasm/        main.go: message loop (JSON in/out), the only package touching syscall/js
+  lesson/      Generate(payload) → Performance, answer key; Grade(key, flags, offset) → Result
+  rpc/         Server: worker request dispatch; keeps lesson keys until grading
+  content/     content validation (also used for update packs)
+  wasm/        WASM entry point, the only package touching syscall/js
+  weather/     (planned) per-area weather simulation
+  transit/     (planned) network, timetables, route planner
 tools/
-  contentbuild/  YAML → JSON bundle (uses core/content for validation)
-  worldbuild/    Tiled world → chunks, blend field, transit paths, world-map pyramid
-  assetgen/      placeholder generation; `check` validates palettes and manifest
+  contentbuild/  YAML → JSON bundle (uses core/content)
+  worldbuild/    Tiled world or single map → chunks + index
+  mapgen/        placeholder Tseung Kwan O map and interiors
+  assetgen/      placeholder art, manifest, palette checks
+  birdphoto/     real bird photos → 16-bit sprite sheets and album portraits
+  internal/tko/  the TKO tile catalogue shared by assetgen and mapgen
+  bench/         streaming benchmark (Node + headless Chromium)
 server/
-  cmd/birdie-server/  flags: -addr, -packs
-  internal/updates/   manifest + pack serving (immutable caching, SHA-256)
+  cmd/birdie-server/  flags: -addr, -packs, -allow-origin
+  internal/updates/   manifest + pack serving (immutable caching)
 ```
 
 `web/go.mod` exists only to keep `web/` (including Go files that some npm packages ship in `node_modules`) out of the root Go module.
@@ -123,12 +141,13 @@ The main thread sends `{id, op, payload}` and the worker replies `{id, ok, resul
 
 | `op` | Payload → result |
 |---|---|
-| `lesson.generate` | `{songId, studentId, difficulty, seed}` → `{lessonId, performance}` (the key stays in the worker) |
+| `ping` | `{echo}` → `{echo, coreVersion}` |
+| `lesson.generate` | `{song, tendencies, difficulty, seed}` → `{lessonId, performance}` (the answer key stays in the worker) |
 | `lesson.grade` | `{lessonId, flagsMs, latencyOffsetMs}` → `{score, hits, misses, falseAlarms, mistakes}` |
-| `weather.day` | `{seed, day}` → per-area, per-slot params + forecast + warnings |
-| `transit.plan` | `{fromStop, toStop, time}` → route legs |
-| `transit.vehicles` | `{lines, time}` → positions (for on-screen vehicles) |
-| `content.load` | `{packs}` → merged bundle or validation errors |
+| `weather.day` | *(planned)* `{seed, day}` → per-area, per-slot params + forecast + warnings |
+| `transit.plan` | *(planned)* `{fromStop, toStop, time}` → route legs |
+| `transit.vehicles` | *(planned)* `{lines, time}` → positions (for on-screen vehicles) |
+| `content.load` | *(planned)* `{packs}` → merged bundle or validation errors |
 
 `web/src/core/client.ts` wraps these as typed async functions.
 
@@ -141,13 +160,12 @@ The main thread sends `{id, op, payload}` and the worker replies `{id, ok, resul
 Debugging: `?debug=weather` shows an overlay with each area's values, the blend weights, and the result, plus sliders to override them.
 
 ### 4.5 World streaming
-- **Chunks:** 32×32 tiles. Each chunk file holds packed tile layers, a collision bitset, objects, and blend cells, gzipped and named by content hash.
-- **Active window:** the chunks under the camera plus a 1-chunk margin. Prefetch extends one more ring in the direction of travel, or follows the route polyline during rides.
-- **Decoding** happens in the streaming worker. **Baking** to render textures happens on the main thread, at most one chunk per frame.
-- **Caching:** an in-memory LRU of about 64 decoded chunks, with the service worker caching the files.
-- **Entities** are simulated only in the live zone. Vehicles come from `transit.vehicles`.
-
-Debugging: `?debug=chunks` draws chunk borders and shows load state, cache hits, and bake times.
+- **Maps:** the city is map `world` (`web/public/world/`); each interior is its own small streamed map under `web/public/world/maps/<id>/`. `MapScene` loads any of them by id.
+- **Chunks:** 32×32 tiles. Each gzipped chunk file holds the ground/detail/overhead layers, a collision code per tile, area indices and objects, named by content hash (format in `tools/worldbuild/main.go`).
+- **Active window:** the chunks under the camera plus a 1-chunk margin, and one more ring in the direction of travel. Tiles in chunks that aren't loaded yet count as solid.
+- **Decoding** happens in a worker per map. **Baking** into two pooled render textures per chunk (below and above characters) happens on the main thread, at most one chunk per frame.
+- **Caching:** an in-memory LRU of 64 decoded chunks; the service worker precaches chunk files for offline play.
+- **Overworld birds** spawn from `bird` objects when their chunk loads and are removed when it's evicted.
 
 ## 5. Content authoring
 
@@ -201,13 +219,14 @@ Use real species from the Hong Kong region, drawn as original art.
 ```
 Every area must define all four seasons. Area shapes are painted on the world's `areas` layer.
 
-### 5.4 The world: `content/world/`
-- `city.world` is a Tiled world file that places many region `.tmj` maps side by side. Edit one region at a time; `worldbuild` stitches them together.
-- Tiles are 16×16, and tilesets must follow the palette rules.
-- Layers: `ground`, `detail`, `collision` (any tile is solid), `overhead`, `areas` (one tile per area ID, painted coarsely), and `objects`.
-- Object types: `spawn`, `door` (`to_map`, `to_spawn`), `npc` (`npc_id`), `spot` (`spot_id`), `bird` (`species`, `count`), `ledge` (`dir`), `tall_grass` (rect), `gate` (`requires_item`), `collectible` (`item`, `flag`), `stop` (`stop_id`), and `route` (polyline, `line_id`) for on-map bus/tram paths.
-- Interiors (homes, shops, metro stations) are separate maps in `content/interiors/`.
-- Open sea doesn't need painting. Chunks outside the authored regions are filled by the `fill` rule in the world properties.
+### 5.4 The world: `content/world/` and `content/interiors/`
+- `city.world` is a Tiled world file that places region `.tmj` maps side by side (currently the generated `tko.tmj`). `worldbuild` stitches them together.
+- Tilesets are external `.tsj` files in `content/world/tilesets/`: `tko.tsj` (the atlas, with a `name` property per tile) and `meta.tsj` (collision and area marker tiles). Visual layers may only use the atlas.
+- Layers: `ground`, `detail`, `overhead` (drawn above characters), `collision` (meta tiles `solid` or `ledge_south`), `areas` (meta tiles naming an area), and `objects`.
+- Object types in use: `spawn`, `door` (`to_map`, `to_spawn`, `title`), `npc` (`npc_id`, `student`), `spot` (`spot_id`), `bird` (`species`, `count`), `bed`. *(Planned:)* `gate`, `collectible`, `stop`, `route`.
+- Interiors are single 20×12 maps in `content/interiors/<id>.tmj`, built with `-fill wall_interior`. A door's `to_map` is an interior id or `world`.
+- `content/game.yaml` sets `start_map` (`world`) and `start_spawn`.
+- Chunks outside the authored maps aren't stored; they're filled with the `-fill` tile (water for the city).
 
 ### 5.5 Transit: `content/transit.yaml`
 ```yaml
@@ -313,15 +332,14 @@ To add a trigger, condition, or action:
 
 ## 6. Assets (16-bit)
 
-- **Manifest:** `web/public/assets/manifest.json` maps IDs to files and metadata:
-  ```json
-  { "char_angie": { "type": "spritesheet", "file": "chars/angie.png", "frameWidth": 16, "frameHeight": 24, "palette": "pal_angie" } }
-  ```
-- **Palettes:** the master palette is `web/public/assets/palette.gpl` (≤ 256 colors). Each sprite or tile uses at most 15 colors plus transparency. Palette swaps (seasons, plumage variants, time-of-day tint) are defined in `palettes.json` and applied with a palette-lookup shader.
-- **Placeholders:** `make assets` generates placeholders with the same IDs, sizes, frame layouts, and palette rules as the final art.
-- **Replacing an asset:** drop the new file at the same path with the same dimensions and frame layout. `make lint` (`assetgen check`) then verifies the palette and size.
+- **Manifest:** `web/public/assets/manifest.json` (generated by `make assets`) maps IDs to files and metadata. Spritesheets have `frameWidth`/`frameHeight` and optional named `frames`; `background` entries list their parallax `layers`, `perches`, and the `ground`/`groundX` band where waders land.
+- **Palettes:** the master palette is `web/public/assets/palette.gpl` (36 colors). Each frame, tile or image uses at most 15 colors plus full transparency. `make lint` (`assetgen check`) enforces it for all art, placeholder or final.
+- **Placeholders:** `make assets` draws placeholders in code with the same IDs, sizes and frame layouts the final art must keep.
+- **Real-photo birds:** `tools/birdphoto` builds bird sheets (6 poses × 32×32: perched, perched_alert, wings_spread, flying1, flying2, back_turned) and 96×64 album portraits from freely licensed photos. `art/birds/sources.yaml` records each pose's photo, crop, flip and cut-out settings; `art/birds/CREDITS.md` lists authors and licences. Sprites derived from CC BY-SA photos are CC BY-SA. Only use photos whose licence allows it (own photos, CC0, CC BY, CC BY-SA); eBird/Macaulay Library photos are not freely licensed.
+- **Replacing an asset:** drop the new file at the same path with the same dimensions and frame layout, then run `make lint`.
 - **Character sheets:** 16×24 frames. Rows are down, left, right, up; columns are idle and walk 1–3.
-- **Audio:** a small 16-bit-style sample bank (`.sf2`) for music and effects, plus a clearer piano `.sf2` for lessons. There are no large streamed audio files.
+- **Font:** Press Start 2P (SIL OFL, `web/public/fonts/OFL.txt`) for the overlay and Phaser text.
+- **Audio:** currently synthesized in `web/src/audio/` (no files). A SoundFont sample bank and sequenced music are *(planned)*.
 - **No real-world logos or trademarks.**
 
 ## 7. Testing
@@ -336,7 +354,7 @@ To add a trigger, condition, or action:
 
 **TypeScript (vitest):** `photoScore`, `hazards` (thresholds, counters, umbrella breaking, status recovery), `combo` (window timing, wrong input, mash rate, accessibility modes), `pathfinding`, event evaluation, the follower trail, blend-field sampling, streaming window and prefetch logic (with a fake loader), and save migrations.
 
-**Benchmark (`make bench`):** a scripted walk across several districts plus a bus and ferry ride, run in headless Chromium with mobile CPU throttling. It fails if p95 frame time exceeds 33 ms, if any frame exceeds 50 ms during streaming, or if memory exceeds the budget.
+**Benchmark (`make bench`):** builds the game, plays it in headless Chromium with CPU throttling (`BENCH_CPU`, default 2), walks and teleports Angie across the world so chunk windows change, and fails if p95 frame time exceeds 33 ms, more than 1% of frames exceed 50 ms, the JS heap exceeds 300 MB, or the page logs errors. Set `CHROME` to the browser binary if it isn't `chromium`.
 
 **Manual:** test on at least one iOS Safari and one Android Chrome device per milestone, covering touch controls, audio unlock, latency calibration, offline play, and installing as an app.
 

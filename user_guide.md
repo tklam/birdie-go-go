@@ -1,6 +1,6 @@
 # Birdie Go Go: Player's Guide
 
-> This guide describes the game as planned. Features arrive over the milestones in [TODO.md](TODO.md).
+> This guide describes the game as planned. Playable now: Tseung Kwan O (town centre, estate garden, waterfront park, hillside trail), Angie's and Mei's flats, bird photography, piano lessons, the album, and saves. Everything else arrives over the milestones in [TODO.md](TODO.md).
 
 ## Welcome
 
@@ -22,19 +22,19 @@ The city has its rough edges, like stray dogs, the odd strange creature, and fie
 
 | Action | Touch | Mouse | Keyboard |
 |---|---|---|---|
-| Move | Touch the left side and drag (joystick) | Hold the button toward where you want to go | Arrows / WASD |
+| Move | Touch the left side and drag (joystick) | *(coming soon)* | Arrows / WASD |
 | Sneak | Push the joystick only a little | Hold right button while moving | Hold Shift |
-| Action | Tap the **Action** button | Click the target | Space / Enter |
+| Action | Tap the **Action** button | *(coming soon)* | Space / Enter / Z |
 | Menu | Tap **Menu** (top right) | Menu button | Esc / Tab |
 
-The Action button shows what it will do: **Talk**, **Look**, **Enter**, **Sit**, **Board**, or **Photograph**. If you'd rather tap where you want to go, turn on **Tap to move** in Settings.
+The Action button shows what it will do: **Talk**, **Enter**, **Sleep**, **Photograph** (and later **Look**, **Sit**, **Board**). If you'd rather tap where you want to go, turn on **Tap to move** in Settings.
 
 ### Taking photos
 
 | Action | Touch | Mouse | Keyboard |
 |---|---|---|---|
 | Aim | Drag anywhere on screen | Move the mouse | Arrows / WASD |
-| Focus | Press and hold | Hold the button | Hold Space |
+| Focus | Press and hold (keep still) | Hold the button | Hold Space |
 | Shoot | Let go | Release | Release Space |
 | Zoom | Pinch or zoom buttons | Wheel | Q / E |
 | Leave | **Back** | **Back** | Esc |
@@ -49,7 +49,7 @@ The Action button shows what it will do: **Talk**, **Look**, **Enter**, **Sit**,
 
 Each day has three parts: **Morning, Afternoon, and Evening**. A photo session or a piano lesson uses up one part of the day. Walking around and most transit rides are free. Different birds show up at different times of day, in different seasons, and in different weather, so come back to your favorite spots often.
 
-The game saves automatically at the end of each part of the day, when you go indoors, and after rides.
+The game saves automatically at the end of each part of the day, when you go through a door, and before photo sessions and lessons. When the evening is over, go home and **Sleep** in your bed to start the next day.
 
 ## Exploring the city
 

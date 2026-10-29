@@ -11,7 +11,7 @@ Guidance for AI coding agents (and humans) working in this repository.
 - Player-facing behavior: [`user_guide.md`](user_guide.md).
 - Work plan and status: [`TODO.md`](TODO.md).
 
-Status: design phase. No code exists yet; the docs describe the planned structure.
+Status: M0 done; M1 (the Tseung Kwan O vertical slice) mostly done. See TODO.md.
 
 ## Architecture in one paragraph
 
@@ -72,16 +72,18 @@ Before declaring a task done, run `make test` and `make lint`. If you touched st
 | Add a birding spot | `content/spots.yaml` + `spot` object in the world `.tmj` |
 | Add or change an area | `content/areas.yaml` + paint the `areas` layer in the world |
 | Edit the world map | `content/world/*.tmj` (Tiled world `city.world`), then `make world` |
+| Edit an interior | `content/interiors/<id>.tmj`, then `make world` |
+| Bird art from real photos | `art/birds/sources.yaml`, `tools/birdphoto`, `art/birds/CREDITS.md` |
 | Add a transit line or stop | `content/transit.yaml` + `stop`/`route` objects in the world |
 | Add a mission | `content/missions.yaml` |
 | Add a song or music | `content/songs/<id>.yaml`, `content/music/<id>.yaml` |
 | Add story or dialogue | `content/events/*.yaml`, `content/dialogue/*.yaml` |
 | Overworld movement and camera | `web/src/scenes/MapScene.ts`, `web/src/systems/input.ts` |
-| Chunk streaming | `web/src/systems/streaming.ts`, `tools/worldbuild/`, SPEC.md §9.7 |
+| Chunk streaming | `web/src/world/`, `tools/worldbuild/`, SPEC.md §9.7 |
 | Weather | `core/weather/`, `web/src/systems/weather.ts`, SPEC.md §4.9 |
 | Transit | `core/transit/`, `web/src/scenes/TransitScene.ts`, SPEC.md §4.11 |
 | Weather hazards, Energy, gear | `content/hazards.yaml`, `content/items.yaml`, `web/src/systems/hazards.ts`, SPEC.md §4.12 |
 | Enemies and encounters | `content/enemies.yaml`, `web/src/scenes/EncounterScene.ts`, `web/src/systems/combo.ts`, SPEC.md §4.13 |
 | Photo scoring | `web/src/systems/photoScore.ts`, SPEC.md §5.3 |
-| Lesson generation and grading | `core/lesson/`, SPEC.md §6.2–6.3 |
+| Lesson generation and grading | `core/lesson/`, `core/rpc/`, `web/src/scenes/PianoScene.ts`, SPEC.md §6.2–6.3 |
 | Content updates | `server/internal/updates/`, `web/src/systems/updates.ts`, SPEC.md §9.6 |
