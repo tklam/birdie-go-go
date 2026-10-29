@@ -124,7 +124,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Hidden collectibles: feathers, camera parts, sheet music (9 placed; two new pieces, Egret's Lullaby and Tram Bell Rag)
 - [x] Shops with their own stock (`shops.yaml`): Plaza Convenience Store, Harbour Outdoors, Po Toi O Village Store
 - [x] Students progress through their repertoire; second student Ah Fai in Po Toi O (his house and piano); two new original pieces
-- [ ] More students and songs
+- [x] More students and songs: Mrs Ho (retired teacher, ho_flat) and three new pieces (Evening Tea, Egret's Lullaby, Tram Bell Rag)
 - [ ] *(Parked for future development.)* eBird data for realism: species lists and seasonality per area (Tseung Kwan O, Junk Bay, …) feeding bird tables. Needs a free eBird API key kept outside git; build-time tool only. eBird/Macaulay photos are NOT freely licensed, so don't use them as art.
 - [x] Missions (§9.5): photograph and lesson objectives, rewards, Menu → Missions; Chapter 2 missions (magazine egret shot, Mei's recital)
 - [ ] Contests, transit missions, live missions from updates

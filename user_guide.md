@@ -158,7 +158,7 @@ Every photo gets a score and a rating: **★★★ Perfect**, **★★ Great**, 
 
 ## Piano lessons
 
-Visit a student's home and press **Talk** to start a lesson.
+Visit a student's home and press **Talk** to start a lesson. Your students are **Mei** (in the tower west of the plaza), **Ah Fai** (in Po Toi O village) and **Mrs Ho**, a retired maths teacher who has always wanted to play (in the big tower block east of the plaza).
 
 1. The piece scrolls across the screen as notes, with a line showing where the student is.
 2. Listen to the student play.

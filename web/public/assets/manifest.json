@@ -2065,6 +2065,13 @@
     "frameHeight": 24,
     "placeholder": true
   },
+  "char_mrs_ho": {
+    "type": "spritesheet",
+    "file": "chars/mrs_ho.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
   "char_neighbour": {
     "type": "spritesheet",
     "file": "chars/neighbour.png",

@@ -1,0 +1,9 @@
+# Students' first meetings.
+- id: mrs_ho_intro
+  lines:
+    - { speaker: mrs_ho, text: "Oh! You must be Miss Angie. Come in, come in. I've made tea." }
+    - { speaker: mrs_ho, text: "I taught maths for forty years. Now I'm retired, and I've always wanted to play the piano." }
+    - { speaker: mrs_ho, text: "My grandchildren say I'm too old to start. I say I'm too old to wait!" }
+    - { speaker: angie, text: "You're never too old for music. We'll start slow and enjoy every note." }
+    - { speaker: oboy, text: "Chirp!", if: { party_has: oboy } }
+    - { speaker: mrs_ho, text: "And a little bird to keep time! Wonderful.", if: { party_has: oboy } }

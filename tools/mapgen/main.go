@@ -62,7 +62,7 @@ func run(dir string, force bool) error {
 	if err := os.MkdirAll(interiors, 0o755); err != nil {
 		return err
 	}
-	for name, im := range map[string]*tmap{"angie_flat": angieFlat(), "mei_flat": meiFlat(), "fai_house": faiHouse()} {
+	for name, im := range map[string]*tmap{"angie_flat": angieFlat(), "mei_flat": meiFlat(), "fai_house": faiHouse(), "ho_flat": hoFlat()} {
 		if err := writeJSON(filepath.Join(interiors, name+".tmj"), im.tiled("../world/tilesets")); err != nil {
 			return err
 		}
@@ -231,7 +231,9 @@ func build() *tmap {
 	m.put(15, 36, "bench")
 	m.put(22, 36, "bench")
 	m.fill(26, 39, 4, 2, "grass_flowers")
-	m.tower(64, 35, 16, 7)
+	hoDoor := m.tower(64, 35, 16, 7)
+	m.obj("ho_home", "door", hoDoor, 41, map[string]string{"to_map": "ho_flat", "to_spawn": "front_door", "title": "Mrs Ho's flat"})
+	m.obj("ho_home_out", "spawn", hoDoor, 42, nil)
 
 	// Junk Bay waterfront (rows 44–63).
 	m.area(44, mapH, "tko_waterfront")
@@ -430,6 +432,23 @@ func meiFlat() *tmap {
 	m.put(18, 2, "plant")
 	m.put(1, 2, "bookshelf")
 	m.exit("mei_home_out")
+	return m
+}
+
+func hoFlat() *tmap {
+	m := room("floor_wood")
+	m.put(9, 2, "piano_left")
+	m.put(10, 2, "piano_right")
+	m.put(10, 3, "chair")
+	m.obj("mrs_ho", "npc", 11, 3, map[string]string{"npc_id": "mrs_ho", "student": "mrs_ho", "sprite": "char_mrs_ho"})
+	m.put(2, 2, "bookshelf")
+	m.put(3, 2, "bookshelf")
+	m.put(15, 6, "table")
+	m.put(14, 6, "chair")
+	m.fill(13, 8, 5, 2, "rug")
+	m.put(18, 2, "plant")
+	m.put(1, 9, "plant")
+	m.exit("ho_home_out")
 	return m
 }
 

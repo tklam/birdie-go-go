@@ -44,6 +44,7 @@ var people = []charSpec{
 	{id: "office_worker", hair: cBlack, top: cWhite, bottom: cDarkGray, skin: cSkin, shoes: cBlack, hairStyle: "short", bottomStyle: "pants", glasses: true},
 	{id: "auntie", hair: cDarkBrown, top: cPink, bottom: cPurple, skin: cSkin, shoes: cBlack, hairStyle: "bob", bottomStyle: "skirt"},
 	{id: "student", hair: cBlack, top: cWhite, bottom: cNavy, skin: cSkin, shoes: cBlack, hairStyle: "bob", bottomStyle: "skirt", blush: true},
+	{id: "mrs_ho", hair: cLightGray, top: cTeal, bottom: cNavy, skin: cSkin, shoes: cBrown, hairStyle: "bob", bottomStyle: "skirt", glasses: true},
 	// People who point Angie to the buses and ferries.
 	{id: "minibus_driver", hair: cBlack, top: cGreen, bottom: cDarkGray, skin: cSkinShadow, shoes: cBlack, hairStyle: "short", bottomStyle: "pants", hat: true, hatColor: cDarkGreen},
 	{id: "ferry_deckhand", hair: cDarkBrown, top: cOrange, bottom: cNavy, skin: cSkinShadow, shoes: cBlack, hairStyle: "short", bottomStyle: "pants", hat: true, hatColor: cNavy},

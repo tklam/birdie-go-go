@@ -1,0 +1,5 @@
+# Students' first meetings (repeatable chats live with their chapters).
+- id: mrs_ho_intro
+  trigger: { type: talk, npc: mrs_ho }
+  actions:
+    - dialogue: mrs_ho_intro

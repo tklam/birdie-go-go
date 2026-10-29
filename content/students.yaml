@@ -12,3 +12,10 @@
   repertoire: [fishing_boat_shanty, harbour_lights, little_ferry_waltz]
   tendencies: { drag: 2, missed_note: 1, hesitation: 1 }
   fee: 150
+- id: mrs_ho
+  name: Mrs Ho
+  level: 1
+  home: ho_flat
+  repertoire: [evening_tea, morning_by_the_bay, egrets_lullaby]
+  tendencies: { hesitation: 2, drag: 1 }
+  fee: 160

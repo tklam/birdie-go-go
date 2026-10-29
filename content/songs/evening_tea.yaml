@@ -1,0 +1,37 @@
+# Original piece: a slow, simple tune for an adult beginner.
+id: evening_tea
+title: Evening Tea
+tempo: 76
+time_signature: [4, 4]
+difficulty: 1
+notes:
+  - { pitch: 43, start: 0, dur: 4, vel: 58 }
+  - { pitch: 71, start: 0, dur: 1, vel: 82 }
+  - { pitch: 69, start: 1, dur: 1, vel: 82 }
+  - { pitch: 67, start: 2, dur: 2, vel: 82 }
+  - { pitch: 43, start: 4, dur: 4, vel: 58 }
+  - { pitch: 71, start: 4, dur: 1, vel: 82 }
+  - { pitch: 72, start: 5, dur: 1, vel: 82 }
+  - { pitch: 74, start: 6, dur: 2, vel: 82 }
+  - { pitch: 48, start: 8, dur: 4, vel: 58 }
+  - { pitch: 76, start: 8, dur: 1, vel: 82 }
+  - { pitch: 74, start: 9, dur: 1, vel: 82 }
+  - { pitch: 72, start: 10, dur: 1, vel: 82 }
+  - { pitch: 71, start: 11, dur: 1, vel: 82 }
+  - { pitch: 50, start: 12, dur: 4, vel: 58 }
+  - { pitch: 69, start: 12, dur: 4, vel: 82 }
+  - { pitch: 43, start: 16, dur: 4, vel: 58 }
+  - { pitch: 71, start: 16, dur: 1, vel: 82 }
+  - { pitch: 69, start: 17, dur: 1, vel: 82 }
+  - { pitch: 67, start: 18, dur: 2, vel: 82 }
+  - { pitch: 48, start: 20, dur: 4, vel: 58 }
+  - { pitch: 71, start: 20, dur: 1, vel: 82 }
+  - { pitch: 74, start: 21, dur: 1, vel: 82 }
+  - { pitch: 76, start: 22, dur: 2, vel: 82 }
+  - { pitch: 50, start: 24, dur: 4, vel: 58 }
+  - { pitch: 74, start: 24, dur: 1, vel: 82 }
+  - { pitch: 72, start: 25, dur: 1, vel: 82 }
+  - { pitch: 71, start: 26, dur: 1, vel: 82 }
+  - { pitch: 69, start: 27, dur: 1, vel: 82 }
+  - { pitch: 43, start: 28, dur: 4, vel: 58 }
+  - { pitch: 67, start: 28, dur: 4, vel: 82 }
