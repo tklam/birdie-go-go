@@ -63,6 +63,12 @@ export interface Settings {
   /** 0–1. */
   sfxVolume: number;
   reducedMotion: boolean;
+  /** Encounters (SPEC.md §4.13): holding fills the run meter instead of mashing. */
+  holdInsteadOfMash: boolean;
+  /** Encounters: combo windows are 1.5× longer. */
+  slowerPrompts: boolean;
+  /** Encounters: offer "Skip" (auto-escape for half the Energy cost). */
+  skipEncounters: boolean;
 }
 
 export interface GameState {
@@ -101,7 +107,16 @@ export type GearSlot = (typeof GEAR_SLOTS)[number];
 export const MAX_ENERGY = 100;
 
 export function defaultSettings(): Settings {
-  return { latencyOffsetMs: 0, tapToMove: true, musicVolume: 0.8, sfxVolume: 0.8, reducedMotion: false };
+  return {
+    latencyOffsetMs: 0,
+    tapToMove: true,
+    musicVolume: 0.8,
+    sfxVolume: 0.8,
+    reducedMotion: false,
+    holdInsteadOfMash: false,
+    slowerPrompts: false,
+    skipEncounters: false,
+  };
 }
 
 /** A fresh save: day 1 morning at the content's start position. */
