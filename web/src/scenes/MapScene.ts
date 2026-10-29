@@ -71,6 +71,8 @@ interface Passerby {
 }
 
 const PASSERBY_SPEED = 26;
+/** The spot used for photos from a ferry's deck. */
+const FERRY_DECK = 'ferry_deck';
 /** Angie's flat, where she sleeps. */
 const HOME_MAP = 'angie_flat';
 /** The first bedtime reminder of an evening waits until any area toast has gone. */
@@ -173,6 +175,8 @@ export class MapScene extends Phaser.Scene {
     /** Legs still to ride after this one (transfers). */
     next: TransitLeg[];
     removeSkip: () => void;
+    /** On ferries: the Deck button for photos from the deck. */
+    removeDeck?: () => void;
   } | null = null;
   /** Timetabled vehicles drawn on the map (SPEC.md §4.11): the last poll and its sprites. */
   private vehicles = { list: [] as TransitVehicle[], clock: 0, pending: false, nextPoll: 0, sprites: new Map<string, Phaser.GameObjects.Sprite>() };
@@ -1530,7 +1534,8 @@ export class MapScene extends Phaser.Scene {
       s.slotMinutes += (r.length - r.distance) / r.speed;
       r.distance = r.length;
     });
-    this.ride = { vehicle, path, length: pathLength(path), distance: 0, speed: line.speed, to: leg.to, line: line.id, next, removeSkip };
+    const removeDeck = leg.mode === 'ferry' && s.content.spots.some((x) => x.id === FERRY_DECK) ? floatingButton('Deck', 'deck', () => void this.toDeck()) : undefined;
+    this.ride = { vehicle, path, length: pathLength(path), distance: 0, speed: line.speed, to: leg.to, line: line.id, next, removeSkip, removeDeck };
     const name = s.content.transit.stops.find((x) => x.id === leg.to)?.name ?? leg.to;
     toast(`${line.name} to ${name}`);
   }
@@ -1560,6 +1565,7 @@ export class MapScene extends Phaser.Scene {
   private async arrive_(r: NonNullable<MapScene['ride']>): Promise<void> {
     this.ride = null;
     r.removeSkip();
+    r.removeDeck?.();
     const s = this.session;
     const name = s.content.transit.stops.find((x) => x.id === r.to)?.name ?? r.to;
     discoverStop(s.state, r.to);
@@ -1581,6 +1587,29 @@ export class MapScene extends Phaser.Scene {
     this.cameras.main.startFollow(this.angie, true, 1, 1);
     toast(`Arrived at ${name}.`);
     await s.save();
+  }
+
+  /**
+   * Photos from the ferry's deck (SPEC.md §4.11): a photo session on the
+   * crossing; afterwards Angie is at the trip's destination.
+   */
+  private async toDeck(): Promise<void> {
+    const r = this.ride;
+    const s = this.session;
+    if (!r || !this.spendEnergy(activityCost(s.content.game.energy, 'photo'))) return;
+    this.ride = null;
+    r.removeSkip();
+    r.removeDeck?.();
+    s.slotMinutes += (r.length - r.distance) / r.speed;
+    const dest = r.next.length ? r.next[r.next.length - 1].to : r.to;
+    discoverStop(s.state, r.to);
+    discoverStop(s.state, dest);
+    const stop = this.index.stops[dest];
+    if (stop) s.state.position = { map: 'world', x: Math.round(stop.x), y: Math.round(stop.y + 4) };
+    await s.fire({ type: 'ride_complete', params: { line: r.line } });
+    await s.checkMissions({ ride: { line: r.line, stop: r.to } });
+    this.busy = true;
+    await this.leaveTo('Photo', { spotId: FERRY_DECK, returnTo: 'Map', weather: this.weatherNow, statuses: [] });
   }
 
   /** Stops Angie walks past are discovered and show on the map (SPEC.md §4.11). */

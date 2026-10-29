@@ -355,6 +355,7 @@ func clearWaterBay() *tmap {
 	m.obj("village_store", "shop", 46, 46, map[string]string{"title": "Village Store", "shop_id": "po_toi_o_store"})
 	m.obj("hiker", "npc", 39, 45, map[string]string{"npc_id": "hiker", "sprite": "char_hiker"})
 	m.obj("stop_po_toi_o_pier", "stop", 31, 56, map[string]string{"stop_id": "po_toi_o_pier"})
+	m.obj("stop_cwb_park_gate", "stop", 10, 29, map[string]string{"stop_id": "cwb_park_gate"})
 	m.obj("po_toi_o_pier", "spot", 31, 60, map[string]string{"spot_id": "po_toi_o_pier"})
 	m.obj("forest_birds", "bird", 30, 14, map[string]string{"species": "oriental_magpie_robin", "count": "2"})
 	m.obj("cove_egrets", "bird", 58, 51, map[string]string{"species": "little_egret", "count": "2"})

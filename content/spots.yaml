@@ -276,3 +276,17 @@
     - { species: asian_barred_owlet, weight: 3 }
     - { species: black_crowned_night_heron, weight: 2 }
     - { species: greater_coucal, weight: 1 }
+# Photographed from the ferry's deck (no map object: the Deck button on a ferry ride).
+- id: ferry_deck
+  name: Ferry Deck
+  area: tko_waterfront
+  background: bg_waterfront
+  shots: 10
+  birds:
+    - { species: black_headed_gull, weight: 4, seasons: [autumn, winter, spring] }
+    - { species: whiskered_tern, weight: 3 }
+    - { species: great_cormorant, weight: 2, seasons: [autumn, winter] }
+    - { species: black_kite, weight: 3 }
+    - { species: white_bellied_sea_eagle, weight: 1 }
+    - { species: osprey, weight: 1 }
+    - { species: pacific_reef_heron, weight: 2 }

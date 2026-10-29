@@ -253,6 +253,7 @@ Rules:
 *As built (client):*
 - **Game clock**: slots start at 07:00, 12:00 and 17:00 and last five hours; the clock is the slot start plus in-game minutes played in it (one per real second on the map and while riding, held at the slot's last minute, not saved).
 - **Boarding** is the route planner: the stop lists every stop reachable on open lines from now, sorted by arrival, each with its fare; the detail line shows the legs, departure times, changes and arrival. The whole fare is paid up front; waits advance the clock; at a change the next leg starts from the transfer stop. Skip jumps to the end of the current leg.
+- **Ferry deck**: on a ferry leg a **Deck** button starts a photo session at the `ferry_deck` spot (seabirds; costs a photo session's Energy and the slot); the trip ends there, and Angie comes back at its destination.
 - **Vehicles on the map** come from `transit.vehicles` (polled twice a second, moved along their heading in between); only those near the camera get sprites.
 - **Discovery and unlocks**: walking near a stop (or arriving at one) discovers it (flag `stop:<id>`), and only discovered stops show on the world map. Lines with `locked: true` need an `unlock_line` event (flag `line:<id>`); `unlock_teleport` opens a gateway; `stop_discovered` is a condition.
 

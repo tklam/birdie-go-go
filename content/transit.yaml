@@ -7,12 +7,13 @@ stops:
   - { id: po_toi_o_village, name: Po Toi O Village }
   - { id: tko_pier, name: Junk Bay Pier }
   - { id: po_toi_o_pier, name: Po Toi O Pier }
+  - { id: cwb_park_gate, name: Country Park Gate }
 lines:
   - id: minibus_16
     name: Green Minibus 16
     mode: bus
     fare: 8
-    stops: [tko_plaza, po_toi_o_village]
+    stops: [tko_plaza, cwb_park_gate, po_toi_o_village]
     path: [[1000, 472], [1000, 504], [2168, 504], [2168, 712], [2136, 712]]
     speed: 110
     headway: 10

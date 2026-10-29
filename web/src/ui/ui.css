@@ -179,6 +179,13 @@
   min-height: 44px;
   border-radius: 8px;
 }
+.btn.deck {
+  left: max(16px, env(safe-area-inset-left));
+  top: 72px;
+  min-width: 56px;
+  min-height: 44px;
+  border-radius: 8px;
+}
 
 /* Menus. */
 .menu-window {
