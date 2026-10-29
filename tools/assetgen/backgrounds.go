@@ -13,6 +13,7 @@ type background struct {
 	near    func(c *canvas)
 	perches [][2]int
 	ground  [2]int // y range of walkable/wadeable ground, or 0,0 for none
+	groundX [2]int // x range of that ground
 }
 
 var backgrounds = []background{
@@ -59,6 +60,7 @@ var backgrounds = []background{
 		},
 		perches: [][2]int{{40, 148}, {96, 148}, {180, 148}, {232, 148}, {262, 82}, {290, 76}, {151, 92}},
 		ground:  [2]int{168, 178},
+		groundX: [2]int{6, 104},
 	},
 	{
 		id: "bg_garden",
@@ -96,6 +98,7 @@ var backgrounds = []background{
 		},
 		perches: [][2]int{{30, 66}, {58, 70}, {297, 84}, {120, 166}, {200, 166}, {78, 70}, {250, 64}},
 		ground:  [2]int{150, 164},
+		groundX: [2]int{10, 310},
 	},
 }
 

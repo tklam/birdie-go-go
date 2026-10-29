@@ -40,6 +40,10 @@
       150,
       164
     ],
+    "groundX": [
+      10,
+      310
+    ],
     "placeholder": true
   },
   "bg_garden_far": {
@@ -97,6 +101,10 @@
     "ground": [
       168,
       178
+    ],
+    "groundX": [
+      6,
+      104
     ],
     "placeholder": true
   },

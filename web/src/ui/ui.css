@@ -146,3 +146,27 @@
 #ui.touch .touch-only {
   display: block;
 }
+
+/* Centered panel (results, notices). */
+.panel {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  min-width: calc(var(--px) * 150);
+  max-width: calc(var(--game-w) - var(--px) * 24);
+  pointer-events: auto;
+  cursor: pointer;
+}
+.panel .panel-button {
+  margin-top: calc(var(--px) * 4);
+  text-align: right;
+  color: #f0d050;
+}
+.btn.back {
+  left: max(16px, env(safe-area-inset-left));
+  top: 16px;
+  min-width: 56px;
+  min-height: 44px;
+  border-radius: 8px;
+}

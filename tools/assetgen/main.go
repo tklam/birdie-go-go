@@ -53,6 +53,7 @@ type manifestEntry struct {
 	Layers      []string `json:"layers,omitempty"`
 	Perches     [][2]int `json:"perches,omitempty"`
 	Ground      *[2]int  `json:"ground,omitempty"`
+	GroundX     *[2]int  `json:"groundX,omitempty"`
 	Placeholder bool     `json:"placeholder,omitempty"`
 }
 
@@ -86,7 +87,7 @@ func gen(assets, tilesets string) error {
 			m[id] = manifestEntry{Type: "image", File: "backgrounds/" + id + ".png", Placeholder: true}
 			layers = append(layers, id)
 		}
-		m[bg.id] = manifestEntry{Type: "background", Layers: layers, Perches: bg.perches, Ground: &bg.ground, Placeholder: true}
+		m[bg.id] = manifestEntry{Type: "background", Layers: layers, Perches: bg.perches, Ground: &bg.ground, GroundX: &bg.groundX, Placeholder: true}
 	}
 	data, err := json.MarshalIndent(m, "", "  ")
 	if err != nil {

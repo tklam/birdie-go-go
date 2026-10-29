@@ -10,6 +10,7 @@ export interface ManifestEntry {
   layers?: string[];
   perches?: [number, number][];
   ground?: [number, number];
+  groundX?: [number, number];
   placeholder?: boolean;
 }
 

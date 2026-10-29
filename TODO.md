@@ -52,12 +52,12 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] Optional tap-to-move (A* within loaded chunks)
 
 ### Photo (§5)
-- [ ] Photo scene with parallax background, iris-wipe entry
-- [ ] 3 placeholder species with behavior AI: red-whiskered bulbul, oriental magpie-robin, little egret
-- [ ] Viewfinder: relative drag, hold-to-focus, release-to-shoot
+- [x] Photo scene with parallax background (fade entry; iris wipe later)
+- [x] 3 species with behavior AI (arrive, perch/idle poses, hop, wade, leave): red-whiskered bulbul, oriental magpie-robin, little egret
+- [x] Viewfinder: relative drag (touch), follow (mouse), arrows; hold-to-focus, release-to-shoot
 - [x] Shot scoring (§5.3), unit tested
-- [ ] Alert meter and fleeing (§5.4)
-- [ ] Shot budget; results screen; album storage
+- [x] Alert meter and fleeing (§5.4)
+- [x] Shot budget; results panel; album storage (album viewer still to do)
 
 ### Piano (§6)
 - [x] Song format + 2 placeholder songs
