@@ -154,6 +154,8 @@ export class PianoScene extends Phaser.Scene {
   private hud!: Phaser.GameObjects.Graphics;
   private flash!: Phaser.GameObjects.Rectangle;
   private header!: Phaser.GameObjects.Text;
+  /** O Boy bobbing to the beat on top of the roll (SPEC.md §7.2), if he's along. */
+  private oboy: Phaser.GameObjects.Sprite | null = null;
   private countText!: Phaser.GameObjects.Text;
   private buttonText!: Phaser.GameObjects.Text;
   private hint!: Phaser.GameObjects.Text;
@@ -185,6 +187,11 @@ export class PianoScene extends Phaser.Scene {
       .setVisible(false);
     this.hint = this.add.text(W / 2, 132, '', { ...TEXT, color: COLORS.dim }).setOrigin(0.5, 0);
     this.flash = this.add.rectangle(0, 0, W, H, 0xffffff, 0).setOrigin(0, 0);
+    const party = (this.registry.get('session') as { state: GameState } | undefined)?.state.party ?? [];
+    this.oboy =
+      party.includes('oboy') && this.textures.exists('char_oboy')
+        ? this.add.sprite(ROLL.x + ROLL.w - 16, ROLL.y + 1, 'char_oboy', 0).setOrigin(0.5, 1)
+        : null;
 
     this.audio = sharedAudio(this.registry);
     this.core = this.registry.get('core') as CoreClient;
@@ -367,6 +374,12 @@ export class PianoScene extends Phaser.Scene {
   private drawPlaying(nowMs: number): void {
     const g = this.roll;
     const l = this.layout;
+    if (this.oboy) {
+      // A hop on each beat: a visual metronome.
+      const beat = msPerBeat(this.song);
+      const onBeat = beat > 0 && nowMs >= 0 && nowMs % beat < beat * 0.25;
+      this.oboy.setVisible(true).setFrame(onBeat ? 1 : 0).setY(ROLL.y + (onBeat ? 0 : 1));
+    }
     g.clear();
     drawWindow(g, ROLL.x, ROLL.y, ROLL.w, ROLL.h);
 
@@ -531,6 +544,7 @@ export class PianoScene extends Phaser.Scene {
   }
 
   private showResults(result: LessonGradeResult, pay: number): void {
+    this.oboy?.setVisible(false);
     this.phase = 'results';
     this.resultsShownAt = this.time.now;
     this.clearOverlay();
