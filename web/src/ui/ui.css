@@ -353,3 +353,14 @@
   font-size: calc(var(--px) * 6);
   margin-bottom: calc(var(--px) * 2);
 }
+
+/* Encounter rules: wide and compact so they fit a phone screen. */
+.panel.enc-help {
+  width: calc(var(--game-w) - var(--px) * 24);
+  max-width: none;
+  font-size: calc(var(--px) * 6);
+  line-height: 1.5;
+}
+.panel.enc-help > div:not(.speaker):not(.panel-button) {
+  margin-bottom: calc(var(--px) * 3);
+}

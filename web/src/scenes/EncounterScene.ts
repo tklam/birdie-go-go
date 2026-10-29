@@ -67,7 +67,29 @@ export interface EncounterReturnData {
   encounter: EncounterResult;
 }
 
-type Choice = 'escape' | 'confront' | 'item' | 'skip';
+type Choice = 'escape' | 'confront' | 'item' | 'skip' | 'help';
+
+const ARROW: Record<string, string> = { up: '↑', down: '↓', left: '←', right: '→' };
+
+/** True on touch devices (the overlay marks itself on the first touch). */
+function touchMode(): boolean {
+  return document.getElementById('ui')?.classList.contains('touch') ?? matchMedia('(pointer: coarse)').matches;
+}
+
+/** Plain-language rules, worded for touch or keyboard: three short paragraphs. */
+export function howToPlayLines(touch: boolean): string[] {
+  return touch
+    ? [
+        'ESCAPE: tap anywhere, fast, to outrun it. When an arrow flashes, swipe that way to dodge.',
+        'CONFRONT: enter the combo shown (e.g. ← → A) before the bar runs out. Swipe on the LEFT half for arrows; tap A / B on the right. Each combo weakens it.',
+        'USE ITEM: folklore remedies are strong. Dogs: stand your ground, running is hard.',
+      ]
+    : [
+        'ESCAPE: press Space fast to outrun it. When an arrow flashes, press that arrow key to dodge.',
+        'CONFRONT: enter the combo shown (e.g. ← → A) before the bar runs out. Arrow keys for arrows, Z for A, X for B. Each combo weakens it.',
+        'USE ITEM: folklore remedies are strong. Dogs: stand your ground, running is hard.',
+      ];
+}
 type Phase = 'idle' | 'combo' | 'race';
 
 const W = 320;
@@ -313,9 +335,19 @@ export class EncounterScene extends Phaser.Scene {
   }
 
   private async main(run: number): Promise<void> {
+    // Explain the rules the first time.
+    const flags = this.session.state.flags;
+    if (!flags.encounter_tutorial_seen) {
+      flags.encounter_tutorial_seen = true;
+      await this.howToPlay();
+    }
     while (!this.outcome && this.alive(run)) {
       const choice = await this.choose();
       if (!this.alive(run)) return;
+      if (choice === 'help') {
+        await this.howToPlay();
+        continue;
+      }
       if (choice === 'escape') await this.escape(run);
       else if (choice === 'confront') await this.confront(run);
       else if (choice === 'item') await this.itemMenu();
@@ -331,7 +363,14 @@ export class EncounterScene extends Phaser.Scene {
     const state = this.session.state;
     if (usableItems(this.enemy, state.items, this.session.content.items, this.weaknessUsed).length) out.push('item');
     if (state.settings.skipEncounters) out.push('skip');
+    out.push('help');
     return out;
+  }
+
+  private howToPlay(): Promise<void> {
+    const panel = showPanel('How to play', howToPlayLines(touchMode()), 'Got it');
+    overlay().lastElementChild?.classList.add('enc-help');
+    return panel;
   }
 
   /** The Escape / Confront / Use item / Skip menu. Reopens if dismissed. */
@@ -341,6 +380,7 @@ export class EncounterScene extends Phaser.Scene {
       confront: 'Confront',
       item: 'Use item',
       skip: `Skip (-${skipCost(this.enemy)} Energy)`,
+      help: 'How to play',
     };
     this.setMessage('');
     this.hint.setText('');
@@ -375,7 +415,7 @@ export class EncounterScene extends Phaser.Scene {
       this.setMessage('Ready…');
       this.drawCombo(combo, 0, 1, true);
       this.showButtons(true);
-      this.hint.setText('Swipe left side · A / B');
+      this.hint.setText(touchMode() ? 'Swipe arrows on the left · tap A / B' : 'Arrow keys · Z = A · X = B');
       await this.wait(500);
       if (!this.alive(run)) return;
       this.setMessage('');
@@ -425,7 +465,9 @@ export class EncounterScene extends Phaser.Scene {
     this.dodge = null;
     this.dodgeResult = undefined;
     this.nextDodgeAt = this.time.now + nextDodgeDelay(this.random);
-    this.hint.setText(hold ? 'Hold to run! (Space)' : 'Tap fast to run! (Space)');
+    this.hint.setText(
+      touchMode() ? (hold ? 'Hold your finger down to run!' : 'Tap anywhere, fast, to run!') : hold ? 'Hold Space to run!' : 'Press Space fast to run!',
+    );
     this.setMessage('Run!');
     this.phase = 'race';
     const status = await new Promise<RaceStatus>((resolve) => {
@@ -563,7 +605,7 @@ export class EncounterScene extends Phaser.Scene {
     if (!this.dodge && time >= this.nextDodgeAt) {
       this.dodge = { dir: dodgeDirection(this.random), until: time + window };
       this.nextDodgeAt = time + window + nextDodgeDelay(this.random);
-      this.setMessage('Dodge!');
+      this.setMessage(`Dodge! ${touchMode() ? 'Swipe' : 'Press'} ${ARROW[this.dodge.dir] ?? ''}`);
     }
     const holding = this.session.state.settings.holdInsteadOfMash && !modal.open && (this.input.activePointer.isDown || !!this.space?.isDown);
     const r = stepRace(this.race, this.raceTuning, {
