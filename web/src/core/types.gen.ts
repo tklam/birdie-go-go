@@ -160,6 +160,135 @@ export interface DialogueLine {
 }
 
 //////////
+// source: lesson.go
+
+/**
+ * MistakeWrongNote: a note's pitch is replaced.
+ */
+export const MistakeWrongNote = "wrong_note";
+/**
+ * MistakeMissedNote: a note is omitted.
+ */
+export const MistakeMissedNote = "missed_note";
+/**
+ * MistakeExtraNote: a note is inserted.
+ */
+export const MistakeExtraNote = "extra_note";
+/**
+ * MistakeRush: a note (and its chord) starts early.
+ */
+export const MistakeRush = "rush";
+/**
+ * MistakeDrag: a note (and its chord) starts late.
+ */
+export const MistakeDrag = "drag";
+/**
+ * MistakeHesitation: a pause before a note delays the rest of the piece.
+ */
+export const MistakeHesitation = "hesitation";
+/**
+ * LessonGeneratePayload is the payload of the "lesson.generate" op.
+ */
+export interface LessonGeneratePayload {
+  /**
+   * Song is the reference score; times in beats, tempo in BPM.
+   */
+  song: Song;
+  /**
+   * Tendencies biases the mistake types, keyed by mistake type. Types not
+   * listed still appear now and then.
+   */
+  tendencies: { [key: string]: number /* float64 */};
+  /**
+   * Difficulty is 1–5; higher means fewer, more subtle mistakes. Values
+   * outside the range are clamped.
+   */
+  difficulty: number /* int */;
+  /**
+   * Seed makes the performance reproducible.
+   */
+  seed: number /* uint32 */;
+}
+/**
+ * LessonGenerateResult is the result of the "lesson.generate" op. The answer
+ * key stays in the core until the lesson is graded.
+ */
+export interface LessonGenerateResult {
+  lessonId: string;
+  performance: Performance;
+}
+/**
+ * Performance is the student's playing as note events in milliseconds from
+ * the start of the audio.
+ */
+export interface Performance {
+  /**
+   * Notes are sorted by StartMs. Never nil.
+   */
+  notes: PerfNote[];
+  durationMs: number /* float64 */;
+}
+/**
+ * PerfNote is one performed note: MIDI pitch, start and duration in
+ * milliseconds, velocity 1–127.
+ */
+export interface PerfNote {
+  pitch: number /* int */;
+  startMs: number /* float64 */;
+  durMs: number /* float64 */;
+  vel: number /* int */;
+}
+/**
+ * Mistake is one entry of a lesson's answer key. OnsetMs is when the
+ * mistake can first be heard (SPEC.md §6.2). Pitch is the pitch that
+ * sounded and ExpectedPitch the one the score asks for; either is 0 when it
+ * doesn't apply (no note sounded for missed_note, none was expected for
+ * extra_note).
+ */
+export interface Mistake {
+  type: string;
+  onsetMs: number /* float64 */;
+  pitch: number /* int */;
+  expectedPitch: number /* int */;
+}
+/**
+ * LessonGradePayload is the payload of the "lesson.grade" op.
+ */
+export interface LessonGradePayload {
+  lessonId: string;
+  /**
+   * FlagsMs are the player's Mistake! presses in milliseconds from the
+   * start of the audio, before latency correction.
+   */
+  flagsMs: number /* float64 */[];
+  /**
+   * LatencyOffsetMs is subtracted from every flag (SPEC.md §6.4).
+   */
+  latencyOffsetMs: number /* float64 */;
+}
+/**
+ * LessonGradeResult is the result of the "lesson.grade" op (SPEC.md §6.3).
+ */
+export interface LessonGradeResult {
+  score: number /* int */;
+  hits: number /* int */;
+  misses: number /* int */;
+  falseAlarms: number /* int */;
+  /**
+   * Mistakes is the revealed answer key, sorted by onset. Never nil.
+   */
+  mistakes: GradedMistake[];
+}
+/**
+ * GradedMistake is an answer-key mistake and whether the player caught it.
+ * The embedded Mistake's fields are flattened in JSON (and in TypeScript via
+ * `extends`).
+ */
+export interface GradedMistake extends Mistake {
+  hit: boolean;
+}
+
+//////////
 // source: model.go
 /*
 Package model holds the types shared by the Go core, the build tools, the
@@ -204,26 +333,6 @@ export interface PingResult {
   coreVersion: string;
 }
 /**
- * WorldIndex describes the streamed overworld emitted by tools/worldbuild.
- */
-export interface WorldIndex {
-  tileSize: number /* int */;
-  chunkTiles: number /* int */;
-  widthChunks: number /* int */;
-  heightChunks: number /* int */;
-  regions: WorldRegion[];
-}
-/**
- * WorldRegion is one Tiled map placed in the world, in pixels.
- */
-export interface WorldRegion {
-  file: string;
-  x: number /* int */;
-  y: number /* int */;
-  width: number /* int */;
-  height: number /* int */;
-}
-/**
  * UpdateManifest lists the content packs published by the optional update
  * server.
  */
@@ -241,3 +350,86 @@ export interface PackInfo {
   size: number /* int64 */;
   url: string;
 }
+
+//////////
+// source: world.go
+
+/**
+ * WorldIndex describes the streamed overworld emitted by tools/worldbuild
+ * (SPEC.md §9.7). Chunk files are named by content hash and never change.
+ */
+export interface WorldIndex {
+  tileSize: number /* int */;
+  chunkTiles: number /* int */;
+  widthChunks: number /* int */;
+  heightChunks: number /* int */;
+  regions: WorldRegion[];
+  /**
+   * Tileset is the manifest id of the atlas that tile values index into
+   * (value − 1 is the frame; 0 is empty).
+   */
+  tileset: string;
+  /**
+   * Areas lists area ids; chunk area bytes index into it (255 = none).
+   */
+  areas: string[];
+  /**
+   * Fill describes chunks that have no file (e.g. open sea).
+   */
+  fill: WorldFill;
+  /**
+   * Chunks maps "cx,cy" to the chunk file name under world/chunks/.
+   */
+  chunks: { [key: string]: string};
+  /**
+   * Spawns maps spawn names to world pixel positions.
+   */
+  spawns: { [key: string]: Point};
+}
+/**
+ * WorldRegion is one Tiled map placed in the world, in pixels.
+ */
+export interface WorldRegion {
+  file: string;
+  x: number /* int */;
+  y: number /* int */;
+  width: number /* int */;
+  height: number /* int */;
+}
+/**
+ * WorldFill is what an absent chunk contains.
+ */
+export interface WorldFill {
+  ground: number /* int */;
+  collision: number /* int */;
+}
+/**
+ * Point is a position in world pixels.
+ */
+export interface Point {
+  x: number /* float64 */;
+  y: number /* float64 */;
+}
+/**
+ * WorldObject is a placed object (spawn, spot, npc, door, bird, …) stored in
+ * the chunk that contains its position. X and Y are world pixels.
+ */
+export interface WorldObject {
+  name: string;
+  type: string;
+  x: number /* float64 */;
+  y: number /* float64 */;
+  props: { [key: string]: string};
+}
+/**
+ * Collision codes stored per tile in chunks.
+ */
+export const CollisionOpen = 0;
+/**
+ * Collision codes stored per tile in chunks.
+ */
+export const CollisionSolid = 1;
+/**
+ * Collision codes stored per tile in chunks.
+ */
+export const CollisionLedgeSouth = 2;

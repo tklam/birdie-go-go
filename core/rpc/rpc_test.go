@@ -29,7 +29,7 @@ func TestHandle(t *testing.T) {
 				model.Response
 				Result model.PingResult `json:"result"`
 			}
-			if err := json.Unmarshal(Handle([]byte(tt.in)), &resp); err != nil {
+			if err := json.Unmarshal(NewServer().Handle([]byte(tt.in)), &resp); err != nil {
 				t.Fatalf("response is not JSON: %v", err)
 			}
 			if resp.ID != tt.wantID {

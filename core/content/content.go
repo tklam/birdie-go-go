@@ -23,9 +23,12 @@ var (
 	TimeSlots    = []string{"morning", "afternoon", "evening"}
 	Poses        = []string{"wings_spread", "perched_alert", "perched", "flying", "flapping", "back_turned"}
 	Behaviors    = []string{"perch", "hop", "forage", "fly", "wade"}
-	MistakeTypes = []string{"wrong_note", "missed_note", "extra_note", "rush", "drag", "hesitation"}
-	Companions   = []string{"oboy", "kei"}
-	KeiStages    = []string{"met", "friends", "dating", "engaged", "married"}
+	MistakeTypes = []string{
+		model.MistakeWrongNote, model.MistakeMissedNote, model.MistakeExtraNote,
+		model.MistakeRush, model.MistakeDrag, model.MistakeHesitation,
+	}
+	Companions = []string{"oboy", "kei"}
+	KeiStages  = []string{"met", "friends", "dating", "engaged", "married"}
 
 	TriggerTypes = []string{
 		"enter_area", "talk", "interact", "photo_taken", "photo_session_end", "lesson_complete",

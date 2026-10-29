@@ -13,11 +13,12 @@ import (
 )
 
 func main() {
+	server := rpc.NewServer()
 	js.Global().Set("birdieCoreCall", js.FuncOf(func(_ js.Value, args []js.Value) any {
 		if len(args) != 1 || args[0].Type() != js.TypeString {
-			return string(rpc.Handle(nil))
+			return string(server.Handle(nil))
 		}
-		return string(rpc.Handle([]byte(args[0].String())))
+		return string(server.Handle([]byte(args[0].String())))
 	}))
 	if ready := js.Global().Get("birdieCoreReady"); ready.Type() == js.TypeFunction {
 		ready.Invoke()
