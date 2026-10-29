@@ -1,4 +1,5 @@
 import type { CoreClient } from '../core/client';
+import { portraitUrl, type Manifest } from './assets';
 import type { ContentBundle, WeatherArea, WeatherDay, WorldIndex } from '../core/types.gen';
 import { showDialogue } from '../ui/dialogue';
 import { EventRunner, visibleLines, type TriggerInput } from './events';
@@ -52,6 +53,8 @@ export class Session {
   /** Time slots since the last mission reminder; starts full so a loaded game reminds once. */
   private slotsSinceReminder = Number.POSITIVE_INFINITY;
   private reminderTurn = 0;
+  /** The asset manifest, for dialogue portraits (set by the boot scene). */
+  manifest?: Manifest;
   /** In-game minutes played in the current slot (one per real second on the map). */
   slotMinutes = 0;
   private transitLoaded: Promise<unknown> | null = null;
@@ -249,7 +252,7 @@ export class Session {
       return;
     }
     const visible = visibleLines(d, this.state);
-    const lines = visible.map((l) => ({ speaker: speakerName(l.speaker, this.content), text: l.text }));
+    const lines = visible.map((l) => ({ speaker: speakerName(l.speaker, this.content), text: l.text, portrait: portraitUrl(this.manifest, l.speaker) }));
     await showDialogue(lines, (i) => this.voice(visible[i].speaker));
   }
 }

@@ -35,9 +35,9 @@ export function fogPixels(rgba: Uint8ClampedArray, areas: ArrayLike<number>, dis
   for (let i = 0; i < areas.length; i++) {
     if (discovered(areas[i])) continue;
     const o = i * 4;
-    rgba[o] = Math.round(rgba[o] * 0.25 + 16 * 0.75);
-    rgba[o + 1] = Math.round(rgba[o + 1] * 0.25 + 16 * 0.75);
-    rgba[o + 2] = Math.round(rgba[o + 2] * 0.25 + 24 * 0.75);
+    rgba[o] = Math.round(rgba[o] * 0.15 + 16 * 0.85);
+    rgba[o + 1] = Math.round(rgba[o + 1] * 0.15 + 24 * 0.85);
+    rgba[o + 2] = Math.round(rgba[o + 2] * 0.15 + 48 * 0.85);
   }
 }
 

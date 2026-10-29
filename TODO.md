@@ -29,7 +29,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Asset manifest + loader; master palette; `assetgen` placeholders + `check`
 - [x] Pixel-perfect scaling, letterboxing, rotate-to-landscape prompt
 - [x] Input layer that unifies touch and keyboard (mouse: via touch controls; click-to-move later)
-- [~] 16-bit UI kit: window frames, dialogue box with typewriter, area toast pixel font (Press Start 2P), menus, album list (still to do: portraits)
+- [x] 16-bit UI kit: window frames, dialogue box with typewriter, area toast pixel font (Press Start 2P), menus, album list, speaker portraits
 - [x] Touch controls: floating joystick, Action button (context label), Menu button
 - [x] Audio: unlock on first gesture, synthesized piano, metronome, SFX, looping chiptune music per area (3 original themes) with crossfades
 - [ ] SoundFont sample bank (optional upgrade over the synth)

@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import type { Manifest } from '../systems/assets';
 import type { CoreClient } from '../core/client';
 import type { ContentBundle } from '../core/types.gen';
 import { Session } from '../systems/session';
@@ -34,6 +35,7 @@ export class TitleScene extends Phaser.Scene {
     });
     void Promise.all([core.ping('chirp'), ready]).then(
       ([ping, { content, opened: { session, hasSave } }]) => {
+        session.manifest = this.registry.get('manifest') as Manifest | undefined;
         this.registry.set('session', session);
         // Apply saved volumes.
         const audio = this.registry.get('audio') as AudioEngine | undefined;

@@ -4,6 +4,8 @@ import { textCharsPerSecond } from './prefs';
 export interface Line {
   speaker: string;
   text: string;
+  /** The speaker's character sheet; its first frame's head is shown as a portrait. */
+  portrait?: string | null;
 }
 
 /**
@@ -15,6 +17,9 @@ export function showDialogue(lines: Line[], onLine?: (index: number) => void): P
   if (lines.length === 0) return Promise.resolve();
   const box = document.createElement('div');
   box.className = 'window dialogue';
+  const face = document.createElement('div');
+  face.className = 'portrait';
+  box.appendChild(face);
   const speaker = document.createElement('div');
   speaker.className = 'speaker';
   const text = document.createElement('div');
@@ -33,6 +38,9 @@ export function showDialogue(lines: Line[], onLine?: (index: number) => void): P
     const render = () => {
       const l = lines[line];
       speaker.textContent = l.speaker;
+      face.style.display = l.portrait ? '' : 'none';
+      box.classList.toggle('with-portrait', !!l.portrait);
+      if (l.portrait) face.style.backgroundImage = `url("${l.portrait}")`;
       text.textContent = l.text.slice(0, shown);
       next.style.visibility = shown >= l.text.length ? 'visible' : 'hidden';
     };

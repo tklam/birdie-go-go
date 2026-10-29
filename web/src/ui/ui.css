@@ -50,6 +50,23 @@
   pointer-events: auto;
   cursor: pointer;
 }
+/* Speaker portrait: the head of the character's front-facing frame, 3× in game pixels. */
+.dialogue .portrait {
+  position: absolute;
+  left: calc(var(--px) * 5);
+  top: calc(var(--px) * 5);
+  width: calc(var(--px) * 24);
+  height: calc(var(--px) * 21);
+  background-repeat: no-repeat;
+  background-size: 400% auto;
+  background-position: 0 0;
+  image-rendering: pixelated;
+  border: var(--px) solid var(--win-shadow);
+  background-color: rgba(16, 16, 24, 0.35);
+}
+.dialogue.with-portrait {
+  padding-left: calc(var(--px) * 34);
+}
 .dialogue .speaker {
   color: #f0d050;
   margin-bottom: calc(var(--px) * 1);

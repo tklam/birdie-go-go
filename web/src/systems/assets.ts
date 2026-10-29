@@ -42,3 +42,13 @@ export function audioSamples(manifest: Manifest): Record<string, string> {
   for (const [id, e] of Object.entries(manifest)) if (e.type === 'audio' && e.file) out[id] = base + e.file;
   return out;
 }
+
+/**
+ * A dialogue portrait for a speaker id: the front-facing idle frame of its
+ * 16×24 character sheet (char_<id>), or null when there is none.
+ */
+export function portraitUrl(manifest: Manifest | undefined, speaker: string): string | null {
+  const e = manifest?.[`char_${speaker}`];
+  if (!e || e.frameWidth !== 16 || e.frameHeight !== 24) return null;
+  return `${import.meta.env.BASE_URL}assets/${e.file}`;
+}
