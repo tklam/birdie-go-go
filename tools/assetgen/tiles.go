@@ -15,8 +15,8 @@ const tile = 16
 var tileArt = map[string]func(k cell){
 	"grass": func(k cell) {
 		k.rect(0, 0, tile, tile, cGreen)
-		k.speckle(0, 0, tile, tile, cLightGreen, 0.12, 1)
-		k.speckle(0, 0, tile, tile, cDarkGreen, 0.06, 2)
+		k.speckle(0, 0, tile, tile, cLightGreen, 0.05, 1)
+		k.speckle(0, 0, tile, tile, cDarkGreen, 0.02, 2)
 	},
 	"grass_flowers": func(k cell) {
 		k.rect(0, 0, tile, tile, cGreen)
@@ -27,25 +27,22 @@ var tileArt = map[string]func(k cell){
 		}
 	},
 	"pavement": func(k cell) {
+		// Smooth paving: no seams, only a few faint specks.
 		k.rect(0, 0, tile, tile, cConcrete)
-		k.line(0, 15, 15, 15, cDarkConcrete)
-		k.line(15, 0, 15, 15, cDarkConcrete)
-		k.speckle(0, 0, 15, 15, cLightGray, 0.05, 4)
+		k.speckle(0, 0, tile, tile, cLightGray, 0.03, 4)
 	},
 	"plaza": func(k cell) {
+		// Warm smooth paving instead of a checkerboard.
 		k.rect(0, 0, tile, tile, cSand)
-		k.rect(0, 0, 8, 8, cConcrete)
-		k.rect(8, 8, 8, 8, cConcrete)
-		k.line(0, 15, 15, 15, cDarkConcrete)
-		k.line(15, 0, 15, 15, cDarkConcrete)
+		k.speckle(0, 0, tile, tile, cConcrete, 0.04, 22)
 	},
 	"road": func(k cell) {
 		k.rect(0, 0, tile, tile, cAsphalt)
-		k.speckle(0, 0, tile, tile, cDarkGray, 0.1, 5)
+		k.speckle(0, 0, tile, tile, cDarkGray, 0.03, 5)
 	},
 	"road_line": func(k cell) {
 		k.rect(0, 0, tile, tile, cAsphalt)
-		k.speckle(0, 0, tile, tile, cDarkGray, 0.1, 6)
+		k.speckle(0, 0, tile, tile, cDarkGray, 0.03, 6)
 		k.rect(2, 7, 12, 2, cRoadLine)
 	},
 	"water": func(k cell) {
@@ -62,8 +59,8 @@ var tileArt = map[string]func(k cell){
 	},
 	"mud": func(k cell) {
 		k.rect(0, 0, tile, tile, cTan)
-		k.speckle(0, 0, tile, tile, cBrown, 0.15, 7)
-		k.speckle(0, 0, tile, tile, cLightSea, 0.04, 8)
+		k.speckle(0, 0, tile, tile, cBrown, 0.06, 7)
+		k.speckle(0, 0, tile, tile, cLightSea, 0.02, 8)
 	},
 	"tower_wall": func(k cell) {
 		k.rect(0, 0, tile, tile, cLightGray)
@@ -177,20 +174,17 @@ var tileArt = map[string]func(k cell){
 	},
 	"hill_grass": func(k cell) {
 		k.rect(0, 0, tile, tile, cDarkGreen)
-		k.speckle(0, 0, tile, tile, cGreen, 0.25, 19)
+		k.speckle(0, 0, tile, tile, cGreen, 0.1, 19)
 	},
 	"trail": func(k cell) {
 		k.rect(0, 0, tile, tile, cTan)
-		k.speckle(0, 0, tile, tile, cBrown, 0.08, 20)
-		k.speckle(0, 0, tile, tile, cSand, 0.08, 21)
+		k.speckle(0, 0, tile, tile, cBrown, 0.04, 20)
+		k.speckle(0, 0, tile, tile, cSand, 0.04, 21)
 	},
 	"boardwalk": func(k cell) {
+		// Wide planks: one seam per tile instead of every 4 px.
 		k.rect(0, 0, tile, tile, cTan)
-		for y := 3; y < tile; y += 4 {
-			k.line(0, y, 15, y, cBrown)
-		}
-		k.set(3, 1, cDarkBrown)
-		k.set(12, 9, cDarkBrown)
+		k.line(0, 15, 15, 15, cBrown)
 	},
 	"station_sign": func(k cell) {
 		k.rect(0, 0, tile, tile, cConcrete)
@@ -207,18 +201,11 @@ var tileArt = map[string]func(k cell){
 	},
 	"floor_wood": func(k cell) {
 		k.rect(0, 0, tile, tile, cTan)
-		for y := 3; y < tile; y += 4 {
-			k.line(0, y, 15, y, cBrown)
-		}
-		k.line(5, 0, 5, 2, cBrown)
-		k.line(11, 4, 11, 6, cBrown)
-		k.line(3, 8, 3, 10, cBrown)
-		k.line(13, 12, 13, 14, cBrown)
+		k.line(0, 15, 15, 15, cBrown)
 	},
 	"floor_tile": func(k cell) {
-		k.rect(0, 0, tile, tile, cLightGray)
-		k.rect(0, 0, 8, 8, cWhite)
-		k.rect(8, 8, 8, 8, cWhite)
+		k.rect(0, 0, tile, tile, cWhite)
+		k.speckle(0, 0, tile, tile, cLightGray, 0.03, 45)
 	},
 	"wall_interior": func(k cell) {
 		k.rect(0, 0, tile, tile, cSand)
