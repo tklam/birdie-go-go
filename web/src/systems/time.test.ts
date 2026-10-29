@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { ContentBundle } from '../core/types.gen';
-import { newGame } from './state';
+import { newGame, SEASON_DAYS } from './state';
 import { advanceSlot } from './time';
 import { emptyContent } from '../test/content';
 
@@ -30,7 +30,7 @@ describe('advanceSlot', () => {
 
   it('reports the new season on day_start', () => {
     const s = newGame(content, 1);
-    s.day = 28;
+    s.day = SEASON_DAYS;
     s.slot = 'evening';
     expect(advanceSlot(s)[0].params?.season).toBe('summer');
   });

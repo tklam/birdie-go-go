@@ -13,7 +13,7 @@ export const SEASONS = ['spring', 'summer', 'autumn', 'winter'] as const;
 export type Season = (typeof SEASONS)[number];
 
 /** Days per season (SPEC.md §3.1). */
-export const SEASON_DAYS = 28;
+export const SEASON_DAYS = 14;
 
 /** Kei's romance stages in story order (SPEC.md §2.3, AGENTS.md rule 3). */
 export const KEI_STAGES = ['none', 'met', 'friends', 'dating', 'engaged', 'married'] as const;
@@ -157,7 +157,7 @@ export function newGame(content: ContentBundle, seed: number): GameState {
   };
 }
 
-/** The season of a 1-based day; seasons last 28 days and start with spring. */
+/** The season of a 1-based day; seasons last 14 days and start with spring. */
 export function season(day: number): Season {
   const index = Math.floor((Math.max(1, Math.floor(day)) - 1) / SEASON_DAYS) % SEASONS.length;
   return SEASONS[index];

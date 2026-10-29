@@ -523,8 +523,8 @@ func TestSeasonOf(t *testing.T) {
 		day  int
 		want string
 	}{
-		{1, "spring"}, {28, "spring"}, {29, "summer"}, {56, "summer"}, {57, "autumn"},
-		{84, "autumn"}, {85, "winter"}, {112, "winter"}, {113, "spring"}, {141, "summer"},
+		{1, "spring"}, {14, "spring"}, {15, "summer"}, {28, "summer"}, {29, "autumn"},
+		{42, "autumn"}, {43, "winter"}, {56, "winter"}, {57, "spring"}, {71, "summer"},
 	}
 	for _, tt := range tests {
 		if got := SeasonOf(tt.day); got != tt.want {
@@ -542,7 +542,7 @@ func TestDayErrors(t *testing.T) {
 	}{
 		{"no areas", model.WeatherDayPayload{Day: 1}},
 		{"day 0", model.WeatherDayPayload{Day: 0, Areas: []model.WeatherArea{ok}}},
-		{"missing season", model.WeatherDayPayload{Day: 30, Areas: []model.WeatherArea{{ID: "a", Climate: springOnly}}}},
+		{"missing season", model.WeatherDayPayload{Day: DaysPerSeason + 2, Areas: []model.WeatherArea{{ID: "a", Climate: springOnly}}}},
 		{"no climate", model.WeatherDayPayload{Day: 1, Areas: []model.WeatherArea{{ID: "a"}}}},
 		{"no id", model.WeatherDayPayload{Day: 1, Areas: []model.WeatherArea{{Climate: allSeasons(mild())}}}},
 		{"duplicate id", model.WeatherDayPayload{Day: 1, Areas: []model.WeatherArea{ok, ok}}},
@@ -556,7 +556,7 @@ func TestDayErrors(t *testing.T) {
 	}
 	// Only the requested day's season is required; neighbouring seasons
 	// (smoothing look-back, tomorrow's forecast) fall back to it.
-	for _, d := range []int{1, 28} {
+	for _, d := range []int{1, DaysPerSeason} {
 		if _, err := Day(model.WeatherDayPayload{Day: d, Areas: []model.WeatherArea{{ID: "a", Climate: springOnly}}}); err != nil {
 			t.Errorf("spring-only area on day %d: %v", d, err)
 		}

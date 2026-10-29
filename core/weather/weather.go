@@ -22,7 +22,7 @@ var ErrInvalidPayload = errors.New("invalid weather payload")
 const (
 	// DaysPerSeason is the length of a season; day 1 is the first day of
 	// spring (SPEC.md §3.1).
-	DaysPerSeason = 28
+	DaysPerSeason = 14
 	// DaysPerYear is four seasons.
 	DaysPerYear = 4 * DaysPerSeason
 	// SlotsPerDay is morning, afternoon and evening.

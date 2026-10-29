@@ -72,7 +72,7 @@ Day starts → choose time slot activity → explore overworld → task (photo /
 - Each day has three slots: **Morning, Afternoon, Evening**.
 - A photo session or a lesson consumes one slot. Walking around the overworld is free.
 - Bird availability depends on time slot, area, season, and weather.
-- Seasons change every 28 days (Spring, Summer, Autumn, Winter).
+- Seasons change every 14 days (Spring, Summer, Autumn, Winter).
 - Weather is simulated per area and changes per time slot (§4.9).
 
 ### 3.2 Economy

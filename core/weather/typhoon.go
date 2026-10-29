@@ -6,8 +6,8 @@ const (
 	// TyphoonFirstDay and TyphoonLastDay bound the typhoon season as days
 	// of the year (summer and early autumn). A typhoon starts and ends
 	// inside this window.
-	TyphoonFirstDay = 29
-	TyphoonLastDay  = 70
+	TyphoonFirstDay = DaysPerSeason + 1
+	TyphoonLastDay  = 2*DaysPerSeason + DaysPerSeason/2
 	// TyphoonChance is the chance per day in the window that a typhoon
 	// starts (unless a draw fired in the previous three days).
 	TyphoonChance = 0.04

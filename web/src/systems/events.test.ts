@@ -8,7 +8,7 @@ import {
   visibleLines,
   type EventHost,
 } from './events';
-import { newGame, type GameState } from './state';
+import { newGame, SEASON_DAYS, type GameState } from './state';
 import { emptyContent } from '../test/content';
 
 const content: ContentBundle = {
@@ -123,7 +123,7 @@ describe('checkCondition', () => {
 
   it('checks season and time slot (single value or list)', () => {
     const s = state();
-    s.day = 30;
+    s.day = SEASON_DAYS + 2;
     s.slot = 'evening';
     expect(checkCondition(c('season', 'summer'), s)).toBe(true);
     expect(checkCondition(c('season', 'spring'), s)).toBe(false);

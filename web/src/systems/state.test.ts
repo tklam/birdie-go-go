@@ -42,14 +42,14 @@ describe('newGame', () => {
 });
 
 describe('season', () => {
-  it('changes every 28 days starting with spring', () => {
+  it('changes every 14 days starting with spring', () => {
     expect(season(1)).toBe('spring');
-    expect(season(28)).toBe('spring');
-    expect(season(29)).toBe('summer');
-    expect(season(57)).toBe('autumn');
-    expect(season(85)).toBe('winter');
-    expect(season(112)).toBe('winter');
-    expect(season(113)).toBe('spring');
+    expect(season(14)).toBe('spring');
+    expect(season(15)).toBe('summer');
+    expect(season(29)).toBe('autumn');
+    expect(season(43)).toBe('winter');
+    expect(season(56)).toBe('winter');
+    expect(season(57)).toBe('spring');
   });
 
   it('treats days below 1 as day 1', () => {
