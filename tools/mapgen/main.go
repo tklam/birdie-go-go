@@ -67,7 +67,7 @@ func run(dir string, force bool) error {
 	if err := os.MkdirAll(interiors, 0o755); err != nil {
 		return err
 	}
-	for name, im := range map[string]*tmap{"angie_flat": angieFlat(), "mei_flat": meiFlat(), "fai_house": faiHouse(), "ho_flat": hoFlat()} {
+	for name, im := range map[string]*tmap{"angie_flat": angieFlat(), "mei_flat": meiFlat(), "fai_house": faiHouse(), "ho_flat": hoFlat(), "shared_home": sharedHome()} {
 		if err := writeJSON(filepath.Join(interiors, name+".tmj"), im.tiled("../world/tilesets")); err != nil {
 			return err
 		}
@@ -275,7 +275,8 @@ func build() *tmap {
 	m.obj("estate_plaza", "spawn", 47, 28, nil)
 	m.obj("tko_estate_garden", "spot", 18, 38, map[string]string{"spot_id": "tko_estate_garden"})
 	m.obj("tko_waterfront_park", "spot", 40, 52, map[string]string{"spot_id": "tko_waterfront_park"})
-	m.obj("angie_home", "door", angieDoor, 27, map[string]string{"to_map": "angie_flat", "to_spawn": "front_door", "title": "Angie's flat"})
+	m.obj("angie_home", "door", angieDoor, 27, map[string]string{"to_map": "angie_flat", "to_spawn": "front_door", "title": "Angie's flat",
+		"alt_flag": "wedding_done", "alt_map": "shared_home", "alt_title": "Home"})
 	m.obj("angie_home_out", "spawn", angieDoor, 28, nil)
 	m.obj("mei_home", "door", meiDoor, 27, map[string]string{"to_map": "mei_flat", "to_spawn": "front_door", "title": "Mei's flat"})
 	m.obj("mei_home_out", "spawn", meiDoor, 28, nil)
@@ -357,6 +358,8 @@ func harbourIsland() *tmap {
 	m.obj("feather_peak", "collectible", 80, 37, map[string]string{"item": "feather"})
 	m.obj("part_tram", "collectible", 28, 15, map[string]string{"item": "camera_part"})
 	m.obj("park_kites", "bird", 88, 20, map[string]string{"species": "black_kite", "count": "1"})
+	m.obj("uncle_chan", "npc", 58, 32, map[string]string{"npc_id": "uncle_chan", "sprite": "char_uncle_chan"})
+	m.obj("siu_ming", "npc", 89, 22, map[string]string{"npc_id": "siu_ming", "sprite": "char_siu_ming"})
 	m.obj("peak_bulbuls", "bird", 52, 30, map[string]string{"species": "red_whiskered_bulbul", "count": "3"})
 	return m
 }
@@ -512,6 +515,32 @@ func meiFlat() *tmap {
 	m.put(18, 2, "plant")
 	m.put(1, 2, "bookshelf")
 	m.exit("mei_home_out")
+	return m
+}
+
+// sharedHome is Angie and Kei's home after the wedding (SPEC.md §8): the
+// photo wall, the piano, Kei's desk and O Boy's perch.
+func sharedHome() *tmap {
+	m := room("floor_wood")
+	m.put(2, 2, "bed_top")
+	m.put(2, 3, "bed_bottom")
+	m.obj("home_bed", "bed", 2, 3, nil)
+	m.obj("photo_wall", "photo_wall", 9, 1, nil)
+	m.put(5, 2, "piano_left")
+	m.put(6, 2, "piano_right")
+	m.put(6, 3, "chair")
+	m.fill(13, 2, 2, 1, "counter")
+	m.obj("radio", "radio", 14, 2, nil)
+	m.put(16, 2, "bookshelf")
+	m.put(17, 2, "bookshelf")
+	m.obj("cupboard", "storage", 16, 2, nil)
+	m.put(15, 6, "table")
+	m.put(14, 6, "chair")
+	m.put(16, 6, "chair")
+	m.fill(6, 7, 6, 2, "rug")
+	m.put(18, 9, "plant")
+	m.put(1, 9, "plant")
+	m.exit("angie_home_out")
 	return m
 }
 

@@ -1,0 +1,27 @@
+# Side characters on Harbour Island.
+- id: uncle_chan_meet
+  lines:
+    - { speaker: uncle_chan, text: "Careful on the steps, young lady. Ah, a camera! A real one, not a phone." }
+    - { speaker: uncle_chan, text: "Forty years I shot for the newspapers. Fires, typhoons, film stars. Now I shoot eagles." }
+    - { speaker: uncle_chan, text: "Eagles don't complain about their good side." }
+    - { speaker: angie, text: "I'm Angie. I'm trying to photograph every bird in the city." }
+    - { speaker: uncle_chan, text: "Every bird! Ha! Then you'll be up here often. Watch the sky over the ridge at noon." }
+- id: uncle_chan_chat
+  lines:
+    - { speaker: uncle_chan, text: "Hold still when the focus ring fills. The bird can move. You can't." }
+    - { speaker: uncle_chan, text: "A soft photo of a rare bird is still a soft photo. Wait for the moment.", if: { album_has: crested_serpent_eagle } }
+    - { speaker: uncle_chan, text: "The serpent eagle calls before you see it. Listen for the whistle." }
+    - { speaker: uncle_chan, text: "On foggy mornings the laughingthrushes come right down to the path." }
+- id: siu_ming_meet
+  lines:
+    - { speaker: siu_ming, text: "Shhh! The cockatoos are coming! Big white ones with yellow hats!" }
+    - { speaker: angie, text: "Cockatoos? Here, in the city?" }
+    - { speaker: siu_ming, text: "They live in the park! Grandpa says they escaped a hundred years ago. Now they're Hong Kongers." }
+    - { speaker: oboy, text: "Chirp?", if: { party_has: oboy } }
+    - { speaker: siu_ming, text: "Whoa, your bird is so small! Is he a baby cockatoo?", if: { party_has: oboy } }
+    - { speaker: angie, text: "He's a parrotlet. And he's a long way from home." }
+- id: siu_ming_chat
+  lines:
+    - { speaker: siu_ming, text: "I counted eleven cockatoos yesterday! And two green parakeets. They're LOUD." }
+    - { speaker: siu_ming, text: "When I grow up I'm going to be a bird photographer. Like you!" }
+    - { speaker: siu_ming, text: "Did you see the kites? They steal sandwiches. I lost two." }

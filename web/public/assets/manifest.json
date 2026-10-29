@@ -2100,9 +2100,23 @@
     "frameHeight": 24,
     "placeholder": true
   },
+  "char_siu_ming": {
+    "type": "spritesheet",
+    "file": "chars/siu_ming.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
   "char_student": {
     "type": "spritesheet",
     "file": "chars/student.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
+  "char_uncle_chan": {
+    "type": "spritesheet",
+    "file": "chars/uncle_chan.png",
     "frameWidth": 16,
     "frameHeight": 24,
     "placeholder": true

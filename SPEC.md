@@ -446,6 +446,8 @@ Abilities are **hints**, never automatic success.
 | 5 | Big photo contest + student recital | `kei_proposes` → `kei.stage = engaged` |
 | Finale | Wedding; the shared home with Angie's best photos on the wall | `kei.stage = married`; post-game free play |
 
+*As built:* after the wedding (`wedding_done`), Angie's front door leads to `shared_home` (door props `alt_flag`/`alt_map`/`alt_title`), where the photo wall (**Look**) lists her six best album photos; sleeping, fainting and bedtime reminders use the new home. The next morning's `epilogue` opens free play: missions, contests, the album and students carry on. Side characters on Harbour Island: Uncle Chan, a retired press photographer on the Peak Trail, and Siu Ming, a boy who loves the harbourfront cockatoos.
+
 All story is data-driven (§9.4). The dialogue is a full first draft (content/dialogue/), open to revision.
 
 ## 9. Technical Architecture

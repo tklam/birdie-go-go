@@ -64,3 +64,12 @@
     - { speaker: kei, text: "...My right pocket. See? This is why I need you." }
     - { speaker: oboy, text: "Chirrup!" }
     - { speaker: angie, text: "Ready. Let's keep exploring this city together. All three of us." }
+- id: epilogue
+  lines:
+    - { speaker: angie, text: "Our first morning in the new home. Kei's already fixing the toaster. It wasn't broken." }
+    - { speaker: kei, text: "It is now. But it'll toast in four colours." }
+    - { speaker: oboy, text: "Chirp! Chirp chirp!" }
+    - { speaker: angie, text: "O Boy's found the photo wall. Our best shots, all in one place." }
+    - { speaker: kei, text: "There are a lot of empty frames left. The whole city's still out there." }
+    - { speaker: angie, text: "Then let's fill them. Every bird, every student, every season." }
+

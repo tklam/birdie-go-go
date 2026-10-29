@@ -1,0 +1,25 @@
+# Side characters on Harbour Island: a first meeting, then repeatable chats.
+- id: uncle_chan_meet
+  trigger: { type: talk, npc: uncle_chan }
+  conditions: [{ flag_not_set: met_uncle_chan }]
+  actions:
+    - dialogue: uncle_chan_meet
+    - set_flag: met_uncle_chan
+- id: uncle_chan_chat
+  once: false
+  trigger: { type: talk, npc: uncle_chan }
+  conditions: [{ flag_set: met_uncle_chan }]
+  actions:
+    - dialogue: uncle_chan_chat
+- id: siu_ming_meet
+  trigger: { type: talk, npc: siu_ming }
+  conditions: [{ flag_not_set: met_siu_ming }]
+  actions:
+    - dialogue: siu_ming_meet
+    - set_flag: met_siu_ming
+- id: siu_ming_chat
+  once: false
+  trigger: { type: talk, npc: siu_ming }
+  conditions: [{ flag_set: met_siu_ming }]
+  actions:
+    - dialogue: siu_ming_chat

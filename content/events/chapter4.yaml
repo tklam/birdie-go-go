@@ -1,4 +1,4 @@
-# Chapters 4–5 and the finale (SPEC.md §8). Placeholder text until the story is written.
+# Chapters 4–5, the finale and the epilogue (SPEC.md §8).
 - id: chapter4_start
   trigger: { type: day_start }
   conditions:
@@ -79,3 +79,13 @@
     - set_flag: "gateway:tko_plaza"
     - set_flag: "gateway:cwb_park"
     - set_flag: "gateway:po_toi_o"
+
+# The morning after the wedding: life together, and the open city (post-game).
+- id: epilogue
+  trigger: { type: day_start }
+  conditions:
+    - flag_set: wedding_done
+    - flag_not_set: epilogue_done
+  actions:
+    - set_flag: epilogue_done
+    - dialogue: epilogue

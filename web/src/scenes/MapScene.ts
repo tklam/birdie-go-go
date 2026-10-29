@@ -73,8 +73,10 @@ interface Passerby {
 const PASSERBY_SPEED = 26;
 /** The spot used for photos from a ferry's deck. */
 const FERRY_DECK = 'ferry_deck';
-/** Angie's flat, where she sleeps. */
-const HOME_MAP = 'angie_flat';
+/** Where Angie lives: her flat, then the home she shares with Kei after the wedding. */
+function homeMap(flags: Record<string, true>): string {
+  return flags.wedding_done ? 'shared_home' : 'angie_flat';
+}
 /** The first bedtime reminder of an evening waits until any area toast has gone. */
 const BEDTIME_FIRST_MS = 8000;
 
@@ -394,7 +396,7 @@ export class MapScene extends Phaser.Scene {
    */
   private updateBedtime(time: number): void {
     const r = this.session.content.game.bedtimeReminder;
-    const away = this.session.state.slot === 'evening' && this.mapId !== HOME_MAP;
+    const away = this.session.state.slot === 'evening' && this.mapId !== homeMap(this.session.state.flags);
     if (!away || !r?.everySeconds || !r.lines.length) {
       this.nextBedtime = 0;
       return;
@@ -602,9 +604,10 @@ export class MapScene extends Phaser.Scene {
     s.state.money -= fee;
     s.state.energy = 60;
     await s.endSlot();
-    s.state.position = { map: HOME_MAP, spawn: 'front_door' };
+    const home = homeMap(s.state.flags);
+    s.state.position = { map: home, spawn: 'front_door' };
     await s.save();
-    this.scene.restart({ map: HOME_MAP, spawn: 'front_door', title: "Angie's flat" });
+    this.scene.restart({ map: home, spawn: 'front_door', title: home === 'angie_flat' ? "Angie's flat" : 'Home' });
   }
 
   /** The blended weather at a world position, or null if unknown. */
@@ -813,6 +816,9 @@ export class MapScene extends Phaser.Scene {
         case 'storage':
           await this.packBag();
           return;
+        case 'photo_wall':
+          await this.photoWall();
+          return;
         case 'radio':
           await this.radio();
           break;
@@ -855,10 +861,12 @@ export class MapScene extends Phaser.Scene {
     }
   }
 
+  /** Through a door; `alt_map`/`alt_title` replace the target once `alt_flag` is set (e.g. the shared home). */
   private async goThrough(door: WorldObject): Promise<void> {
-    const map = door.props.to_map;
+    const alt = door.props.alt_flag && this.session.state.flags[door.props.alt_flag] && door.props.alt_map;
+    const map = alt ? door.props.alt_map : door.props.to_map;
     if (!map) return;
-    const data: MapSceneData = { map, spawn: door.props.to_spawn, title: door.props.title };
+    const data: MapSceneData = { map, spawn: door.props.to_spawn, title: (alt && door.props.alt_title) || door.props.title };
     this.session.state.position = { map, spawn: door.props.to_spawn };
     await this.session.save();
     this.cameras.main.fadeOut(200, 0, 0, 0);
@@ -1139,6 +1147,16 @@ export class MapScene extends Phaser.Scene {
         { label: 'Done', run: async () => false },
       ],
     );
+  }
+
+  /** The photo wall at home (SPEC.md §8): Angie's six best album photos. */
+  private async photoWall(): Promise<void> {
+    const s = this.session;
+    const best = Object.values(s.state.album)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 6)
+      .map((e) => `${s.content.birds.find((b) => b.id === e.species)?.name ?? e.species}: ${e.rating} (${e.score}), day ${e.day}`);
+    await showPanel('Our photo wall', best.length ? best : ['Empty frames, waiting for your best shots.']);
   }
 
   /**
@@ -2194,6 +2212,8 @@ function labelFor(o: WorldObject): string | null {
       return 'Listen';
     case 'storage':
       return 'Pack';
+    case 'photo_wall':
+      return 'Look';
     case 'bed':
       return 'Sleep';
     case 'spot':
