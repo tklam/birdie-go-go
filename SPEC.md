@@ -47,7 +47,7 @@ The whole game (overworld, photo scenes, lessons, menus) looks and sounds like a
 - One combat-style stat: **Energy** (§4.12). She also has **money**, **gear**, **reputation** (as a teacher), and an **album**.
 
 ### 2.2 O Boy
-- A little bird from the **Bird Paradise**, a traveller journeying around the universe. On Earth he looks like a blue-greenish **Pacific parrotlet** (*Forpus coelestis*), with a faint starry shimmer in his feathers.
+- A little bird from the **Bird Paradise**, a traveller journeying around the universe. On Earth he looks like a blue-greenish **Pacific parrotlet** (*Forpus coelestis*), with a faint starry shimmer in his feathers. His voice is real Pacific parrotlet calls: a chirp on each of his dialogue lines and now and then on the map, a two-note contact call in photo sessions, and an excited squawk in encounters.
 - Where the Bird Paradise is, why he's travelling and why he stays with Angie unfold gently through the story (see §11).
 - Found by Angie during an early-game birding outing; she names him "O Boy". Joining is a scripted story event.
 - On the map he rides on Angie's shoulder and occasionally flutters off and back (cosmetic).

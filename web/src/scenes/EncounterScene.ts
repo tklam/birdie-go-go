@@ -44,6 +44,8 @@ import {
   type EncounterResult,
   type Outcome,
 } from '../encounter/rules';
+import { oboySquawk } from '../audio/oboy';
+import type { AudioEngine } from '../audio/AudioEngine';
 import { iris } from '../fx/iris';
 import { reducedMotion } from '../fx/motion';
 import { useItem } from '../systems/hazards';
@@ -409,6 +411,7 @@ export class EncounterScene extends Phaser.Scene {
         this.squawkReady = false;
         length -= 1;
         this.setMessage('O Boy squawks! It looks away!');
+        oboySquawk(this.registry.get('audio') as AudioEngine | undefined);
         await this.wait(700);
         if (!this.alive(run)) return;
       }

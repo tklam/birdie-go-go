@@ -20,6 +20,8 @@ import { season } from '../systems/state';
 import { modal } from '../ui/overlay';
 import { floatingButton, showPanel } from '../ui/panel';
 import { TEXT as PIXEL_TEXT } from '../ui/text';
+import { oboyCall, oboyChirp } from '../audio/oboy';
+import type { AudioEngine } from '../audio/AudioEngine';
 import { iris } from '../fx/iris';
 import { reducedMotion } from '../fx/motion';
 
@@ -270,6 +272,7 @@ export class PhotoScene extends Phaser.Scene {
     const perches = this.bgEntry.perches ?? [];
     const bird = this.birds.find((b) => b.state === 'perched');
     if (!bird || perches.length === 0) {
+      oboyChirp(this.registry.get('audio') as AudioEngine | undefined);
       this.showPopup('O Boy chirps... nobody answers.');
       return;
     }
@@ -278,6 +281,7 @@ export class PhotoScene extends Phaser.Scene {
     const [px, py] = perches.reduce((best, p) =>
       Math.hypot(p[0] - this.vf.x, p[1] - this.vf.y) < Math.hypot(best[0] - this.vf.x, best[1] - this.vf.y) ? p : best,
     );
+    oboyCall(this.registry.get('audio') as AudioEngine | undefined);
     this.showPopup(`O Boy calls! The ${bird.species.name} comes closer.`);
     bird.state = 'arriving';
     bird.sprite.setFlipX(px < bird.sprite.x);

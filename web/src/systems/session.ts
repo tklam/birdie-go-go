@@ -31,6 +31,8 @@ export function speakerName(id: string, content: Pick<ContentBundle, 'students'>
  */
 export class Session {
   readonly events: EventRunner;
+  /** Called with the speaker id as each dialogue line appears (voices, e.g. O Boy's chirps). */
+  voice: (speaker: string) => void = () => {};
   private weatherCache = new Map<number, Promise<WeatherDay>>();
 
   constructor(
@@ -154,7 +156,8 @@ export class Session {
       console.warn(`unknown dialogue ${id}`);
       return;
     }
-    const lines = visibleLines(d, this.state).map((l) => ({ speaker: speakerName(l.speaker, this.content), text: l.text }));
-    await showDialogue(lines);
+    const visible = visibleLines(d, this.state);
+    const lines = visible.map((l) => ({ speaker: speakerName(l.speaker, this.content), text: l.text }));
+    await showDialogue(lines, (i) => this.voice(visible[i].speaker));
   }
 }

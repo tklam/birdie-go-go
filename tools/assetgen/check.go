@@ -41,6 +41,11 @@ func check(dir string) error {
 				}
 			}
 			continue
+		case "audio":
+			if _, err := os.Stat(filepath.Join(dir, e.File)); err != nil {
+				report("%s: %v", id, err)
+			}
+			continue
 		case "image", "spritesheet":
 		default:
 			report("%s: unknown type %q", id, e.Type)

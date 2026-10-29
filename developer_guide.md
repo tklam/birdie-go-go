@@ -352,7 +352,7 @@ To add a trigger, condition, or action:
 - **Replacing an asset:** drop the new file at the same path with the same dimensions and frame layout, then run `make lint`.
 - **Character sheets:** 16×24 frames. Rows are down, left, right, up; columns are idle and walk 1–3. `tools/assetgen/characters.go` draws everyone in one top-down adventure style: big round head, short body, automatic two-tone shading lit from the top left, a near-black 1-px outline, and a 1-px body bob on walking frames. Add a character by adding a `charSpec` (hair style, clothes, glasses, hat, child size).
 - **Font:** Press Start 2P (SIL OFL, `web/public/fonts/OFL.txt`) for the overlay and Phaser text.
-- **Audio:** synthesized in `web/src/audio/` with no sample files: an additive piano for lessons, and square/pulse/triangle/noise voices for background music and SFX. A SoundFont sample bank is *(planned)*.
+- **Audio:** synthesized in `web/src/audio/`: an additive piano for lessons, and square/pulse/triangle/noise voices for background music and SFX. A SoundFont sample bank is *(planned)*. Recorded clips live in `art/audio/<voice>/*.mp3`; `make assets` copies them to `web/public/assets/audio/` and lists them in the manifest as `audio` entries (`sfx_<name>`), which `AudioEngine.playSample` plays. O Boy's chirps come from xeno-canto field recordings under **CC BY-NC-SA** (`art/audio/CREDITS.md`), so the game is distributed non-commercially.
 - **No real-world logos or trademarks.**
 
 ## 7. Testing

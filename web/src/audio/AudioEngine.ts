@@ -1,6 +1,7 @@
 // The game's one AudioContext: master/music/sfx/piano buses, a synthesized
-// piano voice, a metronome click and a few 16-bit-flavoured SFX. Everything
-// is generated with oscillators, so it works offline with no sample files.
+// piano voice, a metronome click and a few 16-bit-flavoured SFX generated with
+// oscillators, plus short recorded samples (O Boy's calls) from the asset
+// manifest, decoded once and cached for offline play.
 // All timing is against AudioContext.currentTime (AGENTS.md rule 10).
 import {
   ATTACK_S,
@@ -35,6 +36,9 @@ export class AudioEngine {
   private buses: Record<Bus, GainNode> | null = null;
   private noise: AudioBuffer | null = null;
   private readonly volumes: Record<Bus, number> = { master: 1, music: 0.8, sfx: 0.8, piano: 1 };
+  /** Sample id → URL (registered from the manifest), and decoded buffers. */
+  private readonly sampleUrls = new Map<string, string>();
+  private readonly samples = new Map<string, Promise<AudioBuffer | null>>();
 
   constructor(private readonly createContext: () => AudioContext = () => new AudioContext({ latencyHint: 'interactive' })) {}
 
@@ -163,6 +167,53 @@ export class AudioEngine {
     const t = Math.max(atTime, ctx.currentTime);
     this.tone('square', accent ? 1760 : 1320, t, 0.035, accent ? 0.22 : 0.14, this.buses.sfx);
     this.tone('triangle', accent ? 880 : 660, t, 0.05, accent ? 0.25 : 0.16, this.buses.sfx);
+  }
+
+  /** Registers recorded samples by id; they're decoded on first use. */
+  registerSamples(urls: Record<string, string>): void {
+    for (const [id, url] of Object.entries(urls)) this.sampleUrls.set(id, url);
+  }
+
+  /** Ids of registered samples that start with `prefix`. */
+  sampleIds(prefix = ''): string[] {
+    return [...this.sampleUrls.keys()].filter((id) => id.startsWith(prefix));
+  }
+
+  /**
+   * Plays a recorded sample on the SFX bus as soon as it's decoded. `rate`
+   * shifts pitch and speed slightly so repeats don't sound identical.
+   */
+  playSample(id: string, opts: { rate?: number; gain?: number } = {}): void {
+    const ctx = this.ctx;
+    if (!ctx || !this.buses) return;
+    void this.decode(id).then((buffer) => {
+      if (!buffer || !this.buses) return;
+      const src = ctx.createBufferSource();
+      src.buffer = buffer;
+      src.playbackRate.value = opts.rate ?? 1;
+      const g = ctx.createGain();
+      g.gain.value = opts.gain ?? 0.8;
+      src.connect(g).connect(this.buses.sfx);
+      src.start(ctx.currentTime);
+      src.onended = () => g.disconnect();
+    });
+  }
+
+  private decode(id: string): Promise<AudioBuffer | null> {
+    let p = this.samples.get(id);
+    const url = this.sampleUrls.get(id);
+    if (!p && url && this.ctx) {
+      const ctx = this.ctx;
+      p = fetch(url)
+        .then((r) => r.arrayBuffer())
+        .then((data) => ctx.decodeAudioData(data))
+        .catch((err: unknown) => {
+          console.warn(`sample ${id} failed to load`, err);
+          return null;
+        });
+      this.samples.set(id, p);
+    }
+    return p ?? Promise.resolve(null);
   }
 
   /** A short UI blip (menu cursor). */

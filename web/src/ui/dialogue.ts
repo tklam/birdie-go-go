@@ -11,7 +11,7 @@ export interface Line {
  * effect. Tap/click, Space or Enter finishes the line or advances. Resolves
  * after the last line.
  */
-export function showDialogue(lines: Line[]): Promise<void> {
+export function showDialogue(lines: Line[], onLine?: (index: number) => void): Promise<void> {
   if (lines.length === 0) return Promise.resolve();
   const box = document.createElement('div');
   box.className = 'window dialogue';
@@ -38,6 +38,7 @@ export function showDialogue(lines: Line[]): Promise<void> {
     };
     const type = () => {
       clearInterval(timer);
+      onLine?.(line);
       const cps = textCharsPerSecond();
       shown = cps > 0 ? 0 : lines[line].text.length;
       render();

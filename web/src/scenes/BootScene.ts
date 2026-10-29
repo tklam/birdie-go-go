@@ -1,6 +1,7 @@
+import type { AudioEngine } from '../audio/AudioEngine';
 import Phaser from 'phaser';
 import type { ContentBundle, WorldIndex } from '../core/types.gen';
-import { queueManifest, type Manifest } from '../systems/assets';
+import { audioSamples, queueManifest, type Manifest } from '../systems/assets';
 import { loadPixelFont } from '../ui/text';
 
 /**
@@ -28,7 +29,9 @@ export class BootScene extends Phaser.Scene {
   }
 
   create(): void {
-    this.registry.set('manifest', this.cache.json.get('manifest') as Manifest);
+    const manifest = this.cache.json.get('manifest') as Manifest;
+    this.registry.set('manifest', manifest);
+    (this.registry.get('audio') as AudioEngine | undefined)?.registerSamples(audioSamples(manifest));
     this.registry.set('content', this.cache.json.get('content') as ContentBundle);
     this.registry.set('world', this.cache.json.get('world') as WorldIndex);
     void loadPixelFont().then(() => this.scene.start('Title'));

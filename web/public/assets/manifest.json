@@ -863,6 +863,34 @@
     "frameHeight": 48,
     "placeholder": true
   },
+  "sfx_oboy_call": {
+    "type": "audio",
+    "file": "audio/oboy_call.mp3"
+  },
+  "sfx_oboy_chirp1": {
+    "type": "audio",
+    "file": "audio/oboy_chirp1.mp3"
+  },
+  "sfx_oboy_chirp2": {
+    "type": "audio",
+    "file": "audio/oboy_chirp2.mp3"
+  },
+  "sfx_oboy_chirp3": {
+    "type": "audio",
+    "file": "audio/oboy_chirp3.mp3"
+  },
+  "sfx_oboy_chirp4": {
+    "type": "audio",
+    "file": "audio/oboy_chirp4.mp3"
+  },
+  "sfx_oboy_chirp5": {
+    "type": "audio",
+    "file": "audio/oboy_chirp5.mp3"
+  },
+  "sfx_oboy_squawk": {
+    "type": "audio",
+    "file": "audio/oboy_squawk.mp3"
+  },
   "tiles_tko": {
     "type": "spritesheet",
     "file": "tiles/tko.png",

@@ -174,7 +174,7 @@ Before heading out, choose who comes along: go **alone**, or bring **O Boy**, **
 
 Spending time together raises your **bond**, which unlocks new ways they can help.
 
-**O Boy** rides on your shoulder.
+**O Boy** rides on your shoulder and chirps now and then. His voice is recorded from real wild Pacific parrotlets.
 - He chirps when a bird is nearby but out of sight.
 - He keeps birds calmer during photo sessions. Once you're close (bond 40+), tap **Call** (or press C) once per session and he'll call a curious bird closer.
 - He bobs his head to the beat during lessons and reacts when you miss a mistake.

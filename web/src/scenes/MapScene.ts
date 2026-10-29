@@ -30,6 +30,7 @@ import { toast } from '../ui/toast';
 import { applyUiPrefs } from '../ui/prefs';
 import { TouchControls } from '../ui/touchControls';
 import type { AudioEngine } from '../audio/AudioEngine';
+import { oboyChirp } from '../audio/oboy';
 import type { MusicPlayer } from '../audio/music';
 import type { ChunkData } from '../world/chunk';
 import { ChunkRenderer, DEPTH } from '../world/ChunkRenderer';
@@ -151,6 +152,8 @@ export class MapScene extends Phaser.Scene {
   private weatherDay: WeatherDay | null = null;
   private weatherLoading = -1;
   private weatherNow: WeatherParams | null = null;
+  /** Time (ms) of O Boy's next idle chirp on the map. */
+  private nextChirp = 0;
   private weatherRenderer: WeatherRenderer | null = null;
   private hazards: HazardReport | null = null;
   private fainting = false;
@@ -375,6 +378,11 @@ export class MapScene extends Phaser.Scene {
     this.updateUmbrellas();
     this.drawSpotMarks(time);
     if (this.oboy) {
+      // Now and then he chirps to himself.
+      if (time > this.nextChirp) {
+        if (this.nextChirp > 0 && !modal.open) oboyChirp(this.registry.get('audio') as AudioEngine | undefined);
+        this.nextChirp = time + 25_000 + Math.random() * 35_000;
+      }
       // Perched on the shoulder away from where she's facing.
       const side = this.facing === 'left' ? 5 : -5;
       this.oboy.setFlipX(this.facing === 'left').setPosition(this.pos.x + side, this.pos.y - 11).setDepth(DEPTH.entities + this.pos.y + 1);

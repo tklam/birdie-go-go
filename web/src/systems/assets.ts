@@ -2,7 +2,7 @@ import type Phaser from 'phaser';
 
 /** One entry of web/public/assets/manifest.json (tools/assetgen). */
 export interface ManifestEntry {
-  type: 'image' | 'spritesheet' | 'background';
+  type: 'image' | 'spritesheet' | 'background' | 'audio';
   file?: string;
   frameWidth?: number;
   frameHeight?: number;
@@ -33,4 +33,12 @@ export function queueManifest(load: Phaser.Loader.LoaderPlugin, manifest: Manife
 export function frameIndex(entry: ManifestEntry | undefined, name: string): number {
   const i = entry?.frames?.indexOf(name) ?? -1;
   return i < 0 ? 0 : i;
+}
+
+/** URLs of the manifest's audio samples by id, for AudioEngine.registerSamples. */
+export function audioSamples(manifest: Manifest): Record<string, string> {
+  const base = `${import.meta.env.BASE_URL}assets/`;
+  const out: Record<string, string> = {};
+  for (const [id, e] of Object.entries(manifest)) if (e.type === 'audio' && e.file) out[id] = base + e.file;
+  return out;
 }
