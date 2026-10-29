@@ -11,6 +11,7 @@ export class TitleScene extends Phaser.Scene {
   }
 
   create(): void {
+    (this.registry.get('music') as { stop(): void } | undefined)?.stop();
     const { width, height } = this.scale;
     this.add.rectangle(0, 0, width, height, 0x1b2a4a).setOrigin(0, 0);
     this.add.text(width / 2, 44, 'BIRDIE GO GO', { ...TEXT, fontSize: '16px', color: '#ffe680' }).setOrigin(0.5);

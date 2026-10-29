@@ -82,6 +82,7 @@ export class PhotoScene extends Phaser.Scene {
   }
 
   create(data: PhotoSceneData): void {
+    (this.registry.get('music') as { stop(): void } | undefined)?.stop();
     this.session = this.registry.get('session') as Session;
     const content = this.session.content;
     const manifest = this.registry.get('manifest') as Manifest;

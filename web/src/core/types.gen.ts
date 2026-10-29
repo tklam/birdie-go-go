@@ -16,6 +16,7 @@ export interface ContentBundle {
   songs: Song[];
   events: Event[];
   dialogue: Dialogue[];
+  music: Music[];
 }
 /**
  * GameInfo is the top-level game metadata from content/game.yaml.
@@ -115,6 +116,26 @@ export interface Note {
   start: number /* float64 */;
   dur: number /* float64 */;
   vel: number /* int */;
+}
+/**
+ * Music is a looping background tune played by the 16-bit synth
+ * (SPEC.md §1.3). Times are in beats.
+ */
+export interface Music {
+  id: string;
+  title: string;
+  tempo: number /* float64 */;
+  loopBeats: number /* float64 */;
+  tracks: MusicTrack[];
+}
+/**
+ * MusicTrack is one voice of a tune. Instrument is "square", "pulse",
+ * "triangle" or "noise" (noise ignores pitch).
+ */
+export interface MusicTrack {
+  instrument: string;
+  volume: number /* float64 */;
+  notes: Note[];
 }
 /**
  * Event is a story or world event (SPEC.md §9.4).

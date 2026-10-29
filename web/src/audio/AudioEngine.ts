@@ -98,6 +98,11 @@ export class AudioEngine {
     if (this.buses && this.ctx) this.buses[bus].gain.setTargetAtTime(this.volumes[bus], this.ctx.currentTime, 0.02);
   }
 
+  /** The music bus, for the background-music player (null until unlocked). */
+  musicOutput(): AudioNode | null {
+    return this.buses?.music ?? null;
+  }
+
   getVolume(bus: Bus): number {
     return this.volumes[bus];
   }

@@ -11,6 +11,7 @@ type ContentBundle struct {
 	Songs    []Song     `json:"songs"`
 	Events   []Event    `json:"events"`
 	Dialogue []Dialogue `json:"dialogue"`
+	Music    []Music    `json:"music"`
 }
 
 // GameInfo is the top-level game metadata from content/game.yaml.
@@ -96,6 +97,24 @@ type Note struct {
 	Start float64 `json:"start"`
 	Dur   float64 `json:"dur"`
 	Vel   int     `json:"vel"`
+}
+
+// Music is a looping background tune played by the 16-bit synth
+// (SPEC.md §1.3). Times are in beats.
+type Music struct {
+	ID        string       `json:"id"`
+	Title     string       `json:"title"`
+	Tempo     float64      `json:"tempo"`
+	LoopBeats float64      `json:"loopBeats"`
+	Tracks    []MusicTrack `json:"tracks"`
+}
+
+// MusicTrack is one voice of a tune. Instrument is "square", "pulse",
+// "triangle" or "noise" (noise ignores pitch).
+type MusicTrack struct {
+	Instrument string  `json:"instrument"`
+	Volume     float64 `json:"volume"`
+	Notes      []Note  `json:"notes"`
 }
 
 // Event is a story or world event (SPEC.md §9.4).

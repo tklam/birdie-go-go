@@ -176,6 +176,7 @@ export class PianoScene extends Phaser.Scene {
   }
 
   create(): void {
+    (this.registry.get('music') as { stop(): void } | undefined)?.stop();
     this.cameras.main.setBackgroundColor(COLORS.bg);
     this.roll = this.add.graphics();
     this.hud = this.add.graphics();

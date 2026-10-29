@@ -67,6 +67,23 @@ type studentYAML struct {
 	Fee        int                `yaml:"fee"`
 }
 
+type musicYAML struct {
+	ID        string  `yaml:"id"`
+	Title     string  `yaml:"title"`
+	Tempo     float64 `yaml:"tempo"`
+	LoopBeats float64 `yaml:"loop_beats"`
+	Tracks    []struct {
+		Instrument string  `yaml:"instrument"`
+		Volume     float64 `yaml:"volume"`
+		Notes      []struct {
+			Pitch int     `yaml:"pitch"`
+			Start float64 `yaml:"start"`
+			Dur   float64 `yaml:"dur"`
+			Vel   int     `yaml:"vel"`
+		} `yaml:"notes"`
+	} `yaml:"tracks"`
+}
+
 type songYAML struct {
 	ID            string  `yaml:"id"`
 	Title         string  `yaml:"title"`
@@ -120,7 +137,7 @@ func readYAML(path string, v any) error {
 func load(dir string) (*model.ContentBundle, error) {
 	b := &model.ContentBundle{
 		Areas: []model.Area{}, Birds: []model.Bird{}, Spots: []model.Spot{}, Students: []model.Student{},
-		Songs: []model.Song{}, Events: []model.Event{}, Dialogue: []model.Dialogue{},
+		Songs: []model.Song{}, Events: []model.Event{}, Dialogue: []model.Dialogue{}, Music: []model.Music{},
 	}
 
 	var g gameYAML
@@ -188,6 +205,26 @@ func load(dir string) (*model.ContentBundle, error) {
 			s.Notes = append(s.Notes, model.Note(n))
 		}
 		b.Songs = append(b.Songs, s)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	err = readDir(filepath.Join(dir, "music"), func(path string) error {
+		var x musicYAML
+		if err := readYAML(path, &x); err != nil {
+			return err
+		}
+		m := model.Music{ID: x.ID, Title: x.Title, Tempo: x.Tempo, LoopBeats: x.LoopBeats, Tracks: []model.MusicTrack{}}
+		for _, t := range x.Tracks {
+			track := model.MusicTrack{Instrument: t.Instrument, Volume: t.Volume, Notes: []model.Note{}}
+			for _, n := range t.Notes {
+				track.Notes = append(track.Notes, model.Note(n))
+			}
+			m.Tracks = append(m.Tracks, track)
+		}
+		b.Music = append(b.Music, m)
 		return nil
 	})
 	if err != nil {

@@ -4,7 +4,7 @@ import { CURRENT_SAVE_VERSION, clampBond, isKeiStage, newGame, season } from './
 
 const content: ContentBundle = {
   game: { title: 'T', contentVersion: '0', startMap: 'tko', startSpawn: 'estate_plaza' },
-  areas: [], birds: [], spots: [], students: [], songs: [], events: [], dialogue: [],
+  areas: [], birds: [], spots: [], students: [], songs: [], events: [], dialogue: [], music: [],
 };
 
 describe('newGame', () => {

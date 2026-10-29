@@ -83,6 +83,13 @@ func TestValidateErrors(t *testing.T) {
 			b.Events[0].Actions = append(b.Events[0].Actions, model.Action{Type: "set_kei_stage", Value: "besties"})
 		}, "unknown Kei stage"},
 		{"empty dialogue", func(b *model.ContentBundle) { b.Dialogue[0].Lines = nil }, "no lines"},
+		{"area music", func(b *model.ContentBundle) { b.Areas[0].Music = "bgm_missing" }, "unknown music"},
+		{"instrument", func(b *model.ContentBundle) {
+			b.Music = []model.Music{{ID: "bgm", Title: "T", Tempo: 100, LoopBeats: 4, Tracks: []model.MusicTrack{{Instrument: "kazoo", Volume: 0.5}}}}
+		}, "unknown instrument"},
+		{"note outside loop", func(b *model.ContentBundle) {
+			b.Music = []model.Music{{ID: "bgm", Title: "T", Tempo: 100, LoopBeats: 4, Tracks: []model.MusicTrack{{Instrument: "square", Volume: 0.5, Notes: []model.Note{{Pitch: 60, Start: 4, Dur: 1, Vel: 80}}}}}}
+		}, "outside the loop"},
 		{"dialogue condition", func(b *model.ContentBundle) {
 			b.Dialogue[0].Lines[0].If = []model.Condition{{Type: "vibes"}}
 		}, "unknown condition"},

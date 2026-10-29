@@ -13,6 +13,7 @@ import { loadJSON } from '../systems/data';
 import type { Manifest } from '../systems/assets';
 import { toast } from '../ui/toast';
 import { TouchControls } from '../ui/touchControls';
+import type { MusicPlayer } from '../audio/music';
 import type { ChunkData } from '../world/chunk';
 import { ChunkRenderer, DEPTH } from '../world/ChunkRenderer';
 import { workerChunkLoader } from '../world/loader';
@@ -81,6 +82,8 @@ export class MapScene extends Phaser.Scene {
   private ready = false;
   private loaded = false;
   private mapId = 'world';
+  /** The tune this place should play (area music outdoors, none indoors). */
+  private wantMusic: string | null = null;
   /** Ground value of tall grass (atlas frame + 1), or −1 if the atlas has none. */
   private tallGrass = -1;
   private rustle!: Phaser.GameObjects.Particles.ParticleEmitter;
@@ -99,6 +102,7 @@ export class MapScene extends Phaser.Scene {
     this.busy = true;
     this.area = null;
     this.mapId = data.map ?? this.session.state.position.map ?? 'world';
+    this.wantMusic = null;
     this.touch = new TouchControls();
     this.input2 = new InputReader(this, this.touch);
     this.hud = new Hud();
@@ -246,10 +250,19 @@ export class MapScene extends Phaser.Scene {
     this.updateBirds(time, moving && !input.sneak, flushRadius);
 
     this.hud.update(this.session.state);
+    this.updateMusic();
     if (input.menu && this.ready && !this.busy) void this.openMenu();
     const target = this.ready && !this.busy ? this.interactionTarget() : null;
     this.touch.setAction(target?.label ?? null);
     if (input.action && target) void this.interact(target);
+  }
+
+  /** Starts the wanted tune once audio is unlocked (retried every frame, cheap). */
+  private updateMusic(): void {
+    const player = this.registry.get('music') as MusicPlayer | undefined;
+    if (!player || player.playing === this.wantMusic) return;
+    const music = this.session.content.music.find((m) => m.id === this.wantMusic) ?? null;
+    player.play(music);
   }
 
   private updateArea(): void {
@@ -258,6 +271,7 @@ export class MapScene extends Phaser.Scene {
     if (!area || area === this.area) return;
     const first = this.area === null;
     this.area = area;
+    this.wantMusic = this.session.content.areas.find((a) => a.id === area)?.music ?? null;
     const name = this.session.content.areas.find((a) => a.id === area)?.name ?? area;
     toast(name);
     if (!first) void this.session.fire({ type: 'enter_area', params: { area } });

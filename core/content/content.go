@@ -27,8 +27,9 @@ var (
 		model.MistakeWrongNote, model.MistakeMissedNote, model.MistakeExtraNote,
 		model.MistakeRush, model.MistakeDrag, model.MistakeHesitation,
 	}
-	Companions = []string{"oboy", "kei"}
-	KeiStages  = []string{"met", "friends", "dating", "engaged", "married"}
+	Companions  = []string{"oboy", "kei"}
+	Instruments = []string{"square", "pulse", "triangle", "noise"}
+	KeiStages   = []string{"met", "friends", "dating", "engaged", "married"}
 
 	TriggerTypes = []string{
 		"enter_area", "talk", "interact", "photo_taken", "photo_session_end", "lesson_complete",
@@ -61,9 +62,14 @@ func Validate(b *model.ContentBundle) []error {
 	songs := v.ids("song", len(b.Songs), func(i int) string { return b.Songs[i].ID })
 	v.ids("event", len(b.Events), func(i int) string { return b.Events[i].ID })
 	dialogue := v.ids("dialogue", len(b.Dialogue), func(i int) string { return b.Dialogue[i].ID })
+	music := v.ids("music", len(b.Music), func(i int) string { return b.Music[i].ID })
 
 	for _, a := range b.Areas {
 		v.require(a.Name != "", "area %s: name is required", a.ID)
+		v.require(a.Music == "" || music[a.Music], "area %s: unknown music %q", a.ID, a.Music)
+	}
+	for _, m := range b.Music {
+		v.tune(m)
 	}
 	for _, bird := range b.Birds {
 		v.bird(bird)
@@ -193,6 +199,23 @@ func (v *validator) song(s model.Song) {
 		v.require(n.Start >= 0, "song %s note %d: start must be ≥ 0", s.ID, i+1)
 		v.require(n.Dur > 0, "song %s note %d: dur must be > 0", s.ID, i+1)
 		v.require(n.Vel >= 1 && n.Vel <= 127, "song %s note %d: vel must be 1–127", s.ID, i+1)
+	}
+}
+
+func (v *validator) tune(m model.Music) {
+	v.require(m.Title != "", "music %s: title is required", m.ID)
+	v.require(m.Tempo > 0, "music %s: tempo must be > 0", m.ID)
+	v.require(m.LoopBeats > 0, "music %s: loop_beats must be > 0", m.ID)
+	v.require(len(m.Tracks) > 0, "music %s: no tracks", m.ID)
+	for i, t := range m.Tracks {
+		v.require(slices.Contains(Instruments, t.Instrument), "music %s track %d: unknown instrument %q", m.ID, i+1, t.Instrument)
+		v.require(t.Volume > 0 && t.Volume <= 1, "music %s track %d: volume must be in (0, 1]", m.ID, i+1)
+		for j, n := range t.Notes {
+			v.require(t.Instrument == "noise" || n.Pitch >= 21 && n.Pitch <= 108, "music %s track %d note %d: pitch %d outside 21–108", m.ID, i+1, j+1, n.Pitch)
+			v.require(n.Start >= 0 && n.Start < m.LoopBeats, "music %s track %d note %d: start outside the loop", m.ID, i+1, j+1)
+			v.require(n.Dur > 0, "music %s track %d note %d: dur must be > 0", m.ID, i+1, j+1)
+			v.require(n.Vel >= 1 && n.Vel <= 127, "music %s track %d note %d: vel must be 1–127", m.ID, i+1, j+1)
+		}
 	}
 }
 

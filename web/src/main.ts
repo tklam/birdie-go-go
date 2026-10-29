@@ -3,6 +3,7 @@ import './style.css';
 import { startCore } from './core/client';
 import { BootScene } from './scenes/BootScene';
 import { AudioEngine } from './audio/AudioEngine';
+import { MusicPlayer } from './audio/music';
 import { CalibrationScene } from './scenes/CalibrationScene';
 import { MapScene } from './scenes/MapScene';
 import { PhotoScene } from './scenes/PhotoScene';
@@ -29,6 +30,7 @@ game.registry.set('core', startCore());
 const audio = new AudioEngine();
 audio.unlockOnFirstGesture();
 game.registry.set('audio', audio);
+game.registry.set('music', new MusicPlayer(() => audio.context, () => audio.musicOutput()));
 overlay();
 setOverlayZoom(currentZoom());
 window.addEventListener('resize', () => {

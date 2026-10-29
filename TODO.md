@@ -31,7 +31,8 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Input layer that unifies touch and keyboard (mouse: via touch controls; click-to-move later)
 - [~] 16-bit UI kit: window frames, dialogue box with typewriter, area toast pixel font (Press Start 2P), menus, album list (still to do: portraits)
 - [x] Touch controls: floating joystick, Action button (context label), Menu button
-- [~] Audio: unlock on first gesture, synthesized piano, metronome, SFX (SoundFont sample bank and music sequencer still to do)
+- [x] Audio: unlock on first gesture, synthesized piano, metronome, SFX, looping chiptune music per area (3 original themes) with crossfades
+- [ ] SoundFont sample bank (optional upgrade over the synth)
 
 ### World and streaming (§4.10, §9.7)
 - [x] `worldbuild`: chunking, collision, areas, objects, content-hashed files, world index

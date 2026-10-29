@@ -264,7 +264,7 @@ notes:            # pitch (MIDI), start/dur in beats, velocity
   - { pitch: 60, start: 0, dur: 1, vel: 80 }
   - { pitch: 67, start: 2, dur: 1, vel: 85 }
 ```
-Background music lives in `content/music/<id>.yaml` (multi-track, same note format, with an instrument per track from the 16-bit sample bank) or as `.mid` files. Use original or public-domain music only.
+Background music lives in `content/music/<id>.yaml`: `tempo`, `loop_beats`, and `tracks`, each with an `instrument` (`square`, `pulse` (25% duty), `triangle`, `noise`; for noise, pitch < 50 is a snare and higher is a hi-hat), a `volume` (0–1) and notes in the song format. Areas pick their tune with `music:`. `web/src/audio/music.ts` loops it on the music bus and crossfades between areas; interiors, photo sessions and lessons are quiet. Use original or public-domain music only.
 
 ### 5.7 Hazards, gear and enemies
 ```yaml
@@ -339,7 +339,7 @@ To add a trigger, condition, or action:
 - **Replacing an asset:** drop the new file at the same path with the same dimensions and frame layout, then run `make lint`.
 - **Character sheets:** 16×24 frames. Rows are down, left, right, up; columns are idle and walk 1–3.
 - **Font:** Press Start 2P (SIL OFL, `web/public/fonts/OFL.txt`) for the overlay and Phaser text.
-- **Audio:** currently synthesized in `web/src/audio/` (no files). A SoundFont sample bank and sequenced music are *(planned)*.
+- **Audio:** synthesized in `web/src/audio/` with no sample files: an additive piano for lessons, and square/pulse/triangle/noise voices for background music and SFX. A SoundFont sample bank is *(planned)*.
 - **No real-world logos or trademarks.**
 
 ## 7. Testing
