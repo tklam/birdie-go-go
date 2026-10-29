@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Spot } from '../core/types.gen';
-import { available, idlePose, landingSpots, pickSpecies, rng, shelterPenalty, visitors } from './birds';
+import { available, hiddenBird, idlePose, landingSpots, pickSpecies, rng, shelterPenalty, visitors } from './birds';
 
 const spot: Spot = {
   id: 'park',
@@ -94,5 +94,19 @@ describe('weather', () => {
     expect(ids('clear')).toEqual(['a']);
     expect(ids('rain')).toEqual(['a', 'storm']);
     expect([shelterPenalty('clear'), shelterPenalty('rain'), shelterPenalty('rainstorm')]).toEqual([0, 1, 2]);
+  });
+});
+
+describe('hiddenBird', () => {
+  it('finds a bird not coming, preferring ones missing from the album', () => {
+    const table = [
+      { species: 'a', weight: 1 },
+      { species: 'b', weight: 1 },
+      { species: 'c', weight: 1 },
+    ];
+    const r = rng(1);
+    expect(hiddenBird(table, ['a'], { b: {} }, r)).toBe('c');
+    expect(hiddenBird(table, ['a', 'c'], { b: {} }, r)).toBe('b');
+    expect(hiddenBird(table, ['a', 'b', 'c'], {}, r)).toBeNull();
   });
 });

@@ -1,0 +1,35 @@
+# O Boy and Kei together.
+- id: banter_waterfront_jealous
+  lines:
+    - { speaker: kei, text: "Look, Angie, an egret! Let me just check the app... O Boy, you're standing on my phone." }
+    - { speaker: oboy, text: "Chirp." }
+    - { speaker: angie, text: "He's not usually like this. Really." }
+    - { speaker: kei, text: "It's fine. I'll win him over. I have a whole spreadsheet of parrotlet facts." }
+- id: banter_hillside
+  lines:
+    - { speaker: kei, text: "Okay, O Boy. You spot them, I name them. Deal?" }
+    - { speaker: oboy, text: "Chirrup! Chirp!" }
+    - { speaker: angie, text: "I think that was a yes. You two make quite a team." }
+- id: banter_country_park
+  lines:
+    - { speaker: kei, text: "The app's picking up five species at once. This forest is loud." }
+    - { speaker: oboy, text: "Chirp chirp chirp chirp chirp!" }
+    - { speaker: kei, text: "...Six. He's counting too. Show-off." }
+- id: banter_po_toi_o
+  lines:
+    - { speaker: oboy, text: "Chirp?" }
+    - { speaker: kei, text: "He wants to know if the fishing boats go to the Bird Paradise." }
+    - { speaker: angie, text: "You understood that?" }
+    - { speaker: kei, text: "No. But I'd like to think so." }
+- id: banter_island
+  lines:
+    - { speaker: kei, text: "Harbour Island! I grew up a few streets from here. The tram still sounds the same." }
+    - { speaker: oboy, text: "Ding-ding! Chirp!", if: { flag_set: oboy_accepts_kei } }
+    - { speaker: oboy, text: "...Chirp.", if: { flag_not_set: oboy_accepts_kei } }
+    - { speaker: angie, text: "Show us your favourite spot, then." }
+- id: banter_peak
+  lines:
+    - { speaker: kei, text: "Every step up this trail, my legs file a complaint." }
+    - { speaker: oboy, text: "Chirp!" }
+    - { speaker: angie, text: "O Boy says it's easier with wings." }
+    - { speaker: kei, text: "Noted. I'll add wings to the build list." }

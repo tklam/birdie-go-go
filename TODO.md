@@ -105,7 +105,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Kei's workshop: trail cameras (dating; photograph a bird each morning), tracking AF and stabilizer (engaged) from camera parts; first-visit intro
 - [ ] *(Parked for future development.)* Kei: practice drills for students, home workshop (married)
 - [x] O Boy jealousy arc → `oboy_accepts_kei` (birds jumpier with both along until then)
-- [ ] Combo ability; party-dependent dialogue
+- [x] Combo ability (Kei's app + O Boy's call bring a hidden bird); party banter on entering areas
 
 ## M4: World and progression
 - [x] Clear Water Bay Country Park and Po Toi O fishing village (seamless region east of TKO)

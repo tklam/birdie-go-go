@@ -1,0 +1,35 @@
+# Party banter (SPEC.md §7.2): O Boy and Kei together, the first time they
+# reach a place. Before O Boy accepts Kei, he's a little jealous.
+- id: banter_waterfront_jealous
+  trigger: { type: enter_area, area: tko_waterfront }
+  conditions:
+    - party_has: oboy
+    - party_has: kei
+    - flag_not_set: oboy_accepts_kei
+  actions:
+    - dialogue: banter_waterfront_jealous
+- id: banter_hillside
+  trigger: { type: enter_area, area: tko_hillside }
+  conditions: [{ party_has: oboy }, { party_has: kei }, { flag_set: oboy_accepts_kei }]
+  actions:
+    - dialogue: banter_hillside
+- id: banter_country_park
+  trigger: { type: enter_area, area: cwb_country_park }
+  conditions: [{ party_has: oboy }, { party_has: kei }, { flag_set: oboy_accepts_kei }]
+  actions:
+    - dialogue: banter_country_park
+- id: banter_po_toi_o
+  trigger: { type: enter_area, area: po_toi_o }
+  conditions: [{ party_has: oboy }, { party_has: kei }, { flag_set: oboy_accepts_kei }]
+  actions:
+    - dialogue: banter_po_toi_o
+- id: banter_island
+  trigger: { type: enter_area, area: island_harbourfront }
+  conditions: [{ party_has: oboy }, { party_has: kei }]
+  actions:
+    - dialogue: banter_island
+- id: banter_peak
+  trigger: { type: enter_area, area: island_peak }
+  conditions: [{ party_has: oboy }, { party_has: kei }, { flag_set: oboy_accepts_kei }]
+  actions:
+    - dialogue: banter_peak

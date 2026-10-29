@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import type { Bird, Spot, WeatherParams } from '../core/types.gen';
 import { WeatherRenderer } from '../weather/renderer';
 import { weatherOptics, withMods, withStatuses } from '../photo/optics';
-import { available, idlePose, landingSpots, rng, shelterPenalty, visitors, type Pose } from '../photo/birds';
+import { available, hiddenBird, idlePose, landingSpots, rng, shelterPenalty, visitors, type Pose } from '../photo/birds';
 import type { Manifest, ManifestEntry } from '../systems/assets';
 import { frameIndex } from '../systems/assets';
 import {
@@ -150,6 +150,21 @@ export class PhotoScene extends Phaser.Scene {
     if (state.party.includes('kei') && this.toSpawn.length) {
       const names = [...new Set(this.toSpawn)].map((id) => content.birds.find((b) => b.id === id)?.name ?? id);
       this.time.delayedCall(700, () => this.showPopup(`Kei's app hears: ${names.join(', ')}`));
+    }
+    // O Boy + Kei together (SPEC.md §7.2): Kei's app picks out a hidden bird
+    // and O Boy calls it in, once per session, once they get along.
+    const hidden =
+      state.party.includes('kei') && state.party.includes('oboy') && state.flags.oboy_accepts_kei
+        ? hiddenBird(table, this.toSpawn, state.album, this.random)
+        : null;
+    if (hidden) {
+      this.toSpawn.push(hidden);
+      this.measure(`bird_${hidden}`);
+      const name = content.birds.find((b) => b.id === hidden)?.name ?? hidden;
+      this.time.delayedCall(2600, () => {
+        this.showPopup(`Kei's app finds a hidden ${name}. O Boy calls it in!`);
+        oboyCall(this.registry.get('audio') as AudioEngine | undefined);
+      });
     }
     this.removeBack = floatingButton('Back', 'back', () => void this.end());
     this.callReady = state.party.includes('oboy') && state.bond.oboy >= 40;

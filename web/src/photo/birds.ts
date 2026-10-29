@@ -91,3 +91,14 @@ export function idlePose(random: () => number, alert: number): Pose {
   if (r < 0.9) return 'back_turned';
   return 'wings_spread';
 }
+
+/**
+ * The O Boy + Kei combo (SPEC.md §7.2): a species from the table that isn't
+ * coming this session, preferring ones missing from the album; null if none.
+ */
+export function hiddenBird(table: SpotBird[], coming: readonly string[], album: Readonly<Record<string, unknown>>, random: () => number): string | null {
+  const absent = table.filter((b) => !coming.includes(b.species) && !b.always);
+  const fresh = absent.filter((b) => !album[b.species]);
+  const pool = fresh.length ? fresh : absent;
+  return pool.length ? pickSpecies(pool, 1, random)[0] ?? null : null;
+}

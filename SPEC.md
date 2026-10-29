@@ -432,7 +432,7 @@ Abilities are **hints**, never automatic success.
 | engaged | Kayak; camera mods (tracking AF, stabilizer) from parts | Mods apply here | Practice drills: students progress faster |
 | married | Home workshop: print and sell album photos | — | — |
 
-**O Boy + Kei together**: combo — Kei's app identifies a hidden bird, O Boy lures it (once per session). Unique banter. Until `oboy_accepts_kei`, O Boy's jealousy slightly raises the alert meter when both are in the party.
+**O Boy + Kei together**: combo — Kei's app identifies a hidden bird, O Boy lures it (once per session). Unique banter. Until `oboy_accepts_kei`, O Boy's jealousy slightly raises the alert meter when both are in the party. *As built:* once `oboy_accepts_kei` is set, a photo session with both adds one extra visitor from the spot's table that wasn't coming (preferring species missing from the album), announced and called in; it still has to be photographed well. Banter is content (`content/events/banter.yaml`): one-off `enter_area` dialogues with both in the party.
 
 ## 8. Story Outline
 

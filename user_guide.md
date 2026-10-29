@@ -190,7 +190,7 @@ Spending time together raises your **bond**, which unlocks new ways they can hel
 - He builds gear that opens new areas (like a **night lens** for the owls of the Night Woods, in the evening), trail cameras that take photos while you're busy, and upgrades for your camera.
 - During lessons, his software can show the pitch of what the student plays and replay the mistakes you missed.
 
-Bring **both** and they'll work together, once O Boy gets used to having Kei around.
+Bring **both** and they'll work together, once O Boy gets used to having Kei around: in each photo session, Kei's app picks out a hidden bird and O Boy calls it in. They also chat as you explore new places.
 
 Companions give **hints**. You still take the photo and catch the mistakes yourself.
 
