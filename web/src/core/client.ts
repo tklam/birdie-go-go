@@ -6,6 +6,8 @@ import type {
   PingResult,
   Request,
   Response,
+  WeatherDay,
+  WeatherDayPayload,
 } from './types.gen';
 
 /** The parts of a Worker the client uses; lets tests pass a fake. */
@@ -50,6 +52,11 @@ export class CoreClient {
   /** Grades the player's flags against a generated lesson's answer key (SPEC.md §6.3). */
   gradeLesson(payload: LessonGradePayload): Promise<LessonGradeResult> {
     return this.call<LessonGradeResult>('lesson.grade', payload);
+  }
+
+  /** Computes one day's regional weather, typhoon signal and radio forecast (SPEC.md §4.9). */
+  weatherDay(payload: WeatherDayPayload): Promise<WeatherDay> {
+    return this.call<WeatherDay>('weather.day', payload);
   }
 
   private receive(response: Response): void {

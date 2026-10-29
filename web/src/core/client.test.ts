@@ -77,4 +77,23 @@ describe('CoreClient', () => {
     worker.reply({ id: 2, ok: true, result });
     await expect(graded).resolves.toEqual(result);
   });
+
+  it('sends weather.day with a typed payload', async () => {
+    const worker = new FakeWorker();
+    const core = new CoreClient(worker);
+    const range = [0.5, 0.1] as [number, number];
+    const climate = { cloud: range, precip: range, temp: [22, 3] as [number, number], fog: range, wind: range };
+    const payload = {
+      seed: 3,
+      day: 40,
+      areas: [{ id: 'tko_town', climate: { summer: climate }, center: { x: 760, y: 520 }, altitude: 0.05 }],
+    };
+    const day = core.weatherDay(payload);
+    expect(worker.sent[0]).toEqual({ id: 1, op: 'weather.day', payload });
+    const slot = { cloud: 0.4, precip: 0, temp: 30, fog: 0, wind: 0.3, windDir: 3.1, uv: 9 };
+    const area = { area: 'tko_town', slots: [slot, slot, slot], named: ['hazy', 'hazy', 'hazy'] };
+    const result = { day: 40, areas: [area], typhoonSignal: [0, 0, 1], forecast: [area] };
+    worker.reply({ id: 1, ok: true, result });
+    await expect(day).resolves.toEqual(result);
+  });
 });

@@ -10,6 +10,7 @@ import (
 
 	"birdiegogo/core/lesson"
 	"birdiegogo/core/model"
+	"birdiegogo/core/weather"
 )
 
 // MaxLessons is how many ungraded lessons a Server remembers; generating
@@ -68,6 +69,16 @@ func (s *Server) dispatch(req model.Request) (any, error) {
 			return nil, err
 		}
 		return s.gradeLesson(p)
+	case "weather.day":
+		var p model.WeatherDayPayload
+		if err := decodePayload(req.Payload, &p); err != nil {
+			return nil, err
+		}
+		day, err := weather.Day(p)
+		if err != nil {
+			return nil, fmt.Errorf("weather.day: %w", err)
+		}
+		return day, nil
 	default:
 		return nil, fmt.Errorf("unknown op %q", req.Op)
 	}
