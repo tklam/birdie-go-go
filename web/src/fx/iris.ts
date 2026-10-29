@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { fade, reducedMotion } from './motion';
+import { dropCover, fade, holdCover, reducedMotion } from './motion';
 
 /**
  * Classic 16-bit iris wipe: a black screen with a circular hole that shrinks
@@ -8,6 +8,7 @@ import { fade, reducedMotion } from './motion';
  */
 export function iris(scene: Phaser.Scene, mode: 'in' | 'out', x = 160, y = 90, ms = 450): Promise<void> {
   if (reducedMotion(scene)) return fade(scene, mode, ms);
+  if (mode === 'in') dropCover(scene);
   const cam = scene.cameras.main;
   const full = Math.hypot(320, 180);
   const hole = scene.make.graphics({}, false).setScrollFactor(0);
@@ -36,6 +37,8 @@ export function iris(scene: Phaser.Scene, mode: 'in' | 'out', x = 160, y = 90, m
           cover.destroy();
           mask.destroy();
           hole.destroy();
+        } else {
+          holdCover(scene, cover);
         }
         resolve();
       },
