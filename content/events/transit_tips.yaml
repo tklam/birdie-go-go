@@ -1,0 +1,16 @@
+# People by the stops and piers who explain how to get around (repeatable).
+- id: minibus_driver_chat
+  once: false
+  trigger: { type: talk, npc: minibus_driver }
+  actions:
+    - dialogue: minibus_driver_chat
+- id: ferry_deckhand_chat
+  once: false
+  trigger: { type: talk, npc: ferry_deckhand }
+  actions:
+    - dialogue: ferry_deckhand_chat
+- id: hiker_chat
+  once: false
+  trigger: { type: talk, npc: hiker }
+  actions:
+    - dialogue: hiker_chat

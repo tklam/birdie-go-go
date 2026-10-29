@@ -2023,6 +2023,20 @@
     "frameHeight": 24,
     "placeholder": true
   },
+  "char_ferry_deckhand": {
+    "type": "spritesheet",
+    "file": "chars/ferry_deckhand.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
+  "char_hiker": {
+    "type": "spritesheet",
+    "file": "chars/hiker.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
   "char_jogger": {
     "type": "spritesheet",
     "file": "chars/jogger.png",
@@ -2040,6 +2054,13 @@
   "char_mei": {
     "type": "spritesheet",
     "file": "chars/mei.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
+  "char_minibus_driver": {
+    "type": "spritesheet",
+    "file": "chars/minibus_driver.png",
     "frameWidth": 16,
     "frameHeight": 24,
     "placeholder": true

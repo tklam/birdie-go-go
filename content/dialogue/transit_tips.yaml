@@ -1,0 +1,19 @@
+# Tips about buses, ferries and gateways from people by the stops.
+- id: minibus_driver_chat
+  lines:
+    - { speaker: minibus_driver, text: "Going over the hill? My green minibus runs from that sign to Po Toi O village." }
+    - { speaker: minibus_driver, text: "Walk up to the sign and press Board. Pick where you're going, pay the fare, hop on." }
+    - { speaker: minibus_driver, text: "In a hurry? Tap Skip and you're there. But the view from the hill road is worth it." }
+    - { speaker: minibus_driver, text: "Once you've been to a stop, it goes on your map. Handy, eh?" }
+    - { speaker: minibus_driver, text: "Saw your friend's glowing pads around town. Faster than my bus! Don't tell my boss.", if: { flag_set: gateways_online } }
+- id: ferry_deckhand_chat
+  lines:
+    - { speaker: ferry_deckhand, text: "Ferry to Po Toi O pier! Board at the sign at the end of the jetty." }
+    - { speaker: ferry_deckhand, text: "Stand on the deck with your camera ready. The seabirds love to follow the boat." }
+    - { speaker: ferry_deckhand, text: "When the typhoon signal goes up to 8, we tie up and stay put. No ferries till it drops." }
+- id: hiker_chat
+  lines:
+    - { speaker: hiker, text: "Phew! I walked all the way from Tseung Kwan O. Over the hill. Never again!" }
+    - { speaker: hiker, text: "Next time I'll take the green minibus. The stop's right here, by the sign." }
+    - { speaker: hiker, text: "Or the ferry from the village pier, down by the water. It goes back across Junk Bay." }
+    - { speaker: hiker, text: "Walking's free, though. And you see more birds on foot." }

@@ -195,6 +195,7 @@ func build() *tmap {
 	m.put(60, 28, "station_sign")
 	m.put(63, 29, "station_sign")
 	m.obj("stop_tko_plaza", "stop", 62, 29, map[string]string{"stop_id": "tko_plaza"})
+	m.obj("minibus_driver", "npc", 64, 30, map[string]string{"npc_id": "minibus_driver", "sprite": "char_minibus_driver"})
 	m.obj("plaza_shop", "shop", 47, 25, map[string]string{"title": "Plaza Convenience Store"})
 	m.obj("kei", "npc", 40, 27, map[string]string{"npc_id": "kei", "sprite": "char_kei", "requires_flag": "chapter3_started", "unless_flag": "kei_met"})
 	m.obj("gateway_tko_plaza", "gateway", 34, 28, map[string]string{"gateway_id": "tko_plaza", "title": "Plaza Gateway"})
@@ -249,6 +250,7 @@ func build() *tmap {
 	m.fill(70, 56, 3, 1, "boardwalk")
 	m.fill(70, 57, 3, 5, "pier")
 	m.obj("stop_tko_pier", "stop", 71, 55, map[string]string{"stop_id": "tko_pier"})
+	m.obj("ferry_deckhand", "npc", 74, 54, map[string]string{"npc_id": "ferry_deckhand", "sprite": "char_ferry_deckhand"})
 
 	// Objects.
 	m.obj("estate_plaza", "spawn", 47, 28, nil)
@@ -335,6 +337,7 @@ func clearWaterBay() *tmap {
 	m.obj("gateway_po_toi_o", "gateway", 44, 50, map[string]string{"gateway_id": "po_toi_o", "title": "Po Toi O Gateway"})
 	m.put(36, 44, "station_sign")
 	m.obj("stop_po_toi_o_village", "stop", 37, 44, map[string]string{"stop_id": "po_toi_o_village"})
+	m.obj("hiker", "npc", 39, 45, map[string]string{"npc_id": "hiker", "sprite": "char_hiker"})
 	m.obj("stop_po_toi_o_pier", "stop", 31, 56, map[string]string{"stop_id": "po_toi_o_pier"})
 	m.obj("po_toi_o_pier", "spot", 31, 60, map[string]string{"spot_id": "po_toi_o_pier"})
 	m.obj("forest_birds", "bird", 30, 14, map[string]string{"species": "oriental_magpie_robin", "count": "2"})
