@@ -1,4 +1,4 @@
-# Prologue (SPEC.md §8). Placeholder text until the story is written.
+# Prologue (SPEC.md §8).
 - id: prologue_arrival
   trigger: { type: new_game }
   conditions:

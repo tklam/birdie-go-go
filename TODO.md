@@ -74,7 +74,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Event system (§9.4), unit tested
 - [x] Time slots and day cycle (photo sessions and lessons end the slot); HUD shows day/slot/season/money
 - [x] IndexedDB saves, autosave, migrations, export/import from the menu
-- [~] Prologue events (arrival, first photo, first lesson; placeholder text)
+- [x] Prologue events (arrival, first photo, first lesson)
 
 ## M2: Transit (§4.11)
 - [x] `transit.yaml` schema + validation; stop objects indexed by worldbuild
