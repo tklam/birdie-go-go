@@ -72,7 +72,8 @@ The world is big and seamless. You can walk from downtown streets into a hillsid
 | **Ferry** | Cross the harbour or sail to the outlying islands. Stand on the deck, because seabirds follow the boat and make great photos. Long island trips take up part of the day. |
 | **Teleport** | Later in the game, Kei's gateways link the real world with his digital realm. Use them to jump between places you've unlocked. |
 
-- Pay fares with your **transit card**, and top it up at shops and kiosks.
+- Walk up to a stop or pier sign and press **Board** to pick a destination and pay the fare. Right now the **Green Minibus 16** links Tseung Kwan O Plaza with Po Toi O village, and a **ferry** crosses from the Junk Bay pier to Po Toi O. Tap **Skip** to arrive straight away.
+- *(Later:)* pay fares with a **transit card**, topped up at shops and kiosks.
 - At any stop or station, open the **route planner**, pick where you want to go, and it works out the trip for you, transfers included.
 - New lines and stops open as the story goes on. A stop shows up on your map after your first visit.
 - Your companions ride with you. O Boy travels in a little carrier and has opinions about it.

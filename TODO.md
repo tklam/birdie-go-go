@@ -77,13 +77,15 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [~] Prologue events (arrival, first photo, first lesson; placeholder text)
 
 ## M2: Transit (§4.11)
-- [ ] `transit.yaml` schema + world consistency validation
+- [x] `transit.yaml` schema + validation; stop objects indexed by worldbuild
 - [ ] `core/transit`: network graph, timetables, `VehicleAt`, route planner, tested
 - [ ] On-map vehicles from timetables (no off-screen sim)
-- [ ] Bus and tram rides on the map with route prefetch; Get off / Skip
+- [x] Bus rides on the map with route prefetch and Skip (Green Minibus 16: TKO Plaza ↔ Po Toi O)
+- [ ] Trams; Get off at intermediate stops
 - [ ] Metro: station interiors, destination picker, in-car scene
-- [ ] Ferry: pier, deck scene, ferry-deck photo spots
-- [ ] Transit card: fares, top-up
+- [x] Ferry rides on the map (Junk Bay Pier ↔ Po Toi O Pier)
+- [ ] Ferry deck scene and ferry-deck photo spots
+- [~] Fares paid from money (a separate transit card and top-up still to do)
 - [ ] Route planner UI with transfers
 - [ ] Stop discovery; line unlocks via events
 - [ ] World map scene (pyramid images, discovered areas, lines)
@@ -102,7 +104,8 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] Combo ability; party-dependent dialogue
 
 ## M4: World and progression
-- [ ] More districts beyond Tseung Kwan O: Clear Water Bay country park and peaks, fishing village cove, harbourfront, peak trails, country park, NW wetlands, villages, beaches, an outlying island
+- [x] Clear Water Bay Country Park and Po Toi O fishing village (seamless region east of TKO)
+- [ ] More districts: peaks, harbourfront, peak trails, country park, NW wetlands, villages, beaches, an outlying island
 - [ ] Seasons with palette-swapped foliage
 - [ ] Regional weather (§4.9)
   - [x] Climate profiles in `areas.yaml` + validation

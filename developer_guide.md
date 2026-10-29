@@ -230,27 +230,18 @@ Every area must define all four seasons. Area shapes are painted on the world's 
 
 ### 5.5 Transit: `content/transit.yaml`
 ```yaml
-modes: [bus, tram, metro, ferry, teleport]
-lines:
-  - id: tram_north_shore
-    mode: tram
-    name: North Shore Tram
-    stops: [west_terminus, market_street, harbour_gardens, east_terminus]
-    route: tram_north_shore          # polyline object in the world
-    speed: 40                        # px/s on the map
-    headway: { morning: 4, afternoon: 6, evening: 8 }   # in-game minutes
-    fare: 3
-  - id: ferry_outlying_1
-    mode: ferry
-    stops: [central_pier, lantern_island_pier]
-    duration: 35
-    fare: 18
-    slot_cost: 1
-    suspend_at_signal: 8
 stops:
-  - { id: market_street, name: Market Street, kind: tram_stop }
+  - { id: tko_plaza, name: Tseung Kwan O Plaza }       # placed on the map as objects of type `stop` (prop stop_id)
+lines:
+  - id: minibus_16
+    name: Green Minibus 16
+    mode: bus                                         # bus | tram | metro | ferry
+    fare: 8
+    stops: [tko_plaza, po_toi_o_village]              # path runs from the first stop to the last
+    path: [[1000, 472], [1000, 504], [2168, 504], [2168, 712], [2136, 712]]   # world px waypoints
+    speed: 110                                        # px/s on the map
 ```
-Validation checks that every stop exists in the world, every on-map line has a route, and every metro or ferry stop has an interior or pier.
+`worldbuild` records stop positions in the world index (`stops`). Rides run the path forwards or backwards. *(Planned:)* intermediate stops, timetables and vehicles visible between rides, the Go route planner, metro interiors.
 
 ### 5.6 Songs and music
 ```yaml
