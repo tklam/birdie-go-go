@@ -58,6 +58,7 @@ The world is big and seamless. You can walk from downtown streets into a hillsid
 - **Tall grass** hides birds, and walking through it scares them off. Sneak instead.
 - You can hop down **ledges**, but you can't climb back up.
 - Some places are out of reach at first. New gear opens new paths: wading boots, a folding ladder, a night lens, even a kayak. Some of it comes from the shop and some is built by Kei.
+- Some places need the right gear: the deep mud of the Po Toi O mudflat, where waders feed, needs **wading boots** from the shop.
 - Watch for little **twinkles** on the ground. They're hidden collectibles: feathers for your album, camera parts for Kei, and sheet music your students can learn once they've finished their pieces. Walk up and press **Pick up**.
 - The city is busy: joggers, office workers, aunties, students, and fellow **birders** who stop to photograph birds. Say hello; some have useful tips. Birders may also be shooting next to you during a photo session, and their clicking shutters can make birds a little nervous.
 - Look around for hidden **feathers**, **camera parts**, and **sheet music**.
@@ -183,7 +184,7 @@ Spending time together raises your **bond**, which unlocks new ways they can hel
 
 **Kei** follows you around and builds things.
 - His bird-call app names birds you can hear but can't see.
-- He builds gear that opens new areas, trail cameras that take photos while you're busy, and upgrades for your camera.
+- He builds gear that opens new areas (like a **night lens** for the owls of the Night Woods, in the evening), trail cameras that take photos while you're busy, and upgrades for your camera.
 - During lessons, his software can show the pitch of what the student plays and replay the mistakes you missed.
 
 Bring **both** and they'll work together, once O Boy gets used to having Kei around.

@@ -244,3 +244,35 @@
     # Storms blow seabirds in; ospreys ride the wind.
     - { species: whiskered_tern, weight: 5, weather: [rainstorm, thunderstorm, typhoon] }
     - { species: osprey, weight: 3, weather: [windy] }
+# Gear-gated spots (SPEC.md §4.6).
+- id: po_toi_o_mudflat
+  name: Po Toi O Mudflat
+  area: po_toi_o
+  background: bg_waterfront
+  shots: 12
+  requires_item: wading_boots
+  birds:
+    - { species: common_greenshank, weight: 3 }
+    - { species: common_sandpiper, weight: 3 }
+    - { species: kentish_plover, weight: 3 }
+    - { species: little_ringed_plover, weight: 2 }
+    - { species: black_winged_stilt, weight: 2 }
+    - { species: common_redshank, weight: 2 }
+    - { species: whimbrel, weight: 2, seasons: [spring, autumn] }
+    - { species: eurasian_curlew, weight: 1, seasons: [autumn, winter] }
+    - { species: pied_avocet, weight: 1, seasons: [winter] }
+    - { species: black_tailed_godwit, weight: 1, seasons: [spring, autumn] }
+    - { species: pacific_golden_plover, weight: 1, seasons: [autumn, winter] }
+    - { species: wood_sandpiper, weight: 1, seasons: [spring, autumn] }
+- id: cwb_night_woods
+  name: Night Woods
+  area: cwb_country_park
+  background: bg_garden
+  shots: 10
+  requires_item: night_lens
+  slots: [evening]
+  birds:
+    - { species: collared_scops_owl, weight: 3 }
+    - { species: asian_barred_owlet, weight: 3 }
+    - { species: black_crowned_night_heron, weight: 2 }
+    - { species: greater_coucal, weight: 1 }

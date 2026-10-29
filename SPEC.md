@@ -150,6 +150,8 @@ Some paths open only with the right gear, in the classic adventure-game traditio
 | Night lens | Kei build (dating) | Night-only birding spots |
 | Kayak | Kei build (engaged) | Sea caves and islets unreachable by ferry |
 
+*As built:* a `gate` world object (point at its top-left tile; props `requires` (item id), `w`, `h` in tiles, `hint`) closes those tiles until Angie owns the item; bumping it shows the hint. Spots may set `requires_item` and `slots` in `spots.yaml`. Wading boots (shop) open the Po Toi O mudflat and its wader spot; Kei's night lens (dating, 2 parts) opens the evening-only Night Woods owl spot in the country park. The ladder and kayak are still to come.
+
 ### 4.7 Birds on the overworld
 - Birds appear as small animated sprites (singles or flocks) in their habitats.
 - Approaching while **sneaking** lets Angie get close; walking or running nearby flushes them (they fly to another perch or leave the area).

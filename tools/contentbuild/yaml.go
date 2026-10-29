@@ -77,12 +77,14 @@ type birdYAML struct {
 }
 
 type spotYAML struct {
-	ID         string `yaml:"id"`
-	Name       string `yaml:"name"`
-	Area       string `yaml:"area"`
-	Background string `yaml:"background"`
-	Shots      int    `yaml:"shots"`
-	Birds      []struct {
+	ID           string   `yaml:"id"`
+	Name         string   `yaml:"name"`
+	Area         string   `yaml:"area"`
+	Background   string   `yaml:"background"`
+	Shots        int      `yaml:"shots"`
+	RequiresItem string   `yaml:"requires_item"`
+	Slots        []string `yaml:"slots"`
+	Birds        []struct {
 		Species      string   `yaml:"species"`
 		Weight       float64  `yaml:"weight"`
 		Slots        []string `yaml:"slots"`
@@ -451,7 +453,7 @@ func load(dir string) (*model.ContentBundle, error) {
 		return nil, err
 	}
 	for _, x := range spots {
-		s := model.Spot{ID: x.ID, Name: x.Name, Area: x.Area, Background: x.Background, Shots: x.Shots, Birds: []model.SpotBird{}}
+		s := model.Spot{ID: x.ID, Name: x.Name, Area: x.Area, Background: x.Background, Shots: x.Shots, Birds: []model.SpotBird{}, RequiresItem: x.RequiresItem, Slots: x.Slots}
 		for _, sb := range x.Birds {
 			s.Birds = append(s.Birds, model.SpotBird{
 				Species: sb.Species, Weight: sb.Weight, Slots: sb.Slots, Seasons: sb.Seasons,

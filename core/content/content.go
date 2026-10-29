@@ -146,6 +146,10 @@ func Validate(b *model.ContentBundle) []error {
 	}
 	for _, s := range b.Spots {
 		v.spot(s, areas, birds)
+		v.require(s.RequiresItem == "" || items[s.RequiresItem], "spot %s: requires unknown item %q", s.ID, s.RequiresItem)
+		for _, sl := range s.Slots {
+			v.require(slices.Contains(TimeSlots, sl), "spot %s: unknown time slot %q", s.ID, sl)
+		}
 	}
 	for _, s := range b.Students {
 		v.require(s.Name != "", "student %s: name is required", s.ID)

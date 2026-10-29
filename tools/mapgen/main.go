@@ -339,8 +339,12 @@ func clearWaterBay() *tmap {
 	m.put(50, 54, "bench")
 	m.fill(56, 49, 6, 4, "mud")
 	m.fill(56, 49, 6, 1, "reeds")
+	// Deep mud: wading boots open it (SPEC.md §4.6).
+	m.obj("mudflat_gate", "gate", 56, 49, map[string]string{"requires": "wading_boots", "w": "6", "h": "4", "hint": "The mud is knee-deep here. Wading boots would help."})
+	m.obj("po_toi_o_mudflat", "spot", 58, 51, map[string]string{"spot_id": "po_toi_o_mudflat"})
 
 	m.obj("cwb_stream", "spot", 22, 16, map[string]string{"spot_id": "cwb_stream"})
+	m.obj("cwb_night_woods", "spot", 14, 8, map[string]string{"spot_id": "cwb_night_woods"})
 	m.obj("gateway_cwb", "gateway", 40, 10, map[string]string{"gateway_id": "cwb_park", "title": "Country Park Gateway"})
 	m.obj("gateway_po_toi_o", "gateway", 44, 50, map[string]string{"gateway_id": "po_toi_o", "title": "Po Toi O Gateway"})
 	m.put(36, 44, "station_sign")

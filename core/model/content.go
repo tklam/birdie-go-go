@@ -118,6 +118,12 @@ type Spot struct {
 	Background string     `json:"background"`
 	Shots      int        `json:"shots"`
 	Birds      []SpotBird `json:"birds"`
+	// RequiresItem is gear Angie must own to shoot here (SPEC.md §4.6),
+	// e.g. a night lens.
+	RequiresItem string `json:"requiresItem,omitempty"`
+	// Slots limits the spot to these time slots (e.g. night-only spots);
+	// empty means any.
+	Slots []string `json:"slots,omitempty"`
 }
 
 // SpotBird is one entry of a spot's bird table.

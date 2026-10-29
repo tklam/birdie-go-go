@@ -23,6 +23,7 @@ import { iris } from '../fx/iris';
 import { glitch } from '../fx/glitch';
 import { activityCost, crossedLow, walkCost } from '../systems/economy';
 import { collect, isCollected } from '../systems/collectibles';
+import { closedGateAt, gateFrom, spotBlocked, type Gate } from '../systems/gates';
 import { clockLabel, discoverStop, openLines, payFare, stopFlag, topUp } from '../systems/transit';
 import { closureReason, hazardForecast, warningAnnouncement, warningTag, warningsAt, type Warnings } from '../systems/warnings';
 import { modal } from '../ui/overlay';
@@ -149,6 +150,10 @@ export class MapScene extends Phaser.Scene {
   private npcs: OverworldNpc[] = [];
   private gateways: { object: WorldObject; sprite: Phaser.GameObjects.Sprite; chunk: string }[] = [];
   private sparkles: { object: WorldObject; sprite: Phaser.GameObjects.Sprite; chunk: string }[] = [];
+  /** Gear gates of loaded chunks (SPEC.md §4.6), and when a bumped gate's hint may show again. */
+  private gates: (Gate & { chunk: string })[] = [];
+  private bumpedGate: Gate | null = null;
+  private nextGateHint = 0;
   private passersby: Passerby[] = [];
   private glints!: Phaser.GameObjects.Particles.ParticleEmitter;
   /** The ride in progress (SPEC.md §4.11), if any. */
@@ -214,6 +219,7 @@ export class MapScene extends Phaser.Scene {
     this.npcs = [];
     this.gateways = [];
     this.sparkles = [];
+    this.gates = [];
     this.passersby = [];
     this.ride = null;
     this.kei = null;
@@ -272,6 +278,10 @@ export class MapScene extends Phaser.Scene {
         this.spawnNpcs(c);
         this.spawnGateways(c);
         this.spawnSparkles(c);
+        for (const o of c.objects) {
+          const g = o.type === 'gate' ? gateFrom(o, this.index.tileSize) : null;
+          if (g) this.gates.push({ ...g, chunk: chunkKey(c.cx, c.cy) });
+        }
         this.spawnPassersby(c);
       },
       evicted: (c) => {
@@ -281,6 +291,7 @@ export class MapScene extends Phaser.Scene {
         this.despawnNpcs(c);
         this.gateways = this.gateways.filter((g) => (g.chunk === chunkKey(c.cx, c.cy) ? (g.sprite.destroy(), false) : true));
         this.sparkles = this.sparkles.filter((g) => (g.chunk === chunkKey(c.cx, c.cy) ? (g.sprite.destroy(), false) : true));
+        this.gates = this.gates.filter((g) => g.chunk !== chunkKey(c.cx, c.cy));
         this.despawnPassersby(c);
       },
       failed: (key, err) => console.warn(`chunk ${key} failed to load`, err),
@@ -423,7 +434,14 @@ export class MapScene extends Phaser.Scene {
       const ts = this.index.tileSize;
       const vx = (moving ? input.x * speed : 0) + push.x;
       const vy = (moving ? input.y * speed : 0) + push.y;
-      this.pos = move(this.pos, vx * dt, vy * dt, FEET, (tx, ty) => this.store.collisionAt(tx, ty), ts);
+      this.bumpedGate = null;
+      this.pos = move(this.pos, vx * dt, vy * dt, FEET, (tx, ty) => this.collisionAt(tx, ty), ts);
+      // The collision callback above sets bumpedGate.
+      const bumped = this.bumpedGate as Gate | null;
+      if (bumped && time >= this.nextGateHint) {
+        toast(bumped.hint || 'The way is blocked.', 3000);
+        this.nextGateHint = time + 4000;
+      }
     }
     if (moving) {
       this.facing = Math.abs(input.x) > Math.abs(input.y) ? (input.x < 0 ? 'left' : 'right') : input.y < 0 ? 'up' : 'down';
@@ -681,7 +699,7 @@ export class MapScene extends Phaser.Scene {
     }
     // Near unflushed overworld birds: photograph at the area's spot.
     const bird = this.birds.find((b) => !b.flushed && Math.hypot(b.sprite.x - this.pos.x, b.sprite.y - this.pos.y) < 40);
-    const spot = bird && this.session.content.spots.find((s) => s.area === this.area);
+    const spot = bird && this.session.content.spots.find((s) => s.area === this.area && !spotBlocked(s, this.session.state));
     if (spot) return { label: 'Photograph', object: { name: spot.id, type: 'spot', x: 0, y: 0, props: { spot_id: spot.id } } };
     return null;
   }
@@ -693,6 +711,17 @@ export class MapScene extends Phaser.Scene {
       switch (o.type) {
         case 'spot': {
           const spotId = o.props.spot_id;
+          const spotDef = this.session.content.spots.find((x) => x.id === spotId);
+          const blocked = spotDef ? spotBlocked(spotDef, this.session.state) : null;
+          if (blocked === 'needs') {
+            const item = this.session.content.items.find((i) => i.id === spotDef?.requiresItem);
+            toast(`You'll need ${item ? `the ${item.name}` : 'the right gear'} for this spot.`, 3000);
+            return;
+          }
+          if (blocked === 'closed') {
+            toast(`Come back in the ${spotDef?.slots?.join(' or ')}.`, 3000);
+            return;
+          }
           const closed = closureReason(await this.warningsNow());
           if (closed) {
             toast(`${closed}: the birding spots are closed. Stay safe!`, 3500);
@@ -1213,6 +1242,16 @@ export class MapScene extends Phaser.Scene {
       const sprite = this.add.sprite(o.x, o.y + 8, 'gateway_pad', 0).setOrigin(0.5, 1).setDepth(DEPTH.entities + o.y - 8);
       this.gateways.push({ object: o, sprite, chunk: chunkKey(chunk.cx, chunk.cy) });
     }
+  }
+
+  /** Tile collision, with gear gates closed until Angie owns their item (SPEC.md §4.6). */
+  private collisionAt(tx: number, ty: number): number {
+    const c = this.store.collisionAt(tx, ty);
+    if (c || this.gates.length === 0) return c;
+    const g = closedGateAt(this.gates, tx, ty, this.session.state.items);
+    if (!g) return c;
+    this.bumpedGate = g;
+    return 1;
   }
 
   // --- Hidden collectibles (SPEC.md §4.5) ------------------------------------

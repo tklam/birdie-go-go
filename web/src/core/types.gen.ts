@@ -191,6 +191,16 @@ export interface Spot {
   background: string;
   shots: number /* int */;
   birds: SpotBird[];
+  /**
+   * RequiresItem is gear Angie must own to shoot here (SPEC.md §4.6),
+   * e.g. a night lens.
+   */
+  requiresItem?: string;
+  /**
+   * Slots limits the spot to these time slots (e.g. night-only spots);
+   * empty means any.
+   */
+  slots?: string[];
 }
 /**
  * SpotBird is one entry of a spot's bird table.

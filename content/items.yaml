@@ -10,6 +10,7 @@
 - { id: pineapple_bun, name: Pineapple Bun, kind: consumable, price: 12, counters: [], restores: 20, description: "Warm, crumbly, no pineapple inside. +20 Energy." }
 - { id: curry_fish_balls, name: Curry Fish Balls, kind: consumable, price: 8, counters: [], restores: 10, description: "A skewer of spicy street snacks. +10 Energy." }
 - { id: lunch_box, name: Roast Pork Rice, kind: consumable, price: 45, counters: [], restores: 50, description: "A hearty lunch box from the roast meat shop. +50 Energy." }
+- { id: wading_boots, name: Wading Boots, kind: gadget, price: 180, counters: [], description: "Tall rubber boots for deep mud. Opens the mudflats where the waders feed." }
 - { id: whistle, name: Whistle, kind: gadget, price: 90, counters: [], assist: { resolve_scale: 0.85 }, description: "A loud whistle. Dogs and monsters start a run-in less sure of themselves." }
 - { id: dog_treat, name: Dog Treat, kind: consumable, price: 15, counters: [], description: "Distracts a dog so you can slip away." }
 - { id: sticky_rice, name: Sticky Rice, kind: consumable, price: 20, counters: [], description: "An old folk remedy against hopping zombies." }
@@ -20,3 +21,4 @@
 - { id: trail_camera, name: Trail Camera, kind: gadget, price: 0, counters: [], build: { parts: 2, kei_stage: dating }, description: "Place it at a birding spot; it photographs a bird every morning." }
 - { id: af_module, name: Tracking AF, kind: gadget, price: 0, counters: [], build: { parts: 3, kei_stage: engaged }, description: "Kei's autofocus module: focusing is 30% faster." }
 - { id: stabilizer, name: Stabilizer, kind: gadget, price: 0, counters: [], build: { parts: 3, kei_stage: engaged }, description: "Kei's stabilizer: fast birds come out sharper." }
+- { id: night_lens, name: Night Lens, kind: gadget, price: 0, counters: [], build: { parts: 2, kei_stage: dating }, description: "Kei's bright lens for low light. Opens night-only birding spots." }

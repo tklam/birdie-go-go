@@ -120,7 +120,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
   - [~] WeatherRenderer: rain, dithered fog, cloud/evening tint done (haze line-scroll, sway, waves, ambience, muffled interiors still to do)
   - [x] Weather in photo scenes (focus time, sharpness, visuals), weather-dependent bird tables and sheltering
   - [x] Radio forecast at home; `?debug=weather` overlay
-- [ ] Gear gating (§4.6)
+- [~] Gear gating (§4.6): gates, wading boots (Po Toi O mudflat), night lens (Night Woods); kayak still to do (needs islands)
 - [x] Hidden collectibles: feathers, camera parts, sheet music (9 placed; two new pieces, Egret's Lullaby and Tram Bell Rag)
 - [~] Shop (select, see details, tap again to buy), gear and Kei-built upgrades from parts done; more shops and stock still to do
 - [x] Students progress through their repertoire; second student Ah Fai in Po Toi O (his house and piano); two new original pieces
