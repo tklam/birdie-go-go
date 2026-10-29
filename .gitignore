@@ -19,3 +19,7 @@ web/.env.local
 
 # Downloaded candidate photos (selected sources live in art/birds/selected/)
 art/birds/candidates/
+
+# AI assistant session data (transcripts, memory, settings) never belongs in the repo
+.claude/
+*.jsonl
