@@ -209,6 +209,27 @@
     "frameHeight": 8,
     "placeholder": true
   },
+  "enemy_hopping_zombie": {
+    "type": "spritesheet",
+    "file": "enemies/hopping_zombie.png",
+    "frameWidth": 16,
+    "frameHeight": 16,
+    "placeholder": true
+  },
+  "enemy_stray_dog": {
+    "type": "spritesheet",
+    "file": "enemies/stray_dog.png",
+    "frameWidth": 16,
+    "frameHeight": 16,
+    "placeholder": true
+  },
+  "enemy_water_ghost": {
+    "type": "spritesheet",
+    "file": "enemies/water_ghost.png",
+    "frameWidth": 16,
+    "frameHeight": 16,
+    "placeholder": true
+  },
   "owbird_little_egret": {
     "type": "spritesheet",
     "file": "birds/ow_little_egret.png",
@@ -235,6 +256,27 @@
     "file": "birds/ow_red_whiskered_bulbul.png",
     "frameWidth": 8,
     "frameHeight": 8,
+    "placeholder": true
+  },
+  "portrait_hopping_zombie": {
+    "type": "spritesheet",
+    "file": "enemies/portrait_hopping_zombie.png",
+    "frameWidth": 48,
+    "frameHeight": 48,
+    "placeholder": true
+  },
+  "portrait_stray_dog": {
+    "type": "spritesheet",
+    "file": "enemies/portrait_stray_dog.png",
+    "frameWidth": 48,
+    "frameHeight": 48,
+    "placeholder": true
+  },
+  "portrait_water_ghost": {
+    "type": "spritesheet",
+    "file": "enemies/portrait_water_ghost.png",
+    "frameWidth": 48,
+    "frameHeight": 48,
     "placeholder": true
   },
   "tiles_tko": {
