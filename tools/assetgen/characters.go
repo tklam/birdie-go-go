@@ -89,13 +89,6 @@ func (s *sprite) ellipse(x, y, w, h int, c uint8) {
 	}
 }
 
-func (s *sprite) at(x, y int) uint8 {
-	if x < 0 || y < 0 || x >= charW || y >= charH {
-		return cClear
-	}
-	return s[y][x]
-}
-
 // shade darkens pixels on the lower-right rim of each colour region and
 // lightens hair on the upper-left rim, for a soft top-left light.
 func (s *sprite) shade(hair uint8) {
