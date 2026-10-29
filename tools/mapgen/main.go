@@ -183,6 +183,7 @@ func build() *tmap {
 	m.fill(36, 26, 23, 1, "awning")
 	m.fill(36, 26, 23, 4, "plaza")
 	m.put(60, 28, "station_sign")
+	m.obj("plaza_shop", "shop", 47, 25, map[string]string{"title": "Plaza Convenience Store"})
 	for _, x := range []int{38, 44, 50, 56} {
 		m.put(x, 29, "lamp")
 	}

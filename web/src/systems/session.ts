@@ -4,6 +4,7 @@ import { showDialogue } from '../ui/dialogue';
 import { EventRunner, visibleLines, type TriggerInput } from './events';
 import { IndexedDBSaveStore, MemorySaveStore, type SaveStore } from './save';
 import { newGame, type GameState } from './state';
+import { tickConsumables } from './hazards';
 import { advanceSlot } from './time';
 
 /** The autosave slot. */
@@ -67,6 +68,7 @@ export class Session {
 
   /** Ends the current time slot and fires the resulting triggers. */
   async endSlot(): Promise<void> {
+    tickConsumables(this.state);
     for (const t of advanceSlot(this.state)) await this.fire(t);
   }
 

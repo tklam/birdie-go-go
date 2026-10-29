@@ -2,7 +2,8 @@ import Phaser from 'phaser';
 import type { WeatherDay, WeatherParams, WorldIndex, WorldObject } from '../core/types.gen';
 import { blendAt, easeWeather, mixWeather } from '../weather/blend';
 import { WeatherRenderer } from '../weather/renderer';
-import { TIME_SLOTS } from '../systems/state';
+import { MAX_ENERGY, TIME_SLOTS } from '../systems/state';
+import { assess, breakItem, drain, protection, toggleGear, useItem, type HazardReport } from '../systems/hazards';
 import { InputReader } from '../systems/input';
 import { FollowerTrail } from '../systems/party';
 import type { Session } from '../systems/session';
@@ -91,6 +92,8 @@ export class MapScene extends Phaser.Scene {
   private weatherLoading = -1;
   private weatherNow: WeatherParams | null = null;
   private weatherRenderer: WeatherRenderer | null = null;
+  private hazards: HazardReport | null = null;
+  private fainting = false;
   /** The tune this place should play (area music outdoors, none indoors). */
   private wantMusic: string | null = null;
   /** Ground value of tall grass (atlas frame + 1), or −1 if the atlas has none. */
@@ -116,6 +119,8 @@ export class MapScene extends Phaser.Scene {
     this.weatherLoading = -1;
     this.weatherNow = null;
     this.weatherRenderer = null;
+    this.hazards = null;
+    this.fainting = false;
     this.touch = new TouchControls();
     this.input2 = new InputReader(this, this.touch);
     this.hud = new Hud();
@@ -232,10 +237,14 @@ export class MapScene extends Phaser.Scene {
     this.chunkRenderer.update();
     if (!this.ready && this.store.ready && this.chunkRenderer.pendingCount === 0) this.ready = true;
 
-    if (moving) {
+    const push = this.ready && !this.busy && modal.open === 0 ? (this.hazards?.push ?? { x: 0, y: 0 }) : { x: 0, y: 0 };
+    if (moving || push.x || push.y) {
       const ts = this.index.tileSize;
-      const next = move(this.pos, input.x * speed * dt, input.y * speed * dt, FEET, (tx, ty) => this.store.collisionAt(tx, ty), ts);
-      this.pos = next;
+      const vx = (moving ? input.x * speed : 0) + push.x;
+      const vy = (moving ? input.y * speed : 0) + push.y;
+      this.pos = move(this.pos, vx * dt, vy * dt, FEET, (tx, ty) => this.store.collisionAt(tx, ty), ts);
+    }
+    if (moving) {
       this.facing = Math.abs(input.x) > Math.abs(input.y) ? (input.x < 0 ? 'left' : 'right') : input.y < 0 ? 'up' : 'down';
       this.angie.anims.play(`angie-walk-${this.facing}`, true);
       this.angie.anims.timeScale = input.sneak ? 0.5 : 1;
@@ -264,7 +273,8 @@ export class MapScene extends Phaser.Scene {
     this.updateBirds(time, moving && !input.sneak, flushRadius);
 
     this.updateWeather(delta);
-    this.hud.update(this.session.state, this.weatherLabel());
+    this.updateHazards(delta);
+    this.hud.update(this.session.state, this.weatherLabel(), this.hazards?.exposed.map((e) => e.hazard.status) ?? []);
     this.updateMusic();
     if (input.menu && this.ready && !this.busy) void this.openMenu();
     const target = this.ready && !this.busy ? this.interactionTarget() : null;
@@ -291,6 +301,52 @@ export class MapScene extends Phaser.Scene {
     if (!target) return;
     this.weatherNow = this.weatherNow ? easeWeather(this.weatherNow, target, delta) : target;
     this.weatherRenderer.update(this.weatherNow, s.state.slot, delta);
+  }
+
+  /**
+   * Hazards outdoors: drain Energy (one in-game minute per real second),
+   * push in strong wind, break umbrellas; recover slowly indoors (SPEC.md §4.12).
+   */
+  private updateHazards(delta: number): void {
+    const s = this.session;
+    const minutes = Math.min(delta, 100) / 1000;
+    if (!this.weatherRenderer) {
+      this.hazards = null;
+      s.state.energy = Math.min(MAX_ENERGY, s.state.energy + 0.3 * minutes);
+      return;
+    }
+    if (!this.weatherNow || !this.weatherDay || this.busy || modal.open || this.fainting) return;
+    const signal = this.weatherDay.typhoonSignal[TIME_SLOTS.indexOf(s.state.slot)] ?? 0;
+    const worn = new Set(Object.values(s.state.equipped).filter((x): x is string => !!x));
+    this.hazards = assess(s.content.hazards, { ...this.weatherNow, signal }, protection(s.state), worn);
+    for (const id of this.hazards.breaks) {
+      breakItem(s.state, id);
+      toast(`Your ${s.content.items.find((i) => i.id === id)?.name.toLowerCase() ?? id} broke in the wind!`);
+    }
+    s.state.energy = drain(s.state.energy, this.hazards.exposed, minutes);
+    if (s.state.energy <= 0) void this.faint();
+  }
+
+  /** No game over: a passer-by helps Angie home (SPEC.md §4.12). */
+  private async faint(): Promise<void> {
+    if (this.fainting) return;
+    this.fainting = true;
+    this.busy = true;
+    const s = this.session;
+    const fee = Math.min(s.state.money, 50);
+    this.cameras.main.fadeOut(900, 0, 0, 0);
+    await new Promise((r) => this.time.delayedCall(1000, r));
+    await showPanel('You feel dizzy...', [
+      'Angie sat down, exhausted by the weather.',
+      `A kind neighbour helped her home. (-$${fee})`,
+      'Pack the right gear next time!',
+    ]);
+    s.state.money -= fee;
+    s.state.energy = 60;
+    await s.endSlot();
+    s.state.position = { map: 'angie_flat', spawn: 'front_door' };
+    await s.save();
+    this.scene.restart({ map: 'angie_flat', spawn: 'front_door', title: "Angie's flat" });
   }
 
   /** The blended weather at a world position, or null if unknown. */
@@ -383,6 +439,9 @@ export class MapScene extends Phaser.Scene {
         case 'radio':
           await this.radio();
           break;
+        case 'shop':
+          await this.shop(o.props.title ?? 'Shop');
+          break;
       }
     } finally {
       this.busy = false;
@@ -416,6 +475,64 @@ export class MapScene extends Phaser.Scene {
     await showPanel("Tomorrow's weather", lines);
   }
 
+  private async shop(title: string): Promise<void> {
+    const s = this.session;
+    await showMenu(
+      `${title}  $${s.state.money}`,
+      [
+        ...s.content.items.map((item) => ({
+          label: `${item.name} $${item.price}`,
+          run: async () => {
+            if (s.state.money < item.price) {
+              toast("You can't afford that.");
+              return true;
+            }
+            s.state.money -= item.price;
+            s.state.items[item.id] = (s.state.items[item.id] ?? 0) + 1;
+            toast(`Bought ${item.name}.`);
+            await s.save();
+            return true;
+          },
+        })),
+        { label: 'Leave', run: async () => false },
+      ],
+    );
+  }
+
+  /** The bag: wear/remove gear, use snacks and sunscreen. */
+  private async bag(): Promise<boolean> {
+    const s = this.session;
+    const owned = s.content.items.filter((i) => (s.state.items[i.id] ?? 0) > 0);
+    if (owned.length === 0) {
+      await showPanel('Bag', ['Your bag is empty.', 'Try the convenience store in the mall plaza.']);
+      return true;
+    }
+    await showMenu(
+      `Bag · Energy ${Math.ceil(s.state.energy)}`,
+      [
+        ...owned.map((item) => {
+          const worn = Object.values(s.state.equipped).includes(item.id);
+          const count = s.state.items[item.id] ?? 0;
+          const label = item.kind === 'gear' ? `${item.name}${worn ? ' (worn)' : ''}` : `${item.name} x${count}`;
+          return {
+            label,
+            run: async () => {
+              if (item.kind === 'gear') {
+                const r = toggleGear(s.state, item);
+                toast(r === 'worn' ? `Wearing the ${item.name.toLowerCase()}.` : `Took off the ${item.name.toLowerCase()}.`);
+              } else if (useItem(s.state, item)) {
+                toast(item.restores ? `Energy +${item.restores}!` : `Used the ${item.name.toLowerCase()}.`);
+              }
+              return false;
+            },
+          };
+        }),
+        { label: 'Close', run: async () => false },
+      ],
+    );
+    return true;
+  }
+
   private async sleep(): Promise<void> {
     const s = this.session;
     if (s.state.slot !== 'evening') {
@@ -425,6 +542,7 @@ export class MapScene extends Phaser.Scene {
     this.cameras.main.fadeOut(600, 0, 0, 0);
     await new Promise((r) => this.time.delayedCall(700, r));
     await s.endSlot();
+    s.state.energy = MAX_ENERGY;
     await s.save();
     this.cameras.main.fadeIn(600, 0, 0, 0);
     toast(`Good morning! Day ${s.state.day}`);
@@ -446,6 +564,7 @@ export class MapScene extends Phaser.Scene {
     const s = this.session;
     const items = [
       { label: 'Album', run: async () => (await showAlbum(s.content, s.state, this.registry.get('manifest') as Manifest), true) },
+      { label: 'Bag', run: () => this.bag() },
       {
         label: 'Export save',
         run: async () => {
@@ -589,6 +708,8 @@ export class MapScene extends Phaser.Scene {
 
 function labelFor(o: WorldObject): string | null {
   switch (o.type) {
+    case 'shop':
+      return 'Shop';
     case 'radio':
       return 'Listen';
     case 'bed':

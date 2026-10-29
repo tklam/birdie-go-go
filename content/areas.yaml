@@ -7,25 +7,25 @@
   music: bgm_town
   altitude: 0.05
   climate:
-    spring: { cloud: [0.65, 0.2], precip: [0.3, 0.3], temp: [22, 3], fog: [0.25, 0.2], wind: [0.3, 0.2] }
-    summer: { cloud: [0.5, 0.3], precip: [0.4, 0.3], temp: [31, 2], fog: [0.02, 0.05], wind: [0.3, 0.25] }
-    autumn: { cloud: [0.3, 0.2], precip: [0.1, 0.15], temp: [25, 3], fog: [0.05, 0.05], wind: [0.3, 0.2] }
-    winter: { cloud: [0.45, 0.2], precip: [0.1, 0.1], temp: [16, 4], fog: [0.1, 0.1], wind: [0.4, 0.2] }
+    spring: { cloud: [0.65, 0.2], precip: [0.3, 0.3], temp: [22, 2.5], fog: [0.25, 0.2], wind: [0.3, 0.2] }
+    summer: { cloud: [0.5, 0.3], precip: [0.3, 0.25], temp: [31, 1.5], fog: [0.02, 0.05], wind: [0.3, 0.25] }
+    autumn: { cloud: [0.3, 0.2], precip: [0.1, 0.15], temp: [25, 2.5], fog: [0.05, 0.05], wind: [0.3, 0.2] }
+    winter: { cloud: [0.45, 0.2], precip: [0.1, 0.1], temp: [16, 2.5], fog: [0.1, 0.1], wind: [0.4, 0.2] }
 - id: tko_waterfront
   name: Junk Bay Waterfront
   music: bgm_waterfront
   altitude: 0
   climate:
-    spring: { cloud: [0.65, 0.2], precip: [0.3, 0.3], temp: [21, 3], fog: [0.45, 0.25], wind: [0.4, 0.2] }
-    summer: { cloud: [0.5, 0.3], precip: [0.4, 0.3], temp: [30, 2], fog: [0.05, 0.05], wind: [0.4, 0.25] }
-    autumn: { cloud: [0.3, 0.2], precip: [0.1, 0.15], temp: [25, 3], fog: [0.08, 0.08], wind: [0.4, 0.2] }
-    winter: { cloud: [0.45, 0.2], precip: [0.1, 0.1], temp: [16, 4], fog: [0.15, 0.1], wind: [0.5, 0.2] }
+    spring: { cloud: [0.65, 0.2], precip: [0.3, 0.3], temp: [21, 2.5], fog: [0.45, 0.25], wind: [0.4, 0.2] }
+    summer: { cloud: [0.5, 0.3], precip: [0.3, 0.25], temp: [30, 1.5], fog: [0.05, 0.05], wind: [0.4, 0.25] }
+    autumn: { cloud: [0.3, 0.2], precip: [0.1, 0.15], temp: [25, 2.5], fog: [0.08, 0.08], wind: [0.4, 0.2] }
+    winter: { cloud: [0.45, 0.2], precip: [0.1, 0.1], temp: [16, 2.5], fog: [0.15, 0.1], wind: [0.5, 0.2] }
 - id: tko_hillside
   name: Hillside Trail
   music: bgm_trail
   altitude: 0.35
   climate:
-    spring: { cloud: [0.75, 0.2], precip: [0.35, 0.3], temp: [19, 3], fog: [0.45, 0.25], wind: [0.4, 0.2] }
-    summer: { cloud: [0.6, 0.3], precip: [0.45, 0.3], temp: [28, 2], fog: [0.1, 0.1], wind: [0.4, 0.25] }
-    autumn: { cloud: [0.35, 0.2], precip: [0.12, 0.15], temp: [22, 3], fog: [0.1, 0.1], wind: [0.4, 0.2] }
-    winter: { cloud: [0.5, 0.2], precip: [0.12, 0.1], temp: [13, 4], fog: [0.25, 0.15], wind: [0.55, 0.2] }
+    spring: { cloud: [0.75, 0.2], precip: [0.35, 0.3], temp: [19, 2.5], fog: [0.45, 0.25], wind: [0.4, 0.2] }
+    summer: { cloud: [0.6, 0.3], precip: [0.35, 0.25], temp: [28, 1.5], fog: [0.1, 0.1], wind: [0.4, 0.25] }
+    autumn: { cloud: [0.35, 0.2], precip: [0.12, 0.15], temp: [22, 2.5], fog: [0.1, 0.1], wind: [0.4, 0.2] }
+    winter: { cloud: [0.5, 0.2], precip: [0.12, 0.1], temp: [13, 2.5], fog: [0.25, 0.15], wind: [0.55, 0.2] }
