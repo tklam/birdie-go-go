@@ -28,7 +28,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Asset manifest + loader; master palette; `assetgen` placeholders + `check`
 - [ ] Pixel-perfect scaling, letterboxing, rotate-to-landscape prompt
 - [x] Input layer that unifies touch and keyboard (mouse: via touch controls; click-to-move later)
-- [~] 16-bit UI kit: window frames, dialogue box with typewriter, area toast (still to do: bitmap pixel font, portraits, menus)
+- [~] 16-bit UI kit: window frames, dialogue box with typewriter, area toast pixel font (Press Start 2P), menus, album list (still to do: portraits)
 - [x] Touch controls: floating joystick, Action button (context label), Menu button
 - [ ] Audio: unlock on first gesture, SoundFont synth, music sequencer
 
@@ -69,8 +69,8 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 
 ### Systems
 - [x] Event system (§9.4), unit tested
-- [ ] Time slots and day cycle
-- [~] IndexedDB saves, autosave, migrations (export/import UI still to do)
+- [x] Time slots and day cycle (photo sessions and lessons end the slot); HUD shows day/slot/season/money
+- [x] IndexedDB saves, autosave, migrations, export/import from the menu
 - [~] Prologue events (arrival, first photo, first lesson; placeholder text)
 
 ## M2: Transit (§4.11)

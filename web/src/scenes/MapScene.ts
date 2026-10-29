@@ -3,7 +3,12 @@ import type { WorldIndex, WorldObject } from '../core/types.gen';
 import { InputReader } from '../systems/input';
 import { FollowerTrail } from '../systems/party';
 import type { Session } from '../systems/session';
+import { showAlbum } from '../ui/album';
+import { Hud } from '../ui/hud';
+import { showMenu } from '../ui/menu';
 import { modal } from '../ui/overlay';
+import { showPanel } from '../ui/panel';
+import { downloadSave, pickSave } from '../systems/backup';
 import { toast } from '../ui/toast';
 import { TouchControls } from '../ui/touchControls';
 import { CHUNK_TILES, type ChunkData } from '../world/chunk';
@@ -50,6 +55,7 @@ export class MapScene extends Phaser.Scene {
   private chunkRenderer!: ChunkRenderer;
   private input2!: InputReader;
   private touch!: TouchControls;
+  private hud!: Hud;
   private angie!: Phaser.GameObjects.Sprite;
   private oboy: Phaser.GameObjects.Sprite | null = null;
   /** Angie's path, for Kei to follow once he joins (Chapter 3). */
@@ -108,7 +114,11 @@ export class MapScene extends Phaser.Scene {
 
     this.touch = new TouchControls();
     this.input2 = new InputReader(this, this.touch);
-    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.touch.destroy());
+    this.hud = new Hud();
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      this.touch.destroy();
+      this.hud.destroy();
+    });
 
     void this.arrive(data);
   }
@@ -180,6 +190,8 @@ export class MapScene extends Phaser.Scene {
     this.updateArea();
     this.updateBirds(time, moving && !input.sneak);
 
+    this.hud.update(this.session.state);
+    if (input.menu && this.ready && !this.busy) void this.openMenu();
     const target = this.ready && !this.busy ? this.interactionTarget() : null;
     this.touch.setAction(target?.label ?? null);
     if (input.action && target) void this.interact(target);
@@ -254,6 +266,50 @@ export class MapScene extends Phaser.Scene {
     await this.session.save();
     this.cameras.main.fadeOut(200, 0, 0, 0);
     this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => this.scene.start(scene, data));
+  }
+
+  private async openMenu(): Promise<void> {
+    this.busy = true;
+    const s = this.session;
+    const items = [
+      { label: 'Album', run: async () => (await showAlbum(s.content, s.state), true) },
+      {
+        label: 'Export save',
+        run: async () => {
+          downloadSave(s.state);
+          return true;
+        },
+      },
+      {
+        label: 'Import save',
+        run: async () => {
+          try {
+            const state = await pickSave();
+            if (!state) return true;
+            s.state = state;
+            await s.save();
+            this.scene.restart({});
+          } catch (err) {
+            await showPanel('Import failed', [err instanceof Error ? err.message : String(err)]);
+            return true;
+          }
+          return false;
+        },
+      },
+    ];
+    if (this.scene.manager.keys['Calibration']) {
+      items.push({
+        label: 'Recalibrate audio',
+        run: async () => {
+          await s.save();
+          this.scene.start('Calibration', { returnTo: 'Map', returnData: {} });
+          return false;
+        },
+      });
+    }
+    items.push({ label: 'Close', run: async () => false });
+    await showMenu('Menu', items);
+    this.busy = false;
   }
 
   // --- Overworld birds ---------------------------------------------------

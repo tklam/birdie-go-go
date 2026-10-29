@@ -176,3 +176,37 @@
   min-height: 44px;
   border-radius: 8px;
 }
+
+/* Menus. */
+.menu-window .menu-item {
+  padding-left: calc(var(--px) * 10);
+  position: relative;
+  cursor: pointer;
+}
+.menu-window .menu-item.selected::before {
+  content: '▶';
+  position: absolute;
+  left: 0;
+  color: #f0d050;
+  animation: blink 0.8s steps(1) infinite;
+}
+
+/* Overworld status window. */
+.hud {
+  position: absolute;
+  left: calc(50vw - var(--game-w) / 2 + var(--px) * 3);
+  bottom: calc(50vh - var(--game-h) / 2 + var(--px) * 3);
+  font-size: calc(var(--px) * 6);
+  padding: calc(var(--px) * 2) calc(var(--px) * 3);
+  white-space: pre;
+}
+
+/* Album list. */
+.panel .album-row {
+  display: flex;
+  justify-content: space-between;
+  gap: calc(var(--px) * 6);
+}
+.panel .album-row.unknown {
+  color: #6e6e80;
+}
