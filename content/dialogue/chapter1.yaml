@@ -1,18 +1,38 @@
 - id: chapter1_rumour
   lines:
-    - { speaker: angie, text: "Morning, Tseung Kwan O!" }
-    - { speaker: neighbour, text: "Morning! Did you hear? Someone saw a little blue-green bird at the waterfront park." }
-    - { speaker: neighbour, text: "Not like any bird in the books, they said. Its feathers sparkled like the night sky!" }
-    - { speaker: angie, text: "A bird that sparkles? I have to see that. I'll look for it when I'm birding by the bay." }
+    - { speaker: angie, text: "Morning, Mrs Chan!" }
+    - { speaker: neighbour, text: "Morning, Angie! Have you heard? Everyone at the dim sum place was talking about it." }
+    - { speaker: neighbour, text: "A little blue-green bird at the waterfront park. Not like any bird in the books, they said." }
+    - { speaker: neighbour, text: "And at dusk its feathers sparkle. Like someone sprinkled the night sky on it!" }
+    - { speaker: angie, text: "A bird that sparkles? That must be the light... But I have to see it." }
+    - { speaker: neighbour, text: "Bring me a photo! Mr Lee from the eighth floor says it's an escaped pet. I say it's lucky." }
 - id: oboy_found
   lines:
-    - { speaker: angie, text: "That little teal bird... it looks like a Pacific parrotlet. But they don't live here." }
-    - { speaker: angie, text: "Wait. Your feathers are shimmering... like tiny stars." }
+    - { speaker: angie, text: "There... on the railing. That little teal bird looks like a Pacific parrotlet." }
+    - { speaker: angie, text: "But parrotlets live half a world away. How did you get here?" }
+    - { speaker: angie, text: "And your feathers... they really are shimmering. Like tiny stars." }
     - { speaker: parrotlet, text: "Chirp! Chirrup!" }
-    - { speaker: angie, text: "Whoa, you landed right on my shoulder! You're not scared of me at all." }
-    - { speaker: angie, text: "Where did you come from, little one?" }
-    - { speaker: parrotlet, text: "Chirrup!" }
-    - { speaker: angie, text: "You're looking up at the sky... From way up there? Are you a traveller?" }
+    - { speaker: angie, text: "Whoa! You landed right on my shoulder. You're not scared of me at all, are you?" }
+    - { speaker: parrotlet, text: "Chirrup." }
+    - { speaker: angie, text: "You keep looking up at the sky. Did you come from up there?" }
     - { speaker: parrotlet, text: "Chirp chirp!" }
-    - { speaker: angie, text: "Then rest with me for a while. Oh boy... O Boy! That's your name." }
+    - { speaker: angie, text: "A traveller, then. Me too, in a way. I only moved here last week." }
+    - { speaker: angie, text: "You must be tired. You can rest at my place for a while... Oh boy, what am I saying?" }
+    - { speaker: parrotlet, text: "Chirp!" }
+    - { speaker: angie, text: "You like that? Oh boy... O Boy! That's your name, then." }
     - { speaker: oboy, text: "Chirrup!" }
+- id: neighbour_chat
+  lines:
+    - { speaker: neighbour, text: "Good day, Angie! Mrs Chan from upstairs. Anything you need, you knock." }
+    - { speaker: neighbour, text: "Take an umbrella when the radio says rain, and sunscreen when it says sun. The sun here is no joke!", if: { chapter_at_least: 0 } }
+    - { speaker: neighbour, text: "And when the wind's up, a raincoat. Umbrellas turn inside out on the promenade.", if: { chapter_at_least: 1 } }
+    - { speaker: neighbour, text: "Is that your little bird? He sparkles in the sunlight, doesn't he? Lucky, I told them.", if: { party_has: oboy } }
+    - { speaker: neighbour, text: "And who's that tall young man always walking you home, hmm? Hmm?", if: { kei_stage: dating } }
+- id: villager_lore
+  lines:
+    - { speaker: old_villager, text: "Walking the hills at dusk, are you? Mind the stray dogs." }
+    - { speaker: old_villager, text: "Don't run. Stand tall, look big, and they'll lose interest. Or outpace them, if your legs are young." }
+    - { speaker: old_villager, text: "And if you hear something hopping behind you, step by step... that's a jiangshi. It follows your breath." }
+    - { speaker: old_villager, text: "Walk softly, and keep sticky rice in your bag. Sticky rice draws the chill right out of them." }
+    - { speaker: old_villager, text: "By the water, the fishermen keep sea salt in their pockets. For the shui gwai, you understand." }
+    - { speaker: old_villager, text: "Ha! You think I'm a silly old man. But I'm a silly old man who's still here." }

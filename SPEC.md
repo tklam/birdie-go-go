@@ -415,7 +415,7 @@ Abilities are **hints**, never automatic success.
 | 5 | Big photo contest + student recital | `kei_proposes` → `kei.stage = engaged` |
 | Finale | Wedding; the shared home with Angie's best photos on the wall | `kei.stage = married`; post-game free play |
 
-All story is data-driven (§9.4). Text is placeholder until written.
+All story is data-driven (§9.4). The dialogue is a full first draft (content/dialogue/), open to revision.
 
 ## 9. Technical Architecture
 

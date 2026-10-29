@@ -163,7 +163,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 
 ## M6: Story (§8)
 - [x] Chapters 1–5 and finale events and dialogue (placeholder text: Bird Paradise traveller, magazine, recitals, first date, contest, proposal, wedding)
-- [ ] Write the real story text
+- [~] Write the real story text (full first draft of every scene done; side characters and post-game still to write)
 - [~] Wedding (dialogue) done; wedding scene and shared home still to do
 - [ ] Post-game free play
 

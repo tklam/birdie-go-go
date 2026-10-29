@@ -1,48 +1,66 @@
 - id: kei_invite
   lines:
-    - { speaker: kei, text: "Morning, Angie! So... I was thinking." }
-    - { speaker: kei, text: "The egrets at Po Toi O are beautiful in the afternoon light. Would you... like to go birding there? Together?" }
-    - { speaker: angie, text: "Like a date?" }
-    - { speaker: kei, text: "...Like a date." }
+    - { speaker: kei, text: "Morning, Angie! So... I was thinking. Which is rare, before my second coffee." }
+    - { speaker: kei, text: "The egrets at Po Toi O are beautiful in the afternoon light. I wrote it down so I wouldn't forget." }
+    - { speaker: kei, text: "Would you... like to go birding there? Together? Just us?" }
+    - { speaker: angie, text: "Kei. Is this a date?" }
+    - { speaker: kei, text: "...It's a date. If you'd like it to be. I also wrote that down." }
     - { speaker: oboy, text: "Chirp!!", if: { party_has: oboy } }
-    - { speaker: angie, text: "I'd love to. Let's take the minibus from the plaza!" }
+    - { speaker: angie, text: "I'd love to. Let's take the green minibus from the plaza!" }
 - id: first_date
   lines:
-    - { speaker: kei, text: "That shot is perfect. The light on the water..." }
+    - { speaker: kei, text: "That shot... the light on the water, the egret mid-step. It's perfect." }
+    - { speaker: angie, text: "You were holding your breath the whole time, weren't you?" }
+    - { speaker: kei, text: "I didn't want to scare it. Or ruin the moment. Mostly the moment." }
     - { speaker: angie, text: "This was the best afternoon, Kei." }
-    - { speaker: kei, text: "Then let's have many more." }
-- id: oboy_accepts_kei
-  lines:
-    - { speaker: angie, text: "O Boy! You landed on Kei's shoulder!" }
-    - { speaker: kei, text: "Does this mean we're friends now, little traveller?" }
-    - { speaker: oboy, text: "Chirrup!" }
-    - { speaker: angie, text: "I think he's decided you're family." }
-- id: chapter5_contest
-  lines:
-    - { speaker: magazine_editor, text: "Angie! The Harbour Birds photo contest is open. We'd love a perfect Magpie-Robin from you!" }
-    - { speaker: mei, text: "And my big recital is soon, Miss Angie. I want to play it perfectly!" }
-    - { speaker: angie, text: "Two big goals. We can do this!" }
-- id: kei_proposes
-  lines:
-    - { speaker: kei, text: "Angie, can we take a walk along the bay?" }
-    - { speaker: kei, text: "Every day since that sticky shutter has been better than the one before." }
-    - { speaker: kei, text: "I built a little gadget, but this time it's just a ring. Will you marry me?" }
-    - { speaker: angie, text: "Yes! Oh boy... yes!" }
-    - { speaker: oboy, text: "CHIRP CHIRP!", if: { party_has: oboy } }
-- id: wedding
-  lines:
-    - { speaker: angie, text: "Today's the day." }
-    - { speaker: neighbour, text: "Oh, you look lovely! The whole estate came to the waterfront park!" }
-    - { speaker: mei, text: "I'm playing the piano for you, Miss Angie! I practised so hard!" }
-    - { speaker: kei, text: "Ready, Angie?" }
-    - { speaker: oboy, text: "Chirrup!" }
-    - { speaker: angie, text: "Ready. Let's keep exploring this city together, all three of us." }
+    - { speaker: kei, text: "Then let's have many more. I promise I won't forget a single one." }
 - id: kei_gateways
   lines:
-    - { speaker: kei, text: "Angie, I have to show you something. My big project." }
-    - { speaker: kei, text: "You know how I forget everything? Keys, birthdays, where I parked..." }
-    - { speaker: kei, text: "So I'm building a digital kingdom. One day I'll upload my ghost there, all my memories, and never lose one again." }
-    - { speaker: kei, text: "And someday, anyone could upload theirs. But first: digitalization and undigitalization actually work!" }
-    - { speaker: kei, text: "Step on a gateway, become data, cross the kingdom, and come back out at another gateway. Plaza, country park, Po Toi O!" }
-    - { speaker: oboy, text: "Chirrup!", if: { party_has: oboy } }
-    - { speaker: angie, text: "O Boy seems to know the way already... Kei, this is incredible." }
+    - { speaker: kei, text: "Angie, can I show you something? My big project. Nobody's seen it yet." }
+    - { speaker: kei, text: "You know how I forget everything? Keys, birthdays, where I parked, which pocket my phone is in..." }
+    - { speaker: kei, text: "So I'm building a kingdom. A digital one. Somewhere my memories can live, safe, forever." }
+    - { speaker: kei, text: "One day I'll upload my ghost there, all of me, and never lose a moment again." }
+    - { speaker: angie, text: "All of you...? Kei, that's a little scary." }
+    - { speaker: kei, text: "I know. That's why I'm going slowly. And someday, anyone who wants to could upload theirs too." }
+    - { speaker: kei, text: "But look: digitalization and undigitalization work! Step on a gateway, become data, cross the kingdom..." }
+    - { speaker: kei, text: "...and come back out at another gateway. Plaza, country park, Po Toi O!" }
+    - { speaker: oboy, text: "Chirrup! Chirrup!", if: { party_has: oboy } }
+    - { speaker: angie, text: "O Boy acts like he's travelled this way before... Kei, this is incredible.", if: { party_has: oboy } }
+    - { speaker: angie, text: "Kei, this is incredible. Just promise me the real you stays out here, with me.", if: { party_lacks: oboy } }
+- id: oboy_accepts_kei
+  lines:
+    - { speaker: angie, text: "O Boy! You landed on Kei's shoulder. You've never done that before!" }
+    - { speaker: kei, text: "Hello there. Does this mean we're friends now, little traveller?" }
+    - { speaker: oboy, text: "Chirrup!" }
+    - { speaker: kei, text: "He's preening my hair. I think I'm being groomed." }
+    - { speaker: angie, text: "That means he's decided you're family." }
+- id: chapter5_contest
+  lines:
+    - { speaker: magazine_editor, text: "Angie! The Harbour Birds photo contest is open, and the judges are hoping for you." }
+    - { speaker: magazine_editor, text: "This year's theme is the Oriental Magpie-Robin. The city's own songbird. Bring us a perfect shot!" }
+    - { speaker: mei, text: "And my big recital is soon, Miss Angie! The real one, in the town hall. With a real grand piano." }
+    - { speaker: mei, text: "I want to play it perfectly. No jelly fingers this time." }
+    - { speaker: angie, text: "A contest photo and a perfect recital. Two big goals..." }
+    - { speaker: oboy, text: "Chirp!", if: { party_has: oboy } }
+    - { speaker: angie, text: "We can do this. One bird and one note at a time." }
+- id: kei_proposes
+  lines:
+    - { speaker: kei, text: "Angie, will you walk along the bay with me? The sunset's doing that orange thing." }
+    - { speaker: kei, text: "I have a confession. I've written down every day since that sticky shutter." }
+    - { speaker: kei, text: "Not because I'd forget them. Because I never want to. Every one was better than the one before." }
+    - { speaker: kei, text: "I've built a lot of gadgets. This time it's just a ring. No batteries." }
+    - { speaker: kei, text: "Angie... will you marry me?" }
+    - { speaker: angie, text: "Yes! Oh boy... yes, yes!" }
+    - { speaker: oboy, text: "CHIRP! CHIRP CHIRP!", if: { party_has: oboy } }
+    - { speaker: kei, text: "I think that's a yes from him too." , if: { party_has: oboy } }
+- id: wedding
+  lines:
+    - { speaker: angie, text: "Today's the day. Deep breath, Angie." }
+    - { speaker: neighbour, text: "Oh, you look lovely! The whole estate came down to the waterfront park, you know." }
+    - { speaker: neighbour, text: "Mr Lee from the eighth floor brought a cake. I told him: that bird was lucky!" }
+    - { speaker: mei, text: "I'm playing the piano for you, Miss Angie! I practised so hard. No jelly fingers!" }
+    - { speaker: kei, text: "Ready, Angie? I have the rings. I checked four times. They're in my left pocket." }
+    - { speaker: angie, text: "Your right pocket, Kei." }
+    - { speaker: kei, text: "...My right pocket. See? This is why I need you." }
+    - { speaker: oboy, text: "Chirrup!" }
+    - { speaker: angie, text: "Ready. Let's keep exploring this city together. All three of us." }

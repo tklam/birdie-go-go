@@ -1,36 +1,36 @@
 - id: chapter2_letter
   lines:
-    - { speaker: angie, text: "A letter? From Harbour Birds magazine!" }
-    - { speaker: magazine_editor, text: "We loved your photos from Junk Bay. Could you shoot a Little Egret for our next cover?" }
-    - { speaker: magazine_editor, text: "It has to be a great shot, mind you. Our readers are picky!" }
-    - { speaker: oboy, text: "Chirp!", if: { party_has: oboy } }
-    - { speaker: angie, text: "My first real assignment. Let's go to the waterfront!" }
+    - { speaker: angie, text: "A letter in the mailbox? Nobody writes letters any more..." }
+    - { speaker: angie, text: "It's from Harbour Birds magazine!" }
+    - { speaker: magazine_editor, text: "Dear Ms Angie, a reader sent us your photos from Junk Bay. We were charmed." }
+    - { speaker: magazine_editor, text: "Our next cover is the Little Egret: white plumes, the harbour behind. Would you shoot it for us?" }
+    - { speaker: magazine_editor, text: "It must be a great shot, mind you. Our readers notice every soft feather." }
+    - { speaker: oboy, text: "Chirp! Chirp!", if: { party_has: oboy } }
+    - { speaker: angie, text: "You're right, O Boy. My first real assignment! Let's go to the waterfront.", if: { party_has: oboy } }
+    - { speaker: angie, text: "My first real assignment! Egrets love the waterfront in the morning.", if: { party_lacks: oboy } }
 - id: mei_recital_ask
   lines:
-    - { speaker: mei, text: "Miss Angie... my school recital is coming up." }
-    - { speaker: mei, text: "Can you help me practise until I play it really well?" }
-    - { speaker: angie, text: "Of course! Let's aim for a lesson score of 70 or more." }
+    - { speaker: mei, text: "Miss Angie... can I tell you a secret?" }
+    - { speaker: mei, text: "My school recital is coming up. Everyone's parents will be there. Mine too." }
+    - { speaker: mei, text: "When I think about it, my fingers go all wobbly. Like jelly." }
+    - { speaker: angie, text: "Jelly fingers happen to everyone. Even me, at my first concert." }
+    - { speaker: angie, text: "Here's the plan: we practise until the piece feels like walking home. Aim for a lesson score of 70." }
+    - { speaker: mei, text: "Seventy... Okay. I can do seventy!" }
 - id: chapter3_shutter
   lines:
-    - { speaker: angie, text: "Two jobs done! Harbour Birds and Mei's recital..." }
-    - { speaker: angie, text: "Huh? My camera's shutter is sticking. Not now!" }
+    - { speaker: angie, text: "The egret cover, and Mei's recital... two jobs done! I could sing." }
+    - { speaker: angie, text: "Huh? Click... click... My shutter's sticking. Not now, please, not now!" }
     - { speaker: oboy, text: "Chirrup?", if: { party_has: oboy } }
-    - { speaker: angie, text: "There's a little camera shop in the mall plaza. Maybe someone there can fix it." }
+    - { speaker: angie, text: "There's a tiny camera shop in the mall plaza. The sign says repairs. Let's try there." }
 - id: kei_meet
   lines:
-    - { speaker: kei, text: "Sticky shutter? Let me see... Ah, a bent spring." }
-    - { speaker: kei, text: "There. Good as new. I'm Kei, by the way. I tinker with cameras, and computers, and... everything, really." }
-    - { speaker: angie, text: "I'm Angie! Thank you so much. I photograph birds around Tseung Kwan O." }
+    - { speaker: kei, text: "Hm? Oh! A customer. Sorry, I was... where did I put my screwdriver?" }
+    - { speaker: angie, text: "Behind your ear?" }
+    - { speaker: kei, text: "...Behind my ear. Thank you. Now, a sticky shutter? Let me see." }
+    - { speaker: kei, text: "Ah. A bent spring. Someone's been shooting a lot of birds in the rain." }
+    - { speaker: kei, text: "There. Good as new. I'm Kei. I fix cameras, and computers, and... everything, really. Except my memory." }
+    - { speaker: angie, text: "I'm Angie! Thank you so much. I photograph birds around Tseung Kwan O, and I teach piano." }
     - { speaker: oboy, text: "...Chirp.", if: { party_has: oboy } }
-    - { speaker: kei, text: "Birds? I've been writing an app that names birds from their calls. Want to try it out together?" }
-    - { speaker: angie, text: "That sounds amazing. Let's go birding!" }
-- id: neighbour_chat
-  lines:
-    - { speaker: neighbour, text: "Good day, Angie! I'm Mrs Chan from upstairs." }
-    - { speaker: neighbour, text: "Bring an umbrella when the radio says rain. And sunscreen! The sun here is no joke.", if: { chapter_at_least: 0 } }
-    - { speaker: neighbour, text: "Is that little bird still with you? He sparkles in the sunlight, doesn't he?", if: { party_has: oboy } }
-- id: villager_lore
-  lines:
-    - { speaker: old_villager, text: "Walking the hills at dusk, are you? Mind the strays. Don't run - stand tall and they'll lose interest." }
-    - { speaker: old_villager, text: "And if you hear something hopping behind you... a jiangshi follows your breath. Sticky rice draws out its chill." }
-    - { speaker: old_villager, text: "By the water, the fishermen keep sea salt in their pockets. For the shui gwai, you understand." }
+    - { speaker: kei, text: "Is that a parrotlet? His feathers are doing something strange with the light... fascinating.", if: { party_has: oboy } }
+    - { speaker: kei, text: "Birds, you said? I've been writing an app that names birds from their calls. It needs a field test." }
+    - { speaker: angie, text: "A bird-call app? That sounds amazing. Let's go birding!" }

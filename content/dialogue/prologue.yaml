@@ -1,12 +1,18 @@
 - id: prologue_arrival
   lines:
     - { speaker: angie, portrait: angie_happy, text: "Tseung Kwan O! New flat, new city, new start." }
-    - { speaker: angie, text: "Camera, check. Sheet music, check. Mei's lesson is this afternoon." }
-    - { speaker: angie, text: "There's a park by the bay. I bet the birds are up already." }
+    - { speaker: angie, text: "Twenty-third floor... and I can see the bay from the kitchen window. Grandma would have loved this." }
+    - { speaker: angie, text: "Okay, Angie. Unpacking can wait. Camera, check. Sheet music, check." }
+    - { speaker: angie, text: "Mei's first lesson is this afternoon. Before that... the waterfront park is just down the road." }
+    - { speaker: angie, text: "Somewhere out there is my first Hong Kong bird. Let's go find it!" }
 - id: prologue_first_photo
   lines:
-    - { speaker: angie, text: "My first bird photo in the city! That's going in the album." }
+    - { speaker: angie, text: "Got it! My very first bird photo in the city." }
+    - { speaker: angie, text: "Not perfect... but it's a start. Every album starts with one page." }
 - id: prologue_first_lesson
   lines:
-    - { speaker: mei, text: "Did I play it right, Miss Angie?" }
-    - { speaker: angie, text: "Mostly! Let's go over the tricky bits next time." }
+    - { speaker: mei, text: "Did I play it right, Miss Angie? I practised every night. Well... most nights." }
+    - { speaker: angie, text: "You played it with heart, and that's the hard part!" }
+    - { speaker: angie, text: "A few notes wandered off, though. We'll catch them together next time." }
+    - { speaker: mei, text: "Like catching birds with your camera?" }
+    - { speaker: angie, text: "Exactly like that. Listen closely, and they can't hide." }
