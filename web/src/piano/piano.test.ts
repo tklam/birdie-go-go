@@ -274,4 +274,10 @@ describe('pickSong progression', () => {
     expect(pickSong(student, songs, undefined, 9)?.id).toBe('c');
     expect(pickSong(student, songs, 'b', 0)?.id).toBe('b');
   });
+
+  it('continues into found sheet music after the repertoire', () => {
+    const more = [...songs, song('d')];
+    expect(pickSong(student, more, undefined, 9, ['b', 'd'])?.id).toBe('d');
+    expect(pickSong(student, more, undefined, 2, ['d'])?.id).toBe('c');
+  });
 });

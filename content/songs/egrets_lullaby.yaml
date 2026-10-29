@@ -1,0 +1,32 @@
+# Original piece: a gentle waltz, found as sheet music in the city.
+id: egrets_lullaby
+title: Egret's Lullaby
+tempo: 84
+time_signature: [3, 4]
+difficulty: 2
+notes:
+  - { pitch: 41, start: 0, dur: 3, vel: 58 }
+  - { pitch: 69, start: 0, dur: 2, vel: 82 }
+  - { pitch: 67, start: 2, dur: 1, vel: 82 }
+  - { pitch: 48, start: 3, dur: 3, vel: 58 }
+  - { pitch: 65, start: 3, dur: 1, vel: 82 }
+  - { pitch: 69, start: 4, dur: 1, vel: 82 }
+  - { pitch: 72, start: 5, dur: 1, vel: 82 }
+  - { pitch: 46, start: 6, dur: 3, vel: 58 }
+  - { pitch: 74, start: 6, dur: 2, vel: 82 }
+  - { pitch: 72, start: 8, dur: 1, vel: 82 }
+  - { pitch: 41, start: 9, dur: 3, vel: 58 }
+  - { pitch: 69, start: 9, dur: 3, vel: 82 }
+  - { pitch: 46, start: 12, dur: 3, vel: 58 }
+  - { pitch: 70, start: 12, dur: 2, vel: 82 }
+  - { pitch: 69, start: 14, dur: 1, vel: 82 }
+  - { pitch: 48, start: 15, dur: 3, vel: 58 }
+  - { pitch: 67, start: 15, dur: 1, vel: 82 }
+  - { pitch: 69, start: 16, dur: 1, vel: 82 }
+  - { pitch: 70, start: 17, dur: 1, vel: 82 }
+  - { pitch: 36, start: 18, dur: 3, vel: 58 }
+  - { pitch: 72, start: 18, dur: 1, vel: 82 }
+  - { pitch: 69, start: 19, dur: 1, vel: 82 }
+  - { pitch: 67, start: 20, dur: 1, vel: 82 }
+  - { pitch: 41, start: 21, dur: 3, vel: 58 }
+  - { pitch: 65, start: 21, dur: 3, vel: 82 }

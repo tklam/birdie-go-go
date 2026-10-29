@@ -138,7 +138,7 @@ Optional setting: **tap-to-move** (tap a destination; A* pathfinding on the coll
 - **Ledges**: hop down one way; climbing up requires a path around (or gear, §4.6).
 - **Shallow water, bridges, signs, benches, bird feeders, bushes, trees**.
 - **Context Action**: the action button shows a label for the nearest target — *Talk*, *Look*, *Enter*, *Sit*, *Photograph*.
-- **Collectibles** hidden around the world: feathers (album extras), camera parts (for Kei's builds), and sheet music (new songs for students).
+- **Collectibles** hidden around the world: feathers (album extras), camera parts (for Kei's builds), and sheet music (new songs for students). *As built:* `collectible` objects in the world with `item` (feather, camera_part) or `song` props, shown by a small twinkle and picked up once per save (flag `collected:<object name>`). Feathers are counted in the album header; sheet music sets `sheet:<song>`, and every student continues into found pieces after finishing their repertoire.
 
 ### 4.6 Gear-gated exploration
 Some paths open only with the right gear, in the classic adventure-game tradition:

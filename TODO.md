@@ -121,7 +121,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
   - [x] Weather in photo scenes (focus time, sharpness, visuals), weather-dependent bird tables and sheltering
   - [x] Radio forecast at home; `?debug=weather` overlay
 - [ ] Gear gating (§4.6)
-- [ ] Hidden collectibles: feathers, camera parts, sheet music
+- [x] Hidden collectibles: feathers, camera parts, sheet music (9 placed; two new pieces, Egret's Lullaby and Tram Bell Rag)
 - [~] Shop (select, see details, tap again to buy), gear and Kei-built upgrades from parts done; more shops and stock still to do
 - [x] Students progress through their repertoire; second student Ah Fai in Po Toi O (his house and piano); two new original pieces
 - [ ] More students and songs

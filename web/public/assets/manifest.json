@@ -2100,6 +2100,13 @@
     "frameHeight": 24,
     "placeholder": true
   },
+  "collectible_sparkle": {
+    "type": "spritesheet",
+    "file": "vehicles/sparkle.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
   "enemy_hopping_zombie": {
     "type": "spritesheet",
     "file": "enemies/hopping_zombie.png",

@@ -58,5 +58,21 @@ func genVehicles(assets string) error {
 			k.rect(x, y, 1, 3, cSky)
 		}
 	}
-	return pad.save(filepath.Join(assets, "vehicles", "gateway.png"))
+	if err := pad.save(filepath.Join(assets, "vehicles", "gateway.png")); err != nil {
+		return err
+	}
+	// A hidden collectible's twinkle: a small four-point star (2 frames).
+	spark := newCanvas(2*8, 8)
+	for f := range 2 {
+		k := spark.cell(f*8, 0)
+		r := 3 - f
+		k.rect(4-r, 4, 2*r-1+1, 1, cYellow)
+		k.rect(4, 4-r, 1, 2*r-1+1, cYellow)
+		k.set(4, 4, cWhite)
+		if f == 0 {
+			k.set(3, 3, cPaleSky)
+			k.set(5, 5, cPaleSky)
+		}
+	}
+	return spark.save(filepath.Join(assets, "vehicles", "sparkle.png"))
 }

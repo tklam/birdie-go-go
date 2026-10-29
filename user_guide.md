@@ -58,6 +58,7 @@ The world is big and seamless. You can walk from downtown streets into a hillsid
 - **Tall grass** hides birds, and walking through it scares them off. Sneak instead.
 - You can hop down **ledges**, but you can't climb back up.
 - Some places are out of reach at first. New gear opens new paths: wading boots, a folding ladder, a night lens, even a kayak. Some of it comes from the shop and some is built by Kei.
+- Watch for little **twinkles** on the ground. They're hidden collectibles: feathers for your album, camera parts for Kei, and sheet music your students can learn once they've finished their pieces. Walk up and press **Pick up**.
 - The city is busy: joggers, office workers, aunties, students, and fellow **birders** who stop to photograph birds. Say hello; some have useful tips. Birders may also be shooting next to you during a photo session, and their clicking shutters can make birds a little nervous.
 - Look around for hidden **feathers**, **camera parts**, and **sheet music**.
 - Open the **World Map** from the Menu to see where you've been, your birding spots, and the transit lines.

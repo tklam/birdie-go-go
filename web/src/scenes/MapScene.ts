@@ -22,6 +22,7 @@ import { showMinimap, type MapMarker } from '../ui/minimap';
 import { iris } from '../fx/iris';
 import { glitch } from '../fx/glitch';
 import { activityCost, crossedLow, walkCost } from '../systems/economy';
+import { collect, isCollected } from '../systems/collectibles';
 import { closureReason, hazardForecast, warningAnnouncement, warningTag, warningsAt, type Warnings } from '../systems/warnings';
 import { modal } from '../ui/overlay';
 import { showPanel } from '../ui/panel';
@@ -146,6 +147,7 @@ export class MapScene extends Phaser.Scene {
   private enemies: OverworldEnemy[] = [];
   private npcs: OverworldNpc[] = [];
   private gateways: { object: WorldObject; sprite: Phaser.GameObjects.Sprite; chunk: string }[] = [];
+  private sparkles: { object: WorldObject; sprite: Phaser.GameObjects.Sprite; chunk: string }[] = [];
   private passersby: Passerby[] = [];
   private glints!: Phaser.GameObjects.Particles.ParticleEmitter;
   /** The ride in progress (SPEC.md §4.11), if any. */
@@ -197,6 +199,7 @@ export class MapScene extends Phaser.Scene {
     this.enemies = [];
     this.npcs = [];
     this.gateways = [];
+    this.sparkles = [];
     this.passersby = [];
     this.ride = null;
     this.kei = null;
@@ -254,6 +257,7 @@ export class MapScene extends Phaser.Scene {
         this.spawnEnemies(c);
         this.spawnNpcs(c);
         this.spawnGateways(c);
+        this.spawnSparkles(c);
         this.spawnPassersby(c);
       },
       evicted: (c) => {
@@ -262,6 +266,7 @@ export class MapScene extends Phaser.Scene {
         this.despawnEnemies(c);
         this.despawnNpcs(c);
         this.gateways = this.gateways.filter((g) => (g.chunk === chunkKey(c.cx, c.cy) ? (g.sprite.destroy(), false) : true));
+        this.sparkles = this.sparkles.filter((g) => (g.chunk === chunkKey(c.cx, c.cy) ? (g.sprite.destroy(), false) : true));
         this.despawnPassersby(c);
       },
       failed: (key, err) => console.warn(`chunk ${key} failed to load`, err),
@@ -420,6 +425,7 @@ export class MapScene extends Phaser.Scene {
     this.updateKei();
     this.updateNpcs();
     for (const g of this.gateways) g.sprite.setVisible(this.gatewayOpen(g.object)).setFrame(Math.floor(time / 300) % 2);
+    for (const g of this.sparkles) g.sprite.setFrame(Math.floor(time / 400 + g.object.x) % 2);
     this.updatePassersby(time, dt);
     this.updateUmbrellas();
     this.drawSpotMarks(time);
@@ -635,6 +641,7 @@ export class MapScene extends Phaser.Scene {
       for (const o of chunk.objects) {
         const label = labelFor(o);
         if (!label || (o.type === 'npc' && !this.npcVisible(o)) || (o.type === 'gateway' && !this.gatewayOpen(o))) continue;
+        if (o.type === 'collectible' && isCollected(this.session.state, o.name)) continue;
         const reach = o.type === 'spot' ? REACH * 2 : REACH;
         const d = Math.hypot(o.x - px, o.y - py);
         if (d <= reach && (!best || d < best.d)) best = { label, object: o, d };
@@ -729,6 +736,9 @@ export class MapScene extends Phaser.Scene {
           return;
         case 'gateway':
           await this.useGateway(o);
+          return;
+        case 'collectible':
+          this.pickUp(o);
           return;
         case 'passerby':
           await showDialogue([{ speaker: o.name, text: o.props.line }]);
@@ -1169,6 +1179,26 @@ export class MapScene extends Phaser.Scene {
       const sprite = this.add.sprite(o.x, o.y + 8, 'gateway_pad', 0).setOrigin(0.5, 1).setDepth(DEPTH.entities + o.y - 8);
       this.gateways.push({ object: o, sprite, chunk: chunkKey(chunk.cx, chunk.cy) });
     }
+  }
+
+  // --- Hidden collectibles (SPEC.md §4.5) ------------------------------------
+
+  private spawnSparkles(chunk: ChunkData): void {
+    if (!this.textures.exists('collectible_sparkle')) return;
+    for (const o of chunk.objects) {
+      if (o.type !== 'collectible' || isCollected(this.session.state, o.name)) continue;
+      const sprite = this.add.sprite(o.x, o.y, 'collectible_sparkle', 0).setDepth(DEPTH.entities + o.y);
+      this.sparkles.push({ object: o, sprite, chunk: chunkKey(chunk.cx, chunk.cy) });
+    }
+  }
+
+  private pickUp(o: WorldObject): void {
+    const s = this.session;
+    const found = collect(s.state, o.name, { item: o.props.item, song: o.props.song }, s.content);
+    if (!found) return;
+    this.sparkles = this.sparkles.filter((g) => (g.object === o ? (g.sprite.destroy(), false) : true));
+    toast(`Found ${found}!`, 3000);
+    void s.save();
   }
 
   /** Pick another open gateway; pass through the digital realm to it. */
@@ -1757,6 +1787,8 @@ function labelFor(o: WorldObject): string | null {
       return 'Talk';
     case 'door':
       return 'Enter';
+    case 'collectible':
+      return 'Pick up';
     default:
       return null;
   }

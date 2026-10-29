@@ -33,7 +33,8 @@ export function showAlbum(content: ContentBundle, state: GameState, manifest: Ma
   box.append(h, list, nav);
 
   const render = () => {
-    h.textContent = `Album ${caught}/${birds.length} · ${page + 1}/${pages}`;
+    const feathers = state.items.feather ?? 0;
+    h.textContent = `Album ${caught}/${birds.length}${feathers ? ` · Feathers ${feathers}` : ''} · ${page + 1}/${pages}`;
     list.replaceChildren(...birds.slice(page * ALBUM_PAGE_SIZE, (page + 1) * ALBUM_PAGE_SIZE).map((bird) => albumRow(bird, state, manifest)));
     prev.style.visibility = page > 0 ? 'visible' : 'hidden';
     next.style.visibility = page < pages - 1 ? 'visible' : 'hidden';
