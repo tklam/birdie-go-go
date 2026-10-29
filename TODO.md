@@ -111,7 +111,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Clear Water Bay Country Park and Po Toi O fishing village (seamless region east of TKO)
 - [~] More districts: Harbour Island (harbourfront, park, peak trail) and the Fishpond Wetlands (fishponds, bird hide, deep mudflat; Wetland Line from chapter 2) done; beaches and an outlying island (kayak) still to do
 - [x] Seasons with palette-swapped foliage (autumn and winter tile atlases on the world map)
-- [ ] Regional weather (§4.9)
+- [x] Regional weather (§4.9)
   - [x] Climate profiles in `areas.yaml` + validation
   - [x] `core/weather`: drifting regional front, local variation, smoothing, deterministic, tested
   - [x] Typhoon fronts + signals and rainstorm warnings (HUD, announcements, `weather_warning`); ferries, spots and lessons close at T8+ or black rain
