@@ -16,8 +16,8 @@ export class Hud {
     overlay().appendChild(this.el);
   }
 
-  update(state: GameState): void {
-    const text = `Day ${state.day} ${SLOT[state.slot]} · ${SEASON[season(state.day)]}\n$${state.money}`;
+  update(state: GameState, weather = ''): void {
+    const text = `Day ${state.day} ${SLOT[state.slot]} · ${SEASON[season(state.day)]}\n$${state.money}${weather ? `  ${weather}` : ''}`;
     if (text === this.last) return;
     this.last = text;
     this.el.textContent = text;

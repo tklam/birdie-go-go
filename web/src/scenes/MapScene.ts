@@ -1,11 +1,15 @@
 import Phaser from 'phaser';
-import type { WorldIndex, WorldObject } from '../core/types.gen';
+import type { WeatherDay, WeatherParams, WorldIndex, WorldObject } from '../core/types.gen';
+import { blendAt, easeWeather, mixWeather } from '../weather/blend';
+import { WeatherRenderer } from '../weather/renderer';
+import { TIME_SLOTS } from '../systems/state';
 import { InputReader } from '../systems/input';
 import { FollowerTrail } from '../systems/party';
 import type { Session } from '../systems/session';
 import { showAlbum } from '../ui/album';
 import { Hud } from '../ui/hud';
 import { showMenu } from '../ui/menu';
+import { iris } from '../fx/iris';
 import { modal } from '../ui/overlay';
 import { showPanel } from '../ui/panel';
 import { downloadSave, pickSave } from '../systems/backup';
@@ -82,6 +86,11 @@ export class MapScene extends Phaser.Scene {
   private ready = false;
   private loaded = false;
   private mapId = 'world';
+  /** Today's weather (outdoors only), the eased weather at Angie, and its renderer. */
+  private weatherDay: WeatherDay | null = null;
+  private weatherLoading = -1;
+  private weatherNow: WeatherParams | null = null;
+  private weatherRenderer: WeatherRenderer | null = null;
   /** The tune this place should play (area music outdoors, none indoors). */
   private wantMusic: string | null = null;
   /** Ground value of tall grass (atlas frame + 1), or −1 if the atlas has none. */
@@ -103,6 +112,10 @@ export class MapScene extends Phaser.Scene {
     this.area = null;
     this.mapId = data.map ?? this.session.state.position.map ?? 'world';
     this.wantMusic = null;
+    this.weatherDay = null;
+    this.weatherLoading = -1;
+    this.weatherNow = null;
+    this.weatherRenderer = null;
     this.touch = new TouchControls();
     this.input2 = new InputReader(this, this.touch);
     this.hud = new Hud();
@@ -167,6 +180,7 @@ export class MapScene extends Phaser.Scene {
     cam.setBounds(Math.floor((worldW - bw) / 2), Math.floor((worldH - bh) / 2), bw, bh);
     cam.startFollow(this.angie, true, 1, 1);
     if (data.title) toast(data.title);
+    if (this.mapId === 'world') this.weatherRenderer = new WeatherRenderer(this);
     this.loaded = true;
 
     void this.arrive(data);
@@ -249,12 +263,54 @@ export class MapScene extends Phaser.Scene {
     const flushRadius = inGrass ? (input.sneak ? 0 : FLUSH_RADIUS * 1.6) : FLUSH_RADIUS;
     this.updateBirds(time, moving && !input.sneak, flushRadius);
 
-    this.hud.update(this.session.state);
+    this.updateWeather(delta);
+    this.hud.update(this.session.state, this.weatherLabel());
     this.updateMusic();
     if (input.menu && this.ready && !this.busy) void this.openMenu();
     const target = this.ready && !this.busy ? this.interactionTarget() : null;
     this.touch.setAction(target?.label ?? null);
     if (input.action && target) void this.interact(target);
+  }
+
+  /** Loads the day's weather, blends it at Angie's position and draws it. */
+  private updateWeather(delta: number): void {
+    if (!this.weatherRenderer) return;
+    const s = this.session;
+    const day = s.state.day;
+    if (this.weatherDay?.day !== day && this.weatherLoading !== day) {
+      this.weatherLoading = day;
+      const world = this.registry.get('world') as WorldIndex;
+      s.weather(day, world).then(
+        (w) => {
+          if (s.state.day === w.day) this.weatherDay = w;
+        },
+        (err: unknown) => console.warn('weather unavailable', err),
+      );
+    }
+    const target = this.weatherAt(this.pos.x, this.pos.y - 4);
+    if (!target) return;
+    this.weatherNow = this.weatherNow ? easeWeather(this.weatherNow, target, delta) : target;
+    this.weatherRenderer.update(this.weatherNow, s.state.slot, delta);
+  }
+
+  /** The blended weather at a world position, or null if unknown. */
+  private weatherAt(x: number, y: number): WeatherParams | null {
+    const w = this.weatherDay;
+    if (!w) return null;
+    const slot = TIME_SLOTS.indexOf(this.session.state.slot);
+    const weights = blendAt((cx, cy) => this.store.get(cx, cy), x, y, this.index.tileSize);
+    return mixWeather(weights, (a) => w.areas.find((aw) => aw.area === this.index.areas[a])?.slots[slot]);
+  }
+
+  /** "Rain 21°C", the named weather of the current area, or "" indoors. */
+  private weatherLabel(): string {
+    const w = this.weatherDay;
+    if (!w || !this.area || !this.weatherNow) return '';
+    const slot = TIME_SLOTS.indexOf(this.session.state.slot);
+    const named = w.areas.find((a) => a.area === this.area)?.named[slot] ?? '';
+    const signal = w.typhoonSignal[slot];
+    const name = named.charAt(0).toUpperCase() + named.slice(1);
+    return `${name} ${Math.round(this.weatherNow.temp)}°C${signal ? ` T${signal}` : ''}`;
   }
 
   /** Starts the wanted tune once audio is unlocked (retried every frame, cheap). */
@@ -307,7 +363,7 @@ export class MapScene extends Phaser.Scene {
     try {
       switch (o.type) {
         case 'spot':
-          await this.leaveTo('Photo', { spotId: o.props.spot_id, returnTo: 'Map' });
+          await this.leaveTo('Photo', { spotId: o.props.spot_id, returnTo: 'Map', weather: this.weatherNow });
           return;
         case 'npc': {
           const student = o.props.student;
@@ -324,6 +380,9 @@ export class MapScene extends Phaser.Scene {
         case 'bed':
           await this.sleep();
           break;
+        case 'radio':
+          await this.radio();
+          break;
       }
     } finally {
       this.busy = false;
@@ -338,6 +397,23 @@ export class MapScene extends Phaser.Scene {
     await this.session.save();
     this.cameras.main.fadeOut(200, 0, 0, 0);
     this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => this.scene.restart(data));
+  }
+
+  /** The radio reads tomorrow's forecast per area (SPEC.md §4.9). */
+  private async radio(): Promise<void> {
+    const s = this.session;
+    const world = this.registry.get('world') as WorldIndex;
+    let lines: string[];
+    try {
+      const w = await s.weather(s.state.day, world);
+      const name = (id: string) => s.content.areas.find((a) => a.id === id)?.name ?? id;
+      const cap = (x: string) => x.charAt(0).toUpperCase() + x.slice(1);
+      lines = w.forecast.map((f) => `${name(f.area)}: ${cap(f.named[0])}, then ${f.named[1]}. ${Math.round(f.slots[1].temp)}°C`);
+      if (w.typhoonSignal.some((x) => x > 0)) lines.unshift(`Typhoon signal No. ${Math.max(...w.typhoonSignal)} is in force!`);
+    } catch {
+      lines = ['Only static on the radio...'];
+    }
+    await showPanel("Tomorrow's weather", lines);
   }
 
   private async sleep(): Promise<void> {
@@ -360,8 +436,9 @@ export class MapScene extends Phaser.Scene {
       return;
     }
     await this.session.save();
-    this.cameras.main.fadeOut(200, 0, 0, 0);
-    this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => this.scene.start(scene, data));
+    // Iris onto Angie, the classic way into a minigame.
+    await iris(this, 'out', this.pos.x, this.pos.y - 12);
+    this.scene.start(scene, data);
   }
 
   private async openMenu(): Promise<void> {
@@ -512,6 +589,8 @@ export class MapScene extends Phaser.Scene {
 
 function labelFor(o: WorldObject): string | null {
   switch (o.type) {
+    case 'radio':
+      return 'Listen';
     case 'bed':
       return 'Sleep';
     case 'spot':

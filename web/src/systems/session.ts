@@ -1,5 +1,5 @@
 import type { CoreClient } from '../core/client';
-import type { ContentBundle } from '../core/types.gen';
+import type { ContentBundle, WeatherArea, WeatherDay, WorldIndex } from '../core/types.gen';
 import { showDialogue } from '../ui/dialogue';
 import { EventRunner, visibleLines, type TriggerInput } from './events';
 import { IndexedDBSaveStore, MemorySaveStore, type SaveStore } from './save';
@@ -27,6 +27,7 @@ export function speakerName(id: string, content: Pick<ContentBundle, 'students'>
  */
 export class Session {
   readonly events: EventRunner;
+  private weatherCache = new Map<number, Promise<WeatherDay>>();
 
   constructor(
     readonly content: ContentBundle,
@@ -57,6 +58,7 @@ export class Session {
   /** Starts over with a fresh state. */
   newGame(): void {
     this.state = newGame(this.content, (Math.random() * 2 ** 32) >>> 0);
+    this.weatherCache.clear();
   }
 
   fire(trigger: TriggerInput): Promise<string[]> {
@@ -66,6 +68,28 @@ export class Session {
   /** Ends the current time slot and fires the resulting triggers. */
   async endSlot(): Promise<void> {
     for (const t of advanceSlot(this.state)) await this.fire(t);
+  }
+
+  /**
+   * The generated weather for a day (SPEC.md §4.9), computed by the Go core
+   * from the save's world seed and cached. Area centres come from the city
+   * index.
+   */
+  weather(day: number, world: WorldIndex): Promise<WeatherDay> {
+    let w = this.weatherCache.get(day);
+    if (!w) {
+      const areas: WeatherArea[] = this.content.areas.map((a) => ({
+        id: a.id,
+        climate: a.climate,
+        center: world.areaCenters[a.id] ?? { x: 0, y: 0 },
+        altitude: a.altitude,
+      }));
+      w = this.core.call<WeatherDay>('weather.day', { seed: this.state.worldSeed, day, areas });
+      w.catch(() => this.weatherCache.delete(day));
+      this.weatherCache.set(day, w);
+      if (this.weatherCache.size > 4) this.weatherCache.delete(this.weatherCache.keys().next().value as number);
+    }
+    return w;
   }
 
   async save(): Promise<void> {

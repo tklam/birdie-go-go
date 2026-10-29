@@ -272,6 +272,7 @@ func angieFlat() *tmap {
 	m.put(16, 2, "bookshelf")
 	m.put(17, 2, "bookshelf")
 	m.fill(13, 2, 2, 1, "counter")
+	m.obj("radio", "radio", 14, 2, nil)
 	m.put(9, 5, "table")
 	m.put(8, 5, "chair")
 	m.put(10, 5, "chair")

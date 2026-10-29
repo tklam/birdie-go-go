@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
-import type { Bird, Spot } from '../core/types.gen';
+import type { Bird, Spot, WeatherParams } from '../core/types.gen';
+import { WeatherRenderer } from '../weather/renderer';
+import { weatherOptics } from '../photo/optics';
 import { available, idlePose, landingSpots, rng, visitors, type Pose } from '../photo/birds';
 import type { Manifest, ManifestEntry } from '../systems/assets';
 import { frameIndex } from '../systems/assets';
@@ -18,12 +20,11 @@ import { season } from '../systems/state';
 import { modal } from '../ui/overlay';
 import { floatingButton, showPanel } from '../ui/panel';
 import { TEXT as PIXEL_TEXT } from '../ui/text';
+import { iris } from '../fx/iris';
 
 /** Default lens and body (SPEC.md §5); upgrades come with gear. */
 const FRAME_W = 80;
 const FRAME_H = 54;
-const FOCUS_TIME_MS = 600;
-const SHUTTER_THRESHOLD = 140;
 /** Keyboard aiming speed in px/s. */
 const AIM_SPEED = 110;
 /** Viewfinder speed above which focus restarts. */
@@ -49,6 +50,8 @@ interface SceneBird {
 export interface PhotoSceneData {
   spotId: string;
   returnTo?: string;
+  /** The weather at the spot when the session started (SPEC.md §4.9). */
+  weather?: WeatherParams | null;
 }
 
 /** The birding action view (SPEC.md §5). */
@@ -76,6 +79,9 @@ export class PhotoScene extends Phaser.Scene {
   private removeBack: () => void = () => {};
   private ending = false;
   private returnTo = 'Map';
+  private optics = weatherOptics(null);
+  private weather: WeatherParams | null = null;
+  private weatherRenderer: WeatherRenderer | null = null;
 
   constructor() {
     super('Photo');
@@ -101,6 +107,8 @@ export class PhotoScene extends Phaser.Scene {
     this.shotsLeft = spot.shots;
     this.vf = { x: 160, y: 90 };
     this.vfLast = { ...this.vf };
+    this.weather = data.weather ?? null;
+    this.optics = weatherOptics(this.weather);
 
     this.layers = (this.bgEntry.layers ?? []).map((id, i) => this.add.image(0, 0, id).setOrigin(0, 0).setDepth(i));
     this.graphics = this.add.graphics().setDepth(100);
@@ -115,10 +123,11 @@ export class PhotoScene extends Phaser.Scene {
     this.nextSpawn = this.time.now + 600;
     for (const id of new Set(this.toSpawn)) this.measure(`bird_${id}`);
 
+    this.weatherRenderer = this.weather ? new WeatherRenderer(this, 50) : null;
     this.setupInput();
     this.removeBack = floatingButton('Back', 'back', () => void this.end());
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.removeBack());
-    this.cameras.main.fadeIn(250, 0, 0, 0);
+    void iris(this, 'in');
   }
 
   // --- Input -------------------------------------------------------------
@@ -195,8 +204,8 @@ export class PhotoScene extends Phaser.Scene {
         bird: { bbox: subject.bbox, pose: b.pose.startsWith('flying') ? 'flying' : b.pose, speed: b.speed },
         species: b.species,
         heldMs,
-        focusTimeMs: FOCUS_TIME_MS,
-        shutterThreshold: SHUTTER_THRESHOLD,
+        focusTimeMs: this.optics.focusTimeMs,
+        shutterThreshold: this.optics.shutterThreshold,
       });
       this.results.push({ species: b.species.id, result });
       this.showPopup(`${RATING_LABEL[result.rating]} ${b.species.name} ${result.score}`);
@@ -361,6 +370,7 @@ export class PhotoScene extends Phaser.Scene {
     // Gentle parallax on the far layers.
     const px = (this.vf.x - 160) / 160;
     this.layers.forEach((l, i) => l.setX(i < 2 ? -px * (i + 1) * 2 : 0));
+    if (this.weather) this.weatherRenderer?.update(this.weather, this.session.state.slot, delta);
     this.draw(time);
   }
 
@@ -396,7 +406,7 @@ export class PhotoScene extends Phaser.Scene {
     g.lineBetween(cx, cy - 3, cx, cy + 3);
     // Focus ring fills while holding steady.
     if (this.focusing) {
-      const p = Math.min(1, (time - this.focusStart) / FOCUS_TIME_MS);
+      const p = Math.min(1, (time - this.focusStart) / this.optics.focusTimeMs);
       g.lineStyle(2, p >= 1 ? 0x78c058 : 0xf0d050, 1);
       g.beginPath();
       g.arc(cx, cy, 9, -Math.PI / 2, -Math.PI / 2 + p * Math.PI * 2);

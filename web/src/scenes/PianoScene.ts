@@ -10,6 +10,7 @@ import { fitX, isBlackKey, labelRows, msToX, pitchToY, PLAYHEAD_X, ROLL_SPEED, r
 import { loadJSON } from '../systems/data';
 import { newGame, type GameState } from '../systems/state';
 import { PIXEL_FONT } from '../ui/text';
+import { iris } from '../fx/iris';
 
 export interface PianoSceneData {
   studentId: string;
@@ -188,6 +189,7 @@ export class PianoScene extends Phaser.Scene {
       .setVisible(false);
     this.hint = this.add.text(W / 2, 132, '', { ...TEXT, color: COLORS.dim }).setOrigin(0.5, 0);
     this.flash = this.add.rectangle(0, 0, W, H, 0xffffff, 0).setOrigin(0, 0);
+    void iris(this, 'in');
     const party = (this.registry.get('session') as { state: GameState } | undefined)?.state.party ?? [];
     this.oboy =
       party.includes('oboy') && this.textures.exists('char_oboy')
