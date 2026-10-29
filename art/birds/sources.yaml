@@ -1,0 +1,253 @@
+# Source photos for the bird sprites and album portraits.
+# Generated sprites: go run ./tools/birdphoto -sources art/birds/sources.yaml -out art/birds/out
+# Coordinates (crop [x, y, w, h], seeds, keep/drop polygons [x1,y1,x2,y2,...]) are pixels of the
+# selected photo. Credits are copied from art/birds/candidates/<species>/candidates.json.
+species:
+  red_whiskered_bulbul:
+    album:
+      file: selected/red_whiskered_bulbul/12.jpg
+      candidate: 12.jpg
+      crop: [170, 20, 750, 500]
+      dither: 16
+      title: "File:Red-whiskered Bulbul in it's natural habitate.jpg"
+      page: "https://commons.wikimedia.org/wiki/File:Red-whiskered_Bulbul_in_it%27s_natural_habitate.jpg"
+      author: "Princepauljoy"
+      license: "CC BY-SA 4.0"
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0"
+    poses:
+      perched:
+        file: selected/red_whiskered_bulbul/13.jpg
+        candidate: 13.jpg
+        crop: [70, 120, 530, 400]
+        drop: [[372, 482, 440, 482, 470, 440, 600, 420, 600, 520, 372, 520], [140, 515, 245, 470, 300, 470, 300, 560, 140, 560]]
+        title: "File:Red-whiskered bulbul (সিপাহি বুলবুলি).jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Red-whiskered_bulbul_(%E0%A6%B8%E0%A6%BF%E0%A6%AA%E0%A6%BE%E0%A6%B9%E0%A6%BF_%E0%A6%AC%E0%A7%81%E0%A6%B2%E0%A6%AC%E0%A7%81%E0%A6%B2%E0%A6%BF).jpg"
+        author: "Nafis Ameen"
+        license: "CC BY-SA 4.0"
+        licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0"
+      perched_alert:
+        file: selected/red_whiskered_bulbul/01.jpg
+        candidate: 01.jpg
+        crop: [280, 330, 400, 1000]
+        sides: [true, true, false, false]
+        flipX: true
+        drop: [[240, 830, 352, 830, 352, 1050, 372, 1050, 372, 1400, 240, 1400], [545, 1000, 700, 1000, 700, 1400, 540, 1400]]
+        title: "File:Red-whiskered bulbul (Pycnonotus jocosus) Reunion.jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Red-whiskered_bulbul_(Pycnonotus_jocosus)_Reunion.jpg"
+        author: "Charles J. Sharp"
+        license: "CC BY-SA 4.0"
+        licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0"
+      wings_spread:
+        file: selected/red_whiskered_bulbul/24.jpg
+        candidate: 24.jpg
+        crop: [190, 290, 770, 793]
+        flipX: true
+        erode: 2
+        title: "File:Pycnonotus jocosus, Hong Kong (27129691060).jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Pycnonotus_jocosus,_Hong_Kong_(27129691060).jpg"
+        author: "Charles Lam from Hong Kong, China"
+        license: "CC BY-SA 2.0"
+        licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0"
+      flying1:
+        file: selected/red_whiskered_bulbul/22.jpg
+        candidate: 22.jpg
+        crop: [20, 140, 740, 520]
+        tolerance: 7
+        erode: 2
+        saturation: 0.6
+        title: "File:Pycnonotus jocosus, Hong Kong (5048409513).jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Pycnonotus_jocosus,_Hong_Kong_(5048409513).jpg"
+        author: "Charles Lam from Hong Kong, China"
+        license: "CC BY-SA 2.0"
+        licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0"
+      flying2:
+        file: selected/red_whiskered_bulbul/33.jpg
+        candidate: 33.jpg
+        crop: [150, 90, 560, 580]
+        title: "File:Pycnonotus jocosus, Hong Kong (8279082209).jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Pycnonotus_jocosus,_Hong_Kong_(8279082209).jpg"
+        author: "Charles Lam from Hong Kong, China"
+        license: "CC BY-SA 2.0"
+        licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0"
+      back_turned:
+        file: selected/red_whiskered_bulbul/03.jpg
+        candidate: 03.jpg
+        crop: [250, 90, 390, 820]
+        tolerance: 8
+        clusters: 10
+        drop: [[250, 500, 266, 500, 266, 630, 250, 630], [490, 520, 640, 520, 640, 640, 490, 640]]
+        title: "File:Red-whiskered bulbul (Pycononotus jocosus fuscicaudatus) with grasshopper.jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Red-whiskered_bulbul_(Pycononotus_jocosus_fuscicaudatus)_with_grasshopper.jpg"
+        author: "Charles J. Sharp"
+        license: "CC BY-SA 4.0"
+        licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0"
+  oriental_magpie_robin:
+    album:
+      file: selected/oriental_magpie_robin/06.jpg
+      candidate: 06.jpg
+      crop: [100, 120, 720, 480]
+      dither: 16
+      title: "File:Oriental magpie-robin (Copsychus saularis ceylonensis) male.jpg"
+      page: "https://commons.wikimedia.org/wiki/File:Oriental_magpie-robin_(Copsychus_saularis_ceylonensis)_male.jpg"
+      author: "Charles J. Sharp"
+      license: "CC BY-SA 4.0"
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0"
+    poses:
+      perched:
+        file: selected/oriental_magpie_robin/04.jpg
+        candidate: 04.jpg
+        crop: [170, 130, 600, 385]
+        clusters: 12
+        step: 2
+        keep: [[390, 370, 520, 335, 640, 320, 620, 400, 560, 440, 430, 445]]
+        drop: [[170, 380, 400, 437, 600, 485, 770, 515, 170, 515]]
+        title: "File:Oriental magpie-robin (Copsychus saularis).jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Oriental_magpie-robin_(Copsychus_saularis).jpg"
+        author: "Nrik kiran"
+        license: "CC BY-SA 4.0"
+        licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0"
+      perched_alert:
+        file: selected/oriental_magpie_robin/17.jpg
+        candidate: 17.jpg
+        crop: [360, 155, 320, 350]
+        flipX: true
+        drop: [[360, 370, 560, 490, 560, 505, 360, 505]]
+        title: "File:Oriental Magpie-Robin in Mahabaleshwar August 2025 by Tisha Mukherjee 01.jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Oriental_Magpie-Robin_in_Mahabaleshwar_August_2025_by_Tisha_Mukherjee_01.jpg"
+        author: "Tisha Mukherjee"
+        license: "CC BY-SA 4.0"
+        licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0"
+      wings_spread:
+        file: selected/oriental_magpie_robin/21.jpg
+        candidate: 21.jpg
+        crop: [25, 250, 730, 780]
+        tolerance: 10
+        clusters: 10
+        enclosed: 2000
+        drop: [[560, 1030, 755, 880, 755, 1030], [100, 600, 250, 600, 260, 690, 100, 700], [650, 300, 705, 300, 705, 350]]
+        keep: [[480, 560, 680, 560, 680, 850, 470, 880], [300, 350, 450, 330, 480, 600, 370, 650, 320, 560], [300, 760, 470, 700, 470, 880, 330, 880]]
+        title: "File:Flying (23973777565).jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Flying_(23973777565).jpg"
+        author: "Charles Lam from Hong Kong, China"
+        license: "CC BY-SA 2.0"
+        licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0"
+      flying1:
+        file: selected/oriental_magpie_robin/25.jpg
+        candidate: 25.jpg
+        crop: [130, 100, 690, 560]
+        title: "File:Flying.jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Flying.jpg"
+        author: "Charles Lam"
+        license: "CC BY-SA 2.0"
+        licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0"
+      flying2:
+        file: selected/oriental_magpie_robin/23.jpg
+        candidate: 23.jpg
+        crop: [85, 95, 660, 505]
+        saturation: 0.3
+        drop: [[600, 600, 745, 540, 745, 600]]
+        keep: [[200, 400, 380, 330, 560, 420, 650, 560, 560, 640, 470, 670, 380, 600, 250, 470]]
+        title: "File:Flying (23973777165).jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Flying_(23973777165).jpg"
+        author: "Charles Lam from Hong Kong, China"
+        license: "CC BY-SA 2.0"
+        licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0"
+      back_turned:
+        file: selected/oriental_magpie_robin/12.jpg
+        candidate: 12.jpg
+        crop: [215, 318, 450, 752]
+        size: 30
+        tolerance: 10
+        clusters: 10
+        drop: [[215, 318, 222, 318, 262, 420, 215, 420]]
+        keep: [[232, 330, 285, 325, 410, 600, 560, 590, 620, 620, 645, 730, 600, 790, 520, 830, 490, 855, 400, 855, 330, 800, 300, 700, 330, 600], [377, 850, 395, 850, 400, 1055, 378, 1055], [500, 850, 518, 850, 570, 1000, 552, 1000]]
+        title: "File:Copsychus saularis @ Kuala Lumpur 6.jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Copsychus_saularis_@_Kuala_Lumpur_6.jpg"
+        author: "GerifalteDelSabana"
+        license: "CC BY-SA 4.0"
+        licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0"
+  little_egret:
+    album:
+      file: selected/little_egret/18.jpg
+      candidate: 18.jpg
+      crop: [0, 20, 960, 640]
+      dither: 16
+      title: "File:Little Egret (Egretta garzetta) (4).jpg"
+      page: "https://commons.wikimedia.org/wiki/File:Little_Egret_(Egretta_garzetta)_(4).jpg"
+      author: "Ken Billington"
+      license: "CC BY-SA 3.0"
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0"
+    poses:
+      perched:
+        file: selected/little_egret/05.jpg
+        candidate: 05.jpg
+        crop: [100, 60, 520, 443]
+        sides: [true, true, false, true]
+        tolerance: 4
+        blur: 2
+        enclosed: 200
+        saturation: 1.0
+        title: "File:Aigrette garzette au lac sud de Tunis (site RAMSAR).jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Aigrette_garzette_au_lac_sud_de_Tunis_(site_RAMSAR).jpg"
+        author: "El Golli Mohamed"
+        license: "CC BY-SA 4.0"
+        licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0"
+      perched_alert:
+        file: selected/little_egret/13.jpg
+        candidate: 13.jpg
+        crop: [300, 60, 350, 450]
+        flipX: true
+        clusters: 12
+        tolerance: 12
+        saturation: 1.0
+        keep: [[511, 390, 519, 390, 504, 500, 496, 500], [551, 400, 559, 400, 559, 500, 551, 500]]
+        title: "File:Little egret (Egretta garzetta) 02294.jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Little_egret_(Egretta_garzetta)_02294.jpg"
+        author: "Vengolis"
+        license: "CC BY-SA 4.0"
+        licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0"
+      wings_spread:
+        file: selected/little_egret/36.jpg
+        candidate: 36.jpg
+        crop: [40, 30, 870, 897]
+        tolerance: 8
+        saturation: 1.0
+        alphaCut: 0.3
+        title: "File:Egretta garzetta in flight s3.JPG"
+        page: "https://commons.wikimedia.org/wiki/File:Egretta_garzetta_in_flight_s3.JPG"
+        author: "Alpsdake"
+        license: "CC BY-SA 3.0"
+        licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0"
+      flying1:
+        file: selected/little_egret/31.jpg
+        candidate: 31.jpg
+        crop: [85, 20, 795, 890]
+        saturation: 0.5
+        title: "File:Egretta garzetta (in flight s3).jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Egretta_garzetta_(in_flight_s3).jpg"
+        author: "Alpsdake"
+        license: "CC BY-SA 4.0"
+        licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0"
+      flying2:
+        file: selected/little_egret/22.jpg
+        candidate: 22.jpg
+        crop: [20, 60, 900, 600]
+        saturation: 1.0
+        title: "File:Egretta garzetta in flight.jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Egretta_garzetta_in_flight.jpg"
+        author: "Prosthetic Head"
+        license: "CC BY-SA 4.0"
+        licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0"
+      back_turned:
+        file: selected/little_egret/16.jpg
+        candidate: 16.jpg
+        crop: [150, 80, 460, 445]
+        flipX: true
+        clusters: 10
+        saturation: 1.0
+        keep: [[265, 400, 285, 400, 300, 515, 280, 515]]
+        title: "File:Little egret (Egretta garzetta), La Gomera.jpg"
+        page: "https://commons.wikimedia.org/wiki/File:Little_egret_(Egretta_garzetta),_La_Gomera.jpg"
+        author: "Hobbyfotowiki"
+        license: "CC0"
+        licenseUrl: "http://creativecommons.org/publicdomain/zero/1.0/deed.en"

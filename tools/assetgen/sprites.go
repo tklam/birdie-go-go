@@ -1,6 +1,32 @@
 package main
 
-import "path/filepath"
+import (
+	"errors"
+	"io/fs"
+	"os"
+	"path/filepath"
+)
+
+// copyIfExists copies src to dst and reports whether src existed.
+func copyIfExists(src, dst string) (bool, error) {
+	data, err := os.ReadFile(src)
+	if errors.Is(err, fs.ErrNotExist) {
+		return false, nil
+	}
+	if err != nil {
+		return false, err
+	}
+	if err := os.MkdirAll(filepath.Dir(dst), 0o755); err != nil {
+		return false, err
+	}
+	return true, os.WriteFile(dst, data, 0o644)
+}
+
+// fileExists reports whether a file exists.
+func fileExists(path string) bool {
+	_, err := os.Stat(path)
+	return err == nil
+}
 
 // Directions in character sheets, one per row (developer_guide.md §6).
 const (
@@ -122,13 +148,26 @@ var birdLooks = []birdLook{
 // Photo-scene bird frames, in sheet order (32×32 each).
 var birdFrames = []string{"perched", "perched_alert", "wings_spread", "flying1", "flying2", "back_turned"}
 
+// photoBirds is where tools/birdphoto writes sheets made from real photos
+// (art/birds/out/<id>.png and album_<id>.png). When a sheet exists there it
+// replaces the drawn placeholder.
+var photoBirds = filepath.Join("art", "birds", "out")
+
 func genBirds(assets string) error {
 	for _, b := range birdLooks {
-		sheet := newCanvas(len(birdFrames)*32, 32)
-		for i, f := range birdFrames {
-			drawBird(sheet.cell(i*32, 0), b, f)
+		dst := filepath.Join(assets, "birds", b.id+".png")
+		if ok, err := copyIfExists(filepath.Join(photoBirds, b.id+".png"), dst); err != nil {
+			return err
+		} else if !ok {
+			sheet := newCanvas(len(birdFrames)*32, 32)
+			for i, f := range birdFrames {
+				drawBird(sheet.cell(i*32, 0), b, f)
+			}
+			if err := sheet.save(dst); err != nil {
+				return err
+			}
 		}
-		if err := sheet.save(filepath.Join(assets, "birds", b.id+".png")); err != nil {
+		if _, err := copyIfExists(filepath.Join(photoBirds, "album_"+b.id+".png"), filepath.Join(assets, "birds", "album_"+b.id+".png")); err != nil {
 			return err
 		}
 		ow := newCanvas(2*8, 8)

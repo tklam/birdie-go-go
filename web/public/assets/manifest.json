@@ -1,4 +1,16 @@
 {
+  "album_little_egret": {
+    "type": "image",
+    "file": "birds/album_little_egret.png"
+  },
+  "album_oriental_magpie_robin": {
+    "type": "image",
+    "file": "birds/album_oriental_magpie_robin.png"
+  },
+  "album_red_whiskered_bulbul": {
+    "type": "image",
+    "file": "birds/album_red_whiskered_bulbul.png"
+  },
   "bg_garden": {
     "type": "background",
     "layers": [
@@ -135,8 +147,7 @@
       "flying1",
       "flying2",
       "back_turned"
-    ],
-    "placeholder": true
+    ]
   },
   "bird_oriental_magpie_robin": {
     "type": "spritesheet",
@@ -150,8 +161,7 @@
       "flying1",
       "flying2",
       "back_turned"
-    ],
-    "placeholder": true
+    ]
   },
   "bird_red_whiskered_bulbul": {
     "type": "spritesheet",
@@ -165,8 +175,7 @@
       "flying1",
       "flying2",
       "back_turned"
-    ],
-    "placeholder": true
+    ]
   },
   "char_angie": {
     "type": "spritesheet",

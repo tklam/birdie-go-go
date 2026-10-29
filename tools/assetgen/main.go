@@ -77,7 +77,11 @@ func gen(assets, tilesets string) error {
 		"char_oboy":  {Type: "spritesheet", File: "chars/oboy.png", FrameWidth: 8, FrameHeight: 8, Placeholder: true},
 	}
 	for _, b := range birdLooks {
-		m["bird_"+b.id] = manifestEntry{Type: "spritesheet", File: "birds/" + b.id + ".png", FrameWidth: 32, FrameHeight: 32, Frames: birdFrames, Placeholder: true}
+		photo := fileExists(filepath.Join(photoBirds, b.id+".png"))
+		m["bird_"+b.id] = manifestEntry{Type: "spritesheet", File: "birds/" + b.id + ".png", FrameWidth: 32, FrameHeight: 32, Frames: birdFrames, Placeholder: !photo}
+		if fileExists(filepath.Join(assets, "birds", "album_"+b.id+".png")) {
+			m["album_"+b.id] = manifestEntry{Type: "image", File: "birds/album_" + b.id + ".png"}
+		}
 		m["owbird_"+b.id] = manifestEntry{Type: "spritesheet", File: "birds/ow_" + b.id + ".png", FrameWidth: 8, FrameHeight: 8, Placeholder: true}
 	}
 	for _, bg := range backgrounds {

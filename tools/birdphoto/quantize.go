@@ -101,6 +101,20 @@ func chooseColors(samples []weightedLab, forced []int, maxColors int) []int {
 			break
 		}
 	}
+	// Drop colors that no longer carry any weight (greedy picks can be made
+	// redundant by later ones).
+	for k := 0; k < len(set); {
+		if isForced[set[k]] || len(set) == 1 {
+			k++
+			continue
+		}
+		rest := append(append([]int(nil), set[:k]...), set[k+1:]...)
+		if cost(rest) <= cur+1e-9 {
+			set = rest
+			continue
+		}
+		k++
+	}
 	sort.Ints(set)
 	return set
 }
