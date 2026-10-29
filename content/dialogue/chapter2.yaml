@@ -34,3 +34,9 @@
     - { speaker: kei, text: "Is that a parrotlet? His feathers are doing something strange with the light... fascinating.", if: { party_has: oboy } }
     - { speaker: kei, text: "Birds, you said? I've been writing an app that names birds from their calls. It needs a field test." }
     - { speaker: angie, text: "A bird-call app? That sounds amazing. Let's go birding!" }
+- id: kei_workshop_intro
+  lines:
+    - { speaker: kei, text: "Welcome to my workshop! Well, it's a bench, a soldering iron and a lot of jars." }
+    - { speaker: kei, text: "Bring me camera parts and I'll build you gadgets. Wild monsters sometimes drop them." }
+    - { speaker: kei, text: "Some ideas aren't ready yet. I'll tell you when they are." }
+    - { speaker: angie, text: "A bird photographer with her own engineer. Lucky me!" }

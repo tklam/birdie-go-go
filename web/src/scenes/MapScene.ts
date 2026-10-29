@@ -846,29 +846,33 @@ export class MapScene extends Phaser.Scene {
   /** Kei builds gadgets from camera parts (SPEC.md §7.2). */
   private async workshop(): Promise<void> {
     const s = this.session;
+    // The first visit plays Kei's introduction (an `interact` event in content).
+    await s.fire({ type: 'interact', params: { target: 'workshop' } });
     const buildable = s.content.items.filter((i) => i.build);
-    const parts = s.state.items[CAMERA_PART] ?? 0;
     const why = { ok: '', stage: ' (later)', parts: '', owned: ' (built)', 'not-buildable': '' } as const;
-    await showMenu(`Kei's workshop · parts ${parts}`, [
-      ...buildable.map((item) => {
-        const status = buildStatus(s.state, item);
-        return {
-          label: `${item.name}: ${item.build?.parts} parts${why[status]}`,
+    await showMenu(
+      () => `Kei's workshop · parts ${s.state.items[CAMERA_PART] ?? 0}`,
+      [
+        ...buildable.map((item) => ({
+          label: `${item.name}${why[buildStatus(s.state, item)]}`,
+          detail: () => `${item.build?.parts} parts. ${item.description}`,
           run: async () => {
+            const status = buildStatus(s.state, item);
             if (build(s.state, item)) {
               await showPanel(`Kei built a ${item.name}!`, [item.description]);
               await s.save();
             } else if (status === 'parts') {
-              toast('Not enough camera parts. Monsters sometimes drop them...');
+              toast('Not enough camera parts. Monsters drop them.');
             } else if (status === 'stage') {
-              toast("Kei says he's still working on that one.");
+              toast('Kei is still working on that one.');
             }
             return false;
           },
-        };
-      }),
-      { label: 'Back', run: async () => false },
-    ]);
+        })),
+        { label: 'Back', run: async () => false },
+      ],
+      { tapToSelect: true },
+    );
   }
 
   /** Choose who comes along (SPEC.md §7): alone, O Boy, Kei, or both. */

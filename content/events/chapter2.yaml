@@ -44,6 +44,12 @@
     - join_party: kei
     - add_bond: { who: kei, amount: 10 }
 
+# The first look at Kei's workshop (Menu → Workshop).
+- id: kei_workshop_intro
+  trigger: { type: interact, target: workshop }
+  actions:
+    - dialogue: kei_workshop_intro
+
 # Neighbours and lore (repeatable).
 - id: neighbour_chat
   once: false
