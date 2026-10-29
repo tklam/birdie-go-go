@@ -157,6 +157,8 @@ export class PianoScene extends Phaser.Scene {
   private header!: Phaser.GameObjects.Text;
   /** O Boy bobbing to the beat on top of the roll (SPEC.md §7.2), if he's along. */
   private oboy: Phaser.GameObjects.Sprite | null = null;
+  /** Kei's pitch trace of what the student actually plays (SPEC.md §7.2), if he's along. */
+  private keiTrace = false;
   private countText!: Phaser.GameObjects.Text;
   private buttonText!: Phaser.GameObjects.Text;
   private hint!: Phaser.GameObjects.Text;
@@ -191,6 +193,7 @@ export class PianoScene extends Phaser.Scene {
     this.flash = this.add.rectangle(0, 0, W, H, 0xffffff, 0).setOrigin(0, 0);
     void iris(this, 'in');
     const party = (this.registry.get('session') as { state: GameState } | undefined)?.state.party ?? [];
+    this.keiTrace = party.includes('kei');
     this.oboy =
       party.includes('oboy') && this.textures.exists('char_oboy')
         ? this.add.sprite(ROLL.x + ROLL.w - 16, ROLL.y + 1, 'char_oboy', 0).setOrigin(0.5, 1)
@@ -455,6 +458,20 @@ export class PianoScene extends Phaser.Scene {
       const x = msToX(this.toScore(f), nowMs);
       if (x < NOTES_X0 || x >= NOTES_X1) continue;
       pixels(g, x, ROLL.y + 2, [[-2, 0], [-1, 0], [0, 0], [1, 0], [2, 0], [-1, 1], [0, 1], [1, 1], [0, 2]], COLORS.flag);
+    }
+
+    // Kei's software: a faint trace of the notes as they're actually played,
+    // drawn only once they've sounded (a hint, never a preview).
+    if (this.keiTrace) {
+      g.fillStyle(0x8cf0e0, 0.55);
+      for (const n of this.performance.notes) {
+        const start = this.toScore(n.startMs);
+        if (start > nowMs) break;
+        const x0 = msToX(start, nowMs);
+        const x1 = Math.min(msToX(Math.min(nowMs, this.toScore(n.startMs + n.durMs)), nowMs), PLAYHEAD_X);
+        if (x1 < NOTES_X0 || x0 > NOTES_X1 || n.pitch < l.minPitch || n.pitch > l.maxPitch) continue;
+        g.fillRect(Math.max(NOTES_X0, x0), pitchToY(l, n.pitch) + Math.floor(l.rowH / 2), Math.max(1, x1 - Math.max(NOTES_X0, x0)), 1);
+      }
     }
 
     // Playhead.
