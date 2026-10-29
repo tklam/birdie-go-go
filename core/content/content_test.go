@@ -46,9 +46,24 @@ func climate() map[string]model.Climate {
 	return map[string]model.Climate{"spring": c, "summer": c, "autumn": c, "winter": c}
 }
 
+// transitWith returns a valid one-line network after mutate.
+func transitWith(mutate func(*model.TransitLine)) model.Transit {
+	l := model.TransitLine{
+		ID: "bus", Name: "Bus", Mode: "bus", Fare: 5, Stops: []string{"s1", "s2"},
+		Path: [][2]float64{{0, 0}, {10, 0}}, Speed: 50, Headway: 12, First: "05:30", Last: "25:00",
+	}
+	mutate(&l)
+	return model.Transit{Lines: []model.TransitLine{l}, Stops: []model.TransitStop{{ID: "s1", Name: "S1"}, {ID: "s2", Name: "S2"}}}
+}
+
 func TestValidBundle(t *testing.T) {
 	if errs := Validate(validBundle()); len(errs) != 0 {
 		t.Fatalf("unexpected errors: %v", errs)
+	}
+	b := validBundle()
+	b.Transit = transitWith(func(*model.TransitLine) {})
+	if errs := Validate(b); len(errs) != 0 {
+		t.Fatalf("unexpected transit errors: %v", errs)
 	}
 }
 
@@ -120,6 +135,15 @@ func TestValidateErrors(t *testing.T) {
 		{"note outside loop", func(b *model.ContentBundle) {
 			b.Music = []model.Music{{ID: "bgm", Title: "T", Tempo: 100, LoopBeats: 4, Tracks: []model.MusicTrack{{Instrument: "square", Volume: 0.5, Notes: []model.Note{{Pitch: 60, Start: 4, Dur: 1, Vel: 80}}}}}}
 		}, "outside the loop"},
+		{"line headway", func(b *model.ContentBundle) { b.Transit = transitWith(func(l *model.TransitLine) { l.Headway = -5 }) }, "headway must be ≥ 0"},
+		{"line first", func(b *model.ContentBundle) { b.Transit = transitWith(func(l *model.TransitLine) { l.First = "6am" }) }, "line bus: first: time \"6am\""},
+		{"line last", func(b *model.ContentBundle) { b.Transit = transitWith(func(l *model.TransitLine) { l.Last = "99:00" }) }, "line bus: last:"},
+		{"line service order", func(b *model.ContentBundle) {
+			b.Transit = transitWith(func(l *model.TransitLine) { l.First, l.Last = "10:00", "09:00" })
+		}, "last departure must be after the first"},
+		{"line last default", func(b *model.ContentBundle) {
+			b.Transit = transitWith(func(l *model.TransitLine) { l.First, l.Last = "23:45", "" })
+		}, "last departure"},
 		{"dialogue condition", func(b *model.ContentBundle) {
 			b.Dialogue[0].Lines[0].If = []model.Condition{{Type: "vibes"}}
 		}, "unknown condition"},

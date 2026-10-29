@@ -118,7 +118,7 @@ core/
   content/     content validation (also used for update packs)
   wasm/        WASM entry point, the only package touching syscall/js
   weather/     (planned) per-area weather simulation
-  transit/     (planned) network, timetables, route planner
+  transit/     Build(transit, stopPositions) → Network; VehicleAt, Plan (timetables, route planner)
 tools/
   contentbuild/  YAML → JSON bundle (uses core/content)
   worldbuild/    Tiled world or single map → chunks + index
@@ -145,8 +145,9 @@ The main thread sends `{id, op, payload}` and the worker replies `{id, ok, resul
 | `lesson.generate` | `{song, tendencies, difficulty, seed}` → `{lessonId, performance}` (the answer key stays in the worker) |
 | `lesson.grade` | `{lessonId, flagsMs, latencyOffsetMs}` → `{score, hits, misses, falseAlarms, mistakes}` |
 | `weather.day` | *(planned)* `{seed, day}` → per-area, per-slot params + forecast + warnings |
-| `transit.plan` | *(planned)* `{fromStop, toStop, time}` → route legs |
-| `transit.vehicles` | *(planned)* `{lines, time}` → positions (for on-screen vehicles) |
+| `transit.load` | `{transit, stopPositions}` → `{lines, stops}`; keeps the network in the worker for the two calls below (call again after a content update) |
+| `transit.plan` | `{from, to, time, lines?, excludeModes?, ignoreTimetable?}` → `{depart, arrive, duration, fare, transfers, legs}`; each leg has `line, from, to, direction, wait, depart, arrive, ride, fare, path`. Unreachable → error `destination unreachable` |
+| `transit.vehicles` | `{lines?, time}` → `{vehicles: [{line, direction, depart, x, y, dx, dy, progress}]}` |
 | `content.load` | *(planned)* `{packs}` → merged bundle or validation errors |
 
 `web/src/core/client.ts` wraps these as typed async functions.
@@ -239,9 +240,12 @@ lines:
     fare: 8
     stops: [tko_plaza, po_toi_o_village]              # path runs from the first stop to the last
     path: [[1000, 472], [1000, 504], [2168, 504], [2168, 712], [2136, 712]]   # world px waypoints
-    speed: 110                                        # px/s on the map
+    speed: 110                                        # px/s on the map (= px per in-game minute)
+    headway: 10                                       # optional: minutes between departures from each terminus (15)
+    first: "06:00"                                    # optional: first departure from each terminus (06:00)
+    last: "23:30"                                     # optional: last departure; may pass midnight, e.g. "25:00" (23:30)
 ```
-`worldbuild` records stop positions in the world index (`stops`). Rides run the path forwards or backwards. *(Planned:)* intermediate stops, timetables and vehicles visible between rides, the Go route planner, metro interiors.
+`worldbuild` records stop positions in the world index (`stops`). Rides run the path forwards or backwards. Intermediate stops are placed along the path from their world-index positions (pass them as `stopPositions` to `transit.load`). Transit times are in-game minutes, absolute from day 0 (`day × 1440 + minutes`). `core/transit` computes timetables, vehicle positions and plans; the client must not reimplement them. *(Planned:)* vehicles visible between rides and planner-driven rides in MapScene, metro interiors.
 
 ### 5.6 Songs and music
 ```yaml

@@ -78,7 +78,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 
 ## M2: Transit (§4.11)
 - [x] `transit.yaml` schema + validation; stop objects indexed by worldbuild
-- [ ] `core/transit`: network graph, timetables, `VehicleAt`, route planner, tested
+- [x] `core/transit`: network graph, timetables, `VehicleAt`, route planner, tested
 - [ ] On-map vehicles from timetables (no off-screen sim)
 - [x] Bus rides on the map with route prefetch and Skip (Green Minibus 16: TKO Plaza ↔ Po Toi O)
 - [ ] Trams; Get off at intermediate stops

@@ -6,6 +6,12 @@ import type {
   PingResult,
   Request,
   Response,
+  TransitItinerary,
+  TransitLoadPayload,
+  TransitLoadResult,
+  TransitPlanPayload,
+  TransitVehiclesPayload,
+  TransitVehiclesResult,
   WeatherDay,
   WeatherDayPayload,
 } from './types.gen';
@@ -57,6 +63,21 @@ export class CoreClient {
   /** Computes one day's regional weather, typhoon signal and radio forecast (SPEC.md §4.9). */
   weatherDay(payload: WeatherDayPayload): Promise<WeatherDay> {
     return this.call<WeatherDay>('weather.day', payload);
+  }
+
+  /** Loads the transit network into the core; call again after content updates (SPEC.md §4.11). */
+  transitLoad(payload: TransitLoadPayload): Promise<TransitLoadResult> {
+    return this.call<TransitLoadResult>('transit.load', payload);
+  }
+
+  /** Plans the best itinerary between two stops: earliest arrival, then fare, then transfers (SPEC.md §4.11). */
+  transitPlan(payload: TransitPlanPayload): Promise<TransitItinerary> {
+    return this.call<TransitItinerary>('transit.plan', payload);
+  }
+
+  /** Timetabled vehicle positions at an in-game time; nothing is simulated (SPEC.md §4.11). */
+  transitVehicles(payload: TransitVehiclesPayload): Promise<TransitVehiclesResult> {
+    return this.call<TransitVehiclesResult>('transit.vehicles', payload);
   }
 
   private receive(response: Response): void {

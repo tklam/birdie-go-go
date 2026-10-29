@@ -11,6 +11,7 @@ import (
 	"birdiegogo/core/content"
 	"birdiegogo/core/lesson"
 	"birdiegogo/core/model"
+	"birdiegogo/core/transit"
 	"birdiegogo/core/weather"
 )
 
@@ -28,6 +29,8 @@ type Server struct {
 	// first.
 	lessons map[string][]model.Mistake
 	order   []string
+	// network is the transit network from the last transit.load.
+	network *transit.Network
 }
 
 // NewServer returns a Server with no lessons.
@@ -80,6 +83,43 @@ func (s *Server) dispatch(req model.Request) (any, error) {
 			return nil, fmt.Errorf("weather.day: %w", err)
 		}
 		return day, nil
+	case "transit.load":
+		var p model.TransitLoadPayload
+		if err := decodePayload(req.Payload, &p); err != nil {
+			return nil, err
+		}
+		n, err := transit.Build(p.Transit, p.StopPositions)
+		if err != nil {
+			return nil, fmt.Errorf("transit.load: %w", err)
+		}
+		s.network = n
+		return model.TransitLoadResult{Lines: len(n.Lines()), Stops: n.StopCount()}, nil
+	case "transit.plan":
+		var p model.TransitPlanPayload
+		if err := decodePayload(req.Payload, &p); err != nil {
+			return nil, err
+		}
+		if s.network == nil {
+			return nil, fmt.Errorf("transit.plan: %w", errNoNetwork)
+		}
+		it, err := s.network.Plan(p)
+		if err != nil {
+			return nil, fmt.Errorf("transit.plan: %w", err)
+		}
+		return it, nil
+	case "transit.vehicles":
+		var p model.TransitVehiclesPayload
+		if err := decodePayload(req.Payload, &p); err != nil {
+			return nil, err
+		}
+		if s.network == nil {
+			return nil, fmt.Errorf("transit.vehicles: %w", errNoNetwork)
+		}
+		vs, err := s.network.Vehicles(p)
+		if err != nil {
+			return nil, fmt.Errorf("transit.vehicles: %w", err)
+		}
+		return vs, nil
 	case "content.validate":
 		var b model.ContentBundle
 		if err := decodePayload(req.Payload, &b); err != nil {
@@ -111,6 +151,10 @@ func (s *Server) generateLesson(p model.LessonGeneratePayload) (model.LessonGene
 	s.order = append(s.order, id)
 	return model.LessonGenerateResult{LessonID: id, Performance: perf}, nil
 }
+
+// errNoNetwork is returned by transit calls before a successful
+// transit.load.
+var errNoNetwork = errors.New("no transit network loaded")
 
 // errUnknownLesson is returned for lesson IDs that were never generated,
 // were already graded or were forgotten.
