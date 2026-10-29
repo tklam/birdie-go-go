@@ -2,8 +2,10 @@ import Phaser from 'phaser';
 import './style.css';
 import { startCore } from './core/client';
 import { BootScene } from './scenes/BootScene';
+import { MapScene } from './scenes/MapScene';
 import { TitleScene } from './scenes/TitleScene';
 import { fitZoom, GAME_HEIGHT, GAME_WIDTH } from './systems/display';
+import { overlay, setOverlayZoom } from './ui/overlay';
 
 const currentZoom = () => fitZoom(window.innerWidth, window.innerHeight, window.devicePixelRatio);
 
@@ -16,8 +18,17 @@ const game = new Phaser.Game({
   pixelArt: true,
   roundPixels: true,
   scale: { mode: Phaser.Scale.NONE, autoCenter: Phaser.Scale.CENTER_BOTH, zoom: currentZoom() },
-  scene: [BootScene, TitleScene],
+  scene: [BootScene, TitleScene, MapScene],
 });
 
 game.registry.set('core', startCore());
-window.addEventListener('resize', () => game.scale.setZoom(currentZoom()));
+overlay();
+setOverlayZoom(currentZoom());
+window.addEventListener('resize', () => {
+  const zoom = currentZoom();
+  game.scale.setZoom(zoom);
+  setOverlayZoom(zoom);
+});
+
+// Exposed for automated browser checks and debugging.
+(window as unknown as { __game: Phaser.Game }).__game = game;

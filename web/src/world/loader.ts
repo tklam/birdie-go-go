@@ -1,0 +1,25 @@
+import type { ChunkData } from './chunk';
+import type { ChunkLoader } from './streaming';
+
+type Reply = { id: number; chunk?: ChunkData; error?: string };
+
+/** A ChunkLoader that decodes chunks in a dedicated worker. */
+export function createWorkerChunkLoader(): ChunkLoader {
+  const worker = new Worker(new URL('./chunk.worker.ts', import.meta.url), { type: 'module' });
+  const pending = new Map<number, { resolve: (c: ChunkData) => void; reject: (e: Error) => void }>();
+  let nextId = 1;
+  worker.onmessage = (event: MessageEvent<Reply>) => {
+    const p = pending.get(event.data.id);
+    if (!p) return;
+    pending.delete(event.data.id);
+    if (event.data.chunk) p.resolve(event.data.chunk);
+    else p.reject(new Error(event.data.error ?? 'chunk load failed'));
+  };
+  const base = `${import.meta.env.BASE_URL}world/chunks/`;
+  return (file) =>
+    new Promise<ChunkData>((resolve, reject) => {
+      const id = nextId++;
+      pending.set(id, { resolve, reject });
+      worker.postMessage({ id, url: new URL(base + file, location.href).href });
+    });
+}

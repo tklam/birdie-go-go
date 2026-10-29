@@ -1,0 +1,148 @@
+/* 16-bit UI overlay. Sizes use --px, the size of one game pixel in CSS px,
+   so windows line up with the pixel-perfect canvas (SPEC.md §1.3). */
+:root {
+  --px: 4px;
+  --win-top: #3f7fdf;
+  --win-bottom: #1b2a4a;
+  --win-border: #f0f0f0;
+  --win-shadow: #101018;
+  --text: #f0f0f0;
+}
+
+#ui {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  font-family: ui-monospace, 'DejaVu Sans Mono', Menlo, Consolas, monospace;
+  font-size: calc(var(--px) * 7);
+  line-height: 1.3;
+  color: var(--text);
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+}
+
+.window {
+  background: linear-gradient(var(--win-top), var(--win-bottom));
+  border: var(--px) solid var(--win-border);
+  box-shadow:
+    0 0 0 var(--px) var(--win-shadow),
+    inset 0 0 0 var(--px) var(--win-shadow);
+  border-radius: calc(var(--px) * 2);
+  padding: calc(var(--px) * 4) calc(var(--px) * 5);
+  text-shadow: var(--px) var(--px) 0 var(--win-shadow);
+}
+
+/* Dialogue box: bottom of the game area. */
+.dialogue {
+  position: absolute;
+  left: 50%;
+  bottom: calc(50vh - var(--game-h) / 2 + var(--px) * 4);
+  transform: translateX(-50%);
+  width: calc(var(--game-w) - var(--px) * 16);
+  min-height: calc(var(--px) * 34);
+  box-sizing: border-box;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.dialogue .speaker {
+  color: #f0d050;
+  margin-bottom: calc(var(--px) * 1);
+}
+.dialogue .next {
+  position: absolute;
+  right: calc(var(--px) * 5);
+  bottom: calc(var(--px) * 2);
+  animation: blink 0.8s steps(1) infinite;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Area name toast. */
+.toast {
+  position: absolute;
+  left: 50%;
+  top: calc(50vh - var(--game-h) / 2 + var(--px) * 6);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  padding: calc(var(--px) * 2) calc(var(--px) * 6);
+  transition: opacity 0.4s steps(4);
+}
+.toast.hidden {
+  opacity: 0;
+}
+
+/* Touch controls. */
+.joystick-zone {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  pointer-events: auto;
+  touch-action: none;
+}
+.joystick {
+  position: absolute;
+  width: 96px;
+  height: 96px;
+  margin: -48px 0 0 -48px;
+  border-radius: 50%;
+  border: 3px solid rgba(240, 240, 240, 0.5);
+  background: rgba(27, 42, 74, 0.35);
+}
+.joystick .knob {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border-radius: 50%;
+  background: rgba(240, 240, 240, 0.7);
+}
+.btn {
+  position: absolute;
+  pointer-events: auto;
+  touch-action: none;
+  min-width: 64px;
+  min-height: 64px;
+  border-radius: 50%;
+  border: 3px solid var(--win-border);
+  background: linear-gradient(var(--win-top), var(--win-bottom));
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: bold;
+  text-shadow: 1px 1px 0 var(--win-shadow);
+  box-shadow: 0 0 0 2px var(--win-shadow);
+  user-select: none;
+}
+.btn:active,
+.btn.pressed {
+  filter: brightness(1.4);
+}
+.btn.action {
+  right: max(24px, env(safe-area-inset-right));
+  bottom: 32px;
+  width: 84px;
+  height: 84px;
+}
+.btn.action.idle {
+  opacity: 0.45;
+}
+.btn.menu {
+  right: max(16px, env(safe-area-inset-right));
+  top: 16px;
+  min-width: 56px;
+  min-height: 44px;
+  border-radius: 8px;
+}
+.touch-only {
+  display: none;
+}
+#ui.touch .touch-only {
+  display: block;
+}

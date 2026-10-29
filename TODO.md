@@ -25,52 +25,53 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 
 ### Foundation
 - [x] Content schema + validation (`core/content`), with tests; Tseung Kwan O starter content (areas, 3 birds, 2 spots, 1 student, 2 songs, prologue events)
-- [~] Asset manifest + loader; master palette; `assetgen` placeholders + `check` (generator and checker done; client loader pending)
+- [x] Asset manifest + loader; master palette; `assetgen` placeholders + `check`
 - [ ] Pixel-perfect scaling, letterboxing, rotate-to-landscape prompt
-- [ ] Input layer that unifies touch, mouse, and keyboard
-- [ ] 16-bit UI kit: window frames, pixel font, cursor, dialogue box with portrait, menus
-- [ ] Touch controls: floating joystick, Action button, Menu button
+- [x] Input layer that unifies touch and keyboard (mouse: via touch controls; click-to-move later)
+- [~] 16-bit UI kit: window frames, dialogue box with typewriter, area toast (still to do: bitmap pixel font, portraits, menus)
+- [x] Touch controls: floating joystick, Action button (context label), Menu button
 - [ ] Audio: unlock on first gesture, SoundFont synth, music sequencer
 
 ### World and streaming (§4.10, §9.7)
-- [ ] `worldbuild`: chunking, collision bitsets, objects, content-hashed files, world index
-- [ ] Streaming worker: fetch + decode
-- [ ] Active window, prefetch, LRU, one-bake-per-frame scheduler
+- [x] `worldbuild`: chunking, collision, areas, objects, content-hashed files, world index
+- [x] Streaming worker: fetch + gunzip + decode
+- [x] Active window, prefetch, LRU, one-bake-per-frame scheduler
 - [ ] `?debug=chunks` overlay
 - [ ] `make bench` with frame-time and memory budgets
 
 ### Overworld (§4)
-- [ ] Tseung Kwan O starter maps: housing estates, footbridges, mall plaza, waterfront promenade and park; interiors for Angie's flat and a student's flat
-- [ ] Free 8-direction movement with wall sliding; walk/sneak
-- [ ] Follow camera snapped to whole pixels
+- [x] Tseung Kwan O starter map (generated placeholder): housing estates, footbridge, mall plaza, estate garden, waterfront park, hillside trail
+- [ ] Interiors for Angie's flat and a student's flat
+- [x] Free 8-direction movement with wall sliding; walk/sneak
+- [x] Follow camera snapped to whole pixels
 - [ ] Interiors with fade transitions
-- [ ] `overhead` layer; tall grass; ledges
-- [ ] NPCs and context actions (Talk / Look / Enter / Photograph)
-- [ ] Overworld birds that flush unless Angie sneaks
-- [ ] Area name display on entering an area
+- [~] `overhead` layer and ledges done; tall grass rustling/hiding still to do
+- [x] NPCs and context actions (Talk / Enter / Photograph)
+- [x] Overworld birds that flush unless Angie sneaks
+- [x] Area name display on entering an area
 - [ ] Optional tap-to-move (A* within loaded chunks)
 
 ### Photo (§5)
 - [ ] Photo scene with parallax background, iris-wipe entry
 - [ ] 3 placeholder species with behavior AI: red-whiskered bulbul, oriental magpie-robin, little egret
 - [ ] Viewfinder: relative drag, hold-to-focus, release-to-shoot
-- [ ] Shot scoring (§5.3), unit tested
+- [x] Shot scoring (§5.3), unit tested
 - [ ] Alert meter and fleeing (§5.4)
 - [ ] Shot budget; results screen; album storage
 
 ### Piano (§6)
-- [ ] Song format + 2 placeholder songs
-- [ ] `core/lesson` generator (§6.2), deterministic, tested
-- [ ] `core/lesson` grader (§6.3), tested
+- [x] Song format + 2 placeholder songs
+- [x] `core/lesson` generator (§6.2), deterministic, tested
+- [x] `core/lesson` grader (§6.3), tested
 - [ ] Piano roll, playhead, Mistake button
 - [ ] Latency calibration (§6.4)
 - [ ] Results screen revealing mistakes
 
 ### Systems
-- [ ] Event system (§9.4), unit tested
+- [x] Event system (§9.4), unit tested
 - [ ] Time slots and day cycle
-- [ ] IndexedDB saves, autosave, export/import, migrations
-- [ ] Prologue events (tutorial)
+- [~] IndexedDB saves, autosave, migrations (export/import UI still to do)
+- [~] Prologue events (arrival, first photo, first lesson; placeholder text)
 
 ## M2: Transit (§4.11)
 - [ ] `transit.yaml` schema + world consistency validation
