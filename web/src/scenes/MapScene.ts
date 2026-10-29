@@ -79,6 +79,8 @@ interface OverworldNpc {
 
 interface OverworldEnemy {
   enemy: Enemy;
+  /** The spawn point's name: each spawn is dealt with separately. */
+  spawn: string;
   sprite: Phaser.GameObjects.Sprite;
   chunk: string;
   homeX: number;
@@ -88,8 +90,11 @@ interface OverworldEnemy {
   nextWander: number;
 }
 
-/** Remembers which enemies were dealt with today, and short post-escape calm. */
-const settled = { day: 0, ids: new Set<string>(), calmUntil: 0 };
+/**
+ * Remembers which spawn points were dealt with today, the spawn whose
+ * encounter is in progress, and short post-escape calm.
+ */
+const settled = { day: 0, ids: new Set<string>(), pending: '', calmUntil: 0 };
 
 interface OverworldBird {
   sprite: Phaser.GameObjects.Sprite;
@@ -317,7 +322,7 @@ export class MapScene extends Phaser.Scene {
     } else if (data.from === 'Encounter' && data.encounter) {
       const e = data.encounter;
       if (e.outcome === 'won' || e.outcome === 'escaped' || e.outcome === 'skipped') {
-        this.settle(e.enemyId, e.outcome === 'won');
+        this.settle(settled.pending || e.enemyId, e.outcome === 'won');
         await s.fire({ type: e.outcome === 'won' ? 'encounter_won' : 'encounter_escaped', params: { enemy: e.enemyId } });
       } else if (e.outcome === 'lost') {
         s.state.energy = 0;
@@ -1482,13 +1487,13 @@ export class MapScene extends Phaser.Scene {
 
   // --- Enemies (SPEC.md §4.13) --------------------------------------------
 
-  /** Marks an enemy as dealt with: defeated/driven off for the day, or calm for a while after an escape. */
-  private settle(enemyId: string, beaten: boolean): void {
+  /** Marks a spawn point as dealt with: defeated/driven off for the day, or calm for a while after an escape. */
+  private settle(spawn: string, beaten: boolean): void {
     if (settled.day !== this.session.state.day) {
       settled.day = this.session.state.day;
       settled.ids.clear();
     }
-    if (beaten) settled.ids.add(enemyId);
+    if (beaten) settled.ids.add(spawn);
     settled.calmUntil = this.time.now + 15000;
   }
 
@@ -1501,10 +1506,11 @@ export class MapScene extends Phaser.Scene {
     for (const o of chunk.objects) {
       if (o.type !== 'enemy') continue;
       const enemy = s.content.enemies.find((e) => e.id === o.props.enemy_id);
-      if (!enemy || settled.ids.has(enemy.id) || !this.textures.exists(enemy.sprite)) continue;
+      const spawn = o.name || `${enemy?.id}@${o.x},${o.y}`;
+      if (!enemy || settled.ids.has(spawn) || !this.textures.exists(enemy.sprite)) continue;
       if (enemy.slots.length && !enemy.slots.includes(s.state.slot)) continue;
       const sprite = this.add.sprite(o.x, o.y, enemy.sprite, 0).setOrigin(0.5, 1).setDepth(DEPTH.entities + o.y);
-      this.enemies.push({ enemy, sprite, chunk: chunkKey(chunk.cx, chunk.cy), homeX: o.x, homeY: o.y, state: 'wander', target: { x: o.x, y: o.y }, nextWander: 0 });
+      this.enemies.push({ enemy, spawn, sprite, chunk: chunkKey(chunk.cx, chunk.cy), homeX: o.x, homeY: o.y, state: 'wander', target: { x: o.x, y: o.y }, nextWander: 0 });
     }
   }
 
@@ -1564,12 +1570,13 @@ export class MapScene extends Phaser.Scene {
     if (!this.scene.manager.keys['Encounter']) {
       // The encounter scene isn't available yet: just shoo them off.
       toast(`The ${e.enemy.name.toLowerCase()} wandered off.`);
-      this.settle(e.enemy.id, true);
+      this.settle(e.spawn, true);
       e.sprite.destroy();
       this.enemies = this.enemies.filter((x) => x !== e);
       return;
     }
     this.busy = true;
+    settled.pending = e.spawn;
     await this.leaveTo('Encounter', { enemyId: e.enemy.id, returnTo: 'Map', returnData: {} });
   }
 

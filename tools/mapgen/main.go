@@ -176,6 +176,7 @@ func build() *tmap {
 	m.obj("hill_dogs", "enemy", 26, 6, map[string]string{"enemy_id": "stray_dog_pack"})
 	m.obj("old_villager", "npc", 50, 16, map[string]string{"npc_id": "old_villager", "sprite": "char_old_villager"})
 	m.obj("hill_zombie", "enemy", 84, 8, map[string]string{"enemy_id": "hopping_zombie"})
+	m.obj("ridge_dogs", "enemy", 56, 4, map[string]string{"enemy_id": "stray_dog_pack"})
 
 	// Town centre (rows 20–43).
 	m.area(20, 44, "tko_town")
@@ -245,6 +246,7 @@ func build() *tmap {
 	m.fill(0, 56, mapW, 1, "railing")
 	m.fill(0, 57, mapW, 1, "seawall")
 	m.obj("bay_ghost", "enemy", 70, 55, map[string]string{"enemy_id": "water_ghost"})
+	m.obj("promenade_ghost", "enemy", 30, 55, map[string]string{"enemy_id": "water_ghost"})
 	m.fill(0, 58, mapW, 6, "water")
 	// A small ferry pier on Junk Bay.
 	m.fill(70, 56, 3, 1, "boardwalk")
@@ -343,6 +345,7 @@ func clearWaterBay() *tmap {
 	m.obj("forest_birds", "bird", 30, 14, map[string]string{"species": "oriental_magpie_robin", "count": "2"})
 	m.obj("cove_egrets", "bird", 58, 51, map[string]string{"species": "little_egret", "count": "2"})
 	m.obj("village_dogs", "enemy", 22, 50, map[string]string{"enemy_id": "stray_dog_pack"})
+	m.obj("park_zombie", "enemy", 48, 20, map[string]string{"enemy_id": "hopping_zombie"})
 	m.obj("pier_ghost", "enemy", 31, 58, map[string]string{"enemy_id": "water_ghost"})
 	return m
 }
