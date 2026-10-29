@@ -52,8 +52,8 @@ lint: web/node_modules
 	$(GO) run ./tools/assetgen check -assets $(PUBLIC)/assets
 	cd web && npm run lint
 
-bench:
-	@echo "bench: the streaming benchmark arrives with world streaming (TODO.md M1)"; exit 1
+bench: build
+	node tools/bench/bench.mjs
 
 build: core content world web/node_modules
 	cd web && npx tsc --noEmit && npx vite build --outDir ../dist --emptyOutDir
