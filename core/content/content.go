@@ -80,6 +80,7 @@ func Validate(b *model.ContentBundle) []error {
 		v.require(a.Name != "", "area %s: name is required", a.ID)
 		v.require(a.Music == "" || music[a.Music], "area %s: unknown music %q", a.ID, a.Music)
 		v.require(a.Altitude >= 0 && a.Altitude <= 1, "area %s: altitude must be 0–1", a.ID)
+		v.require(a.WalkEffort >= 0, "area %s: walk_effort must not be negative", a.ID)
 		for _, season := range Seasons {
 			c, ok := a.Climate[season]
 			if !ok {
@@ -201,6 +202,17 @@ func (v *validator) game(g model.GameInfo) {
 	if br := g.BedtimeReminder; br != nil {
 		v.require(br.EverySeconds >= 0, "game: bedtime_reminder.every_seconds %d must not be negative", br.EverySeconds)
 		v.require(br.EverySeconds == 0 || len(br.Lines) > 0, "game: bedtime_reminder needs lines when every_seconds is set")
+	}
+	if e := g.Energy; e != nil {
+		v.require(e.WalkPerMin >= 0 && e.IndoorRecoveryPerMin >= 0 && e.PhotoSession >= 0 && e.Lesson >= 0 && e.LowWarning >= 0,
+			"game: energy values must not be negative")
+		v.require(e.LowWarning == 0 || e.LowWarningText != "", "game: energy.low_warning needs low_warning_text")
+		v.require(e.PhotoSession+e.Lesson == 0 || e.TooTiredText != "", "game: energy activity costs need too_tired_text")
+	}
+	for i, b := range g.Bills {
+		v.require(b.Name != "", "game: bill %d needs a name", i)
+		v.require(b.Amount > 0, "game: bill %q amount must be positive", b.Name)
+		v.require(b.EveryDays >= 1, "game: bill %q every_days must be at least 1", b.Name)
 	}
 }
 

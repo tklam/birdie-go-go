@@ -65,6 +65,8 @@ func TestValidateErrors(t *testing.T) {
 		{"bedtime reminder without lines", func(b *model.ContentBundle) {
 			b.Game.BedtimeReminder = &model.BedtimeReminder{EverySeconds: 60}
 		}, "needs lines"},
+		{"free bill", func(b *model.ContentBundle) { b.Game.Bills = []model.Bill{{Name: "Phone", EveryDays: 1}} }, "must be positive"},
+		{"energy without warning text", func(b *model.ContentBundle) { b.Game.Energy = &model.EnergyRules{LowWarning: 20} }, "low_warning_text"},
 		{"bad id", func(b *model.ContentBundle) { b.Areas[0].ID = "TKO Town" }, "snake_case"},
 		{"duplicate id", func(b *model.ContentBundle) { b.Areas = append(b.Areas, b.Areas[0]) }, "duplicate id"},
 		{"bird skittishness", func(b *model.ContentBundle) { b.Birds[0].Skittishness = 2 }, "skittishness"},

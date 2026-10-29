@@ -76,6 +76,52 @@ export interface GameInfo {
    * BedtimeReminder nudges Angie home in the evening (SPEC.md §3.1).
    */
   bedtimeReminder?: BedtimeReminder;
+  /**
+   * Energy sets everyday Energy costs (SPEC.md §4.12); nil keeps only
+   * hazards and encounters draining it.
+   */
+  energy?: EnergyRules;
+  /**
+   * Bills are deducted from Angie's money in the morning (SPEC.md §3.2).
+   */
+  bills?: Bill[];
+}
+/**
+ * EnergyRules are the everyday Energy costs outside hazards and encounters.
+ */
+export interface EnergyRules {
+  /**
+   * WalkPerMin drains while walking outdoors, per in-game minute.
+   */
+  walkPerMin: number /* float64 */;
+  /**
+   * IndoorRecoveryPerMin restores Energy indoors, per in-game minute.
+   */
+  indoorRecoveryPerMin: number /* float64 */;
+  /**
+   * PhotoSession and Lesson are paid when one starts; Angie can't start
+   * one with less Energy than its cost.
+   */
+  photoSession: number /* int */;
+  lesson: number /* int */;
+  /**
+   * LowWarning is the level below which LowWarningText is shown once.
+   */
+  lowWarning: number /* int */;
+  lowWarningText: string;
+  /**
+   * TooTiredText is shown when Angie is too tired to start an activity.
+   */
+  tooTiredText: string;
+}
+/**
+ * Bill is a regular cost paid in the morning of every EveryDays-th day
+ * (1 = every day).
+ */
+export interface Bill {
+  name: string;
+  amount: number /* int */;
+  everyDays: number /* int */;
 }
 /**
  * BedtimeReminder is a toast shown every EverySeconds of real time while
@@ -101,6 +147,11 @@ export interface Area {
    * Altitude 0–1 (sea level … peaks).
    */
   altitude: number /* float64 */;
+  /**
+   * WalkEffort multiplies the Energy walking costs here (SPEC.md §4.12):
+   * above 1 on hills, sand and other hard going. 0 means 1.
+   */
+  walkEffort?: number /* float64 */;
 }
 /**
  * Bird is a species that can appear on the overworld and in photo scenes.

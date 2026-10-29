@@ -12,3 +12,19 @@ bedtime_reminder:
     - "It's getting late. Time to head home and rest."
     - "Angie yawns. Her bed at home is calling."
     - "The streetlights are on. Home to sleep, then a new day!"
+# Everyday Energy costs (SPEC.md §4.12). One in-game minute is one real
+# second while exploring. Sleep restores Energy fully; food restores some.
+energy:
+  walk_per_min: 0.05
+  indoor_recovery_per_min: 0.1
+  photo_session: 12
+  lesson: 10
+  low_warning: 25
+  low_warning_text: "Angie's tummy rumbles. Time for a snack from the shop!"
+  too_tired_text: "Angie is too tired. Eat something or rest first."
+# Paid each morning they're due (every_days: 1 = daily). Money never goes below 0.
+bills:
+  - { name: Electricity, amount: 12 }
+  - { name: Phone, amount: 6 }
+  - { name: Water and gas, amount: 8, every_days: 2 }
+  - { name: Rent, amount: 150, every_days: 7 }

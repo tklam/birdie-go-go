@@ -32,6 +32,36 @@ type GameInfo struct {
 	MissionReminderSlots int `json:"missionReminderSlots,omitempty"`
 	// BedtimeReminder nudges Angie home in the evening (SPEC.md §3.1).
 	BedtimeReminder *BedtimeReminder `json:"bedtimeReminder,omitempty"`
+	// Energy sets everyday Energy costs (SPEC.md §4.12); nil keeps only
+	// hazards and encounters draining it.
+	Energy *EnergyRules `json:"energy,omitempty"`
+	// Bills are deducted from Angie's money in the morning (SPEC.md §3.2).
+	Bills []Bill `json:"bills,omitempty"`
+}
+
+// EnergyRules are the everyday Energy costs outside hazards and encounters.
+type EnergyRules struct {
+	// WalkPerMin drains while walking outdoors, per in-game minute.
+	WalkPerMin float64 `json:"walkPerMin"`
+	// IndoorRecoveryPerMin restores Energy indoors, per in-game minute.
+	IndoorRecoveryPerMin float64 `json:"indoorRecoveryPerMin"`
+	// PhotoSession and Lesson are paid when one starts; Angie can't start
+	// one with less Energy than its cost.
+	PhotoSession int `json:"photoSession"`
+	Lesson       int `json:"lesson"`
+	// LowWarning is the level below which LowWarningText is shown once.
+	LowWarning     int    `json:"lowWarning"`
+	LowWarningText string `json:"lowWarningText"`
+	// TooTiredText is shown when Angie is too tired to start an activity.
+	TooTiredText string `json:"tooTiredText"`
+}
+
+// Bill is a regular cost paid in the morning of every EveryDays-th day
+// (1 = every day).
+type Bill struct {
+	Name      string `json:"name"`
+	Amount    int    `json:"amount"`
+	EveryDays int    `json:"everyDays"`
 }
 
 // BedtimeReminder is a toast shown every EverySeconds of real time while
@@ -51,6 +81,9 @@ type Area struct {
 	Climate map[string]Climate `json:"climate"`
 	// Altitude 0–1 (sea level … peaks).
 	Altitude float64 `json:"altitude"`
+	// WalkEffort multiplies the Energy walking costs here (SPEC.md §4.12):
+	// above 1 on hills, sand and other hard going. 0 means 1.
+	WalkEffort float64 `json:"walkEffort,omitempty"`
 }
 
 // Bird is a species that can appear on the overworld and in photo scenes.

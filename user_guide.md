@@ -102,7 +102,7 @@ Listen to the **radio at home** for tomorrow's forecast for each region.
 
 ## Energy and weather gear
 
-Angie has an **Energy** meter. Harsh weather wears it down, and so do run-ins with dogs and monsters. Eat, drink, rest on a bench, or sleep at home to recover.
+Angie has an **Energy** meter. Walking outdoors slowly tires her, and steep hill trails tire her much faster. Each photo session and lesson also costs some Energy, and she can't start one when she's too tired. Harsh weather wears Energy down too, and so do run-ins with dogs and monsters. Eat, drink, rest on a bench, or sleep at home to recover; snacks and lunch boxes are sold at the shop.
 
 The weather can be an enemy too. Pack the right gear before heading out:
 
@@ -192,6 +192,7 @@ Companions give **hints**. You still take the photo and catch the mistakes yours
 ## Money and gear
 
 - Earn money from lessons, missions, and photo contests.
+- Bills arrive in the morning: electricity and phone every day, water and gas every other day, and rent once a week. A panel shows what was paid.
 - Spend it at the shop on lenses, faster shutters, bigger memory cards, parts, and transit card top-ups.
 - Once Kei is around, bring him parts and he'll build upgrades.
 

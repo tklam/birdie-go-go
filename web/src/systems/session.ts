@@ -9,6 +9,7 @@ import { runTrailCameras } from './gadgets';
 import { completeMission, lessonMissionsMet, photoMissionsMet, reminderMission, startMission, type PhotoResult } from './missions';
 import { showPanel } from '../ui/panel';
 import { advanceSlot } from './time';
+import { billsDue, payBills } from './economy';
 
 /** The autosave slot. */
 export const AUTOSAVE = 'auto';
@@ -97,6 +98,18 @@ export class Session {
     return m.title;
   }
 
+  /** Deducts the bills due this morning and shows what was paid (SPEC.md §3.2). */
+  private async payMorningBills(): Promise<void> {
+    const due = billsDue(this.content.game.bills, this.state.day);
+    if (due.length === 0) return;
+    const { total, unpaid } = payBills(this.state, due);
+    await showPanel('Morning bills', [
+      ...due.map((b) => `${b.name}: -$${b.amount}`),
+      `Total: -$${total}. Money left: $${this.state.money}`,
+      ...(unpaid > 0 ? [`Angie couldn't cover $${unpaid}. Time to earn some money!`] : []),
+    ]);
+  }
+
   /** Ends the current time slot and fires the resulting triggers. */
   async endSlot(): Promise<void> {
     tickConsumables(this.state);
@@ -113,6 +126,7 @@ export class Session {
           caught.map((c) => `${spot(c.spot)}: ${name(c.species)} (${c.score})${c.isNew ? ' NEW!' : ''}`),
         );
       }
+      await this.payMorningBills();
     }
     for (const t of triggers) await this.fire(t);
   }

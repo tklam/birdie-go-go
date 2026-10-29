@@ -80,6 +80,7 @@ Day starts → choose time slot activity → explore overworld → task (photo /
 - Lessons pay money (scaled by score and student level).
 - Photo requests and contests pay money.
 - Money buys gear and parts. After Kei joins, many upgrades are **built by Kei** from parts instead of bought.
+- **Bills.** Each morning, the bills due that day (`bills` in `content/game.yaml`: name, amount, `every_days`) are deducted and listed in a panel: daily electricity and phone, water and gas every other day, rent weekly. Money never goes below 0; an unpaid remainder is simply forgiven, with a nudge to earn more. Together with food (§4.12), this keeps money worth earning.
 
 ## 4. Overworld (Map Scene)
 
@@ -241,6 +242,8 @@ Rules:
 Weather isn't just scenery; it can also be an **enemy**.
 
 **Energy.** Angie has an **Energy** meter (0–100), the game's HP. It drains slowly from hazards and quickly from encounters (§4.13). It comes back from food and drinks (bought at shops or kiosks, or carried), resting on benches or in shelters, and sleeping at home.
+
+**Everyday costs** (`energy` in `content/game.yaml`): walking outdoors drains `walk_per_min`, multiplied by the area's `walk_effort` (`content/areas.yaml`; hills cost more). Starting a photo session or a lesson costs Energy, and Angie can't start one with less Energy than its cost; a toast suggests eating or resting. Indoors, Energy slowly recovers (`indoor_recovery_per_min`). Dropping below `low_warning` shows a one-off toast pointing to the shop.
 
 **Hazards** come from the blended weather at Angie's position (§4.9). Each one has thresholds, a status effect, and gear that counters it:
 

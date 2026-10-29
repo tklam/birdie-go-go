@@ -21,6 +21,7 @@ import { showDialogue } from '../ui/dialogue';
 import { showMinimap, type MapMarker } from '../ui/minimap';
 import { iris } from '../fx/iris';
 import { glitch } from '../fx/glitch';
+import { activityCost, crossedLow, walkCost } from '../systems/economy';
 import { modal } from '../ui/overlay';
 import { showPanel } from '../ui/panel';
 import { downloadSave, pickSave } from '../systems/backup';
@@ -164,6 +165,8 @@ export class MapScene extends Phaser.Scene {
   private weatherRenderer: WeatherRenderer | null = null;
   private hazards: HazardReport | null = null;
   private fainting = false;
+  /** Whether Angie walked this frame (walking outdoors costs Energy). */
+  private walking = false;
   private exiting = false;
   /** Birding-spot indicators: icons over visible spots, arrows at the edge for nearby ones. */
   private spotMarks: Phaser.GameObjects.Graphics | null = null;
@@ -372,6 +375,7 @@ export class MapScene extends Phaser.Scene {
     }
     const speed = input.sneak ? SNEAK_SPEED : WALK_SPEED;
     const moving = this.ready && !this.busy && modal.open === 0 && (input.x !== 0 || input.y !== 0);
+    this.walking = moving;
 
     // Stream the world around the camera, a ring ahead when moving.
     const view = this.cameras.main.worldView;
@@ -472,9 +476,10 @@ export class MapScene extends Phaser.Scene {
   private updateHazards(delta: number): void {
     const s = this.session;
     const minutes = Math.min(delta, 100) / 1000;
+    const rules = s.content.game.energy;
     if (!this.weatherRenderer) {
       this.hazards = null;
-      s.state.energy = Math.min(MAX_ENERGY, s.state.energy + 0.3 * minutes);
+      s.state.energy = Math.min(MAX_ENERGY, s.state.energy + (rules?.indoorRecoveryPerMin ?? 0.3) * minutes);
       return;
     }
     if (!this.weatherNow || !this.weatherDay || this.busy || modal.open || this.fainting) return;
@@ -485,7 +490,13 @@ export class MapScene extends Phaser.Scene {
       breakItem(s.state, id);
       toast(`Your ${s.content.items.find((i) => i.id === id)?.name.toLowerCase() ?? id} broke in the wind!`);
     }
+    const before = s.state.energy;
     s.state.energy = drain(s.state.energy, this.hazards.exposed, minutes);
+    if (this.walking) {
+      const area = s.content.areas.find((a) => a.id === this.area);
+      s.state.energy = Math.max(0, s.state.energy - walkCost(rules, area, minutes));
+    }
+    if (crossedLow(rules, before, s.state.energy)) toast(rules?.lowWarningText ?? '', 3500);
     if (s.state.energy <= 0) void this.faint();
   }
 
@@ -638,6 +649,7 @@ export class MapScene extends Phaser.Scene {
             }
             if (choice !== 'photo') return;
           }
+          if (!this.spendEnergy(activityCost(this.session.content.game.energy, 'photo'))) return;
           await this.leaveTo('Photo', { spotId, returnTo: 'Map', weather: this.weatherNow });
           return;
         }
@@ -646,6 +658,7 @@ export class MapScene extends Phaser.Scene {
           const fired = await this.session.fire({ type: 'talk', params: { npc: o.props.npc_id ?? o.name } });
           if (fired.length > 0 && !student) break;
           if (student && this.scene.manager.keys['Piano']) {
+            if (!this.spendEnergy(activityCost(this.session.content.game.energy, 'lesson'))) return;
             await this.leaveTo('Piano', { studentId: student, returnTo: 'Map' });
             return;
           }
@@ -997,6 +1010,21 @@ export class MapScene extends Phaser.Scene {
     this.cameras.main.fadeIn(600, 0, 0, 0);
     toast(`Good morning! Day ${s.state.day}`);
     this.remindMission();
+  }
+
+  /**
+   * Pays an activity's Energy cost (SPEC.md §4.12). Returns false, with a
+   * hint to eat or rest, when Angie is too tired.
+   */
+  private spendEnergy(cost: number): boolean {
+    const s = this.session.state;
+    if (cost <= 0) return true;
+    if (s.energy < cost) {
+      toast(this.session.content.game.energy?.tooTiredText ?? '', 3500);
+      return false;
+    }
+    s.energy -= cost;
+    return true;
   }
 
   private async leaveTo(scene: string, data: object): Promise<void> {

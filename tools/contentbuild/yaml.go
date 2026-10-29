@@ -25,14 +25,29 @@ type gameYAML struct {
 		EverySeconds int      `yaml:"every_seconds"`
 		Lines        []string `yaml:"lines"`
 	} `yaml:"bedtime_reminder"`
+	Energy *struct {
+		WalkPerMin           float64 `yaml:"walk_per_min"`
+		IndoorRecoveryPerMin float64 `yaml:"indoor_recovery_per_min"`
+		PhotoSession         int     `yaml:"photo_session"`
+		Lesson               int     `yaml:"lesson"`
+		LowWarning           int     `yaml:"low_warning"`
+		LowWarningText       string  `yaml:"low_warning_text"`
+		TooTiredText         string  `yaml:"too_tired_text"`
+	} `yaml:"energy"`
+	Bills []struct {
+		Name      string `yaml:"name"`
+		Amount    int    `yaml:"amount"`
+		EveryDays int    `yaml:"every_days"`
+	} `yaml:"bills"`
 }
 
 type areaYAML struct {
-	ID       string                 `yaml:"id"`
-	Name     string                 `yaml:"name"`
-	Music    string                 `yaml:"music"`
-	Climate  map[string]climateYAML `yaml:"climate"`
-	Altitude float64                `yaml:"altitude"`
+	ID         string                 `yaml:"id"`
+	Name       string                 `yaml:"name"`
+	Music      string                 `yaml:"music"`
+	Climate    map[string]climateYAML `yaml:"climate"`
+	Altitude   float64                `yaml:"altitude"`
+	WalkEffort float64                `yaml:"walk_effort"`
 }
 
 type climateYAML struct {
@@ -276,13 +291,27 @@ func load(dir string) (*model.ContentBundle, error) {
 	if br := g.BedtimeReminder; br.EverySeconds != 0 || len(br.Lines) > 0 {
 		b.Game.BedtimeReminder = &model.BedtimeReminder{EverySeconds: br.EverySeconds, Lines: append([]string{}, br.Lines...)}
 	}
+	if e := g.Energy; e != nil {
+		b.Game.Energy = &model.EnergyRules{
+			WalkPerMin: e.WalkPerMin, IndoorRecoveryPerMin: e.IndoorRecoveryPerMin,
+			PhotoSession: e.PhotoSession, Lesson: e.Lesson,
+			LowWarning: e.LowWarning, LowWarningText: e.LowWarningText, TooTiredText: e.TooTiredText,
+		}
+	}
+	for _, bill := range g.Bills {
+		every := bill.EveryDays
+		if every == 0 {
+			every = 1
+		}
+		b.Game.Bills = append(b.Game.Bills, model.Bill{Name: bill.Name, Amount: bill.Amount, EveryDays: every})
+	}
 
 	var areas []areaYAML
 	if err := readOptional(filepath.Join(dir, "areas.yaml"), &areas); err != nil {
 		return nil, err
 	}
 	for _, a := range areas {
-		area := model.Area{ID: a.ID, Name: a.Name, Music: a.Music, Altitude: a.Altitude, Climate: map[string]model.Climate{}}
+		area := model.Area{ID: a.ID, Name: a.Name, Music: a.Music, Altitude: a.Altitude, WalkEffort: a.WalkEffort, Climate: map[string]model.Climate{}}
 		for season, c := range a.Climate {
 			area.Climate[season] = model.Climate(c)
 		}

@@ -1,0 +1,37 @@
+// Everyday Energy costs and the morning bills (SPEC.md §3.2, §4.12). Pure:
+// the map scene and the session apply them.
+import type { Area, Bill, EnergyRules } from '../core/types.gen';
+import type { GameState } from './state';
+
+/** Bills due on the morning of `day` (day 1 is the first morning). */
+export function billsDue(bills: readonly Bill[] | undefined, day: number): Bill[] {
+  return (bills ?? []).filter((b) => day % Math.max(1, b.everyDays) === 0);
+}
+
+/**
+ * Pays the bills due this morning. Money never goes below 0; `unpaid` is the
+ * part Angie couldn't cover. Mutates state.
+ */
+export function payBills(state: Pick<GameState, 'money'>, due: readonly Bill[]): { total: number; unpaid: number } {
+  const total = due.reduce((sum, b) => sum + b.amount, 0);
+  const paid = Math.min(total, state.money);
+  state.money -= paid;
+  return { total, unpaid: total - paid };
+}
+
+/** The Energy an activity costs to start (0 when the rules don't set one). */
+export function activityCost(rules: EnergyRules | undefined, activity: 'photo' | 'lesson'): number {
+  if (!rules) return 0;
+  return activity === 'photo' ? rules.photoSession : rules.lesson;
+}
+
+/** Energy lost walking for `minutes` in an area (its walk effort scales the cost). */
+export function walkCost(rules: EnergyRules | undefined, area: Pick<Area, 'walkEffort'> | undefined, minutes: number): number {
+  if (!rules) return 0;
+  return rules.walkPerMin * (area?.walkEffort || 1) * minutes;
+}
+
+/** Whether Energy just fell below the low warning level. */
+export function crossedLow(rules: EnergyRules | undefined, before: number, after: number): boolean {
+  return !!rules?.lowWarning && before >= rules.lowWarning && after < rules.lowWarning;
+}
