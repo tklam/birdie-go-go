@@ -110,6 +110,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] Hidden collectibles: feathers, camera parts, sheet music
 - [ ] Shop, gear, Kei-built upgrades from parts
 - [ ] Students: profiles, progress, new songs
+- [ ] eBird data for realism: species lists and seasonality per area (Tseung Kwan O, Junk Bay, …) feeding bird tables. Needs a free eBird API key kept outside git; build-time tool only. eBird/Macaulay photos are NOT freely licensed, so don't use them as art.
 - [ ] Missions (§9.5): requests, contests, transit missions
 - [ ] Trail cameras
 - [ ] Album milestones
