@@ -1,0 +1,276 @@
+// Command mapgen lays out the placeholder Tseung Kwan O starter map as a Tiled
+// map (content/world/tko.tmj) and registers it in city.world. It exists only
+// to bootstrap the vertical slice; once the map is edited by hand in Tiled,
+// don't regenerate it (mapgen refuses to overwrite without -force).
+//
+//	go run ./tools/mapgen -world content/world
+package main
+
+import (
+	"encoding/json"
+	"errors"
+	"flag"
+	"fmt"
+	"io/fs"
+	"os"
+	"path/filepath"
+
+	"birdiegogo/tools/internal/tko"
+)
+
+const (
+	mapW, mapH = 96, 64
+	tileSize   = 16
+	metaFirst  = 1 + 32 // firstgid of meta.tsj, after the 32-tile atlas
+)
+
+func main() {
+	dir := flag.String("world", "content/world", "world directory")
+	force := flag.Bool("force", false, "overwrite an existing tko.tmj")
+	flag.Parse()
+	if err := run(*dir, *force); err != nil {
+		fmt.Fprintln(os.Stderr, "mapgen:", err)
+		os.Exit(1)
+	}
+}
+
+func run(dir string, force bool) error {
+	if metaFirst != len(tko.Tiles)+1 {
+		return fmt.Errorf("metaFirst is %d but the atlas has %d tiles", metaFirst, len(tko.Tiles))
+	}
+	path := filepath.Join(dir, "tko.tmj")
+	if _, err := os.Stat(path); err == nil && !force {
+		return fmt.Errorf("%s exists; it may have been edited in Tiled (use -force to overwrite)", path)
+	} else if err != nil && !errors.Is(err, fs.ErrNotExist) {
+		return err
+	}
+	m := build()
+	if err := writeJSON(path, m.tiled()); err != nil {
+		return err
+	}
+	world := map[string]any{
+		"type": "world", "onlyShowAdjacentMaps": false,
+		"maps": []map[string]any{{"fileName": "tko.tmj", "x": 0, "y": 0, "width": mapW * tileSize, "height": mapH * tileSize}},
+	}
+	return writeJSON(filepath.Join(dir, "city.world"), world)
+}
+
+type object struct {
+	name, typ string
+	x, y      int // tile coordinates of the object's center tile
+	props     map[string]string
+}
+
+type tmap struct {
+	ground, overhead, collision, areas [mapH][mapW]int // local ids + 1, 0 = empty
+	objects                            []object
+}
+
+func (m *tmap) put(x, y int, name string) {
+	if x < 0 || y < 0 || x >= mapW || y >= mapH {
+		return
+	}
+	t := tko.Tiles[tko.ID(name)]
+	if t.Overhead {
+		m.overhead[y][x] = tko.ID(name) + 1
+		return
+	}
+	m.ground[y][x] = tko.ID(name) + 1
+	m.collision[y][x] = 0
+	if t.Solid {
+		m.collision[y][x] = metaFirst + tko.MetaID("solid")
+	}
+	if name == "ledge" {
+		m.collision[y][x] = metaFirst + tko.MetaID("ledge_south")
+	}
+}
+
+func (m *tmap) fill(x, y, w, h int, name string) {
+	for j := y; j < y+h; j++ {
+		for i := x; i < x+w; i++ {
+			m.put(i, j, name)
+		}
+	}
+}
+
+func (m *tmap) tree(x, y int) {
+	m.put(x, y, "tree_trunk")
+	m.put(x, y-1, "canopy")
+}
+
+// tower is an estate block: roof, window rows, and a door in the middle of
+// the bottom row (returns the door x).
+func (m *tmap) tower(x, y, w, h int) int {
+	m.fill(x, y, w, 1, "roof")
+	m.fill(x, y+1, w, h-2, "tower_window")
+	m.fill(x, y+h-1, w, 1, "tower_wall")
+	door := x + w/2
+	m.put(door, y+h-1, "door")
+	m.collision[y+h-1][door] = metaFirst + tko.MetaID("solid")
+	return door
+}
+
+func (m *tmap) area(y0, y1 int, id string) {
+	for y := y0; y < y1; y++ {
+		for x := range mapW {
+			m.areas[y][x] = metaFirst + tko.MetaID("area_"+id)
+		}
+	}
+}
+
+func (m *tmap) obj(name, typ string, x, y int, props map[string]string) {
+	m.objects = append(m.objects, object{name: name, typ: typ, x: x, y: y, props: props})
+}
+
+func build() *tmap {
+	m := &tmap{}
+
+	// Hillside trail (rows 0–19).
+	m.area(0, 20, "tko_hillside")
+	m.fill(0, 0, mapW, 20, "hill_grass")
+	for _, p := range [][2]int{{4, 3}, {9, 6}, {15, 2}, {22, 8}, {30, 4}, {36, 10}, {70, 5}, {76, 9}, {84, 3}, {90, 12}, {66, 15}, {12, 16}, {28, 15}, {82, 16}} {
+		m.tree(p[0], p[1])
+	}
+	for _, p := range [][2]int{{18, 13}, {40, 4}, {58, 9}, {88, 7}} {
+		m.put(p[0], p[1], "rock")
+	}
+	m.fill(6, 11, 34, 1, "ledge")
+	m.fill(20, 14, 8, 3, "tall_grass")
+	m.fill(72, 11, 9, 3, "tall_grass")
+	// The trail zig-zags from the stairs up the hill.
+	m.fill(46, 15, 4, 5, "trail")
+	m.fill(46, 15, 16, 2, "trail")
+	m.fill(60, 6, 3, 10, "trail")
+	m.fill(60, 6, 14, 2, "trail")
+	m.fill(46, 18, 4, 2, "stairs")
+	m.obj("hillside_birds", "bird", 76, 12, map[string]string{"species": "red_whiskered_bulbul", "count": "2"})
+
+	// Town centre (rows 20–43).
+	m.area(20, 44, "tko_town")
+	m.fill(0, 20, mapW, 24, "pavement")
+	m.fill(0, 30, mapW, 3, "road")
+	m.fill(0, 31, mapW, 1, "road_line")
+	m.tower(4, 21, 12, 7)
+	angieDoor := m.tower(20, 21, 12, 7)
+	meiDoor := m.tower(64, 21, 12, 7)
+	m.tower(80, 21, 14, 7)
+	// Mall with shop fronts and awnings, facing the plaza.
+	m.fill(36, 21, 23, 4, "tower_window")
+	m.fill(36, 21, 23, 1, "roof")
+	m.fill(36, 25, 23, 1, "shop_front")
+	m.fill(36, 26, 23, 1, "awning")
+	m.fill(36, 26, 23, 4, "plaza")
+	m.put(60, 28, "station_sign")
+	for _, x := range []int{38, 44, 50, 56} {
+		m.put(x, 29, "lamp")
+	}
+	// Footbridge over the road (overhead), with stairs at each end.
+	m.fill(86, 29, 3, 5, "footbridge")
+	m.fill(86, 28, 3, 1, "stairs")
+	m.fill(86, 34, 3, 1, "stairs")
+	// Estate garden south of the road.
+	m.fill(6, 34, 26, 9, "grass")
+	m.fill(6, 34, 26, 1, "flowerbed")
+	m.fill(6, 42, 26, 1, "flowerbed")
+	m.fill(18, 42, 3, 1, "pavement") // garden entrance
+	m.fill(18, 34, 3, 1, "pavement")
+	m.fill(7, 37, 24, 2, "pavement")
+	for _, p := range [][2]int{{8, 36}, {13, 36}, {24, 36}, {29, 36}, {10, 41}, {27, 41}} {
+		m.tree(p[0], p[1])
+	}
+	for _, p := range [][2]int{{16, 40}, {21, 40}, {12, 39}} {
+		m.put(p[0], p[1], "bush")
+	}
+	m.put(15, 36, "bench")
+	m.put(22, 36, "bench")
+	m.fill(26, 39, 4, 2, "grass_flowers")
+	m.tower(64, 35, 16, 7)
+
+	// Junk Bay waterfront (rows 44–63).
+	m.area(44, mapH, "tko_waterfront")
+	m.fill(0, 44, mapW, 2, "pavement")
+	m.fill(0, 46, mapW, 8, "grass")
+	m.fill(0, 49, mapW, 2, "pavement") // park path
+	for _, p := range [][2]int{{16, 47}, {24, 47}, {33, 52}, {45, 47}, {54, 52}, {63, 47}, {72, 52}, {81, 47}, {90, 52}} {
+		m.tree(p[0], p[1])
+	}
+	m.fill(58, 46, 6, 2, "grass_flowers")
+	m.fill(76, 51, 8, 3, "tall_grass")
+	m.fill(1, 46, 11, 8, "mud")
+	m.fill(1, 46, 11, 2, "reeds")
+	m.fill(0, 54, mapW, 2, "boardwalk")
+	for _, x := range []int{20, 40, 60, 80} {
+		m.put(x, 54, "bench")
+		m.put(x+4, 54, "lamp")
+	}
+	m.fill(0, 56, mapW, 1, "railing")
+	m.fill(0, 57, mapW, 1, "seawall")
+	m.fill(0, 58, mapW, 6, "water")
+
+	// Objects.
+	m.obj("estate_plaza", "spawn", 47, 28, nil)
+	m.obj("tko_estate_garden", "spot", 18, 38, map[string]string{"spot_id": "tko_estate_garden"})
+	m.obj("tko_waterfront_park", "spot", 40, 52, map[string]string{"spot_id": "tko_waterfront_park"})
+	m.obj("mei", "npc", meiDoor+1, 28, map[string]string{"npc_id": "mei", "student": "mei"})
+	m.obj("angie_home", "door", angieDoor, 27, map[string]string{"to_map": "angie_flat", "to_spawn": "front_door"})
+	m.obj("mei_home", "door", meiDoor, 27, map[string]string{"to_map": "mei_flat", "to_spawn": "front_door"})
+	m.obj("garden_birds", "bird", 20, 39, map[string]string{"species": "red_whiskered_bulbul", "count": "3"})
+	m.obj("garden_robin", "bird", 11, 38, map[string]string{"species": "oriental_magpie_robin", "count": "1"})
+	m.obj("mudflat_egrets", "bird", 6, 50, map[string]string{"species": "little_egret", "count": "2"})
+	m.obj("park_robins", "bird", 50, 50, map[string]string{"species": "oriental_magpie_robin", "count": "2"})
+	return m
+}
+
+// tiled renders the map as Tiled JSON (.tmj).
+func (m *tmap) tiled() map[string]any {
+	layer := func(id int, name string, grid *[mapH][mapW]int, visible bool) map[string]any {
+		data := make([]int, 0, mapW*mapH)
+		for y := range mapH {
+			data = append(data, grid[y][:]...)
+		}
+		return map[string]any{
+			"id": id, "name": name, "type": "tilelayer", "width": mapW, "height": mapH,
+			"x": 0, "y": 0, "opacity": 1, "visible": visible, "data": data,
+		}
+	}
+	var objects []map[string]any
+	for i, o := range m.objects {
+		var props []map[string]any
+		for k, v := range o.props {
+			props = append(props, map[string]any{"name": k, "type": "string", "value": v})
+		}
+		objects = append(objects, map[string]any{
+			"id": i + 1, "name": o.name, "type": o.typ, "point": true,
+			"x": o.x*tileSize + tileSize/2, "y": o.y*tileSize + tileSize/2,
+			"width": 0, "height": 0, "rotation": 0, "visible": true, "properties": props,
+		})
+	}
+	var empty [mapH][mapW]int
+	return map[string]any{
+		"type": "map", "version": "1.10", "tiledversion": "1.10.2", "orientation": "orthogonal",
+		"renderorder": "right-down", "infinite": false, "compressionlevel": -1,
+		"width": mapW, "height": mapH, "tilewidth": tileSize, "tileheight": tileSize,
+		"nextlayerid": 7, "nextobjectid": len(m.objects) + 1,
+		"tilesets": []map[string]any{
+			{"firstgid": 1, "source": "tilesets/tko.tsj"},
+			{"firstgid": metaFirst, "source": "tilesets/meta.tsj"},
+		},
+		"layers": []map[string]any{
+			layer(1, "ground", &m.ground, true),
+			layer(2, "detail", &empty, true),
+			layer(3, "collision", &m.collision, false),
+			layer(4, "overhead", &m.overhead, true),
+			layer(5, "areas", &m.areas, false),
+			{"id": 6, "name": "objects", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0,
+				"opacity": 1, "visible": true, "objects": objects},
+		},
+	}
+}
+
+func writeJSON(path string, v any) error {
+	data, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(path, append(data, '\n'), 0o644)
+}

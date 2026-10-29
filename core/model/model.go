@@ -36,24 +36,6 @@ type PingResult struct {
 	CoreVersion string `json:"coreVersion"`
 }
 
-// WorldIndex describes the streamed overworld emitted by tools/worldbuild.
-type WorldIndex struct {
-	TileSize     int           `json:"tileSize"`
-	ChunkTiles   int           `json:"chunkTiles"`
-	WidthChunks  int           `json:"widthChunks"`
-	HeightChunks int           `json:"heightChunks"`
-	Regions      []WorldRegion `json:"regions"`
-}
-
-// WorldRegion is one Tiled map placed in the world, in pixels.
-type WorldRegion struct {
-	File   string `json:"file"`
-	X      int    `json:"x"`
-	Y      int    `json:"y"`
-	Width  int    `json:"width"`
-	Height int    `json:"height"`
-}
-
 // UpdateManifest lists the content packs published by the optional update
 // server.
 type UpdateManifest struct {

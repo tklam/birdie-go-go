@@ -1,5 +1,1 @@
-{
-  "maps": [],
-  "onlyShowAdjacentMaps": false,
-  "type": "world"
-}
+{"maps":[{"fileName":"tko.tmj","height":1024,"width":1536,"x":0,"y":0}],"onlyShowAdjacentMaps":false,"type":"world"}
