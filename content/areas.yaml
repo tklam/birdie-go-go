@@ -50,3 +50,24 @@
     summer: { cloud: [0.5, 0.3], precip: [0.06, 0.22], temp: [30, 1.5], fog: [0.05, 0.05], wind: [0.45, 0.25] }
     autumn: { cloud: [0.3, 0.2], precip: [0.0, 0.12], temp: [25, 2.5], fog: [0.08, 0.08], wind: [0.45, 0.2] }
     winter: { cloud: [0.45, 0.2], precip: [0.0, 0.1], temp: [16, 2.5], fog: [0.15, 0.1], wind: [0.55, 0.2] }
+# Harbour Island, across the harbour (Hong Kong Island inspired).
+- id: island_harbourfront
+  name: Harbour Island Waterfront
+  music: bgm_town
+  altitude: 0.02
+  climate:
+    spring: { cloud: [0.65, 0.2], precip: [0.03, 0.2], temp: [22, 2.5], fog: [0.35, 0.25], wind: [0.4, 0.2] }
+    summer: { cloud: [0.5, 0.3], precip: [0.06, 0.22], temp: [31, 1.5], fog: [0.03, 0.05], wind: [0.35, 0.25] }
+    autumn: { cloud: [0.3, 0.2], precip: [0.0, 0.12], temp: [25, 2.5], fog: [0.05, 0.05], wind: [0.35, 0.2] }
+    winter: { cloud: [0.45, 0.2], precip: [0.0, 0.1], temp: [16, 2.5], fog: [0.1, 0.1], wind: [0.45, 0.2] }
+- id: island_peak
+  name: Harbour Peak Trail
+  music: bgm_trail
+  altitude: 0.6
+  walk_effort: 2.8   # the steepest climb in the city
+  climate:
+    spring: { cloud: [0.8, 0.15], precip: [0.05, 0.2], temp: [18, 2.5], fog: [0.6, 0.25], wind: [0.5, 0.2] }
+    summer: { cloud: [0.65, 0.25], precip: [0.08, 0.22], temp: [27, 1.5], fog: [0.2, 0.15], wind: [0.45, 0.25] }
+    autumn: { cloud: [0.35, 0.2], precip: [0.0, 0.12], temp: [22, 2.5], fog: [0.15, 0.1], wind: [0.45, 0.2] }
+    winter: { cloud: [0.55, 0.2], precip: [0.0, 0.1], temp: [12, 3], fog: [0.3, 0.2], wind: [0.55, 0.2] }
+

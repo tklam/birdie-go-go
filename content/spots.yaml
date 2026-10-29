@@ -290,3 +290,42 @@
     - { species: white_bellied_sea_eagle, weight: 1 }
     - { species: osprey, weight: 1 }
     - { species: pacific_reef_heron, weight: 2 }
+# Harbour Island.
+- id: island_harbour_park
+  name: Harbourfront Park
+  area: island_harbourfront
+  background: bg_garden
+  shots: 12
+  birds:
+    - { species: yellow_crested_cockatoo, weight: 3 }
+    - { species: rose_ringed_parakeet, weight: 2 }
+    - { species: black_kite, weight: 3 }
+    - { species: rock_dove, weight: 3 }
+    - { species: crested_myna, weight: 2 }
+    - { species: common_myna, weight: 2 }
+    - { species: white_wagtail, weight: 2, seasons: [autumn, winter, spring] }
+    - { species: oriental_magpie_robin, weight: 2 }
+    - { species: spotted_dove, weight: 2 }
+    - { species: black_headed_gull, weight: 2, seasons: [autumn, winter] }
+    - { species: asian_koel, weight: 1, seasons: [spring, summer] }
+- id: island_peak_trail
+  name: Peak Trail
+  area: island_peak
+  background: bg_garden
+  shots: 12
+  birds:
+    - { species: crested_serpent_eagle, weight: 2 }
+    - { species: peregrine_falcon, weight: 1 }
+    - { species: black_kite, weight: 2 }
+    - { species: masked_laughingthrush, weight: 3 }
+    - { species: chestnut_bulbul, weight: 2 }
+    - { species: hwamei, weight: 2 }
+    - { species: red_billed_leiothrix, weight: 2 }
+    - { species: blue_whistling_thrush, weight: 2 }
+    - { species: grey_treepie, weight: 2 }
+    - { species: great_barbet, weight: 1 }
+    - { species: velvet_fronted_nuthatch, weight: 1 }
+    - { species: scarlet_minivet, weight: 2, seasons: [autumn, winter] }
+    - { species: japanese_tit, weight: 2 }
+    - { species: fork_tailed_sunbird, weight: 2 }
+

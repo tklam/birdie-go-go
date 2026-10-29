@@ -48,11 +48,16 @@ func run(dir string, force bool) error {
 	if err := writeJSON(filepath.Join(dir, "clear_water_bay.tmj"), east.tiled("tilesets")); err != nil {
 		return err
 	}
+	island := harbourIsland()
+	if err := writeJSON(filepath.Join(dir, "island.tmj"), island.tiled("tilesets")); err != nil {
+		return err
+	}
 	world := map[string]any{
 		"type": "world", "onlyShowAdjacentMaps": false,
 		"maps": []map[string]any{
 			{"fileName": "tko.tmj", "x": 0, "y": 0, "width": m.w * tileSize, "height": m.h * tileSize},
 			{"fileName": "clear_water_bay.tmj", "x": m.w * tileSize, "y": 0, "width": east.w * tileSize, "height": east.h * tileSize},
+			{"fileName": "island.tmj", "x": 0, "y": m.h * tileSize, "width": island.w * tileSize, "height": island.h * tileSize},
 		},
 	}
 	if err := writeJSON(filepath.Join(dir, "city.world"), world); err != nil {
@@ -205,6 +210,9 @@ func build() *tmap {
 	m.obj("minibus_driver", "npc", 64, 30, map[string]string{"npc_id": "minibus_driver", "sprite": "char_minibus_driver"})
 	m.obj("plaza_shop", "shop", 47, 25, map[string]string{"title": "Plaza Convenience Store", "shop_id": "plaza_convenience"})
 	m.obj("outdoor_shop", "shop", 54, 25, map[string]string{"title": "Harbour Outdoors", "shop_id": "harbour_outdoors"})
+	// The metro station entrance (SPEC.md §4.11).
+	m.put(59, 32, "station_sign")
+	m.obj("stop_tko_station", "stop", 60, 32, map[string]string{"stop_id": "tko_station"})
 	m.obj("kei", "npc", 40, 27, map[string]string{"npc_id": "kei", "sprite": "char_kei", "requires_flag": "chapter3_started", "unless_flag": "kei_met"})
 	m.obj("gateway_tko_plaza", "gateway", 34, 28, map[string]string{"gateway_id": "tko_plaza", "title": "Plaza Gateway"})
 	m.obj("neighbour", "npc", 54, 28, map[string]string{"npc_id": "neighbour", "sprite": "char_neighbour"})
@@ -282,6 +290,77 @@ func build() *tmap {
 // Country Park (woodland trails, a stream) and the Po Toi O fishing-village
 // cove. Its west edge lines up with TKO's east edge: hill trail (rows 0–19),
 // road (rows 30–32) and waterfront boardwalk (rows 54–55).
+// harbourIsland is the island across the harbour, south of Tseung Kwan O
+// (Hong Kong Island inspired, original layout): a harbourfront with a tram
+// road and towers, a park, and a peak trail up the hill.
+func harbourIsland() *tmap {
+	const w, h = 96, 40
+	m := newMap(w, h)
+	m.area(0, 26, "island_harbourfront")
+	m.area(26, h, "island_peak")
+	// The harbour, a seawall and the promenade with a ferry pier.
+	m.fill(0, 0, w, 8, "water")
+	m.fill(0, 8, w, 1, "railing")
+	m.fill(0, 9, w, 2, "boardwalk")
+	m.fill(70, 8, 3, 1, "boardwalk")
+	m.fill(70, 2, 3, 6, "pier")
+	m.put(66, 4, "boat")
+	for _, x := range []int{10, 30, 50, 86} {
+		m.put(x, 9, "bench")
+		m.put(x+3, 9, "lamp")
+	}
+	// The tram road.
+	m.fill(0, 11, w, 3, "road")
+	m.fill(0, 12, w, 1, "road_line")
+	m.fill(0, 14, w, 2, "pavement")
+	// Towers along the road, the metro station and shops.
+	m.fill(0, 16, w, 7, "pavement")
+	for _, x := range []int{2, 18, 54, 72} {
+		m.tower(x, 16, 12, 7)
+	}
+	m.fill(34, 16, 14, 1, "awning")
+	m.fill(34, 17, 14, 2, "shop_front")
+	m.put(40, 19, "station_sign")
+	m.fill(0, 23, w, 3, "pavement")
+	m.fill(86, 16, 10, 7, "plaza")
+	// A small harbourfront park among the towers.
+	m.fill(86, 17, 10, 6, "grass_flowers")
+	for _, p := range [][2]int{{87, 18}, {93, 18}, {90, 21}} {
+		m.tree(p[0], p[1])
+	}
+	// The peak trail.
+	m.fill(0, 26, w, h-26, "hill_grass")
+	for i := range 60 {
+		m.tree(int(hash(i, 21)%w), 28+int(hash(i, 22)%11))
+	}
+	for i := range 14 {
+		m.put(int(hash(i, 23)%w), 27+int(hash(i, 24)%12), "fern")
+	}
+	m.fill(46, 26, 3, 14, "trail")
+	m.fill(20, 32, 60, 2, "trail")
+	m.fill(46, 26, 3, 1, "stairs")
+	m.fill(60, 35, 8, 3, "tall_grass")
+
+	m.obj("stop_island_pier", "stop", 71, 9, map[string]string{"stop_id": "island_pier"})
+	for _, s := range []struct {
+		id string
+		x  int
+	}{{"tram_western", 12}, {"tram_central", 46}, {"tram_eastern", 84}} {
+		m.put(s.x-1, 14, "station_sign")
+		m.obj("stop_"+s.id, "stop", s.x, 14, map[string]string{"stop_id": s.id})
+	}
+	m.obj("stop_island_station", "stop", 41, 20, map[string]string{"stop_id": "island_station"})
+	m.obj("island_harbour_park", "spot", 90, 19, map[string]string{"spot_id": "island_harbour_park"})
+	m.obj("island_peak_trail", "spot", 64, 33, map[string]string{"spot_id": "island_peak_trail"})
+	m.obj("peak_dogs", "enemy", 30, 33, map[string]string{"enemy_id": "stray_dog_pack"})
+	m.obj("pier_ghost_island", "enemy", 60, 9, map[string]string{"enemy_id": "water_ghost"})
+	m.obj("feather_peak", "collectible", 80, 37, map[string]string{"item": "feather"})
+	m.obj("part_tram", "collectible", 28, 15, map[string]string{"item": "camera_part"})
+	m.obj("park_kites", "bird", 88, 20, map[string]string{"species": "black_kite", "count": "1"})
+	m.obj("peak_bulbuls", "bird", 52, 30, map[string]string{"species": "red_whiskered_bulbul", "count": "3"})
+	return m
+}
+
 func clearWaterBay() *tmap {
 	const w, h = 64, 64
 	m := newMap(w, h)

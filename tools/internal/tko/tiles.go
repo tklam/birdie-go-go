@@ -59,6 +59,8 @@ var Meta = []struct {
 	{"area_tko_hillside", "area", "tko_hillside"},
 	{"area_cwb_country_park", "area", "cwb_country_park"},
 	{"area_po_toi_o", "area", "po_toi_o"},
+	{"area_island_harbourfront", "area", "island_harbourfront"},
+	{"area_island_peak", "area", "island_peak"},
 }
 
 // MetaID returns the local id of a meta tile by name.

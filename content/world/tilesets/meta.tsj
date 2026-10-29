@@ -1,12 +1,12 @@
 {
-  "columns": 7,
+  "columns": 9,
   "image": "../../../web/public/assets/tiles/meta.png",
   "imageheight": 16,
-  "imagewidth": 112,
+  "imagewidth": 144,
   "margin": 0,
   "name": "meta",
   "spacing": 0,
-  "tilecount": 7,
+  "tilecount": 9,
   "tiledversion": "1.10.2",
   "tileheight": 16,
   "tiles": [
@@ -77,6 +77,26 @@
           "name": "area",
           "type": "string",
           "value": "po_toi_o"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "properties": [
+        {
+          "name": "area",
+          "type": "string",
+          "value": "island_harbourfront"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "properties": [
+        {
+          "name": "area",
+          "type": "string",
+          "value": "island_peak"
         }
       ]
     }

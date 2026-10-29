@@ -3,7 +3,7 @@
   name: Birder
   sprite: char_birder
   kind: birder
-  areas: [tko_waterfront, tko_hillside, cwb_country_park, po_toi_o]
+  areas: [tko_waterfront, tko_hillside, cwb_country_park, po_toi_o, island_harbourfront, island_peak]
   slots: [morning, afternoon]
   per_chunk: 1
   lines:
@@ -16,7 +16,7 @@
   name: Jogger
   sprite: char_jogger
   kind: walker
-  areas: [tko_waterfront, tko_town]
+  areas: [tko_waterfront, tko_town, island_harbourfront]
   slots: [morning, evening]
   per_chunk: 1
   lines:
@@ -26,7 +26,7 @@
   name: Office Worker
   sprite: char_office_worker
   kind: walker
-  areas: [tko_town]
+  areas: [tko_town, island_harbourfront]
   slots: [morning, afternoon, evening]
   per_chunk: 2
   lines:

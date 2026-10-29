@@ -1,1 +1,1 @@
-{"maps":[{"fileName":"tko.tmj","height":1024,"width":1536,"x":0,"y":0},{"fileName":"clear_water_bay.tmj","height":1024,"width":1024,"x":1536,"y":0}],"onlyShowAdjacentMaps":false,"type":"world"}
+{"maps":[{"fileName":"tko.tmj","height":1024,"width":1536,"x":0,"y":0},{"fileName":"clear_water_bay.tmj","height":1024,"width":1024,"x":1536,"y":0},{"fileName":"island.tmj","height":640,"width":1536,"x":0,"y":1024}],"onlyShowAdjacentMaps":false,"type":"world"}

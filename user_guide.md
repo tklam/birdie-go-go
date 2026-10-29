@@ -1,6 +1,6 @@
 # Birdie Go Go: Player's Guide
 
-> This guide describes the game as planned. Playable now: Tseung Kwan O (town centre, estate garden, waterfront park, hillside trail), Angie's and Mei's flats, bird photography, piano lessons, the album, and saves. Everything else arrives over the milestones in [TODO.md](TODO.md).
+> This guide describes the game as planned. Playable now: Tseung Kwan O (town centre, estate garden, waterfront park, hillside trail), Clear Water Bay Country Park and Po Toi O, Harbour Island (harbourfront and peak trail), students' homes, bird photography, piano lessons, the album, and saves. Everything else arrives over the milestones in [TODO.md](TODO.md).
 
 ## Welcome
 
@@ -70,8 +70,8 @@ The world is big and seamless. You can walk from downtown streets into a hillsid
 | | How it works |
 |---|---|
 | **Bus** | Wait at a stop and press **Board**. Ride along and watch the city go by. Tap **Get off at next stop**, or **Skip** to jump to your stop. |
-| **Tram** | Slow, cheap, and charming. It runs along the waterfront of the island. |
-| **Metro** | Go down into a station, pick your destination, and you're there in moments. Rain doesn't affect it. |
+| **Tram** | Slow, cheap, and charming. The Harbourfront Tram runs along the waterfront of Harbour Island, with three stops. |
+| **Metro** | Go down into a station, pick your destination, and you're there in moments. The Harbour Line runs under the harbour from Tseung Kwan O Station (east of the plaza) to Harbour Island. Rain doesn't affect it. |
 | **Ferry** | Cross the harbour or sail to the outlying islands. Stand on the deck, because seabirds follow the boat and make great photos. Long island trips take up part of the day. |
 | **Teleport** | Later in the game, Kei's gateways link the real world with his digital realm. Use them to jump between places you've unlocked. |
 

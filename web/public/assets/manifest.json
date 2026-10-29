@@ -2967,5 +2967,12 @@
     "frameWidth": 48,
     "frameHeight": 24,
     "placeholder": true
+  },
+  "vehicle_tram": {
+    "type": "spritesheet",
+    "file": "vehicles/tram.png",
+    "frameWidth": 28,
+    "frameHeight": 28,
+    "placeholder": true
   }
 }

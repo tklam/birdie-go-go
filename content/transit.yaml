@@ -8,6 +8,12 @@ stops:
   - { id: tko_pier, name: Junk Bay Pier }
   - { id: po_toi_o_pier, name: Po Toi O Pier }
   - { id: cwb_park_gate, name: Country Park Gate }
+  - { id: island_pier, name: Harbour Island Pier }
+  - { id: tram_western, name: Western Tram Stop }
+  - { id: tram_central, name: Central Tram Stop }
+  - { id: tram_eastern, name: Eastern Tram Stop }
+  - { id: tko_station, name: Tseung Kwan O Station }
+  - { id: island_station, name: Harbour Island Station }
 lines:
   - id: minibus_16
     name: Green Minibus 16
@@ -29,3 +35,29 @@ lines:
     headway: 30
     first: "07:00"
     last: "22:00"
+  - id: harbour_ferry
+    name: Harbour Ferry
+    mode: ferry
+    fare: 12
+    stops: [tko_pier, island_pier]
+    path: [[1144, 888], [1144, 1176]]
+    speed: 60
+    headway: 20
+    first: "06:30"
+    last: "23:00"
+  - id: island_tram
+    name: Harbourfront Tram
+    mode: tram
+    fare: 3
+    stops: [tram_western, tram_central, tram_eastern]
+    path: [[200, 1224], [1352, 1224]]
+    speed: 50
+    headway: 6
+  - id: harbour_line
+    name: Harbour Line
+    mode: metro
+    fare: 10
+    stops: [tko_station, island_station]
+    path: [[968, 520], [968, 1180], [664, 1180], [664, 1352]]
+    speed: 400
+    headway: 4

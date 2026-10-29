@@ -81,8 +81,8 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] `core/transit`: network graph, timetables, `VehicleAt`, route planner, tested
 - [x] On-map vehicles from timetables (no off-screen sim)
 - [x] Bus rides on the map with route prefetch and Skip (Green Minibus 16: TKO Plaza ↔ Po Toi O)
-- [~] Get off at intermediate stops (planner; Minibus 16 stops at the Country Park Gate); trams still to do (need the island district)
-- [ ] Metro: station interiors, destination picker, in-car scene
+- [x] Trams (Harbourfront Tram, three stops); get off at intermediate stops (planner)
+- [~] Metro: Harbour Line (Tseung Kwan O ↔ Harbour Island), destination via the planner, underground fade; station interiors and an in-car scene still to do
 - [x] Ferry rides on the map (Junk Bay Pier ↔ Po Toi O Pier)
 - [x] Ferry deck photos (Deck button on ferry rides, `ferry_deck` spot)
 - [x] Fares paid with the Harbour Pass transit card; top-ups at shops and stop kiosks (save v3)
@@ -109,7 +109,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 
 ## M4: World and progression
 - [x] Clear Water Bay Country Park and Po Toi O fishing village (seamless region east of TKO)
-- [ ] More districts: peaks, harbourfront, peak trails, country park, NW wetlands, villages, beaches, an outlying island
+- [~] More districts: Harbour Island (harbourfront with towers and a park, peak trail) done; NW wetlands, beaches and an outlying island still to do
 - [x] Seasons with palette-swapped foliage (autumn and winter tile atlases on the world map)
 - [ ] Regional weather (§4.9)
   - [x] Climate profiles in `areas.yaml` + validation
@@ -136,7 +136,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Rain balance: spring ~35% and summer ~40% wet slots (was 60–70%), autumn and winter mostly dry
 - [x] 104 bird species from freely licensed photos (birdphoto + segmentation masks + vision-checked auto picks), spread over the four spots by habitat and season
 - [x] Paged album for 100+ species
-- [ ] More birding spots (wetland, hills, islands) so waders, ducks and raptors have proper habitats
+- [~] More birding spots: Po Toi O mudflat (waders), Night Woods (owls), Harbourfront Park (cockatoos, parakeets), Peak Trail (raptors, laughingthrushes); wetland ducks still to do
 - [x] Album milestones (5, 10, 25, 50, 100 species; Birding Society rewards)
 
 ## M4b: Hazards and encounters (§4.12–4.13)

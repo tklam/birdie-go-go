@@ -94,6 +94,7 @@ func gen(assets, tilesets string) error {
 	}
 	m["umbrella"] = manifestEntry{Type: "spritesheet", File: "chars/umbrella.png", FrameWidth: 16, FrameHeight: 12, Placeholder: true}
 	m["vehicle_bus"] = manifestEntry{Type: "spritesheet", File: "vehicles/minibus.png", FrameWidth: 32, FrameHeight: 20, Placeholder: true}
+	m["vehicle_tram"] = manifestEntry{Type: "spritesheet", File: "vehicles/tram.png", FrameWidth: 28, FrameHeight: 28, Placeholder: true}
 	m["gateway_pad"] = manifestEntry{Type: "spritesheet", File: "vehicles/gateway.png", FrameWidth: 16, FrameHeight: 16, Placeholder: true}
 	m["collectible_sparkle"] = manifestEntry{Type: "spritesheet", File: "vehicles/sparkle.png", FrameWidth: 8, FrameHeight: 8, Placeholder: true}
 	m["vehicle_ferry"] = manifestEntry{Type: "spritesheet", File: "vehicles/ferry.png", FrameWidth: 48, FrameHeight: 24, Placeholder: true}

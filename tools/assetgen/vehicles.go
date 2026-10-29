@@ -45,6 +45,28 @@ func genVehicles(assets string) error {
 	if err := ferry.save(filepath.Join(assets, "vehicles", "ferry.png")); err != nil {
 		return err
 	}
+	// A double-deck harbourfront tram, original livery: green with a cream
+	// band, a trolley pole on top (2 frames).
+	tram := newCanvas(2*28, 28)
+	for f := range 2 {
+		k := tram.cell(f*28, 0)
+		k.line(14, 0, 18, 3, cDarkGray) // trolley pole
+		k.rect(2, 3, 24, 22, cDarkGreen)
+		k.rect(2, 3, 24, 2, cSand) // roof
+		k.rect(2, 13, 24, 2, cSand)
+		for x := 4; x < 24; x += 5 {
+			k.rect(x, 6, 4, 5, cWindow)
+			k.rect(x, 16, 4, 5, cWindow)
+		}
+		k.rect(2, 24, 24, 1, cBlack)
+		for _, x := range []int{6, 21} {
+			k.ellipse(x-2, 24, 5, 4, cBlack)
+			k.set(x, 26-f, cGray)
+		}
+	}
+	if err := tram.save(filepath.Join(assets, "vehicles", "tram.png")); err != nil {
+		return err
+	}
 	// Kei's gateway pad: a glowing ring with a digital shimmer (2 frames).
 	pad := newCanvas(2*16, 16)
 	for f := range 2 {

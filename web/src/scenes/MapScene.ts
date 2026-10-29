@@ -203,6 +203,8 @@ export class MapScene extends Phaser.Scene {
   private fainting = false;
   /** The last warning announced ("day:slot:tag"), so each is announced once. */
   private lastWarning = '';
+  /** Riding the metro: the map waits while the screen is dark. */
+  private underground = false;
   /** Tap-to-move: the tiles still to walk (SPEC.md §4.4). */
   private tapPath: Tile[] = [];
   /** Whether Angie walked this frame (walking outdoors costs Energy). */
@@ -441,6 +443,7 @@ export class MapScene extends Phaser.Scene {
       this.updateRide(time, dt);
       return;
     }
+    if (this.underground) return;
     const speed = input.sneak ? SNEAK_SPEED : WALK_SPEED;
     const moving = this.ready && !this.busy && modal.open === 0 && (input.x !== 0 || input.y !== 0);
     this.walking = moving;
@@ -1524,7 +1527,11 @@ export class MapScene extends Phaser.Scene {
   private startLeg(leg: TransitLeg, next: TransitLeg[]): void {
     const s = this.session;
     const line = s.content.transit.lines.find((l) => l.id === leg.line);
-    const key = leg.mode === 'ferry' ? 'vehicle_ferry' : 'vehicle_bus';
+    if (line && leg.mode === 'metro') {
+      void this.rideMetro(leg, next);
+      return;
+    }
+    const key = vehicleTexture(leg.mode);
     const path = leg.path.map(([x, y]): Pt => [x, y]);
     if (!line || path.length < 2 || !this.textures.exists(key)) return;
     if (leg.wait >= 1) toast(`Waited ${Math.round(leg.wait)} min for the ${line.name}.`);
@@ -1549,6 +1556,40 @@ export class MapScene extends Phaser.Scene {
     this.ride = { vehicle, path, length: pathLength(path), distance: 0, speed: line.speed, to: leg.to, line: line.id, next, removeSkip, removeDeck };
     const name = s.content.transit.stops.find((x) => x.id === leg.to)?.name ?? leg.to;
     toast(`${line.name} to ${name}`);
+  }
+
+  /**
+   * The metro runs underground: down the steps, a moment in the dark, and up
+   * at the destination (SPEC.md §4.11). The clock advances by the ride.
+   */
+  private async rideMetro(leg: TransitLeg, next: TransitLeg[]): Promise<void> {
+    const s = this.session;
+    this.underground = true;
+    const line = s.content.transit.lines.find((l) => l.id === leg.line);
+    toast(`${line?.name ?? 'Metro'}: going down to the platform...`);
+    this.cameras.main.fadeOut(400, 0, 0, 0);
+    await new Promise((r) => this.time.delayedCall(900, r));
+    s.slotMinutes += leg.wait + leg.ride;
+    discoverStop(s.state, leg.to);
+    await s.fire({ type: 'ride_complete', params: { line: leg.line } });
+    await s.checkMissions({ ride: { line: leg.line, stop: leg.to } });
+    const stop = this.index.stops[leg.to];
+    if (stop) {
+      this.pos = { x: stop.x, y: stop.y + 4 };
+      this.angie.setPosition(this.pos.x, this.pos.y);
+      this.trail.reset(this.pos.x, this.pos.y);
+    }
+    // Let the station's surroundings stream in before coming up.
+    this.store.update(wantedChunks({ x: this.pos.x - 160, y: this.pos.y - 90, w: 320, h: 180 }, this.store.chunkPx, this.index, 1, { x: 0, y: 0 }));
+    this.cameras.main.fadeIn(400, 0, 0, 0);
+    this.underground = false;
+    const [after, ...rest] = next;
+    if (after) {
+      this.startLeg(after, rest);
+      return;
+    }
+    toast(`Arrived at ${s.content.transit.stops.find((x) => x.id === leg.to)?.name ?? leg.to}.`);
+    await s.save();
   }
 
   private updateRide(time: number, dt: number): void {
@@ -1664,8 +1705,10 @@ export class MapScene extends Phaser.Scene {
       const x = Math.round(veh.x + veh.dx * line.speed * since);
       const y = Math.round(veh.y + veh.dy * line.speed * since);
       if (x < view.x - 48 || x > view.right + 48 || y < view.y - 48 || y > view.bottom + 48) continue;
+      // Metro trains run underground.
+      if (line.mode === 'metro') continue;
       const key = `${veh.line}:${veh.direction}:${veh.depart}`;
-      const texture = line.mode === 'ferry' ? 'vehicle_ferry' : 'vehicle_bus';
+      const texture = vehicleTexture(line.mode);
       if (!this.textures.exists(texture)) continue;
       seen.add(key);
       let sprite = v.sprites.get(key);
@@ -2132,6 +2175,11 @@ function cameraIcon(g: Phaser.GameObjects.Graphics, x: number, y: number): void 
   g.fillStyle(0xf0f0f0, 1).fillRect(x - 3, y - 2, 7, 5);
   g.fillStyle(0x101018, 1).fillRect(x - 1, y - 1, 3, 3);
   g.fillStyle(0xf0f0f0, 1).fillRect(x - 3, y - 4, 2, 1);
+}
+
+/** The map sprite for a transit mode. */
+function vehicleTexture(mode: string): string {
+  return mode === 'ferry' ? 'vehicle_ferry' : mode === 'tram' ? 'vehicle_tram' : 'vehicle_bus';
 }
 
 function labelFor(o: WorldObject): string | null {

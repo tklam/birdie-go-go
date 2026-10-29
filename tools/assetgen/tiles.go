@@ -374,13 +374,15 @@ var tileArt = map[string]func(k cell){
 
 // metaArt colors for the collision/areas layers (editor-only; never drawn in game).
 var metaColors = map[string]uint8{
-	"solid":                 cRed,
-	"ledge_south":           cOrange,
-	"area_tko_town":         cPurple,
-	"area_tko_waterfront":   cBlue,
-	"area_tko_hillside":     cGreen,
-	"area_cwb_country_park": cDarkGreen,
-	"area_po_toi_o":         cTeal,
+	"solid":                    cRed,
+	"ledge_south":              cOrange,
+	"area_tko_town":            cPurple,
+	"area_tko_waterfront":      cBlue,
+	"area_tko_hillside":        cGreen,
+	"area_cwb_country_park":    cDarkGreen,
+	"area_po_toi_o":            cTeal,
+	"area_island_harbourfront": cSky,
+	"area_island_peak":         cOlive,
 }
 
 // genTiles writes the TKO atlas and meta tileset images plus their Tiled
