@@ -10,6 +10,7 @@ import { MapScene } from './scenes/MapScene';
 import { MetroScene } from './scenes/MetroScene';
 import { WeddingScene } from './scenes/WeddingScene';
 import { QuizScene } from './scenes/QuizScene';
+import { RhythmScene } from './scenes/RhythmScene';
 import { PhotoScene } from './scenes/PhotoScene';
 import { PianoScene } from './scenes/PianoScene';
 import { TitleScene } from './scenes/TitleScene';
@@ -30,7 +31,7 @@ const game = new Phaser.Game({
   pixelArt: true,
   roundPixels: true,
   scale: { mode: Phaser.Scale.NONE, autoCenter: Phaser.Scale.CENTER_BOTH, zoom: currentZoom() },
-  scene: [BootScene, TitleScene, MapScene, PhotoScene, PianoScene, CalibrationScene, EncounterScene, MetroScene, WeddingScene, QuizScene],
+  scene: [BootScene, TitleScene, MapScene, PhotoScene, PianoScene, CalibrationScene, EncounterScene, MetroScene, WeddingScene, QuizScene, RhythmScene],
 });
 
 game.registry.set('core', startCore());
