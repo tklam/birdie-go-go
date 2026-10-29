@@ -39,6 +39,11 @@ type gameYAML struct {
 		Amount    int    `yaml:"amount"`
 		EveryDays int    `yaml:"every_days"`
 	} `yaml:"bills"`
+	TransitCard *struct {
+		Name         string `yaml:"name"`
+		StartBalance int    `yaml:"start_balance"`
+		TopUp        int    `yaml:"top_up"`
+	} `yaml:"transit_card"`
 }
 
 type areaYAML struct {
@@ -311,6 +316,9 @@ func load(dir string) (*model.ContentBundle, error) {
 			PhotoSession: e.PhotoSession, Lesson: e.Lesson,
 			LowWarning: e.LowWarning, LowWarningText: e.LowWarningText, TooTiredText: e.TooTiredText,
 		}
+	}
+	if c := g.TransitCard; c != nil {
+		b.Game.TransitCard = &model.TransitCard{Name: c.Name, StartBalance: c.StartBalance, TopUp: c.TopUp}
 	}
 	for _, bill := range g.Bills {
 		every := bill.EveryDays

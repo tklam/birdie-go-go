@@ -37,6 +37,16 @@ type GameInfo struct {
 	Energy *EnergyRules `json:"energy,omitempty"`
 	// Bills are deducted from Angie's money in the morning (SPEC.md §3.2).
 	Bills []Bill `json:"bills,omitempty"`
+	// TransitCard pays fares (SPEC.md §4.11); nil means fares come from cash.
+	TransitCard *TransitCard `json:"transitCard,omitempty"`
+}
+
+// TransitCard is the rechargeable fare card: its in-game name, the balance
+// a new game starts with and the amount of one top-up.
+type TransitCard struct {
+	Name         string `json:"name"`
+	StartBalance int    `json:"startBalance"`
+	TopUp        int    `json:"topUp"`
 }
 
 // EnergyRules are the everyday Energy costs outside hazards and encounters.

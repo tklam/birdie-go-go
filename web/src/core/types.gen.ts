@@ -85,6 +85,19 @@ export interface GameInfo {
    * Bills are deducted from Angie's money in the morning (SPEC.md §3.2).
    */
   bills?: Bill[];
+  /**
+   * TransitCard pays fares (SPEC.md §4.11); nil means fares come from cash.
+   */
+  transitCard?: TransitCard;
+}
+/**
+ * TransitCard is the rechargeable fare card: its in-game name, the balance
+ * a new game starts with and the amount of one top-up.
+ */
+export interface TransitCard {
+  name: string;
+  startBalance: number /* int */;
+  topUp: number /* int */;
 }
 /**
  * EnergyRules are the everyday Energy costs outside hazards and encounters.

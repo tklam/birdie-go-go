@@ -23,7 +23,7 @@ import { iris } from '../fx/iris';
 import { glitch } from '../fx/glitch';
 import { activityCost, crossedLow, walkCost } from '../systems/economy';
 import { collect, isCollected } from '../systems/collectibles';
-import { clockLabel, discoverStop, openLines, stopFlag } from '../systems/transit';
+import { clockLabel, discoverStop, openLines, payFare, stopFlag, topUp } from '../systems/transit';
 import { closureReason, hazardForecast, warningAnnouncement, warningTag, warningsAt, type Warnings } from '../systems/warnings';
 import { modal } from '../ui/overlay';
 import { showPanel } from '../ui/panel';
@@ -815,6 +815,7 @@ export class MapScene extends Phaser.Scene {
 
   private async shop(title: string): Promise<void> {
     const s = this.session;
+    const card = s.content.game.transitCard;
     await showMenu(
       () => `${title}  $${s.state.money}`,
       [
@@ -837,6 +838,19 @@ export class MapScene extends Phaser.Scene {
             return true;
           },
         })),
+        ...(card
+          ? [
+              {
+                label: `Top up ${card.name} $${card.topUp}`,
+                detail: () => `Your ${card.name} has $${s.state.card}. Choose it again to add $${card.topUp}.`,
+                run: async () => {
+                  toast(topUp(s.state, card) ? `${card.name} topped up: $${s.state.card}` : "You can't afford that.");
+                  await s.save();
+                  return true;
+                },
+              },
+            ]
+          : []),
         { label: 'Leave', run: async () => false },
       ],
       { tapToSelect: true },
@@ -1288,26 +1302,38 @@ export class MapScene extends Phaser.Scene {
       const legs = p.legs.map((l) => `${lineName(l.line)} at ${clockLabel(l.depart)} to ${name(l.to)}`).join(', then ');
       return `${legs}. Arrive ${clockLabel(p.arrive)}${p.transfers ? ` (${p.transfers} change${p.transfers > 1 ? 's' : ''})` : ''}.`;
     };
+    const card = s.content.game.transitCard;
     let picked: TransitItinerary | null = null;
     await showMenu(
-      `${name(stopId)} ${clockLabel(now)}  $${s.state.money}`,
+      () => `${name(stopId)} ${clockLabel(now)}  ${card ? `${card.name} $${s.state.card}` : `$${s.state.money}`}`,
       [
         ...plans.map((p) => ({
           label: `${name(p.to)} $${p.fare}`,
           detail: () => describe(p),
           run: async () => ((picked = p), false),
         })),
+        ...(card
+          ? [
+              {
+                label: `Top up ${card.name} $${card.topUp}`,
+                detail: () => `Cash $${s.state.money}. The kiosk adds $${card.topUp} to your ${card.name}.`,
+                run: async () => {
+                  toast(topUp(s.state, card) ? `${card.name} topped up: $${s.state.card}` : "You don't have enough cash.");
+                  return true;
+                },
+              },
+            ]
+          : []),
         { label: 'Not now', run: async () => false },
       ],
       { tapToSelect: true },
     );
     const choice = picked as TransitItinerary | null;
     if (!choice) return;
-    if (s.state.money < choice.fare) {
-      toast("You can't afford the fare.");
+    if (!payFare(s.state, choice.fare, card)) {
+      toast(card ? `Not enough on your ${card.name}. Top up at the kiosk or a shop.` : "You can't afford the fare.", 3500);
       return;
     }
-    s.state.money -= choice.fare;
     this.startLeg(choice.legs[0], choice.legs.slice(1));
   }
 

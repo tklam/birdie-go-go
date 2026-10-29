@@ -1,7 +1,7 @@
 // Transit on the client (SPEC.md §4.11): the in-game clock that timetables
 // run on, discovered stops and unlocked lines. Timetables and route planning
 // live in the Go core (core/transit).
-import type { TransitLine } from '../core/types.gen';
+import type { TransitCard, TransitLine } from '../core/types.gen';
 import type { GameState, TimeSlot } from './state';
 
 /** When each time slot starts, in minutes after midnight, and how long it lasts. */
@@ -37,4 +37,27 @@ export function discoverStop(state: Pick<GameState, 'flags'>, id: string): boole
 /** Lines Angie can ride: unlocked from the start or opened by an unlock_line event. */
 export function openLines(lines: readonly Pick<TransitLine, 'id' | 'locked'>[], state: Pick<GameState, 'flags'>): string[] {
   return lines.filter((l) => !l.locked || state.flags[lineFlag(l.id)]).map((l) => l.id);
+}
+
+/**
+ * Pays a fare from the transit card (or from cash when the game has no
+ * card). Returns false, changing nothing, when there isn't enough. Mutates state.
+ */
+export function payFare(state: Pick<GameState, 'money' | 'card'>, fare: number, card: TransitCard | undefined): boolean {
+  if (card) {
+    if (state.card < fare) return false;
+    state.card -= fare;
+    return true;
+  }
+  if (state.money < fare) return false;
+  state.money -= fare;
+  return true;
+}
+
+/** Tops up the card by one top-up from cash; false if Angie can't afford it. Mutates state. */
+export function topUp(state: Pick<GameState, 'money' | 'card'>, card: TransitCard): boolean {
+  if (state.money < card.topUp) return false;
+  state.money -= card.topUp;
+  state.card += card.topUp;
+  return true;
 }

@@ -76,7 +76,7 @@ The world is big and seamless. You can walk from downtown streets into a hillsid
 - Not sure how to get somewhere? The minibus driver by the plaza stop, the ferry deckhand on the Junk Bay pier, and the hiker at the Po Toi O village stop are happy to explain.
 - Walk up to a stop or pier sign and press **Board**. The board is a **route planner**: it lists every place you can reach from here with its fare. Highlight one to see which buses or ferries you'd take, when they leave, where you'd change, and when you'd arrive; choose it again to go. Right now the **Green Minibus 16** links Tseung Kwan O Plaza with Po Toi O village (every 10 minutes), and a **ferry** crosses from the Junk Bay pier to Po Toi O (every 30 minutes). Tap **Skip** to arrive straight away.
 - Buses and ferries run to timetables, and you can see them out on the roads and on the water. Each part of the day starts at a set time (morning 07:00, afternoon 12:00, evening 17:00), and the clock runs while you explore, so waiting for a ferry takes time.
-- *(Later:)* pay fares with a **transit card**, topped up at shops and kiosks.
+- Fares come off your **Harbour Pass** card, which starts with $50. Top it up from cash at any shop, or at the kiosk on any stop's board.
 - New lines and stops open as the story goes on. A stop shows up on your map after your first visit.
 - Your companions ride with you. O Boy travels in a little carrier and has opinions about it.
 

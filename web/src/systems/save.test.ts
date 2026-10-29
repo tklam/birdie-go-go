@@ -150,10 +150,22 @@ describe('save version 2 migration', () => {
     delete v1.energy;
     delete v1.equipped;
     delete v1.active;
+    delete v1.card;
     const state = deserialize(JSON.stringify(v1));
-    expect(state.saveVersion).toBe(2);
+    expect(state.saveVersion).toBe(CURRENT_SAVE_VERSION);
     expect(state.energy).toBe(100);
     expect(state.equipped).toEqual({});
     expect(state.active).toEqual({});
+  });
+});
+
+describe('save version 3 migration', () => {
+  it('adds a transit card with a little on it', () => {
+    const v2 = { ...sample() } as Record<string, unknown>;
+    v2.saveVersion = 2;
+    delete v2.card;
+    const state = deserialize(JSON.stringify(v2));
+    expect(state.saveVersion).toBe(3);
+    expect(state.card).toBe(50);
   });
 });

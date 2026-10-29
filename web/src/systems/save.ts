@@ -19,6 +19,8 @@ export type Migration = (save: RawSave) => RawSave;
 export const MIGRATIONS: Readonly<Record<number, Migration>> = {
   // v2 adds Energy, worn gear and active consumables (SPEC.md §4.12).
   1: (save) => ({ ...save, saveVersion: 2, energy: 100, equipped: {}, active: {} }),
+  // v3 adds the transit card balance (SPEC.md §4.11), starting with a little on it.
+  2: (save) => ({ ...save, saveVersion: 3, card: 50 }),
 };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -56,7 +58,7 @@ export function migrate(
 }
 
 const RECORD_FIELDS = ['flags', 'firedEvents', 'items', 'album', 'students', 'bond', 'equipped', 'active'] as const;
-const NUMBER_FIELDS = ['worldSeed', 'chapter', 'day', 'money', 'energy'] as const;
+const NUMBER_FIELDS = ['worldSeed', 'chapter', 'day', 'money', 'energy', 'card'] as const;
 const ARRAY_FIELDS = ['party', 'joined'] as const;
 
 /** Checks the basic shape of a (migrated) save; throws a clear Error otherwise. */

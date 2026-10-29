@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { GameState } from './state';
-import { clockLabel, clockMinutes, discoverStop, lineFlag, openLines } from './transit';
+import { clockLabel, clockMinutes, discoverStop, lineFlag, openLines, payFare, topUp } from './transit';
 
 describe('transit client', () => {
   it('runs a clock per slot', () => {
@@ -19,5 +19,24 @@ describe('transit client', () => {
     expect(openLines(lines, s)).toEqual(['bus']);
     s.flags[lineFlag('tram')] = true;
     expect(openLines(lines, s)).toEqual(['bus', 'tram']);
+  });
+});
+
+describe('transit card', () => {
+  const card = { name: 'Pass', startBalance: 50, topUp: 50 };
+  it('pays fares from the card, or cash without one', () => {
+    const s = { money: 100, card: 10 };
+    expect(payFare(s, 15, card)).toBe(false);
+    expect(s).toEqual({ money: 100, card: 10 });
+    expect(payFare(s, 8, card)).toBe(true);
+    expect(s).toEqual({ money: 100, card: 2 });
+    expect(payFare(s, 8, undefined)).toBe(true);
+    expect(s.money).toBe(92);
+  });
+  it('tops up from cash', () => {
+    const s = { money: 60, card: 0 };
+    expect(topUp(s, card)).toBe(true);
+    expect(s).toEqual({ money: 10, card: 50 });
+    expect(topUp(s, card)).toBe(false);
   });
 });

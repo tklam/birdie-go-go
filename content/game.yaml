@@ -28,3 +28,5 @@ bills:
   - { name: Phone, amount: 6 }
   - { name: Water and gas, amount: 8, every_days: 2 }
   - { name: Rent, amount: 150, every_days: 7 }
+# The rechargeable fare card (SPEC.md §4.11): topped up at shops and stop kiosks.
+transit_card: { name: Harbour Pass, start_balance: 50, top_up: 50 }

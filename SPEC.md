@@ -232,7 +232,7 @@ A Hong Kong-style public transport network connects the world. Walking is always
 | **Teleport** | A glitchy digital-dissolve transition between activated waypoints | Late-game fast travel between discovered places | **Kei's gateways**: digitalize the traveller into his digital kingdom and undigitalize them at another gateway. Waypoints come online as his project and the romance progress |
 
 Rules:
-- **Fares**: paid with a rechargeable transit card (original in-game name), topped up at shops and kiosks. Teleports are free once unlocked.
+- **Fares**: paid with a rechargeable transit card (original in-game name), topped up at shops and kiosks. Teleports are free once unlocked. *As built:* `transit_card` in `game.yaml` (the **Harbour Pass**, starting with $50, $50 per top-up); fares come off the card; every shop and every stop's kiosk tops it up from cash. Save version 3 adds the balance (old saves get $50).
 - **Time**: rides don't use a time slot, except long ferry routes to outlying islands (`slot_cost` per line).
 - **Route planner**: at any stop or station, choose any reachable destination; the planner finds the best route across modes (shortest travel time plus a transfer penalty) and runs the trip, with each leg skippable.
 - **Discovery**: lines and stops open with story progress; a stop appears on the world map after Angie first visits it.

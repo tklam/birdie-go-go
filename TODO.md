@@ -85,7 +85,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] Metro: station interiors, destination picker, in-car scene
 - [x] Ferry rides on the map (Junk Bay Pier ↔ Po Toi O Pier)
 - [ ] Ferry deck scene and ferry-deck photo spots
-- [~] Fares paid from money (a separate transit card and top-up still to do)
+- [x] Fares paid with the Harbour Pass transit card; top-ups at shops and stop kiosks (save v3)
 - [x] Route planner UI with transfers (boarding menu, multi-leg rides, game clock)
 - [x] Stop discovery; line unlocks via events (`unlock_line`, `unlock_teleport`, `stop_discovered`)
 - [x] World map (Menu → Map): one-pixel-per-tile overview built by worldbuild, markers for Angie, birding spots, transit, open gateways, shop and homes
