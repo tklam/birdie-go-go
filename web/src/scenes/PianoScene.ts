@@ -4,7 +4,7 @@ import type { CoreClient } from '../core/client';
 import type { ContentBundle, GradedMistake, LessonGradeResult, PerfNote, Performance, Song, Student } from '../core/types.gen';
 import { gradientBands } from '../piano/frame';
 import { applyLessonResult, isLatencyCalibrated, lessonDifficulty, lessonSeed, pickSong } from '../piano/lesson';
-import { beatsPerBar, msPerBeat, notesEndMs, songToNotes } from '../piano/notes';
+import { beatsPerBar, msPerBeat, notesEndMs, perfToScoreMs, songToNotes } from '../piano/notes';
 import { formatTime, mistakeLabel, summarizeMistakes } from '../piano/results';
 import { fitX, isBlackKey, labelRows, msToX, pitchToY, PLAYHEAD_X, ROLL_SPEED, rollLayout, type RollLayout } from '../piano/roll';
 import { loadJSON } from '../systems/data';
@@ -143,7 +143,7 @@ export class PianoScene extends Phaser.Scene {
   private reference: PerfNote[] = [];
   private layout!: RollLayout;
   private lessonId = '';
-  private performance: Performance = { notes: [], durationMs: 0 };
+  private performance: Performance = { notes: [], durationMs: 0, pauses: [] };
   private startTime = 0;
   private flags: number[] = [];
   private flashUntil = 0;
@@ -209,7 +209,8 @@ export class PianoScene extends Phaser.Scene {
   update(): void {
     if (this.phase === 'playing') {
       const nowMs = (this.audio.outputTime() - this.startTime) * 1000;
-      this.drawPlaying(nowMs);
+      // The roll shows the score, so follow score time, not performance time.
+      this.drawPlaying(this.toScore(nowMs));
       if (this.audio.currentTime >= this.startTime + (this.performance.durationMs + TAIL_MS) / 1000) void this.finish();
     }
   }
@@ -357,7 +358,12 @@ export class PianoScene extends Phaser.Scene {
 
   // --- drawing ---------------------------------------------------------------
 
-  /** Draws the scrolling reference roll with the playhead at `nowMs`. */
+  /** Performance time → score time (see perfToScoreMs). */
+  private toScore(perfMs: number): number {
+    return perfToScoreMs(perfMs, this.performance.pauses);
+  }
+
+  /** Draws the scrolling reference roll with the playhead at `nowMs` (score time). */
   private drawPlaying(nowMs: number): void {
     const g = this.roll;
     const l = this.layout;
@@ -430,7 +436,7 @@ export class PianoScene extends Phaser.Scene {
 
     // Flags so far (no right/wrong yet).
     for (const f of this.flags) {
-      const x = msToX(f, nowMs);
+      const x = msToX(this.toScore(f), nowMs);
       if (x < NOTES_X0 || x >= NOTES_X1) continue;
       pixels(g, x, ROLL.y + 2, [[-2, 0], [-1, 0], [0, 0], [1, 0], [2, 0], [-1, 1], [0, 1], [1, 1], [0, 2]], COLORS.flag);
     }
@@ -501,10 +507,10 @@ export class PianoScene extends Phaser.Scene {
       g.fillRect(a, pitchToY(l, n.pitch), Math.max(1, b - a - 1), Math.max(1, l.rowH - 1));
     }
     for (const f of this.flags) {
-      const x = fx(f - this.state.settings.latencyOffsetMs);
+      const x = fx(this.toScore(f - this.state.settings.latencyOffsetMs));
       pixels(g, x, R.y + R.h - 4, [[0, 0], [-1, 1], [0, 1], [1, 1]], COLORS.flag);
     }
-    const xs = result.mistakes.map((m) => fx(m.onsetMs));
+    const xs = result.mistakes.map((m) => fx(this.toScore(m.onsetMs)));
     result.mistakes.forEach((m: GradedMistake, i) => {
       const color = m.hit ? COLORS.green : COLORS.red;
       g.fillStyle(color, 0.55);

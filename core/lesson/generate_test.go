@@ -6,6 +6,7 @@ import (
 	"math"
 	"math/rand/v2"
 	"reflect"
+	"slices"
 	"testing"
 
 	"birdiegogo/core/model"
@@ -236,6 +237,10 @@ func TestRenderHesitationsAccumulate(t *testing.T) {
 		{kind: model.MistakeHesitation, group: 7, note: -1, offsetMs: 600},
 	}
 	perf, key := render(sc, plans)
+	wantPauses := []model.Pause{{ScoreMs: 1500, Ms: 400}, {ScoreMs: 3500, Ms: 600}}
+	if !slices.Equal(perf.Pauses, wantPauses) {
+		t.Errorf("pauses = %+v, want %+v", perf.Pauses, wantPauses)
+	}
 	wantKey := []float64{1500, 2500 + 400 - 100, 3500 + 400}
 	if len(key) != len(wantKey) {
 		t.Fatalf("key = %+v, want %d mistakes", key, len(wantKey))

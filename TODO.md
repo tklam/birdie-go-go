@@ -67,7 +67,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Piano roll, playhead, Mistake button
 - [x] Latency calibration (§6.4)
 - [x] Results screen revealing mistakes
-- [ ] Known issue: after a hesitation/drag the roll drifts from the audio (the roll is score time, audio is performance time); needs a score↔performance time map from the core
+- [x] Roll stays in sync with the audio after hesitations (core reports pauses; client maps performance → score time)
 
 ### Systems
 - [x] Event system (§9.4), unit tested

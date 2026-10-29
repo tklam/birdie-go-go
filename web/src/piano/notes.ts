@@ -7,6 +7,23 @@ export function msPerBeat(song: Pick<Song, 'tempo'>): number {
   return song.tempo > 0 ? 60000 / song.tempo : 0;
 }
 
+/**
+ * Maps a performance time to the score time it corresponds to, given the
+ * performance's hesitation pauses (sorted by score time): during a pause the
+ * score position stands still, and after it the performance runs late by
+ * the pause length.
+ */
+export function perfToScoreMs(perfMs: number, pauses: readonly { scoreMs: number; ms: number }[]): number {
+  let late = 0;
+  for (const p of pauses) {
+    const pauseStart = p.scoreMs + late;
+    if (perfMs < pauseStart) break;
+    if (perfMs < pauseStart + p.ms) return p.scoreMs;
+    late += p.ms;
+  }
+  return perfMs - late;
+}
+
 /** The song as written, in ms from its start, sorted by start then pitch. */
 export function songToNotes(song: Song): PerfNote[] {
   const k = msPerBeat(song);

@@ -144,6 +144,7 @@ func sounds(sc score, grp group, pitch int) bool {
 func render(sc score, plans []plan) (model.Performance, []model.Mistake) {
 	notes := make([]model.PerfNote, 0, len(sc.notes)+len(plans))
 	mistakes := make([]model.Mistake, 0, len(plans))
+	pauses := []model.Pause{}
 	shift := 0.0 // accumulated hesitation pauses
 	next := 0
 	for gi, grp := range sc.groups {
@@ -159,6 +160,7 @@ func render(sc score, plans []plan) (model.Performance, []model.Mistake) {
 			switch pl.kind {
 			case model.MistakeHesitation:
 				mistakes = append(mistakes, model.Mistake{Type: pl.kind, OnsetMs: start, Pitch: top, ExpectedPitch: top})
+				pauses = append(pauses, model.Pause{ScoreMs: grp.startMs, Ms: pl.offsetMs})
 				shift += pl.offsetMs
 				start += pl.offsetMs
 			case model.MistakeRush:
@@ -195,5 +197,5 @@ func render(sc score, plans []plan) (model.Performance, []model.Mistake) {
 	for _, n := range notes {
 		duration = max(duration, n.StartMs+n.DurMs)
 	}
-	return model.Performance{Notes: notes, DurationMs: duration}, mistakes
+	return model.Performance{Notes: notes, DurationMs: duration, Pauses: pauses}, mistakes
 }

@@ -12,7 +12,7 @@ import {
   pickSong,
   setLatencyOffset,
 } from './lesson';
-import { beatsPerBar, msPerBeat, notesEndMs, songToNotes } from './notes';
+import { beatsPerBar, msPerBeat, notesEndMs, perfToScoreMs, songToNotes } from './notes';
 import { formatTime, lessonPay, mistakeLabel, summarizeMistakes } from './results';
 import { fitX, isBlackKey, labelRows, msToX, pitchToY, PLAYHEAD_X, rollLayout, visibleRange } from './roll';
 
@@ -237,5 +237,28 @@ describe('window frame', () => {
     expect(bands.map((b) => [b.y, b.h])).toEqual([[0, 2], [2, 2], [4, 2], [6, 1]]);
     expect(bands[0].color).toBe(0);
     expect(bands[3].color).toBe(0xffffff);
+  });
+});
+
+describe('perfToScoreMs', () => {
+  const pauses = [
+    { scoreMs: 1500, ms: 400 },
+    { scoreMs: 3500, ms: 600 },
+  ];
+  it('is the identity without pauses', () => {
+    expect(perfToScoreMs(1234, [])).toBe(1234);
+  });
+  it('stands still during a pause and runs late after it', () => {
+    expect(perfToScoreMs(1000, pauses)).toBe(1000);
+    expect(perfToScoreMs(1500, pauses)).toBe(1500);
+    expect(perfToScoreMs(1800, pauses)).toBe(1500);
+    expect(perfToScoreMs(1900, pauses)).toBe(1500);
+    expect(perfToScoreMs(2400, pauses)).toBe(2000);
+  });
+  it('accumulates pauses', () => {
+    // Second pause starts at perf 3500 + 400 and lasts 600.
+    expect(perfToScoreMs(4000, pauses)).toBe(3500);
+    expect(perfToScoreMs(4500, pauses)).toBe(3500);
+    expect(perfToScoreMs(5000, pauses)).toBe(4000);
   });
 });

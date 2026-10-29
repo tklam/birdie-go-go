@@ -43,6 +43,16 @@ type Performance struct {
 	// Notes are sorted by StartMs. Never nil.
 	Notes      []PerfNote `json:"notes"`
 	DurationMs float64    `json:"durationMs"`
+	// Pauses lists where the performance stops while the score doesn't
+	// (hesitations), so the client can keep the score roll in sync with
+	// the audio. Sorted by ScoreMs. Never nil.
+	Pauses []Pause `json:"pauses"`
+}
+
+// Pause is a stop of Ms milliseconds just before the score position ScoreMs.
+type Pause struct {
+	ScoreMs float64 `json:"scoreMs"`
+	Ms      float64 `json:"ms"`
 }
 
 // PerfNote is one performed note: MIDI pitch, start and duration in

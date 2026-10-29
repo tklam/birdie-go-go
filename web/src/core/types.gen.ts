@@ -237,6 +237,19 @@ export interface Performance {
    */
   notes: PerfNote[];
   durationMs: number /* float64 */;
+  /**
+   * Pauses lists where the performance stops while the score doesn't
+   * (hesitations), so the client can keep the score roll in sync with
+   * the audio. Sorted by ScoreMs. Never nil.
+   */
+  pauses: Pause[];
+}
+/**
+ * Pause is a stop of Ms milliseconds just before the score position ScoreMs.
+ */
+export interface Pause {
+  scoreMs: number /* float64 */;
+  ms: number /* float64 */;
 }
 /**
  * PerfNote is one performed note: MIDI pitch, start and duration in
