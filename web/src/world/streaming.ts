@@ -117,6 +117,12 @@ export class ChunkStore {
     return t ? t.chunk.collision[t.i] : 1;
   }
 
+  /** Ground tile value (atlas frame + 1) at a tile, or 0 if not loaded. */
+  groundAt(tx: number, ty: number): number {
+    const t = this.tile(tx, ty);
+    return t ? t.chunk.ground[t.i] : 0;
+  }
+
   /** Area id at a tile, or null. */
   areaAt(tx: number, ty: number): string | null {
     const t = this.tile(tx, ty);

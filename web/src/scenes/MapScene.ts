@@ -66,6 +66,9 @@ export class MapScene extends Phaser.Scene {
   private birds: OverworldBird[] = [];
   private flushedChunks = new Set<string>();
   private ready = false;
+  /** Ground value of tall grass (atlas frame + 1), or −1 if the atlas has none. */
+  private tallGrass = -1;
+  private rustle!: Phaser.GameObjects.Particles.ParticleEmitter;
   private busy = false;
 
   constructor() {
@@ -80,6 +83,8 @@ export class MapScene extends Phaser.Scene {
     this.busy = false;
     this.area = null;
     this.makeAnimations();
+    this.tallGrass = this.index.tileNames.indexOf('tall_grass') + 1 || -1;
+    this.makeRustle();
 
     this.chunkRenderer = new ChunkRenderer(this, this.index.tileset, this.index.tileSize);
     this.store = new ChunkStore(this.index, createWorkerChunkLoader(), {
@@ -188,7 +193,12 @@ export class MapScene extends Phaser.Scene {
 
     this.session.state.position = { map: 'world', x: Math.round(this.pos.x), y: Math.round(this.pos.y) };
     this.updateArea();
-    this.updateBirds(time, moving && !input.sneak);
+    const inGrass = this.inTallGrass();
+    if (moving && inGrass && !input.sneak && Math.random() < 0.3) this.rustle.emitParticleAt(this.pos.x, this.pos.y - 2, 2);
+    // Walking through tall grass rustles and scares birds from further away;
+    // sneaking through it hides Angie completely (SPEC.md §4.5).
+    const flushRadius = inGrass ? (input.sneak ? 0 : FLUSH_RADIUS * 1.6) : FLUSH_RADIUS;
+    this.updateBirds(time, moving && !input.sneak, flushRadius);
 
     this.hud.update(this.session.state);
     if (input.menu && this.ready && !this.busy) void this.openMenu();
@@ -342,11 +352,29 @@ export class MapScene extends Phaser.Scene {
     });
   }
 
-  private updateBirds(time: number, noisy: boolean): void {
+  private inTallGrass(): boolean {
+    const ts = this.index.tileSize;
+    return this.store.groundAt(Math.floor(this.pos.x / ts), Math.floor((this.pos.y - 2) / ts)) === this.tallGrass;
+  }
+
+  private makeRustle(): void {
+    const key = 'rustle-leaf';
+    if (!this.textures.exists(key)) {
+      const g = this.make.graphics({}, false);
+      g.fillStyle(0x78c058).fillRect(0, 0, 2, 1).fillStyle(0x3c8c3c).fillRect(0, 1, 1, 1);
+      g.generateTexture(key, 2, 2);
+      g.destroy();
+    }
+    this.rustle = this.add
+      .particles(0, 0, key, { speed: { min: 10, max: 30 }, angle: { min: 200, max: 340 }, gravityY: 80, lifespan: 350, emitting: false })
+      .setDepth(DEPTH.overhead - 1);
+  }
+
+  private updateBirds(time: number, noisy: boolean, flushRadius = FLUSH_RADIUS): void {
     for (const b of this.birds) {
       if (b.flushed) continue;
       const d = Math.hypot(b.sprite.x - this.pos.x, b.sprite.y - this.pos.y);
-      if (noisy && d < FLUSH_RADIUS) {
+      if (noisy && d < flushRadius) {
         this.flush(b);
         continue;
       }

@@ -12,6 +12,7 @@ const index: WorldIndex = {
   tileset: 'tiles_tko',
   areas: ['town'],
   fill: { ground: 7, collision: 1 },
+  tileNames: [],
   chunks: { '0,0': 'a.bin', '1,0': 'b.bin', '1,1': 'c.bin' },
   spawns: {},
 };
@@ -70,6 +71,8 @@ describe('ChunkStore', () => {
     await Promise.resolve();
     expect(store.collisionAt(5, 5)).toBe(0);
     expect(store.areaAt(5, 5)).toBe('town');
+    expect(store.groundAt(5, 5)).toBe(1);
+    expect(store.groundAt(CHUNK_TILES, 0)).toBe(0);
     expect(store.collisionAt(CHUNK_TILES, 0)).toBe(1); // chunk 1,0 not loaded
     expect(store.areaAt(CHUNK_TILES, 0)).toBeNull();
   });

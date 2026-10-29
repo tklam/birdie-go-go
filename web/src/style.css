@@ -14,6 +14,26 @@ body {
   height: 100dvh;
 }
 
+/* Phones held upright: ask to rotate (SPEC.md §1.2). */
+#rotate {
+  display: none;
+}
+@media (orientation: portrait) and (pointer: coarse) {
+  #rotate {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    background: #1b2a4a;
+    color: #f0f0f0;
+    font: 14px/1.8 'Press Start 2P', monospace;
+  }
+}
+
 canvas {
   display: block;
   image-rendering: pixelated;

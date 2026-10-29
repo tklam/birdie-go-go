@@ -133,6 +133,9 @@ func TestRunBuildsChunks(t *testing.T) {
 	if index.Fill.Ground != 2 || index.Tileset != "tiles_tko" {
 		t.Errorf("fill/tileset = %+v %q", index.Fill, index.Tileset)
 	}
+	if len(index.TileNames) != 2 || index.TileNames[1] != "water" {
+		t.Errorf("tileNames = %v", index.TileNames)
+	}
 	if len(index.Areas) != 1 || index.Areas[0] != "town" {
 		t.Errorf("areas = %v", index.Areas)
 	}

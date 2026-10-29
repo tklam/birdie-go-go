@@ -99,6 +99,7 @@ type builder struct {
 	areas  map[string]int
 	spawns map[string]model.Point
 	fill   int
+	names  []string
 }
 
 func run(worldPath, outDir string, opts options) error {
@@ -243,8 +244,14 @@ func (b *builder) resolveTilesets(dir string, m tiledMap) (map[int]tileRef, erro
 		for local := range t.TileCount {
 			ref := tileRef{tileset: t.Name, local: local, props: props[local]}
 			gids[ts.FirstGID+local] = ref
-			if t.Name == b.opts.atlas && ref.props["name"] == b.opts.fillTile {
-				b.fill = local + 1
+			if t.Name == b.opts.atlas {
+				if ref.props["name"] == b.opts.fillTile {
+					b.fill = local + 1
+				}
+				if len(b.names) < t.TileCount {
+					b.names = make([]string, t.TileCount)
+				}
+				b.names[local] = ref.props["name"]
 			}
 		}
 	}
@@ -320,6 +327,10 @@ func (b *builder) write(index model.WorldIndex, outDir string) error {
 	index.Fill = model.WorldFill{Ground: b.fill, Collision: model.CollisionSolid}
 	index.Chunks = map[string]string{}
 	index.Spawns = b.spawns
+	index.TileNames = b.names
+	if index.TileNames == nil {
+		index.TileNames = []string{}
+	}
 	index.Areas = make([]string, len(b.areas))
 	for id, n := range b.areas {
 		index.Areas[n] = id

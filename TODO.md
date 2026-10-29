@@ -26,7 +26,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 ### Foundation
 - [x] Content schema + validation (`core/content`), with tests; Tseung Kwan O starter content (areas, 3 birds, 2 spots, 1 student, 2 songs, prologue events)
 - [x] Asset manifest + loader; master palette; `assetgen` placeholders + `check`
-- [ ] Pixel-perfect scaling, letterboxing, rotate-to-landscape prompt
+- [x] Pixel-perfect scaling, letterboxing, rotate-to-landscape prompt
 - [x] Input layer that unifies touch and keyboard (mouse: via touch controls; click-to-move later)
 - [~] 16-bit UI kit: window frames, dialogue box with typewriter, area toast pixel font (Press Start 2P), menus, album list (still to do: portraits)
 - [x] Touch controls: floating joystick, Action button (context label), Menu button
@@ -45,7 +45,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Free 8-direction movement with wall sliding; walk/sneak
 - [x] Follow camera snapped to whole pixels
 - [ ] Interiors with fade transitions
-- [~] `overhead` layer and ledges done; tall grass rustling/hiding still to do
+- [x] `overhead` layer; tall grass (rustles, scares birds from further, hides Angie when sneaking); ledges
 - [x] NPCs and context actions (Talk / Enter / Photograph)
 - [x] Overworld birds that flush unless Angie sneaks
 - [x] Area name display on entering an area

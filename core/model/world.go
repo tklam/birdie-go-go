@@ -11,6 +11,9 @@ type WorldIndex struct {
 	// Tileset is the manifest id of the atlas that tile values index into
 	// (value − 1 is the frame; 0 is empty).
 	Tileset string `json:"tileset"`
+	// TileNames lists the atlas tile names by local id (from the tileset's
+	// "name" properties), so the client can recognise e.g. tall grass.
+	TileNames []string `json:"tileNames"`
 	// Areas lists area ids; chunk area bytes index into it (255 = none).
 	Areas []string `json:"areas"`
 	// Fill describes chunks that have no file (e.g. open sea).

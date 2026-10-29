@@ -370,6 +370,11 @@ export interface WorldIndex {
    */
   tileset: string;
   /**
+   * TileNames lists the atlas tile names by local id (from the tileset's
+   * "name" properties), so the client can recognise e.g. tall grass.
+   */
+  tileNames: string[];
+  /**
    * Areas lists area ids; chunk area bytes index into it (255 = none).
    */
   areas: string[];
