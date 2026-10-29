@@ -331,6 +331,34 @@ export class AudioEngine {
     [72, 76, 79, 84].forEach((p, i) => this.tone('square', midiToFreq(p + 12), t + i * 0.07, 0.12, 0.05, bus));
   }
 
+  /**
+   * A festival drum stroke at `atTime` (or now): a low sine thump falling in
+   * pitch, plus a short noise slap for the drumhead. Used by the rhythm game.
+   */
+  drum(atTime?: number): void {
+    const t = this.at(atTime);
+    if (t === null) return;
+    const ctx = this.ctx!;
+    const bus = this.buses!.sfx;
+    this.tone('sine', 150, t, 0.3, 0.55, bus, 52);
+    this.tone('triangle', 95, t, 0.18, 0.2, bus, 60);
+    if (this.noise) {
+      const slap = ctx.createBufferSource();
+      slap.buffer = this.noise;
+      const lp = ctx.createBiquadFilter();
+      lp.type = 'lowpass';
+      lp.frequency.value = 900;
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(0.3, t + 0.002);
+      g.gain.setTargetAtTime(0, t + 0.002, 0.02);
+      slap.connect(lp).connect(g).connect(bus);
+      slap.start(t);
+      slap.stop(t + 0.1);
+      slap.onended = () => g.disconnect();
+    }
+  }
+
   /** A low buzz (error / wrong). */
   buzz(atTime?: number): void {
     const t = this.at(atTime);
