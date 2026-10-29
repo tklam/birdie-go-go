@@ -58,7 +58,7 @@ type manifestEntry struct {
 }
 
 func gen(assets, tilesets string) error {
-	steps := []func(string) error{genAngie, genOBoy, genPeople, genPhotographer, genBirds, genBackgrounds, genEnemies, genVehicles}
+	steps := []func(string) error{genAngie, genOBoy, genPeople, genPhotographer, genBirds, genBackgrounds, genEnemies, genVehicles, genUmbrella}
 	for _, step := range steps {
 		if err := step(assets); err != nil {
 			return err
@@ -87,6 +87,7 @@ func gen(assets, tilesets string) error {
 	for _, p := range people {
 		m["char_"+p.id] = manifestEntry{Type: "spritesheet", File: "chars/" + p.id + ".png", FrameWidth: 16, FrameHeight: 24, Placeholder: true}
 	}
+	m["umbrella"] = manifestEntry{Type: "spritesheet", File: "chars/umbrella.png", FrameWidth: 16, FrameHeight: 12, Placeholder: true}
 	m["vehicle_bus"] = manifestEntry{Type: "spritesheet", File: "vehicles/minibus.png", FrameWidth: 32, FrameHeight: 20, Placeholder: true}
 	m["gateway_pad"] = manifestEntry{Type: "spritesheet", File: "vehicles/gateway.png", FrameWidth: 16, FrameHeight: 16, Placeholder: true}
 	m["vehicle_ferry"] = manifestEntry{Type: "spritesheet", File: "vehicles/ferry.png", FrameWidth: 48, FrameHeight: 24, Placeholder: true}

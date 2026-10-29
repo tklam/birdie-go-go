@@ -51,6 +51,8 @@ const FACING_ROW: Record<Facing, number> = { down: 0, left: 1, right: 2, up: 3 }
 interface Passerby {
   def: AmbientNPC;
   sprite: Phaser.GameObjects.Sprite;
+  /** Opened when it rains, if this person carries one (most do). */
+  umbrella: Phaser.GameObjects.Sprite | null;
   chunk: string;
   target: { x: number; y: number };
   pauseUntil: number;
@@ -63,6 +65,7 @@ const PASSERBY_SPEED = 26;
 interface OverworldNpc {
   object: WorldObject;
   sprite: Phaser.GameObjects.Sprite;
+  umbrella?: Phaser.GameObjects.Sprite;
   chunk: string;
 }
 
@@ -134,6 +137,8 @@ export class MapScene extends Phaser.Scene {
   /** The ride in progress (SPEC.md §4.11), if any. */
   private ride: { vehicle: Phaser.GameObjects.Sprite; path: Pt[]; length: number; distance: number; speed: number; to: string; line: string; removeSkip: () => void } | null = null;
   private kei: Phaser.GameObjects.Sprite | null = null;
+  /** Umbrellas held over Angie's and Kei's heads (SPEC.md §4.12). */
+  private umbrellas: { angie: Phaser.GameObjects.Sprite | null; kei: Phaser.GameObjects.Sprite | null } = { angie: null, kei: null };
   /** ?debug=chunks / ?debug=weather overlays (developer_guide.md §4.4–4.5). */
   private debug: { chunks: boolean; weather: boolean; g?: Phaser.GameObjects.Graphics; text?: Phaser.GameObjects.Text } = { chunks: false, weather: false };
   private flushedChunks = new Set<string>();
@@ -169,6 +174,7 @@ export class MapScene extends Phaser.Scene {
     this.passersby = [];
     this.ride = null;
     this.kei = null;
+    this.umbrellas = { angie: null, kei: null };
     this.flushedChunks.clear();
     this.ready = false;
     this.loaded = false;
@@ -359,6 +365,7 @@ export class MapScene extends Phaser.Scene {
     this.updateNpcs();
     for (const g of this.gateways) g.sprite.setVisible(this.gatewayOpen(g.object)).setFrame(Math.floor(time / 300) % 2);
     this.updatePassersby(time, dt);
+    this.updateUmbrellas();
     if (this.oboy) {
       // Perched on the shoulder away from where she's facing.
       const side = this.facing === 'left' ? 5 : -5;
@@ -1044,6 +1051,8 @@ export class MapScene extends Phaser.Scene {
     this.angie.setVisible(false);
     this.oboy?.setVisible(false);
     this.kei?.setVisible(false);
+    this.umbrellas.angie?.setVisible(false);
+    this.umbrellas.kei?.setVisible(false);
     this.cameras.main.startFollow(vehicle, true, 1, 1);
     const removeSkip = floatingButton('Skip', 'back', () => {
       if (this.ride) this.ride.distance = this.ride.length;
@@ -1113,7 +1122,12 @@ export class MapScene extends Phaser.Scene {
         const y = (chunk.cy * CHUNK_TILES + Math.floor(i / CHUNK_TILES)) * ts + ts - 2;
         const sprite = this.add.sprite(x, y, def.sprite, 0).setOrigin(0.5, 1).setDepth(DEPTH.entities + y);
         const line = def.lines[Math.floor(random() * def.lines.length)];
-        this.passersby.push({ def, sprite, chunk: key, target: { x, y }, pauseUntil: 0, nextShot: 0, line });
+        // Most people carry an umbrella in one of four colours.
+        const umbrella =
+          random() < 0.75 && this.textures.exists('umbrella')
+            ? this.add.sprite(x, y, 'umbrella', Math.floor(random() * 4)).setOrigin(0.5, 1).setVisible(false)
+            : null;
+        this.passersby.push({ def, sprite, umbrella, chunk: key, target: { x, y }, pauseUntil: 0, nextShot: 0, line });
       }
     }
   }
@@ -1123,6 +1137,7 @@ export class MapScene extends Phaser.Scene {
     this.passersby = this.passersby.filter((p) => {
       if (p.chunk !== key) return true;
       p.sprite.destroy();
+      p.umbrella?.destroy();
       return false;
     });
   }
@@ -1184,6 +1199,38 @@ export class MapScene extends Phaser.Scene {
     return name !== 'road' && name !== 'road_line';
   }
 
+  /** Whether it's raining enough for umbrellas where Angie is (outdoors only). */
+  private raining(): boolean {
+    return !!this.weatherRenderer && (this.weatherNow?.precip ?? 0) >= 0.25;
+  }
+
+  /** Puts an umbrella over a character (origin at their feet) or hides it. */
+  private holdUmbrella(u: Phaser.GameObjects.Sprite | null, who: Phaser.GameObjects.Sprite, open: boolean): void {
+    if (!u) return;
+    u.setVisible(open && who.visible);
+    if (open) u.setPosition(Math.round(who.x), Math.round(who.y) - 14).setDepth(who.depth + 2);
+  }
+
+  private updateUmbrellas(): void {
+    if (!this.textures.exists('umbrella')) return;
+    const st = this.session.state;
+    this.umbrellas.angie ??= this.add.sprite(0, 0, 'umbrella', 0).setOrigin(0.5, 1).setVisible(false);
+    // Angie only opens hers when she's equipped it and is outdoors.
+    this.holdUmbrella(this.umbrellas.angie, this.angie, !!this.weatherRenderer && st.equipped.hand === 'umbrella');
+    if (this.kei) {
+      this.umbrellas.kei ??= this.add.sprite(0, 0, 'umbrella', 1).setOrigin(0.5, 1).setVisible(false);
+      this.holdUmbrella(this.umbrellas.kei, this.kei, this.raining());
+    } else {
+      this.umbrellas.kei?.setVisible(false);
+    }
+    const rain = this.raining();
+    for (const p of this.passersby) this.holdUmbrella(p.umbrella, p.sprite, rain);
+    for (const [i, n] of this.npcs.entries()) {
+      if (rain && !n.umbrella) n.umbrella = this.add.sprite(0, 0, 'umbrella', 2 + (i % 2)).setOrigin(0.5, 1);
+      this.holdUmbrella(n.umbrella ?? null, n.sprite, rain);
+    }
+  }
+
   private makeGlints(): void {
     const key = 'camera-glint';
     if (!this.textures.exists(key)) {
@@ -1218,6 +1265,7 @@ export class MapScene extends Phaser.Scene {
     this.npcs = this.npcs.filter((n) => {
       if (n.chunk !== key) return true;
       n.sprite.destroy();
+      n.umbrella?.destroy();
       return false;
     });
   }

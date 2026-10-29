@@ -370,6 +370,13 @@
     "frameHeight": 16,
     "placeholder": true
   },
+  "umbrella": {
+    "type": "spritesheet",
+    "file": "chars/umbrella.png",
+    "frameWidth": 16,
+    "frameHeight": 12,
+    "placeholder": true
+  },
   "vehicle_bus": {
     "type": "spritesheet",
     "file": "vehicles/minibus.png",
