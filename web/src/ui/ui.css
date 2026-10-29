@@ -233,6 +233,27 @@
 .panel .album-row.unknown {
   color: #6e6e80;
 }
+.album-window {
+  min-width: calc(var(--px) * 230);
+  cursor: default;
+}
+.album-nav {
+  display: flex;
+  gap: calc(var(--px) * 6);
+  justify-content: flex-end;
+  margin-top: calc(var(--px) * 2);
+}
+/* Tap targets of at least 44 CSS px (AGENTS.md rule 6). */
+.album-btn {
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 calc(var(--px) * 3);
+  color: #f0d050;
+  cursor: pointer;
+}
 
 /* Encounter scene (SPEC.md §4.13): big A/B buttons on the right, SNES-style
    (A to the right and higher, B lower-left). */
