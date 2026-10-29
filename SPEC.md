@@ -55,7 +55,8 @@ The whole game (overworld, photo scenes, lessons, menus) looks and sounds like a
 ### 2.3 Kei
 - Appears **mid-game** (Chapter 3, see §8).
 - Skilled in **computer science and engineering**. His help comes as gadgets and software he builds — including the exploration tools that open new paths (§4.6).
-- His big personal project: a **teleport network** that connects the real world with a **digital realm** he is building (§4.11). It runs through his romance arc as a running thread.
+- He is famously **absent-minded**, so he is building a **digital kingdom**, a digital realm where he can upload his **"ghost"** (his mind and memories) so he never forgets anything again. His ultimate goal is to let **everyone** upload their ghosts to the digital realm.
+- To get there he develops **digitalization** (turning a person or thing into data in the realm) and **undigitalization** (bringing them back out). His **teleport gateways** (§4.11) are the first practical use: step in, get digitalized, cross the realm, get undigitalized at another gateway. This project runs through his romance arc as a running thread.
 - Relationship arc: `met → friends → dating → engaged → married`.
 - On the map he follows Angie, retracing her path.
 
@@ -223,7 +224,7 @@ A Hong Kong-style public transport network connects the world. Walking is always
 | **Tram** | Rides on the map along the tram tracks on the island's north shore; slow and cheap | Short hops along the busiest waterfront strip | Top deck: occasional "window shot" photo opportunities (later) |
 | **Metro** (MTR-style) | Underground: enter a station (interior), pick a destination, short skippable in-car scene with announcements, exit at the destination station | Fast backbone linking most districts | Weather-proof |
 | **Ferry** | Board at a pier; a short **deck scene** on the water | Harbour crossings and outlying islands | The deck is a **photo spot** — gulls, terns, and other seabirds follow the boat. Suspended at typhoon signal 8+ |
-| **Teleport** | A glitchy digital-dissolve transition between activated waypoints | Late-game fast travel between discovered places | **Kei's project**: gateways that link the real world with his digital realm. Waypoints come online as his project and the romance progress |
+| **Teleport** | A glitchy digital-dissolve transition between activated waypoints | Late-game fast travel between discovered places | **Kei's gateways**: digitalize the traveller into his digital kingdom and undigitalize them at another gateway. Waypoints come online as his project and the romance progress |
 
 Rules:
 - **Fares**: paid with a rechargeable transit card (original in-game name), topped up at shops and kiosks. Teleports are free once unlocked.
@@ -570,7 +571,7 @@ Turn-based or deep combat systems (encounters stay short input challenges, §4.1
 - Final number of areas, species, students, songs.
 - Whether weather should ever block paths (e.g. flooded paths after a black rainstorm).
 - Whether married life adds gameplay or is post-game only.
-- The Bird Paradise and O Boy's journey: what it is like, where he's been, and whether it connects to Kei's digital realm or the folklore creatures.
-- Is Kei's digital realm a place the player can visit, or only something the teleports pass through? And are the monsters connected to it (e.g. folklore spirits slipping through his gateways), or unrelated?
+- The Bird Paradise and O Boy's journey: what it is like, where he's been, and whether it connects to Kei's digital kingdom or the folklore creatures.
+- Kei's digital kingdom: can the player visit it? How does uploading "ghosts" play out in the story (Angie's feelings about it, risks, the folklore ghosts' view of digital ghosts)?
 - Which specific folklore creatures to include, and how scary they should look (cozy-spooky vs. genuinely creepy).
 - Whether dog encounters should become rarer as the story progresses (e.g. a side quest to help an animal shelter).

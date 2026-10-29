@@ -40,7 +40,9 @@
 - id: kei_gateways
   lines:
     - { speaker: kei, text: "Angie, I have to show you something. My big project." }
-    - { speaker: kei, text: "I've been building a digital realm, a world made of light and code. And gateways that link it to ours." }
-    - { speaker: kei, text: "Step on a gateway, pass through the realm, and you come out at another one. Plaza, country park, Po Toi O!" }
+    - { speaker: kei, text: "You know how I forget everything? Keys, birthdays, where I parked..." }
+    - { speaker: kei, text: "So I'm building a digital kingdom. One day I'll upload my ghost there, all my memories, and never lose one again." }
+    - { speaker: kei, text: "And someday, anyone could upload theirs. But first: digitalization and undigitalization actually work!" }
+    - { speaker: kei, text: "Step on a gateway, become data, cross the kingdom, and come back out at another gateway. Plaza, country park, Po Toi O!" }
     - { speaker: oboy, text: "Chirrup!", if: { party_has: oboy } }
     - { speaker: angie, text: "O Boy seems to know the way already... Kei, this is incredible." }

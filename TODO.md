@@ -89,7 +89,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] Route planner UI with transfers
 - [ ] Stop discovery; line unlocks via events
 - [ ] World map scene (pyramid images, discovered areas, lines)
-- [x] Teleport waypoints: Kei's real-to-digital gateways (plaza, country park, Po Toi O), glitch-dissolve transition, unlocked once dating with bond 45+
+- [x] Teleport waypoints: Kei's gateways (digitalization/undigitalization through his digital kingdom) (plaza, country park, Po Toi O), glitch-dissolve transition, unlocked once dating with bond 45+
 - [ ] Visiting Kei's digital realm itself (open question, SPEC §11)
 
 ## M3: Companions (§7)
@@ -122,7 +122,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] Hidden collectibles: feathers, camera parts, sheet music
 - [ ] Shop, gear, Kei-built upgrades from parts
 - [ ] Students: profiles, progress, new songs
-- [ ] eBird data for realism: species lists and seasonality per area (Tseung Kwan O, Junk Bay, …) feeding bird tables. Needs a free eBird API key kept outside git; build-time tool only. eBird/Macaulay photos are NOT freely licensed, so don't use them as art.
+- [ ] *(Parked for future development.)* eBird data for realism: species lists and seasonality per area (Tseung Kwan O, Junk Bay, …) feeding bird tables. Needs a free eBird API key kept outside git; build-time tool only. eBird/Macaulay photos are NOT freely licensed, so don't use them as art.
 - [x] Missions (§9.5): photograph and lesson objectives, rewards, Menu → Missions; Chapter 2 missions (magazine egret shot, Mei's recital)
 - [ ] Contests, transit missions, live missions from updates
 - [ ] Trail cameras
