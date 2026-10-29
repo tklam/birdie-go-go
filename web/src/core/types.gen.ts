@@ -67,6 +67,11 @@ export interface GameInfo {
    */
   startMap: string;
   startSpawn: string;
+  /**
+   * MissionReminderSlots is how many time slots pass between reminders
+   * about an active mission (SPEC.md §9.5); 0 turns reminders off.
+   */
+  missionReminderSlots?: number /* int */;
 }
 /**
  * Area is a logical district of the world (SPEC.md §4.3).

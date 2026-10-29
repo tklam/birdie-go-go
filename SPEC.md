@@ -515,6 +515,8 @@ Events live in `content/events/*.yaml`:
 ```
 Objective types: `photograph`, `lesson` (student, min score), `visit`, `ride` (line or stop), `collect`, `talk`.
 
+**Reminders.** Every `mission_reminder_slots` time slots (set in `content/game.yaml`; 0 turns them off), a toast names one active mission when Angie is back on the map; active missions take turns. Loading a save with active missions shows one reminder right away.
+
 ### 9.6 Content packs and updates
 - The client ships with the **base pack** (all content plus world chunks).
 - The optional server publishes **update packs**: new or changed maps (replaced world chunks or new interiors), missions, events, dialogue, birds, songs — any content type.

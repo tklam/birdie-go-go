@@ -2,3 +2,5 @@ title: Birdie Go Go
 content_version: 0.1.0
 start_map: world
 start_spawn: estate_plaza
+# Every this many time slots, a toast reminds you of an active mission (0 = never).
+mission_reminder_slots: 3

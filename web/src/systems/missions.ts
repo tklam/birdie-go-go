@@ -8,6 +8,15 @@ const RANK: Record<string, number> = { blurry: 0, good: 1, great: 2, perfect: 3 
 export const activeFlag = (id: string) => `mission:${id}`;
 export const doneFlag = (id: string) => `mission_done:${id}`;
 
+/**
+ * The mission to mention in the next reminder: active missions take turns.
+ * Null when there are none.
+ */
+export function reminderMission(state: GameState, content: Pick<ContentBundle, 'missions'>, turn: number): Mission | null {
+  const active = activeMissions(state, content);
+  return active.length ? active[turn % active.length] : null;
+}
+
 /** Starts a mission unless it's already active or done. Mutates state. */
 export function startMission(state: GameState, id: string): boolean {
   if (state.flags[activeFlag(id)] || state.flags[doneFlag(id)]) return false;

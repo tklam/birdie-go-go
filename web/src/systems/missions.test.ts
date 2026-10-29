@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { ContentBundle, Mission } from '../core/types.gen';
-import { activeMissions, completeMission, doneFlag, lessonMissionsMet, photoMissionsMet, startMission } from './missions';
+import { activeMissions, completeMission, doneFlag, lessonMissionsMet, photoMissionsMet, reminderMission, startMission } from './missions';
 import { newGame } from './state';
 
 const egret: Mission = {
@@ -23,6 +23,14 @@ const content = { missions: [egret, recital] };
 const fresh = () => newGame({ game: { title: '', contentVersion: '0.0.0', startMap: 'world', startSpawn: 's' } } as ContentBundle, 1);
 
 describe('missions', () => {
+  it('reminders take turns among active missions', () => {
+    const s = fresh();
+    expect(reminderMission(s, content, 0)).toBeNull();
+    startMission(s, 'egret_cover');
+    startMission(s, 'mei_recital');
+    expect([0, 1, 2].map((t) => reminderMission(s, content, t)?.id)).toEqual(['egret_cover', 'mei_recital', 'egret_cover']);
+  });
+
   it('starts once and lists active missions', () => {
     const s = fresh();
     expect(startMission(s, 'egret_cover')).toBe(true);

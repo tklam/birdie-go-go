@@ -27,6 +27,9 @@ type GameInfo struct {
 	// StartArea and StartSpawn place Angie when a new game begins.
 	StartMap   string `json:"startMap"`
 	StartSpawn string `json:"startSpawn"`
+	// MissionReminderSlots is how many time slots pass between reminders
+	// about an active mission (SPEC.md §9.5); 0 turns reminders off.
+	MissionReminderSlots int `json:"missionReminderSlots,omitempty"`
 }
 
 // Area is a logical district of the world (SPEC.md §4.3).

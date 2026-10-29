@@ -197,6 +197,7 @@ func (v *validator) game(g model.GameInfo) {
 	v.require(semver.MatchString(g.ContentVersion), "game: content_version %q must be MAJOR.MINOR.PATCH", g.ContentVersion)
 	v.require(g.StartMap != "", "game: start_map is required")
 	v.require(g.StartSpawn != "", "game: start_spawn is required")
+	v.require(g.MissionReminderSlots >= 0, "game: mission_reminder_slots %d must not be negative", g.MissionReminderSlots)
 }
 
 // ids checks that IDs are well-formed and unique, and returns them as a set.

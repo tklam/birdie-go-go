@@ -317,6 +317,14 @@ export class MapScene extends Phaser.Scene {
     }
     await s.save();
     this.busy = false;
+    this.remindMission();
+  }
+
+  /** Now and then, a toast about an active mission (SPEC.md §9.5). */
+  private remindMission(): void {
+    const title = this.session.missionReminder();
+    // After the area-name toast has had its moment.
+    if (title) this.time.delayedCall(2500, () => toast(`Mission: ${title}`, 3500));
   }
 
   private waitForWorld(): Promise<void> {
@@ -962,6 +970,7 @@ export class MapScene extends Phaser.Scene {
     await s.save();
     this.cameras.main.fadeIn(600, 0, 0, 0);
     toast(`Good morning! Day ${s.state.day}`);
+    this.remindMission();
   }
 
   private async leaveTo(scene: string, data: object): Promise<void> {

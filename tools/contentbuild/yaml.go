@@ -19,6 +19,8 @@ type gameYAML struct {
 	ContentVersion string `yaml:"content_version"`
 	StartMap       string `yaml:"start_map"`
 	StartSpawn     string `yaml:"start_spawn"`
+	// Slots between active-mission reminders; 0 turns them off.
+	MissionReminderSlots int `yaml:"mission_reminder_slots"`
 }
 
 type areaYAML struct {

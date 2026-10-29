@@ -6,7 +6,7 @@ import { IndexedDBSaveStore, MemorySaveStore, type SaveStore } from './save';
 import { newGame, type GameState } from './state';
 import { tickConsumables } from './hazards';
 import { runTrailCameras } from './gadgets';
-import { completeMission, lessonMissionsMet, photoMissionsMet, startMission, type PhotoResult } from './missions';
+import { completeMission, lessonMissionsMet, photoMissionsMet, reminderMission, startMission, type PhotoResult } from './missions';
 import { showPanel } from '../ui/panel';
 import { advanceSlot } from './time';
 
@@ -34,6 +34,9 @@ export class Session {
   /** Called with the speaker id as each dialogue line appears (voices, e.g. O Boy's chirps). */
   voice: (speaker: string) => void = () => {};
   private weatherCache = new Map<number, Promise<WeatherDay>>();
+  /** Time slots since the last mission reminder; starts full so a loaded game reminds once. */
+  private slotsSinceReminder = Number.POSITIVE_INFINITY;
+  private reminderTurn = 0;
 
   constructor(
     readonly content: ContentBundle,
@@ -80,9 +83,24 @@ export class Session {
     return this.events.fire(trigger, this.state);
   }
 
+  /**
+   * An active mission to remind the player about, once every
+   * game.missionReminderSlots time slots (SPEC.md §9.5); otherwise null.
+   */
+  missionReminder(): string | null {
+    const every = this.content.game.missionReminderSlots ?? 0;
+    if (every <= 0 || this.slotsSinceReminder < every) return null;
+    const m = reminderMission(this.state, this.content, this.reminderTurn);
+    if (!m) return null;
+    this.slotsSinceReminder = 0;
+    this.reminderTurn++;
+    return m.title;
+  }
+
   /** Ends the current time slot and fires the resulting triggers. */
   async endSlot(): Promise<void> {
     tickConsumables(this.state);
+    this.slotsSinceReminder++;
     const triggers = advanceSlot(this.state);
     if (triggers.some((t) => t.type === 'day_start')) {
       // Overnight, trail cameras catch a bird each.

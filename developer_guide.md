@@ -225,7 +225,7 @@ Every area must define all four seasons. Area shapes are painted on the world's 
 - Layers: `ground`, `detail`, `overhead` (drawn above characters), `collision` (meta tiles `solid` or `ledge_south`), `areas` (meta tiles naming an area), and `objects`.
 - Object types in use: `spawn`, `door` (`to_map`, `to_spawn`, `title`), `npc` (`npc_id`, `student`), `spot` (`spot_id`), `bird` (`species`, `count`), `bed`. *(Planned:)* `gate`, `collectible`, `stop`, `route`.
 - Interiors are single 20×12 maps in `content/interiors/<id>.tmj`, built with `-fill wall_interior`. A door's `to_map` is an interior id or `world`.
-- `content/game.yaml` sets `start_map` (`world`) and `start_spawn`.
+- `content/game.yaml` sets `start_map` (`world`) and `start_spawn`, plus `mission_reminder_slots` (time slots between active-mission reminders, 0 = off).
 - Chunks outside the authored maps aren't stored; they're filled with the `-fill` tile (water for the city).
 
 ### 5.5 Transit: `content/transit.yaml`
