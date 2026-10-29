@@ -17,6 +17,8 @@ export interface ContentBundle {
   events: Event[];
   dialogue: Dialogue[];
   music: Music[];
+  items: Item[];
+  hazards: Hazard[];
 }
 /**
  * GameInfo is the top-level game metadata from content/game.yaml.
@@ -196,6 +198,94 @@ export interface DialogueLine {
   portrait?: string;
   text: string;
   if?: Condition[];
+}
+
+//////////
+// source: items.go
+
+/**
+ * Item is something Angie can buy, carry or wear (SPEC.md §4.12).
+ */
+export interface Item {
+  id: string;
+  name: string;
+  /**
+   * Kind is "gear" (worn in a slot) or "consumable" (used up).
+   */
+  kind: string;
+  /**
+   * Slot is "head", "body" or "hand" for gear.
+   */
+  slot?: string;
+  price: number /* int */;
+  /**
+   * Counters lists the hazard ids this item protects against.
+   */
+  counters: string[];
+  /**
+   * Restores is the Energy a consumable gives back when used.
+   */
+  restores?: number /* int */;
+  /**
+   * DurationSlots is how long a consumable's protection lasts (0 = instant).
+   */
+  durationSlots?: number /* int */;
+  description: string;
+}
+/**
+ * Hazard is a harmful weather condition (SPEC.md §4.12).
+ */
+export interface Hazard {
+  id: string;
+  name: string;
+  /**
+   * Status is the status effect shown while exposed (e.g. "sunburnt").
+   */
+  status: string;
+  /**
+   * When says which weather parameter triggers it and at what value.
+   */
+  when: HazardWhen;
+  /**
+   * DrainPerMin is Energy lost per in-game minute while exposed.
+   */
+  drainPerMin: number /* float64 */;
+  /**
+   * Severe raises the drain past a stronger threshold.
+   */
+  severe?: HazardSevere;
+  /**
+   * Push is how strongly the wind pushes Angie, in px/s at full wind.
+   */
+  push?: number /* float64 */;
+  /**
+   * Breaks names an item that breaks under this hazard past AtLeast.
+   */
+  breaks?: HazardBreak;
+  counteredBy: string[];
+}
+/**
+ * HazardWhen triggers on a weather parameter (cloud, precip, temp, fog, wind,
+ * uv, signal) being at least Min and/or at most Max.
+ */
+export interface HazardWhen {
+  param: string;
+  min?: number /* float64 */;
+  max?: number /* float64 */;
+}
+/**
+ * HazardSevere is a stronger tier of a hazard.
+ */
+export interface HazardSevere {
+  min: number /* float64 */;
+  drainPerMin: number /* float64 */;
+}
+/**
+ * HazardBreak says which item breaks and from what parameter value.
+ */
+export interface HazardBreak {
+  item: string;
+  min: number /* float64 */;
 }
 
 //////////

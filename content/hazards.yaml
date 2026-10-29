@@ -1,0 +1,42 @@
+# Weather hazards (SPEC.md §4.12). Drain is Energy per in-game minute outdoors
+# (one in-game minute passes per real second while exploring).
+- id: high_uv
+  name: High UV
+  status: sunburnt
+  when: { param: uv, min: 8 }
+  drain_per_min: 0.25
+  severe: { min: 11, drain_per_min: 0.5 }
+  countered_by: [sun_hat, sunscreen, umbrella]
+- id: heat
+  name: Heat
+  status: overheated
+  when: { param: temp, min: 33 }
+  drain_per_min: 0.3
+  countered_by: [water_bottle, sun_hat]
+- id: heavy_rain
+  name: Heavy rain
+  status: soaked
+  when: { param: precip, min: 0.6 }
+  drain_per_min: 0.25
+  countered_by: [umbrella, raincoat]
+- id: strong_wind
+  name: Strong wind
+  status: windswept
+  when: { param: wind, min: 0.7 }
+  drain_per_min: 0.1
+  push: 22
+  breaks: { item: umbrella, min: 0.8 }
+  countered_by: [windbreaker]
+- id: cold_snap
+  name: Cold snap
+  status: chilled
+  when: { param: temp, max: 8 }
+  drain_per_min: 0.2
+  countered_by: [jacket]
+- id: typhoon
+  name: Typhoon
+  status: storm-battered
+  when: { param: signal, min: 8 }
+  drain_per_min: 1.5
+  push: 40
+  countered_by: []

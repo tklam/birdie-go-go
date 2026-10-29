@@ -1,0 +1,10 @@
+# Things Angie can buy, wear or carry (SPEC.md §4.12).
+- { id: umbrella, name: Umbrella, kind: gear, slot: hand, price: 60, counters: [heavy_rain, high_uv], description: "Keeps off rain and sun. Flips in strong wind!" }
+- { id: sun_hat, name: Sun Hat, kind: gear, slot: head, price: 80, counters: [high_uv, heat], description: "Wide brim for bright days." }
+- { id: raincoat, name: Raincoat, kind: gear, slot: body, price: 150, counters: [heavy_rain], description: "Stays dry even when it's windy." }
+- { id: windbreaker, name: Windbreaker, kind: gear, slot: body, price: 180, counters: [strong_wind], description: "Cuts the wind." }
+- { id: jacket, name: Jacket, kind: gear, slot: body, price: 200, counters: [cold_snap], description: "For cold snaps on the hills." }
+- { id: sunscreen, name: Sunscreen, kind: consumable, price: 25, counters: [high_uv], duration_slots: 1, description: "Blocks UV for the rest of this part of the day." }
+- { id: water_bottle, name: Water Bottle, kind: consumable, price: 10, counters: [heat], restores: 15, duration_slots: 1, description: "Cools you down. +15 Energy." }
+- { id: milk_tea, name: Milk Tea, kind: consumable, price: 18, counters: [], restores: 25, description: "Silky Hong Kong milk tea. +25 Energy." }
+- { id: pineapple_bun, name: Pineapple Bun, kind: consumable, price: 12, counters: [], restores: 20, description: "Warm, crumbly, no pineapple inside. +20 Energy." }

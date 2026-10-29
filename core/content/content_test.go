@@ -89,6 +89,19 @@ func TestValidateErrors(t *testing.T) {
 		}, "unknown Kei stage"},
 		{"empty dialogue", func(b *model.ContentBundle) { b.Dialogue[0].Lines = nil }, "no lines"},
 		{"area music", func(b *model.ContentBundle) { b.Areas[0].Music = "bgm_missing" }, "unknown music"},
+		{"item kind", func(b *model.ContentBundle) { b.Items = []model.Item{{ID: "x", Name: "X", Kind: "food"}} }, "kind must be"},
+		{"gear slot", func(b *model.ContentBundle) { b.Items = []model.Item{{ID: "x", Name: "X", Kind: "gear", Slot: "feet"}} }, "gear slot"},
+		{"item counters unknown hazard", func(b *model.ContentBundle) {
+			b.Items = []model.Item{{ID: "x", Name: "X", Kind: "consumable", Counters: []string{"meteor"}}}
+		}, "unknown hazard"},
+		{"hazard param", func(b *model.ContentBundle) {
+			one := 1.0
+			b.Hazards = []model.Hazard{{ID: "h", Name: "H", Status: "s", When: model.HazardWhen{Param: "vibes", Min: &one}}}
+		}, "unknown weather parameter"},
+		{"hazard item", func(b *model.ContentBundle) {
+			one := 1.0
+			b.Hazards = []model.Hazard{{ID: "h", Name: "H", Status: "s", When: model.HazardWhen{Param: "uv", Min: &one}, CounteredBy: []string{"cape"}}}
+		}, "unknown item"},
 		{"missing season", func(b *model.ContentBundle) { delete(b.Areas[0].Climate, "winter") }, "climate for winter is missing"},
 		{"climate range", func(b *model.ContentBundle) {
 			c := b.Areas[0].Climate["spring"]

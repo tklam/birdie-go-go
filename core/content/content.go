@@ -29,6 +29,9 @@ var (
 	}
 	Companions  = []string{"oboy", "kei"}
 	Instruments = []string{"square", "pulse", "triangle", "noise"}
+	ItemKinds   = []string{"gear", "consumable"}
+	GearSlots   = []string{"head", "body", "hand"}
+	WeatherKeys = []string{"cloud", "precip", "temp", "fog", "wind", "uv", "signal"}
 	KeiStages   = []string{"met", "friends", "dating", "engaged", "married"}
 
 	TriggerTypes = []string{
@@ -63,6 +66,8 @@ func Validate(b *model.ContentBundle) []error {
 	v.ids("event", len(b.Events), func(i int) string { return b.Events[i].ID })
 	dialogue := v.ids("dialogue", len(b.Dialogue), func(i int) string { return b.Dialogue[i].ID })
 	music := v.ids("music", len(b.Music), func(i int) string { return b.Music[i].ID })
+	items := v.ids("item", len(b.Items), func(i int) string { return b.Items[i].ID })
+	hazards := v.ids("hazard", len(b.Hazards), func(i int) string { return b.Hazards[i].ID })
 
 	for _, a := range b.Areas {
 		v.require(a.Name != "", "area %s: name is required", a.ID)
@@ -85,6 +90,12 @@ func Validate(b *model.ContentBundle) []error {
 	}
 	for _, m := range b.Music {
 		v.tune(m)
+	}
+	for _, it := range b.Items {
+		v.item(it, hazards)
+	}
+	for _, h := range b.Hazards {
+		v.hazard(h, items)
 	}
 	for _, bird := range b.Birds {
 		v.bird(bird)
@@ -214,6 +225,35 @@ func (v *validator) song(s model.Song) {
 		v.require(n.Start >= 0, "song %s note %d: start must be ≥ 0", s.ID, i+1)
 		v.require(n.Dur > 0, "song %s note %d: dur must be > 0", s.ID, i+1)
 		v.require(n.Vel >= 1 && n.Vel <= 127, "song %s note %d: vel must be 1–127", s.ID, i+1)
+	}
+}
+
+func (v *validator) item(it model.Item, hazards map[string]bool) {
+	v.require(it.Name != "", "item %s: name is required", it.ID)
+	v.require(slices.Contains(ItemKinds, it.Kind), "item %s: kind must be gear or consumable", it.ID)
+	if it.Kind == "gear" {
+		v.require(slices.Contains(GearSlots, it.Slot), "item %s: gear slot must be head, body or hand", it.ID)
+	}
+	v.require(it.Price >= 0, "item %s: price must be ≥ 0", it.ID)
+	v.require(it.Restores >= 0 && it.DurationSlots >= 0, "item %s: restores and duration must be ≥ 0", it.ID)
+	for _, h := range it.Counters {
+		v.require(hazards[h], "item %s: unknown hazard %q", it.ID, h)
+	}
+}
+
+func (v *validator) hazard(h model.Hazard, items map[string]bool) {
+	v.require(h.Name != "" && h.Status != "", "hazard %s: name and status are required", h.ID)
+	v.require(slices.Contains(WeatherKeys, h.When.Param), "hazard %s: unknown weather parameter %q", h.ID, h.When.Param)
+	v.require(h.When.Min != nil || h.When.Max != nil, "hazard %s: when needs min or max", h.ID)
+	v.require(h.DrainPerMin >= 0, "hazard %s: drain must be ≥ 0", h.ID)
+	if h.Severe != nil {
+		v.require(h.Severe.DrainPerMin >= h.DrainPerMin, "hazard %s: severe drain must be ≥ the normal drain", h.ID)
+	}
+	if h.Breaks != nil {
+		v.require(items[h.Breaks.Item], "hazard %s: breaks unknown item %q", h.ID, h.Breaks.Item)
+	}
+	for _, it := range h.CounteredBy {
+		v.require(items[it], "hazard %s: countered by unknown item %q", h.ID, it)
 	}
 }
 

@@ -16,7 +16,10 @@ export type Migration = (save: RawSave) => RawSave;
  * Migrations keyed by the version they upgrade *from*. Add an entry here
  * whenever CURRENT_SAVE_VERSION is bumped.
  */
-export const MIGRATIONS: Readonly<Record<number, Migration>> = {};
+export const MIGRATIONS: Readonly<Record<number, Migration>> = {
+  // v2 adds Energy, worn gear and active consumables (SPEC.md §4.12).
+  1: (save) => ({ ...save, saveVersion: 2, energy: 100, equipped: {}, active: {} }),
+};
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -52,8 +55,8 @@ export function migrate(
   return out;
 }
 
-const RECORD_FIELDS = ['flags', 'firedEvents', 'items', 'album', 'students', 'bond'] as const;
-const NUMBER_FIELDS = ['worldSeed', 'chapter', 'day', 'money'] as const;
+const RECORD_FIELDS = ['flags', 'firedEvents', 'items', 'album', 'students', 'bond', 'equipped', 'active'] as const;
+const NUMBER_FIELDS = ['worldSeed', 'chapter', 'day', 'money', 'energy'] as const;
 const ARRAY_FIELDS = ['party', 'joined'] as const;
 
 /** Checks the basic shape of a (migrated) save; throws a clear Error otherwise. */

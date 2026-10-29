@@ -94,6 +94,40 @@ type musicYAML struct {
 	} `yaml:"tracks"`
 }
 
+type itemYAML struct {
+	ID            string   `yaml:"id"`
+	Name          string   `yaml:"name"`
+	Kind          string   `yaml:"kind"`
+	Slot          string   `yaml:"slot"`
+	Price         int      `yaml:"price"`
+	Counters      []string `yaml:"counters"`
+	Restores      int      `yaml:"restores"`
+	DurationSlots int      `yaml:"duration_slots"`
+	Description   string   `yaml:"description"`
+}
+
+type hazardYAML struct {
+	ID     string `yaml:"id"`
+	Name   string `yaml:"name"`
+	Status string `yaml:"status"`
+	When   struct {
+		Param string   `yaml:"param"`
+		Min   *float64 `yaml:"min"`
+		Max   *float64 `yaml:"max"`
+	} `yaml:"when"`
+	DrainPerMin float64 `yaml:"drain_per_min"`
+	Severe      *struct {
+		Min         float64 `yaml:"min"`
+		DrainPerMin float64 `yaml:"drain_per_min"`
+	} `yaml:"severe"`
+	Push   float64 `yaml:"push"`
+	Breaks *struct {
+		Item string  `yaml:"item"`
+		Min  float64 `yaml:"min"`
+	} `yaml:"breaks"`
+	CounteredBy []string `yaml:"countered_by"`
+}
+
 type songYAML struct {
 	ID            string  `yaml:"id"`
 	Title         string  `yaml:"title"`
@@ -148,6 +182,7 @@ func load(dir string) (*model.ContentBundle, error) {
 	b := &model.ContentBundle{
 		Areas: []model.Area{}, Birds: []model.Bird{}, Spots: []model.Spot{}, Students: []model.Student{},
 		Songs: []model.Song{}, Events: []model.Event{}, Dialogue: []model.Dialogue{}, Music: []model.Music{},
+		Items: []model.Item{}, Hazards: []model.Hazard{},
 	}
 
 	var g gameYAML
@@ -166,6 +201,36 @@ func load(dir string) (*model.ContentBundle, error) {
 			area.Climate[season] = model.Climate(c)
 		}
 		b.Areas = append(b.Areas, area)
+	}
+
+	var items []itemYAML
+	if err := readOptional(filepath.Join(dir, "items.yaml"), &items); err != nil {
+		return nil, err
+	}
+	for _, x := range items {
+		b.Items = append(b.Items, model.Item{
+			ID: x.ID, Name: x.Name, Kind: x.Kind, Slot: x.Slot, Price: x.Price, Counters: orEmpty(x.Counters),
+			Restores: x.Restores, DurationSlots: x.DurationSlots, Description: x.Description,
+		})
+	}
+
+	var hazards []hazardYAML
+	if err := readOptional(filepath.Join(dir, "hazards.yaml"), &hazards); err != nil {
+		return nil, err
+	}
+	for _, x := range hazards {
+		h := model.Hazard{
+			ID: x.ID, Name: x.Name, Status: x.Status, DrainPerMin: x.DrainPerMin, Push: x.Push,
+			When:        model.HazardWhen{Param: x.When.Param, Min: x.When.Min, Max: x.When.Max},
+			CounteredBy: orEmpty(x.CounteredBy),
+		}
+		if x.Severe != nil {
+			h.Severe = &model.HazardSevere{Min: x.Severe.Min, DrainPerMin: x.Severe.DrainPerMin}
+		}
+		if x.Breaks != nil {
+			h.Breaks = &model.HazardBreak{Item: x.Breaks.Item, Min: x.Breaks.Min}
+		}
+		b.Hazards = append(b.Hazards, h)
 	}
 
 	var birds []birdYAML

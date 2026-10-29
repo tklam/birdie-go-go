@@ -14,7 +14,7 @@ import { newGame, type GameState } from './state';
 
 const content: ContentBundle = {
   game: { title: 'T', contentVersion: '0', startMap: 'tko', startSpawn: 'estate_plaza' },
-  areas: [], birds: [], spots: [], students: [], songs: [], events: [], dialogue: [], music: [],
+  areas: [], birds: [], spots: [], students: [], songs: [], events: [], dialogue: [], music: [], items: [], hazards: [],
 };
 
 function sample(): GameState {
@@ -139,5 +139,20 @@ describe('MemorySaveStore', () => {
     await store.save('auto', s);
     s.money = 1;
     expect((await store.load('auto'))?.money).toBe(500);
+  });
+});
+
+describe('save version 2 migration', () => {
+  it('adds Energy, gear and active consumables to a version 1 save', () => {
+    const v1 = { ...sample() } as Record<string, unknown>;
+    v1.saveVersion = 1;
+    delete v1.energy;
+    delete v1.equipped;
+    delete v1.active;
+    const state = deserialize(JSON.stringify(v1));
+    expect(state.saveVersion).toBe(2);
+    expect(state.energy).toBe(100);
+    expect(state.equipped).toEqual({});
+    expect(state.active).toEqual({});
   });
 });

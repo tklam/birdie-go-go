@@ -4,7 +4,7 @@
 import type { ContentBundle } from '../core/types.gen';
 
 /** Bumped whenever GameState changes shape; see migrations in save.ts. */
-export const CURRENT_SAVE_VERSION = 1;
+export const CURRENT_SAVE_VERSION = 2;
 
 export const TIME_SLOTS = ['morning', 'afternoon', 'evening'] as const;
 export type TimeSlot = (typeof TIME_SLOTS)[number];
@@ -88,7 +88,17 @@ export interface GameState {
   students: Record<string, StudentProgress>;
   position: Position;
   settings: Settings;
+  /** 0–100, the game's HP (SPEC.md §4.12). Added in save version 2. */
+  energy: number;
+  /** Worn gear by slot (head, body, hand) → item id. */
+  equipped: Partial<Record<GearSlot, string>>;
+  /** Consumables in effect → time slots left (e.g. sunscreen). */
+  active: Record<string, number>;
 }
+
+export const GEAR_SLOTS = ['head', 'body', 'hand'] as const;
+export type GearSlot = (typeof GEAR_SLOTS)[number];
+export const MAX_ENERGY = 100;
 
 export function defaultSettings(): Settings {
   return { latencyOffsetMs: 0, tapToMove: true, musicVolume: 0.8, sfxVolume: 0.8, reducedMotion: false };
@@ -114,6 +124,9 @@ export function newGame(content: ContentBundle, seed: number): GameState {
     students: {},
     position: { map: content.game.startMap, spawn: content.game.startSpawn },
     settings: defaultSettings(),
+    energy: MAX_ENERGY,
+    equipped: {},
+    active: {},
   };
 }
 
