@@ -1,0 +1,13 @@
+# Missions (SPEC.md §9.5).
+- id: egret_cover
+  giver: magazine_editor
+  title: Cover Star
+  description: "Harbour Birds magazine wants a great photo of a Little Egret at Junk Bay."
+  objective: { type: photograph, species: little_egret, min_rating: great, area: tko_waterfront }
+  reward: { money: 400, items: [] }
+- id: mei_recital
+  giver: mei
+  title: Recital Ready
+  description: "Help Mei get ready for her school recital: a lesson scoring 70 or more."
+  objective: { type: lesson, student: mei, min_score: 70 }
+  reward: { money: 300, items: [milk_tea] }

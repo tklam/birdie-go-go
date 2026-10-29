@@ -5,12 +5,14 @@ import { EventRunner, visibleLines, type TriggerInput } from './events';
 import { IndexedDBSaveStore, MemorySaveStore, type SaveStore } from './save';
 import { newGame, type GameState } from './state';
 import { tickConsumables } from './hazards';
+import { completeMission, lessonMissionsMet, photoMissionsMet, startMission, type PhotoResult } from './missions';
+import { showPanel } from '../ui/panel';
 import { advanceSlot } from './time';
 
 /** The autosave slot. */
 export const AUTOSAVE = 'auto';
 
-const FIXED_NAMES: Record<string, string> = { angie: 'Angie', oboy: 'O Boy', kei: 'Kei' };
+const FIXED_NAMES: Record<string, string> = { angie: 'Angie', oboy: 'O Boy', kei: 'Kei', neighbour: 'Mrs Chan' };
 
 /** Display name for a dialogue speaker id. */
 export function speakerName(id: string, content: Pick<ContentBundle, 'students'>): string {
@@ -39,7 +41,14 @@ export class Session {
     this.events = new EventRunner(content, {
       showDialogue: (id) => this.dialogue(id),
       startScene: (value) => console.info('event start_scene not wired yet', value),
-      other: (action) => console.info('event action not handled yet', action.type, action.value),
+      other: async (action) => {
+        if (action.type === 'start_mission' && typeof action.value === 'string' && startMission(this.state, action.value)) {
+          const m = this.content.missions.find((x) => x.id === action.value);
+          if (m) await showPanel(`New mission: ${m.title}`, [m.description]);
+          return;
+        }
+        console.info('event action not handled yet', action.type, action.value);
+      },
     });
   }
 
@@ -92,6 +101,20 @@ export class Session {
       if (this.weatherCache.size > 4) this.weatherCache.delete(this.weatherCache.keys().next().value as number);
     }
     return w;
+  }
+
+  /** Completes any missions met by a photo session or a lesson, with rewards and mission_complete events. */
+  async checkMissions(done: { photos?: PhotoResult[]; lesson?: { studentId: string; score: number } }): Promise<void> {
+    const met = [
+      ...(done.photos ? photoMissionsMet(this.state, this.content, done.photos) : []),
+      ...(done.lesson ? lessonMissionsMet(this.state, this.content, done.lesson.studentId, done.lesson.score) : []),
+    ];
+    for (const m of met) {
+      completeMission(this.state, m);
+      const items = m.reward.items.map((id) => this.content.items.find((i) => i.id === id)?.name ?? id);
+      await showPanel(`Mission complete: ${m.title}`, [`Reward: $${m.reward.money}${items.length ? ` + ${items.join(', ')}` : ''}`]);
+      await this.fire({ type: 'mission_complete', params: { mission: m.id } });
+    }
   }
 
   async save(): Promise<void> {

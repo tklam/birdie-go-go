@@ -167,6 +167,7 @@ func build() *tmap {
 	m.fill(46, 18, 4, 2, "stairs")
 	m.obj("hillside_birds", "bird", 76, 12, map[string]string{"species": "red_whiskered_bulbul", "count": "2"})
 	m.obj("hill_dogs", "enemy", 26, 6, map[string]string{"enemy_id": "stray_dog_pack"})
+	m.obj("old_villager", "npc", 50, 16, map[string]string{"npc_id": "old_villager", "sprite": "char_old_villager"})
 	m.obj("hill_zombie", "enemy", 84, 8, map[string]string{"enemy_id": "hopping_zombie"})
 
 	// Town centre (rows 20–43).
@@ -186,6 +187,8 @@ func build() *tmap {
 	m.fill(36, 26, 23, 4, "plaza")
 	m.put(60, 28, "station_sign")
 	m.obj("plaza_shop", "shop", 47, 25, map[string]string{"title": "Plaza Convenience Store"})
+	m.obj("kei", "npc", 40, 27, map[string]string{"npc_id": "kei", "sprite": "char_kei", "requires_flag": "chapter3_started", "unless_flag": "kei_met"})
+	m.obj("neighbour", "npc", 54, 28, map[string]string{"npc_id": "neighbour", "sprite": "char_neighbour"})
 	for _, x := range []int{38, 44, 50, 56} {
 		m.put(x, 29, "lamp")
 	}
@@ -292,7 +295,7 @@ func meiFlat() *tmap {
 	m.put(4, 2, "piano_left")
 	m.put(5, 2, "piano_right")
 	m.put(5, 3, "chair")
-	m.obj("mei", "npc", 6, 3, map[string]string{"npc_id": "mei", "student": "mei"})
+	m.obj("mei", "npc", 6, 3, map[string]string{"npc_id": "mei", "student": "mei", "sprite": "char_mei"})
 	m.put(13, 3, "sofa")
 	m.put(14, 3, "sofa")
 	m.put(15, 3, "sofa")

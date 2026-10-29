@@ -20,6 +20,7 @@ export interface ContentBundle {
   items: Item[];
   hazards: Hazard[];
   enemies: Enemy[];
+  missions: Mission[];
 }
 /**
  * GameInfo is the top-level game metadata from content/game.yaml.
@@ -496,6 +497,42 @@ export interface LessonGradeResult {
  */
 export interface GradedMistake extends Mistake {
   hit: boolean;
+}
+
+//////////
+// source: missions.go
+
+/**
+ * Mission is a task beyond the main story (SPEC.md §9.5): started by an
+ * event's start_mission action, completed when its objective is met.
+ */
+export interface Mission {
+  id: string;
+  giver: string;
+  title: string;
+  description: string;
+  objective: Objective;
+  reward: Reward;
+}
+/**
+ * Objective is what completes a mission. Type "photograph" needs Species
+ * (and optionally MinRating good|great|perfect, Area); "lesson" needs
+ * Student and MinScore.
+ */
+export interface Objective {
+  type: string;
+  species?: string;
+  minRating?: string;
+  area?: string;
+  student?: string;
+  minScore?: number /* int */;
+}
+/**
+ * Reward is given on completion.
+ */
+export interface Reward {
+  money: number /* int */;
+  items: string[];
 }
 
 //////////

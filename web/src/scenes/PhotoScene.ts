@@ -125,6 +125,11 @@ export class PhotoScene extends Phaser.Scene {
 
     this.weatherRenderer = this.weather ? new WeatherRenderer(this, 50) : null;
     this.setupInput();
+    // Kei's bird-call app names the birds it can hear (SPEC.md §7.2).
+    if (state.party.includes('kei') && this.toSpawn.length) {
+      const names = [...new Set(this.toSpawn)].map((id) => content.birds.find((b) => b.id === id)?.name ?? id);
+      this.time.delayedCall(700, () => this.showPopup(`Kei's app hears: ${names.join(', ')}`));
+    }
     this.removeBack = floatingButton('Back', 'back', () => void this.end());
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.removeBack());
     void iris(this, 'in');

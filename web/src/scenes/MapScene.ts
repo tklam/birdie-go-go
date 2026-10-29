@@ -3,6 +3,7 @@ import type { Enemy, WeatherDay, WeatherParams, WorldIndex, WorldObject } from '
 import { blendAt, easeWeather, mixWeather } from '../weather/blend';
 import { WeatherRenderer } from '../weather/renderer';
 import { MAX_ENERGY, TIME_SLOTS } from '../systems/state';
+import { activeMissions, doneMissions, type PhotoResult } from '../systems/missions';
 import { assess, breakItem, drain, protection, toggleGear, useItem, type HazardReport } from '../systems/hazards';
 import { InputReader } from '../systems/input';
 import { FollowerTrail } from '../systems/party';
@@ -37,6 +38,12 @@ const FLUSH_RADIUS = 44;
 
 type Facing = 'down' | 'left' | 'right' | 'up';
 const FACING_ROW: Record<Facing, number> = { down: 0, left: 1, right: 2, up: 3 };
+
+interface OverworldNpc {
+  object: WorldObject;
+  sprite: Phaser.GameObjects.Sprite;
+  chunk: string;
+}
 
 interface OverworldEnemy {
   enemy: Enemy;
@@ -99,6 +106,8 @@ export class MapScene extends Phaser.Scene {
   private area: string | null = null;
   private birds: OverworldBird[] = [];
   private enemies: OverworldEnemy[] = [];
+  private npcs: OverworldNpc[] = [];
+  private kei: Phaser.GameObjects.Sprite | null = null;
   private flushedChunks = new Set<string>();
   private ready = false;
   private loaded = false;
@@ -127,6 +136,8 @@ export class MapScene extends Phaser.Scene {
     this.session = this.registry.get('session') as Session;
     this.birds = [];
     this.enemies = [];
+    this.npcs = [];
+    this.kei = null;
     this.flushedChunks.clear();
     this.ready = false;
     this.loaded = false;
@@ -175,11 +186,13 @@ export class MapScene extends Phaser.Scene {
         this.chunkRenderer.enqueue(c);
         this.spawnBirds(c);
         this.spawnEnemies(c);
+        this.spawnNpcs(c);
       },
       evicted: (c) => {
         this.chunkRenderer.remove(c);
         this.despawnBirds(c);
         this.despawnEnemies(c);
+        this.despawnNpcs(c);
       },
       failed: (key, err) => console.warn(`chunk ${key} failed to load`, err),
     });
@@ -220,8 +233,13 @@ export class MapScene extends Phaser.Scene {
     const s = this.session;
     if (data.from === 'Photo') {
       await s.fire({ type: 'photo_session_end', params: data.spotId ? { spot: data.spotId } : {} });
+      const area = s.content.spots.find((x) => x.id === data.spotId)?.area ?? '';
+      const shots = (this.registry.get('lastPhotos') as { species: string; result: { rating: PhotoResult['rating'] } }[] | undefined) ?? [];
+      await s.checkMissions({ photos: shots.map((p) => ({ species: p.species, rating: p.result.rating, area })) });
       await s.endSlot();
     } else if (data.from === 'Piano') {
+      const last = this.registry.get('lastLesson') as { studentId: string; result: { score: number } } | undefined;
+      if (last) await s.checkMissions({ lesson: { studentId: last.studentId, score: last.result.score } });
       await s.fire({ type: 'lesson_complete', params: data.studentId ? { student: data.studentId } : {} });
       await s.endSlot();
     } else if (data.from === 'Encounter' && data.encounter) {
@@ -287,6 +305,8 @@ export class MapScene extends Phaser.Scene {
     if (!this.oboy && this.session.state.party.includes('oboy')) {
       this.oboy = this.add.sprite(this.pos.x, this.pos.y, 'char_oboy', 0).setOrigin(0.5, 1).play('oboy-idle');
     }
+    this.updateKei();
+    this.updateNpcs();
     if (this.oboy) {
       // Perched on the shoulder away from where she's facing.
       const side = this.facing === 'left' ? 5 : -5;
@@ -430,7 +450,7 @@ export class MapScene extends Phaser.Scene {
     for (const chunk of this.store.chunks()) {
       for (const o of chunk.objects) {
         const label = labelFor(o);
-        if (!label) continue;
+        if (!label || (o.type === 'npc' && !this.npcVisible(o))) continue;
         const reach = o.type === 'spot' ? REACH * 2 : REACH;
         const d = Math.hypot(o.x - px, o.y - py);
         if (d <= reach && (!best || d < best.d)) best = { label, object: o, d };
@@ -459,7 +479,8 @@ export class MapScene extends Phaser.Scene {
           return;
         case 'npc': {
           const student = o.props.student;
-          await this.session.fire({ type: 'talk', params: { npc: o.props.npc_id ?? o.name } });
+          const fired = await this.session.fire({ type: 'talk', params: { npc: o.props.npc_id ?? o.name } });
+          if (fired.length > 0 && !student) break;
           if (student && this.scene.manager.keys['Piano']) {
             await this.leaveTo('Piano', { studentId: student, returnTo: 'Map' });
             return;
@@ -620,6 +641,15 @@ export class MapScene extends Phaser.Scene {
       { label: 'Album', run: async () => (await showAlbum(s.content, s.state, this.registry.get('manifest') as Manifest), true) },
       { label: 'Bag', run: () => this.bag() },
       {
+        label: 'Missions',
+        run: async () => {
+          const active = activeMissions(s.state, s.content).map((m) => `▶ ${m.title}: ${m.description}`);
+          const done = doneMissions(s.state, s.content).map((m) => `✓ ${m.title}`);
+          await showPanel('Missions', active.length || done.length ? [...active, ...done] : ['No missions yet.']);
+          return true;
+        },
+      },
+      {
         label: 'Export save',
         run: async () => {
           downloadSave(s.state);
@@ -656,6 +686,65 @@ export class MapScene extends Phaser.Scene {
     items.push({ label: 'Close', run: async () => false });
     await showMenu('Menu', items);
     this.busy = false;
+  }
+
+  // --- NPCs and Kei ------------------------------------------------------------
+
+  /** Whether an NPC object is present now (its requires_flag/unless_flag props). */
+  private npcVisible(o: WorldObject): boolean {
+    const f = this.session.state.flags;
+    return (!o.props.requires_flag || f[o.props.requires_flag] === true) && (!o.props.unless_flag || f[o.props.unless_flag] !== true);
+  }
+
+  private spawnNpcs(chunk: ChunkData): void {
+    for (const o of chunk.objects) {
+      if (o.type !== 'npc' || !o.props.sprite || !this.textures.exists(o.props.sprite)) continue;
+      const sprite = this.add.sprite(o.x, o.y + 8, o.props.sprite, 0).setOrigin(0.5, 1).setDepth(DEPTH.entities + o.y + 8);
+      this.npcs.push({ object: o, sprite, chunk: chunkKey(chunk.cx, chunk.cy) });
+    }
+  }
+
+  private despawnNpcs(chunk: ChunkData): void {
+    const key = chunkKey(chunk.cx, chunk.cy);
+    this.npcs = this.npcs.filter((n) => {
+      if (n.chunk !== key) return true;
+      n.sprite.destroy();
+      return false;
+    });
+  }
+
+  /** NPCs appear/disappear with story flags and face Angie when she's near. */
+  private updateNpcs(): void {
+    for (const n of this.npcs) {
+      const visible = this.npcVisible(n.object);
+      n.sprite.setVisible(visible);
+      if (!visible) continue;
+      const dx = this.pos.x - n.sprite.x;
+      const dy = this.pos.y - n.sprite.y;
+      if (Math.hypot(dx, dy) > 40) continue;
+      const row = Math.abs(dx) > Math.abs(dy) ? (dx < 0 ? 1 : 2) : dy < 0 ? 3 : 0;
+      n.sprite.setFrame(row * 4);
+    }
+  }
+
+  /** Kei follows Angie along her path once he's in the party (SPEC.md §4.8). */
+  private updateKei(): void {
+    const along = this.session.state.party.includes('kei');
+    if (!along) {
+      this.kei?.destroy();
+      this.kei = null;
+      return;
+    }
+    const p = this.trail.positionAt(18);
+    if (!p) return;
+    if (!this.kei) this.kei = this.add.sprite(p.x, p.y, 'char_kei', 0).setOrigin(0.5, 1);
+    const dx = p.x - this.kei.x;
+    const dy = p.y - this.kei.y;
+    const moving = Math.hypot(dx, dy) > 0.2;
+    const row = Math.abs(dx) > Math.abs(dy) ? (dx < 0 ? 1 : 2) : dy < 0 ? 3 : 0;
+    if (moving) this.kei.setFrame(row * 4 + 1 + (Math.floor(this.time.now / 125) % 3));
+    else this.kei.setFrame((Number(this.kei.frame.name) >> 2) * 4);
+    this.kei.setPosition(p.x, p.y).setDepth(DEPTH.entities + p.y);
   }
 
   // --- Enemies (SPEC.md §4.13) --------------------------------------------

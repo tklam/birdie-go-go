@@ -151,6 +151,25 @@ type enemyYAML struct {
 	Lore string `yaml:"lore"`
 }
 
+type missionYAML struct {
+	ID          string `yaml:"id"`
+	Giver       string `yaml:"giver"`
+	Title       string `yaml:"title"`
+	Description string `yaml:"description"`
+	Objective   struct {
+		Type      string `yaml:"type"`
+		Species   string `yaml:"species"`
+		MinRating string `yaml:"min_rating"`
+		Area      string `yaml:"area"`
+		Student   string `yaml:"student"`
+		MinScore  int    `yaml:"min_score"`
+	} `yaml:"objective"`
+	Reward struct {
+		Money int      `yaml:"money"`
+		Items []string `yaml:"items"`
+	} `yaml:"reward"`
+}
+
 type songYAML struct {
 	ID            string  `yaml:"id"`
 	Title         string  `yaml:"title"`
@@ -205,7 +224,7 @@ func load(dir string) (*model.ContentBundle, error) {
 	b := &model.ContentBundle{
 		Areas: []model.Area{}, Birds: []model.Bird{}, Spots: []model.Spot{}, Students: []model.Student{},
 		Songs: []model.Song{}, Events: []model.Event{}, Dialogue: []model.Dialogue{}, Music: []model.Music{},
-		Items: []model.Item{}, Hazards: []model.Hazard{}, Enemies: []model.Enemy{},
+		Items: []model.Item{}, Hazards: []model.Hazard{}, Enemies: []model.Enemy{}, Missions: []model.Mission{},
 	}
 
 	var g gameYAML
@@ -254,6 +273,18 @@ func load(dir string) (*model.ContentBundle, error) {
 			h.Breaks = &model.HazardBreak{Item: x.Breaks.Item, Min: x.Breaks.Min}
 		}
 		b.Hazards = append(b.Hazards, h)
+	}
+
+	var missions []missionYAML
+	if err := readOptional(filepath.Join(dir, "missions.yaml"), &missions); err != nil {
+		return nil, err
+	}
+	for _, x := range missions {
+		b.Missions = append(b.Missions, model.Mission{
+			ID: x.ID, Giver: x.Giver, Title: x.Title, Description: x.Description,
+			Objective: model.Objective(x.Objective),
+			Reward:    model.Reward{Money: x.Reward.Money, Items: orEmpty(x.Reward.Items)},
+		})
 	}
 
 	var enemies []enemyYAML

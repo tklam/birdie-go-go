@@ -12,7 +12,7 @@ import { newGame, type GameState } from './state';
 
 const content: ContentBundle = {
   game: { title: 'T', contentVersion: '0', startMap: 'tko', startSpawn: 'estate_plaza' },
-  areas: [], birds: [], spots: [], students: [], songs: [], events: [], dialogue: [], music: [], items: [], hazards: [], enemies: [],
+  areas: [], birds: [], spots: [], students: [], songs: [], events: [], dialogue: [], music: [], items: [], hazards: [], enemies: [], missions: [],
 };
 
 function state(): GameState {

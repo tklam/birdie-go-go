@@ -15,6 +15,7 @@ type ContentBundle struct {
 	Items    []Item     `json:"items"`
 	Hazards  []Hazard   `json:"hazards"`
 	Enemies  []Enemy    `json:"enemies"`
+	Missions []Mission  `json:"missions"`
 }
 
 // GameInfo is the top-level game metadata from content/game.yaml.

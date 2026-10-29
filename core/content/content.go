@@ -32,6 +32,7 @@ var (
 	ItemKinds   = []string{"gear", "consumable"}
 	GearSlots   = []string{"head", "body", "hand"}
 	EnemyKinds  = []string{"dog", "monster"}
+	Ratings     = []string{"good", "great", "perfect"}
 	WeatherKeys = []string{"cloud", "precip", "temp", "fog", "wind", "uv", "signal"}
 	KeiStages   = []string{"met", "friends", "dating", "engaged", "married"}
 
@@ -70,6 +71,7 @@ func Validate(b *model.ContentBundle) []error {
 	items := v.ids("item", len(b.Items), func(i int) string { return b.Items[i].ID })
 	hazards := v.ids("hazard", len(b.Hazards), func(i int) string { return b.Hazards[i].ID })
 	v.ids("enemy", len(b.Enemies), func(i int) string { return b.Enemies[i].ID })
+	missions := v.ids("mission", len(b.Missions), func(i int) string { return b.Missions[i].ID })
 
 	for _, a := range b.Areas {
 		v.require(a.Name != "", "area %s: name is required", a.ID)
@@ -102,6 +104,9 @@ func Validate(b *model.ContentBundle) []error {
 	for _, e := range b.Enemies {
 		v.enemy(e, areas, items)
 	}
+	for _, m := range b.Missions {
+		v.mission(m, refs{areas: areas, students: students}, birds, items)
+	}
 	for _, bird := range b.Birds {
 		v.bird(bird)
 	}
@@ -124,7 +129,7 @@ func Validate(b *model.ContentBundle) []error {
 	for _, s := range b.Songs {
 		v.song(s)
 	}
-	refs := refs{areas: areas, spots: spots, students: students, dialogue: dialogue}
+	refs := refs{areas: areas, spots: spots, students: students, dialogue: dialogue, missions: missions}
 	for _, e := range b.Events {
 		v.event(e, refs)
 	}
@@ -142,7 +147,7 @@ func Validate(b *model.ContentBundle) []error {
 }
 
 type refs struct {
-	areas, spots, students, dialogue map[string]bool
+	areas, spots, students, dialogue, missions map[string]bool
 }
 
 type validator struct {
@@ -285,6 +290,26 @@ func (v *validator) enemy(e model.Enemy, areas, items map[string]bool) {
 	}
 }
 
+func (v *validator) mission(m model.Mission, r refs, birds, items map[string]bool) {
+	v.require(m.Title != "" && m.Description != "", "mission %s: title and description are required", m.ID)
+	o := m.Objective
+	switch o.Type {
+	case "photograph":
+		v.require(birds[o.Species], "mission %s: unknown species %q", m.ID, o.Species)
+		v.require(o.MinRating == "" || slices.Contains(Ratings, o.MinRating), "mission %s: min_rating must be good, great or perfect", m.ID)
+		v.require(o.Area == "" || r.areas[o.Area], "mission %s: unknown area %q", m.ID, o.Area)
+	case "lesson":
+		v.require(r.students[o.Student], "mission %s: unknown student %q", m.ID, o.Student)
+		v.require(o.MinScore >= 0 && o.MinScore <= 100, "mission %s: min_score must be 0–100", m.ID)
+	default:
+		v.errs = append(v.errs, fmt.Errorf("mission %s: unknown objective type %q", m.ID, o.Type))
+	}
+	v.require(m.Reward.Money >= 0, "mission %s: reward money must be ≥ 0", m.ID)
+	for _, it := range m.Reward.Items {
+		v.require(items[it], "mission %s: unknown reward item %q", m.ID, it)
+	}
+}
+
 func (v *validator) tune(m model.Music) {
 	v.require(m.Title != "", "music %s: title is required", m.ID)
 	v.require(m.Tempo > 0, "music %s: tempo must be > 0", m.ID)
@@ -330,6 +355,9 @@ func (v *validator) event(e model.Event, r refs) {
 		case "set_kei_stage":
 			stage, _ := a.Value.(string)
 			v.require(slices.Contains(KeiStages, stage), "event %s: unknown Kei stage %q", e.ID, stage)
+		case "start_mission":
+			id, _ := a.Value.(string)
+			v.require(r.missions[id], "event %s: unknown mission %q", e.ID, id)
 		case "unlock_area":
 			area, _ := a.Value.(string)
 			v.require(r.areas[area], "event %s: unknown area %q", e.ID, area)

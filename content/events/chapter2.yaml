@@ -1,0 +1,57 @@
+# Chapter 2: growing reputation (SPEC.md §8). Placeholder text until the story is written.
+- id: chapter2_start
+  trigger: { type: day_start }
+  conditions:
+    - flag_set: oboy_found
+    - flag_not_set: chapter2_started
+  actions:
+    - set_chapter: 2
+    - set_flag: chapter2_started
+    - dialogue: chapter2_letter
+    - start_mission: egret_cover
+
+- id: mei_recital_ask
+  trigger: { type: lesson_complete, student: mei }
+  conditions:
+    - chapter_at_least: 2
+    - flag_not_set: mei_recital_asked
+  actions:
+    - set_flag: mei_recital_asked
+    - dialogue: mei_recital_ask
+    - start_mission: mei_recital
+
+- id: chapter3_start
+  trigger: { type: mission_complete }
+  conditions:
+    - flag_set: "mission_done:egret_cover"
+    - flag_set: "mission_done:mei_recital"
+    - flag_not_set: chapter3_started
+  actions:
+    - set_chapter: 3
+    - set_flag: chapter3_started
+    - dialogue: chapter3_shutter
+
+# Chapter 3: meeting Kei.
+- id: kei_meet
+  trigger: { type: talk, npc: kei }
+  conditions:
+    - flag_set: chapter3_started
+    - flag_not_set: kei_met
+  actions:
+    - dialogue: kei_meet
+    - set_flag: kei_met
+    - set_kei_stage: friends
+    - join_party: kei
+    - add_bond: { who: kei, amount: 10 }
+
+# Neighbours and lore (repeatable).
+- id: neighbour_chat
+  once: false
+  trigger: { type: talk, npc: neighbour }
+  actions:
+    - dialogue: neighbour_chat
+- id: villager_lore
+  once: false
+  trigger: { type: talk, npc: old_villager }
+  actions:
+    - dialogue: villager_lore

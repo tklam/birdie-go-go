@@ -202,11 +202,39 @@
     "frameHeight": 24,
     "placeholder": true
   },
+  "char_kei": {
+    "type": "spritesheet",
+    "file": "chars/kei.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
+  "char_mei": {
+    "type": "spritesheet",
+    "file": "chars/mei.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
+  "char_neighbour": {
+    "type": "spritesheet",
+    "file": "chars/neighbour.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
   "char_oboy": {
     "type": "spritesheet",
     "file": "chars/oboy.png",
     "frameWidth": 8,
     "frameHeight": 8,
+    "placeholder": true
+  },
+  "char_old_villager": {
+    "type": "spritesheet",
+    "file": "chars/old_villager.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
     "placeholder": true
   },
   "enemy_hopping_zombie": {

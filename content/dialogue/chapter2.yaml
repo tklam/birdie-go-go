@@ -1,0 +1,36 @@
+- id: chapter2_letter
+  lines:
+    - { speaker: angie, text: "A letter? From Harbour Birds magazine!" }
+    - { speaker: magazine_editor, text: "We loved your photos from Junk Bay. Could you shoot a Little Egret for our next cover?" }
+    - { speaker: magazine_editor, text: "It has to be a great shot, mind you. Our readers are picky!" }
+    - { speaker: oboy, text: "Chirp!", if: { party_has: oboy } }
+    - { speaker: angie, text: "My first real assignment. Let's go to the waterfront!" }
+- id: mei_recital_ask
+  lines:
+    - { speaker: mei, text: "Miss Angie... my school recital is coming up." }
+    - { speaker: mei, text: "Can you help me practise until I play it really well?" }
+    - { speaker: angie, text: "Of course! Let's aim for a lesson score of 70 or more." }
+- id: chapter3_shutter
+  lines:
+    - { speaker: angie, text: "Two jobs done! Harbour Birds and Mei's recital..." }
+    - { speaker: angie, text: "Huh? My camera's shutter is sticking. Not now!" }
+    - { speaker: oboy, text: "Chirrup?", if: { party_has: oboy } }
+    - { speaker: angie, text: "There's a little camera shop in the mall plaza. Maybe someone there can fix it." }
+- id: kei_meet
+  lines:
+    - { speaker: kei, text: "Sticky shutter? Let me see... Ah, a bent spring." }
+    - { speaker: kei, text: "There. Good as new. I'm Kei, by the way. I tinker with cameras, and computers, and... everything, really." }
+    - { speaker: angie, text: "I'm Angie! Thank you so much. I photograph birds around Tseung Kwan O." }
+    - { speaker: oboy, text: "...Chirp.", if: { party_has: oboy } }
+    - { speaker: kei, text: "Birds? I've been writing an app that names birds from their calls. Want to try it out together?" }
+    - { speaker: angie, text: "That sounds amazing. Let's go birding!" }
+- id: neighbour_chat
+  lines:
+    - { speaker: neighbour, text: "Good day, Angie! I'm Mrs Chan from upstairs." }
+    - { speaker: neighbour, text: "Bring an umbrella when the radio says rain. And sunscreen! The sun here is no joke.", if: { chapter_at_least: 0 } }
+    - { speaker: neighbour, text: "Is that little bird still with you? He sparkles in the sunlight, doesn't he?", if: { party_has: oboy } }
+- id: villager_lore
+  lines:
+    - { speaker: old_villager, text: "Walking the hills at dusk, are you? Mind the strays. Don't run - stand tall and they'll lose interest." }
+    - { speaker: old_villager, text: "And if you hear something hopping behind you... a jiangshi follows your breath. Sticky rice draws out its chill." }
+    - { speaker: old_villager, text: "By the water, the fishermen keep sea salt in their pockets. For the shui gwai, you understand." }
