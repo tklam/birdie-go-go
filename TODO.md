@@ -96,7 +96,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 ## M3: Companions (§7)
 - [x] Bond system (outings together +2; story events)
 - [x] O Boy join event (Chapter 1: rumour on day 2, guaranteed parrotlet at the waterfront, naming scene, joins the party); shoulder perch; alert slowdown in photo scenes
-- [~] O Boy: bobs to the beat in lessons; contact call at bond 40+ (Call button / C); spotting and travel carrier still to do
+- [~] O Boy: bobs to the beat in lessons; contact call at bond 40+ (Call button / C); voice from real parrotlet recordings (chirps, call, squawk); spotting and travel carrier still to do
 - [x] Party selection (Menu → Party)
 - [x] Kei join event (Chapter 3: sticky shutter, camera shop in the plaza); follower movement; bird-call app in photo sessions
 - [x] Kei `friends` piano ability: faint trace of the notes actually played
@@ -122,13 +122,14 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
   - [~] Radio forecast at home done; `?debug=weather` still to do
 - [ ] Gear gating (§4.6)
 - [ ] Hidden collectibles: feathers, camera parts, sheet music
-- [ ] Shop, gear, Kei-built upgrades from parts
+- [~] Shop (select, see details, tap again to buy), gear and Kei-built upgrades from parts done; more shops and stock still to do
 - [x] Students progress through their repertoire; second student Ah Fai in Po Toi O (his house and piano); two new original pieces
 - [ ] More students and songs
 - [ ] *(Parked for future development.)* eBird data for realism: species lists and seasonality per area (Tseung Kwan O, Junk Bay, …) feeding bird tables. Needs a free eBird API key kept outside git; build-time tool only. eBird/Macaulay photos are NOT freely licensed, so don't use them as art.
 - [x] Missions (§9.5): photograph and lesson objectives, rewards, Menu → Missions; Chapter 2 missions (magazine egret shot, Mei's recital)
 - [ ] Contests, transit missions, live missions from updates
 - [x] Trail cameras
+- [x] Paged album for 100+ species
 - [ ] Album milestones
 
 ## M4b: Hazards and encounters (§4.12–4.13)
@@ -172,7 +173,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [~] Settings: window color, text speed, reduced motion done; control scheme still to do
 - [~] Accessibility: reduced motion done (fades for wipes/glitch, no shake/flash, calm rain); captions for audio cues and color-blind-safe UI still to do
 - [ ] Low-end phone performance pass
-- [ ] Replace placeholder art and music with final 16-bit assets
+- [~] Replace placeholder art and music with final 16-bit assets (characters redrawn in a top-down adventure style; birds from real photos; tiles and music still placeholders)
 
 ## Open questions
 See SPEC.md §11.
