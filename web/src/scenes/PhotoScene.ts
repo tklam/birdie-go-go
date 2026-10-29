@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import type { Bird, Spot, WeatherParams } from '../core/types.gen';
 import { WeatherRenderer } from '../weather/renderer';
-import { weatherOptics } from '../photo/optics';
+import { weatherOptics, withMods } from '../photo/optics';
 import { available, idlePose, landingSpots, rng, visitors, type Pose } from '../photo/birds';
 import type { Manifest, ManifestEntry } from '../systems/assets';
 import { frameIndex } from '../systems/assets';
@@ -113,7 +113,7 @@ export class PhotoScene extends Phaser.Scene {
     this.vf = { x: 160, y: 90 };
     this.vfLast = { ...this.vf };
     this.weather = data.weather ?? null;
-    this.optics = weatherOptics(this.weather);
+    this.optics = withMods(weatherOptics(this.weather), state.items);
 
     this.layers = (this.bgEntry.layers ?? []).map((id, i) => this.add.image(0, 0, id).setOrigin(0, 0).setDepth(i));
     this.graphics = this.add.graphics().setDepth(100);

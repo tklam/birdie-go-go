@@ -4,7 +4,8 @@ package model
 type Item struct {
 	ID   string `json:"id"`
 	Name string `json:"name"`
-	// Kind is "gear" (worn in a slot) or "consumable" (used up).
+	// Kind is "gear" (worn in a slot), "consumable" (used up) or "gadget"
+	// (kept; Kei builds these from camera parts).
 	Kind string `json:"kind"`
 	// Slot is "head", "body" or "hand" for gear.
 	Slot  string `json:"slot,omitempty"`
@@ -16,6 +17,15 @@ type Item struct {
 	// DurationSlots is how long a consumable's protection lasts (0 = instant).
 	DurationSlots int    `json:"durationSlots,omitempty"`
 	Description   string `json:"description"`
+	// Build says how Kei builds a gadget (SPEC.md §7.2).
+	Build *Build `json:"build,omitempty"`
+}
+
+// Build is a gadget recipe: camera parts needed and the Kei stage from
+// which he can build it.
+type Build struct {
+	Parts    int    `json:"parts"`
+	KeiStage string `json:"keiStage"`
 }
 
 // Hazard is a harmful weather condition (SPEC.md §4.12).

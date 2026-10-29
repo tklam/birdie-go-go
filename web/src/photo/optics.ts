@@ -4,6 +4,14 @@ import type { WeatherParams } from '../core/types.gen';
 export const FOCUS_TIME_MS = 600;
 export const SHUTTER_THRESHOLD = 140;
 
+/** Kei's camera mods (SPEC.md §7.2): tracking AF focuses 30% faster, the stabilizer tolerates 40% more motion. */
+export function withMods(o: { focusTimeMs: number; shutterThreshold: number }, items: Readonly<Record<string, number>>) {
+  return {
+    focusTimeMs: Math.round(o.focusTimeMs * ((items.af_module ?? 0) > 0 ? 0.7 : 1)),
+    shutterThreshold: Math.round(o.shutterThreshold * ((items.stabilizer ?? 0) > 0 ? 1.4 : 1)),
+  };
+}
+
 /** Focus time and shutter motion threshold under the given weather (SPEC.md §4.9). */
 export function weatherOptics(w: WeatherParams | null | undefined): { focusTimeMs: number; shutterThreshold: number } {
   if (!w) return { focusTimeMs: FOCUS_TIME_MS, shutterThreshold: SHUTTER_THRESHOLD };

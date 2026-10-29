@@ -29,7 +29,7 @@ var (
 	}
 	Companions   = []string{"oboy", "kei"}
 	Instruments  = []string{"square", "pulse", "triangle", "noise"}
-	ItemKinds    = []string{"gear", "consumable"}
+	ItemKinds    = []string{"gear", "consumable", "gadget"}
 	GearSlots    = []string{"head", "body", "hand"}
 	EnemyKinds   = []string{"dog", "monster"}
 	Ratings      = []string{"good", "great", "perfect"}
@@ -276,6 +276,10 @@ func (v *validator) item(it model.Item, hazards map[string]bool) {
 	}
 	v.require(it.Price >= 0, "item %s: price must be ≥ 0", it.ID)
 	v.require(it.Restores >= 0 && it.DurationSlots >= 0, "item %s: restores and duration must be ≥ 0", it.ID)
+	if it.Build != nil {
+		v.require(it.Build.Parts >= 1, "item %s: build needs at least one part", it.ID)
+		v.require(slices.Contains(KeiStages, it.Build.KeiStage), "item %s: unknown Kei stage %q", it.ID, it.Build.KeiStage)
+	}
 	for _, h := range it.Counters {
 		v.require(hazards[h], "item %s: unknown hazard %q", it.ID, h)
 	}

@@ -104,6 +104,10 @@ type itemYAML struct {
 	Restores      int      `yaml:"restores"`
 	DurationSlots int      `yaml:"duration_slots"`
 	Description   string   `yaml:"description"`
+	Build         *struct {
+		Parts    int    `yaml:"parts"`
+		KeiStage string `yaml:"kei_stage"`
+	} `yaml:"build"`
 }
 
 type hazardYAML struct {
@@ -278,10 +282,14 @@ func load(dir string) (*model.ContentBundle, error) {
 		return nil, err
 	}
 	for _, x := range items {
-		b.Items = append(b.Items, model.Item{
+		it := model.Item{
 			ID: x.ID, Name: x.Name, Kind: x.Kind, Slot: x.Slot, Price: x.Price, Counters: orEmpty(x.Counters),
 			Restores: x.Restores, DurationSlots: x.DurationSlots, Description: x.Description,
-		})
+		}
+		if x.Build != nil {
+			it.Build = &model.Build{Parts: x.Build.Parts, KeiStage: x.Build.KeiStage}
+		}
+		b.Items = append(b.Items, it)
 	}
 
 	var hazards []hazardYAML

@@ -313,7 +313,8 @@ export interface Item {
   id: string;
   name: string;
   /**
-   * Kind is "gear" (worn in a slot) or "consumable" (used up).
+   * Kind is "gear" (worn in a slot), "consumable" (used up) or "gadget"
+   * (kept; Kei builds these from camera parts).
    */
   kind: string;
   /**
@@ -334,6 +335,18 @@ export interface Item {
    */
   durationSlots?: number /* int */;
   description: string;
+  /**
+   * Build says how Kei builds a gadget (SPEC.md §7.2).
+   */
+  build?: Build;
+}
+/**
+ * Build is a gadget recipe: camera parts needed and the Kei stage from
+ * which he can build it.
+ */
+export interface Build {
+  parts: number /* int */;
+  keiStage: string;
 }
 /**
  * Hazard is a harmful weather condition (SPEC.md §4.12).

@@ -5,6 +5,7 @@ import { EventRunner, visibleLines, type TriggerInput } from './events';
 import { IndexedDBSaveStore, MemorySaveStore, type SaveStore } from './save';
 import { newGame, type GameState } from './state';
 import { tickConsumables } from './hazards';
+import { runTrailCameras } from './gadgets';
 import { completeMission, lessonMissionsMet, photoMissionsMet, startMission, type PhotoResult } from './missions';
 import { showPanel } from '../ui/panel';
 import { advanceSlot } from './time';
@@ -78,7 +79,20 @@ export class Session {
   /** Ends the current time slot and fires the resulting triggers. */
   async endSlot(): Promise<void> {
     tickConsumables(this.state);
-    for (const t of advanceSlot(this.state)) await this.fire(t);
+    const triggers = advanceSlot(this.state);
+    if (triggers.some((t) => t.type === 'day_start')) {
+      // Overnight, trail cameras catch a bird each.
+      const caught = runTrailCameras(this.state, this.content);
+      if (caught.length) {
+        const name = (id: string) => this.content.birds.find((b) => b.id === id)?.name ?? id;
+        const spot = (id: string) => this.content.spots.find((x) => x.id === id)?.name ?? id;
+        await showPanel(
+          'Trail cameras',
+          caught.map((c) => `${spot(c.spot)}: ${name(c.species)} (${c.score})${c.isNew ? ' NEW!' : ''}`),
+        );
+      }
+    }
+    for (const t of triggers) await this.fire(t);
   }
 
   /**

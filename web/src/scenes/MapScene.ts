@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import type { AmbientNPC, Enemy, WeatherDay, WeatherParams, WorldIndex, WorldObject } from '../core/types.gen';
 import { rng } from '../photo/birds';
 import { pathLength, pointAt, ridePath, type Pt } from '../world/path';
+import { build, buildStatus, CAMERA_PART, placeTrailCamera, TRAIL_CAMERA, trailCamFlag } from '../systems/gadgets';
 import { floatingButton } from '../ui/panel';
 import { CHUNK_TILES } from '../world/chunk';
 import { blendAt, easeWeather, mixWeather } from '../weather/blend';
@@ -560,9 +561,27 @@ export class MapScene extends Phaser.Scene {
     this.busy = true;
     try {
       switch (o.type) {
-        case 'spot':
-          await this.leaveTo('Photo', { spotId: o.props.spot_id, returnTo: 'Map', weather: this.weatherNow });
+        case 'spot': {
+          const spotId = o.props.spot_id;
+          const st = this.session.state;
+          if ((st.items[TRAIL_CAMERA] ?? 0) > 0 && !st.flags[trailCamFlag(spotId)]) {
+            let choice: 'photo' | 'trail' | null = null;
+            await showMenu('Birding spot', [
+              { label: 'Photograph', run: async () => ((choice = 'photo'), false) },
+              { label: 'Place trail camera', run: async () => ((choice = 'trail'), false) },
+              { label: 'Not now', run: async () => false },
+            ]);
+            if (choice === 'trail') {
+              placeTrailCamera(st, spotId);
+              toast('Trail camera placed. Check the album tomorrow morning!');
+              await this.session.save();
+              return;
+            }
+            if (choice !== 'photo') return;
+          }
+          await this.leaveTo('Photo', { spotId, returnTo: 'Map', weather: this.weatherNow });
           return;
+        }
         case 'npc': {
           const student = o.props.student;
           const fired = await this.session.fire({ type: 'talk', params: { npc: o.props.npc_id ?? o.name } });
@@ -716,6 +735,34 @@ export class MapScene extends Phaser.Scene {
     return true;
   }
 
+  /** Kei builds gadgets from camera parts (SPEC.md §7.2). */
+  private async workshop(): Promise<void> {
+    const s = this.session;
+    const buildable = s.content.items.filter((i) => i.build);
+    const parts = s.state.items[CAMERA_PART] ?? 0;
+    const why = { ok: '', stage: ' (later)', parts: '', owned: ' (built)', 'not-buildable': '' } as const;
+    await showMenu(`Kei's workshop · parts ${parts}`, [
+      ...buildable.map((item) => {
+        const status = buildStatus(s.state, item);
+        return {
+          label: `${item.name}: ${item.build?.parts} parts${why[status]}`,
+          run: async () => {
+            if (build(s.state, item)) {
+              await showPanel(`Kei built a ${item.name}!`, [item.description]);
+              await s.save();
+            } else if (status === 'parts') {
+              toast('Not enough camera parts. Monsters sometimes drop them...');
+            } else if (status === 'stage') {
+              toast("Kei says he's still working on that one.");
+            }
+            return false;
+          },
+        };
+      }),
+      { label: 'Back', run: async () => false },
+    ]);
+  }
+
   /** Choose who comes along (SPEC.md §7): alone, O Boy, Kei, or both. */
   private async partyMenu(): Promise<void> {
     const s = this.session;
@@ -822,6 +869,17 @@ export class MapScene extends Phaser.Scene {
     const items = [
       { label: 'Album', run: async () => (await showAlbum(s.content, s.state, this.registry.get('manifest') as Manifest), true) },
       { label: 'Bag', run: () => this.bag() },
+      ...(s.state.joined.includes('kei')
+        ? [
+            {
+              label: 'Workshop',
+              run: async () => {
+                await this.workshop();
+                return true;
+              },
+            },
+          ]
+        : []),
       ...(s.state.joined.length
         ? [
             {

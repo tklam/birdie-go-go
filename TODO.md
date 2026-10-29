@@ -101,7 +101,8 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Kei `friends` piano ability: faint trace of the notes actually played
 - [ ] Folding ladder (Kei build)
 - [x] Kei romance stages through `married` (story events)
-- [ ] Kei abilities beyond friends: trail cameras, camera mods, practice drills, home workshop
+- [x] Kei's workshop: trail cameras (dating; photograph a bird each morning), tracking AF and stabilizer (engaged) from camera parts
+- [ ] Kei: practice drills for students, home workshop (married)
 - [x] O Boy jealousy arc → `oboy_accepts_kei` (birds jumpier with both along until then)
 - [ ] Combo ability; party-dependent dialogue
 
@@ -125,7 +126,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] *(Parked for future development.)* eBird data for realism: species lists and seasonality per area (Tseung Kwan O, Junk Bay, …) feeding bird tables. Needs a free eBird API key kept outside git; build-time tool only. eBird/Macaulay photos are NOT freely licensed, so don't use them as art.
 - [x] Missions (§9.5): photograph and lesson objectives, rewards, Menu → Missions; Chapter 2 missions (magazine egret shot, Mei's recital)
 - [ ] Contests, transit missions, live missions from updates
-- [ ] Trail cameras
+- [x] Trail cameras
 - [ ] Album milestones
 
 ## M4b: Hazards and encounters (§4.12–4.13)

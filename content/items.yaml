@@ -12,3 +12,7 @@
 - { id: sticky_rice, name: Sticky Rice, kind: consumable, price: 20, counters: [], description: "An old folk remedy against hopping zombies." }
 - { id: sea_salt, name: Sea Salt, kind: consumable, price: 15, counters: [], description: "Fishermen swear it keeps water ghosts away." }
 - { id: camera_part, name: Camera Part, kind: consumable, price: 0, counters: [], description: "A useful part. Kei might build something with it one day." }
+# Kei's gadgets, built from camera parts at his workshop (SPEC.md §7.2).
+- { id: trail_camera, name: Trail Camera, kind: gadget, price: 0, counters: [], build: { parts: 2, kei_stage: dating }, description: "Place it at a birding spot; it photographs a bird every morning." }
+- { id: af_module, name: Tracking AF, kind: gadget, price: 0, counters: [], build: { parts: 3, kei_stage: engaged }, description: "Kei's autofocus module: focusing is 30% faster." }
+- { id: stabilizer, name: Stabilizer, kind: gadget, price: 0, counters: [], build: { parts: 3, kei_stage: engaged }, description: "Kei's stabilizer: fast birds come out sharper." }
