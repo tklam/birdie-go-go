@@ -98,6 +98,9 @@ export class EncounterScene extends Phaser.Scene {
   private run = 0;
   private phase: Phase = 'idle';
   private resolve = 0;
+  /** Companion assists (SPEC.md §4.13): O Boy's squawk shortens one combo; Kei's flash widens windows. */
+  private squawkReady = false;
+  private windowBonus = 1;
   private energyLost = 0;
   private catches = 0;
   private weaknessUsed = false;
@@ -154,6 +157,20 @@ export class EncounterScene extends Phaser.Scene {
     }
     this.enemy = enemy;
     this.resolve = enemy.resolve;
+    const party = state.party;
+    this.squawkReady = party.includes('oboy');
+    this.windowBonus = 1;
+    const keiStages = ['friends', 'dating', 'engaged', 'married'];
+    const keiAlong = party.includes('kei') && keiStages.includes(state.keiStage);
+    if (keiAlong && enemy.kind === 'dog') {
+      // Kei's ultrasonic whistle unsettles the dogs from the start.
+      this.resolve = Math.round(this.resolve * 0.75);
+      this.time.delayedCall(400, () => this.setMessage("Kei's whistle unsettles the dogs!"));
+    } else if (keiAlong && keiStages.indexOf(state.keiStage) >= 1) {
+      // From dating on, Kei's camera-flash gadget stuns monsters: more time per combo.
+      this.windowBonus = 1.3;
+      this.time.delayedCall(400, () => this.setMessage("Kei's flash dazzles it!"));
+    }
     this.random = rng(encounterSeed(state.worldSeed, state.day, enemy.id, `play:${state.slot}`));
 
     this.drawBackdrop();
@@ -345,7 +362,16 @@ export class EncounterScene extends Phaser.Scene {
     const settings = this.session.state.settings;
     while (this.resolve > 0 && this.alive(run)) {
       const p = comboParams(this.enemy, this.resolve / Math.max(1, this.enemy.resolve), settings.slowerPrompts);
-      const combo = generateCombo(p.length, this.random);
+      let length = p.length;
+      if (this.squawkReady && length > 1) {
+        // O Boy squawks once per encounter: one step fewer.
+        this.squawkReady = false;
+        length -= 1;
+        this.setMessage('O Boy squawks! It looks away!');
+        await this.wait(700);
+        if (!this.alive(run)) return;
+      }
+      const combo = generateCombo(length, this.random);
       this.setMessage('Ready…');
       this.drawCombo(combo, 0, 1, true);
       this.showButtons(true);
@@ -353,7 +379,7 @@ export class EncounterScene extends Phaser.Scene {
       await this.wait(500);
       if (!this.alive(run)) return;
       this.setMessage('');
-      const status = await this.playCombo(combo, p.windowMs);
+      const status = await this.playCombo(combo, Math.round(p.windowMs * this.windowBonus));
       if (!this.alive(run)) return;
       if (status === 'complete') {
         const left = this.attempt ? timeLeft(this.attempt, this.time.now) : 0;

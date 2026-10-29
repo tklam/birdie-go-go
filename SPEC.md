@@ -278,6 +278,8 @@ Occasionally Angie meets something hostile: **wild dogs** (stray packs found on 
 - **Gear helps**: an umbrella gives a block prompt (and breaks on failure), a whistle starts a fight with lower enemy resolve, and snacks can distract dogs (one-time escape).
 - **Difficulty** scales with the enemy and the area. Rewards are small: avoiding enemies is always a valid play style.
 
+**As built (v1 tuning).** Combo windows are per symbol (a 4-symbol combo with a 1.5 s window gets 6 s), with a short "Ready…" preview. A completed combo removes 15–25 resolve (more for longer and faster ones); a failed one costs the enemy's damage in Energy and returns to the choice menu. In Escape, the enemy fills its meter in 4 s and each tap is worth 1/mash_rate of that, so you must tap faster than the enemy's mash rate; holding (accessibility) fills at 1.15× the enemy's pace; being caught twice ends the encounter as lost. Skip costs half the enemy's damage.
+
 **Controls**
 | Input | Touch | Mouse | Keyboard |
 |---|---|---|---|

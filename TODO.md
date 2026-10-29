@@ -132,15 +132,16 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] Bag capacity and packing at home
 - [x] Hazard gear items: sun hat, sunscreen, umbrella (breaks in strong wind), raincoat, windbreaker, jacket, water bottle; snacks (milk tea, pineapple bun)
 - [~] Weather effects in the photo scene (slower focus, lower sharpness); soaked/overheated status effects still to do
-- [ ] `enemies.yaml`; enemy roaming, detection (noise/sight), chase on the map
-- [ ] Encounter transition (swirl/mosaic) + Encounter Scene
-- [ ] Escape: mash meter + dodge prompts
-- [ ] Confront: combo sequences (swipe directions + A/B), time windows, enemy resolve; tests
-- [ ] Wild dogs (driven off)
-- [ ] Zombies (incl. folklore-style hopping zombies) with telegraphed patterns
+- [x] `enemies.yaml`; enemy roaming, detection (sight, sneaking, tall grass), chase on the map
+- [x] Encounter transition (iris) + Encounter Scene
+- [x] Escape: mash meter + dodge prompts
+- [x] Confront: combo sequences (swipe directions + A/B), time windows, enemy resolve; tests
+- [x] Wild dogs (driven off)
+- [x] Hopping zombie (jiangshi) and water ghost (shui gwai) with folklore weaknesses
 - [ ] First folklore creatures, each with a lore-based weakness
-- [ ] Gear and companion assists in encounters
-- [ ] Accessibility: hold instead of mash, slower prompts, skip encounter
+- [x] Companion assists in encounters: O Boy's squawk (one combo step fewer), Kei's whistle vs dogs (−25% resolve) and flash vs monsters (longer windows, from dating)
+- [ ] Gear assists in encounters: umbrella block, whistle item
+- [x] Accessibility: hold instead of mash, slower prompts, skip encounter (Settings)
 - [~] Radio forecast per area done; explicit UV / heat / wind warnings still to do
 
 ## M5: Content updates (optional server, §9.6)

@@ -134,7 +134,7 @@ Sometimes you'll run into **wild dogs** on the edge of the city or in country pa
 Tips:
 - Dogs are hard to outrun. Standing your ground (Confront) usually works better, and Angie only shoos them away.
 - An umbrella lets you block, but it can break. A snack can distract a dog so you can slip away.
-- O Boy can squawk to distract an enemy, and Kei's gadgets make things easier.
+- O Boy squawks once per encounter to distract the enemy (one combo step fewer). Kei's whistle unsettles dogs, and later his camera flash dazzles monsters (more time per combo).
 - If mashing is hard for you, turn on **Hold instead of mash**, **Slower prompts**, or **Skip encounters** in Settings.
 
 ## Bird photography
