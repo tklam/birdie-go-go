@@ -91,7 +91,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] World map (Menu → Map): one-pixel-per-tile overview built by worldbuild, markers for Angie, birding spots, transit, open gateways, shop and homes
 - [x] World map: zoom levels (×1–×3, scrolls to Angie), discovered-areas fog (`overview_areas.png`), transit lines
 - [x] Teleport waypoints: Kei's gateways (digitalization/undigitalization through his digital kingdom) (plaza, country park, Po Toi O), glitch-dissolve transition, unlocked once dating with bond 45+
-- [ ] Visiting Kei's digital realm itself (open question, SPEC §11)
+- [x] Kei's digital realm: decided, it can't be visited for now (gateways only pass through it)
 
 ## M3: Companions (§7)
 - [x] Bond system (outings together +2; story events)

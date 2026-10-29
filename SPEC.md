@@ -612,6 +612,6 @@ Turn-based or deep combat systems (encounters stay short input challenges, §4.1
 - Whether weather should ever block paths (e.g. flooded paths after a black rainstorm).
 - Whether married life adds gameplay or is post-game only.
 - The Bird Paradise and O Boy's journey: what it is like, where he's been, and whether it connects to Kei's digital kingdom or the folklore creatures.
-- Kei's digital kingdom: can the player visit it? How does uploading "ghosts" play out in the story (Angie's feelings about it, risks, the folklore ghosts' view of digital ghosts)?
+- Kei's digital kingdom: **decided: not visitable for now**; gateways only pass through it (the glitch transition). How uploading "ghosts" plays out in the story (Angie's feelings about it, risks, the folklore ghosts' view of digital ghosts) is still open.
 - Which specific folklore creatures to include, and how scary they should look (cozy-spooky vs. genuinely creepy).
 - Whether dog encounters should become rarer as the story progresses (e.g. a side quest to help an animal shelter).
