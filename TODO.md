@@ -92,9 +92,10 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 ## M3: Companions (§7)
 - [ ] Bond system
 - [x] O Boy join event (Chapter 1: rumour on day 2, guaranteed parrotlet at the waterfront, naming scene, joins the party); shoulder perch; alert slowdown in photo scenes
-- [ ] O Boy: piano hints, contact call, spotting, travel carrier
+- [~] O Boy: bobs to the beat in lessons done; contact call, spotting, travel carrier still to do
 - [ ] Party selection (home / talk to companion)
-- [ ] Kei join event (Chapter 3); follower movement; `friends` abilities
+- [x] Kei join event (Chapter 3: sticky shutter, camera shop in the plaza); follower movement; bird-call app in photo sessions
+- [ ] Kei `friends` piano ability (pitch-line overlay); folding ladder
 - [ ] Kei romance stages and abilities through `married`
 - [ ] O Boy jealousy arc → `oboy_accepts_kei`
 - [ ] Combo ability; party-dependent dialogue
@@ -116,7 +117,8 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] Shop, gear, Kei-built upgrades from parts
 - [ ] Students: profiles, progress, new songs
 - [ ] eBird data for realism: species lists and seasonality per area (Tseung Kwan O, Junk Bay, …) feeding bird tables. Needs a free eBird API key kept outside git; build-time tool only. eBird/Macaulay photos are NOT freely licensed, so don't use them as art.
-- [ ] Missions (§9.5): requests, contests, transit missions
+- [x] Missions (§9.5): photograph and lesson objectives, rewards, Menu → Missions; Chapter 2 missions (magazine egret shot, Mei's recital)
+- [ ] Contests, transit missions, live missions from updates
 - [ ] Trail cameras
 - [ ] Album milestones
 
@@ -149,7 +151,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] (Later) cloud save sync
 
 ## M6: Story (§8)
-- [ ] Chapters 1–5 and finale events and dialogue
+- [~] Chapters 1–3 events and dialogue (placeholder text); Chapters 4–5 and the finale still to do
 - [ ] Wedding scene and shared home
 - [ ] Post-game free play
 
