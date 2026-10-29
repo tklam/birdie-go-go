@@ -10,7 +10,7 @@
     - { speaker: angie, text: "Hey there. Are you lost?" }
     - { speaker: parrotlet, text: "Chirp! Chirrup!" }
     - { speaker: angie, text: "Whoa, you landed right on my shoulder! You're not scared of me at all." }
-    - { speaker: angie, text: "Oh boy... you look hungry. Want to come home with me until we find your owner?" }
+    - { speaker: angie, text: "Oh boy... you look hungry. Want to come home with me?" }
     - { speaker: parrotlet, text: "Chirp!" }
     - { speaker: angie, text: "Oh boy... O Boy! That's your name now." }
     - { speaker: oboy, text: "Chirrup!" }

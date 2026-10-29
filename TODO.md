@@ -152,7 +152,6 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] Chapters 1–5 and finale events and dialogue
 - [ ] Wedding scene and shared home
 - [ ] Post-game free play
-- [ ] O Boy past-owner side quest
 
 ## M7: Polish
 - [ ] Settings: volume, control scheme, window color, recalibrate, text speed

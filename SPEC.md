@@ -402,7 +402,7 @@ Abilities are **hints**, never automatic success.
 | Chapter | Summary | Key events |
 |---|---|---|
 | Prologue | Angie, new to the city, starts her first lessons and buys a basic camera | Tutorial: movement, first lesson, calibration, first photo |
-| 1 | Finding O Boy in a city park — a lost parrotlet among the wild parakeets and bulbuls | `oboy_found`, `oboy_joins`; hint about his past owner |
+| 1 | Finding O Boy in a city park — a lost parrotlet among the wild parakeets and bulbuls | `oboy_found`, `oboy_joins` |
 | 2 | Growing reputation; harder birds and students reveal gear limits | Wading boots; Wetlands opens; contest request |
 | 3 (mid-game) | Meets Kei (e.g. at the shop, fixing a broken camera) | `kei_met`, `kei_joins`; `kei.stage = friends` |
 | 4 | Outings become dates | `kei.stage = dating`; O Boy jealousy arc → `oboy_accepts_kei` |
@@ -566,7 +566,6 @@ Turn-based or deep combat systems (encounters stay short input challenges, §4.1
 - Final number of areas, species, students, songs.
 - Whether weather should ever block paths (e.g. flooded paths after a black rainstorm).
 - Whether married life adds gameplay or is post-game only.
-- How O Boy's past-owner side quest resolves.
 - Is Kei's digital realm a place the player can visit, or only something the teleports pass through? And are the monsters connected to it (e.g. folklore spirits slipping through his gateways), or unrelated?
 - Which specific folklore creatures to include, and how scary they should look (cozy-spooky vs. genuinely creepy).
 - Whether dog encounters should become rarer as the story progresses (e.g. a side quest to help an animal shelter).
