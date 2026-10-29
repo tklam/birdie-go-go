@@ -151,6 +151,10 @@ func TestRunBuildsChunks(t *testing.T) {
 	if c0.area[2*chunkTiles] != noArea {
 		t.Error("tiles outside the map should have no area")
 	}
+	// Row 2 is outside the 2-row map: filled and solid so nobody walks off the edge.
+	if c0.collision[2*chunkTiles] != model.CollisionSolid || c0.ground[2*chunkTiles] != 2 {
+		t.Errorf("uncovered tile: collision %d ground %d", c0.collision[2*chunkTiles], c0.ground[2*chunkTiles])
+	}
 	if len(c0.objects) != 1 || c0.objects[0].Props["spot_id"] != "park" {
 		t.Errorf("chunk 0,0 objects = %+v", c0.objects)
 	}

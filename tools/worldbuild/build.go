@@ -87,6 +87,9 @@ type tileRef struct {
 type chunk struct {
 	ground, detail, overhead [chunkArea]uint16
 	collision, area          [chunkArea]uint8
+	// covered marks tiles that belong to an authored map; the rest of the
+	// chunk is filled and made solid so nothing can walk off a map's edge.
+	covered [chunkArea]bool
 	// blend holds, per 4×4-tile cell, up to three (area, weight/255) pairs.
 	blend   [cellsPerChunk * cellsPerChunk][blendSlots][2]uint8
 	objects []model.WorldObject
@@ -142,6 +145,7 @@ func run(worldPath, outDir string, opts options) error {
 			return fmt.Errorf("%s: %w", path, err)
 		}
 	}
+	b.sealUncovered()
 	b.blendField(index.WidthChunks, index.HeightChunks, opts.blendTiles)
 	if len(w.Maps) > 0 && b.fill == 0 {
 		return fmt.Errorf("fill tile %q not found in tileset %q", opts.fillTile, opts.atlas)
@@ -207,6 +211,12 @@ func (b *builder) addMap(path string, ox, oy int) error {
 		return err
 	}
 	baseX, baseY := ox/tileSize, oy/tileSize
+	for y := range m.Height {
+		for x := range m.Width {
+			tx, ty := baseX+x, baseY+y
+			b.chunk(tx/chunkTiles, ty/chunkTiles).covered[(ty%chunkTiles)*chunkTiles+tx%chunkTiles] = true
+		}
+	}
 	for _, l := range m.Layers {
 		switch l.Type {
 		case "tilelayer":
@@ -305,6 +315,22 @@ func (b *builder) resolveTilesets(dir string, m tiledMap) (map[int]tileRef, erro
 		}
 	}
 	return gids, nil
+}
+
+// sealUncovered fills tiles outside every authored map with the fill tile
+// and makes them solid (e.g. around a small interior inside its chunk).
+func (b *builder) sealUncovered() {
+	for _, c := range b.chunks {
+		for i, covered := range c.covered {
+			if covered {
+				continue
+			}
+			c.ground[i] = uint16(b.fill)
+			c.detail[i] = 0
+			c.overhead[i] = 0
+			c.collision[i] = model.CollisionSolid
+		}
+	}
 }
 
 // landmark returns the in-game map marker for an object, if it deserves one.

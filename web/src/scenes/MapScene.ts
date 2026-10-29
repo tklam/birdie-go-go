@@ -152,6 +152,7 @@ export class MapScene extends Phaser.Scene {
   private weatherRenderer: WeatherRenderer | null = null;
   private hazards: HazardReport | null = null;
   private fainting = false;
+  private exiting = false;
   /** The tune this place should play (area music outdoors, none indoors). */
   private wantMusic: string | null = null;
   /** Ground value of tall grass (atlas frame + 1), or −1 if the atlas has none. */
@@ -188,6 +189,7 @@ export class MapScene extends Phaser.Scene {
     this.weatherRenderer = null;
     this.hazards = null;
     this.fainting = false;
+    this.exiting = false;
     this.touch = new TouchControls();
     this.input2 = new InputReader(this, this.touch);
     this.hud = new Hud();
@@ -374,6 +376,7 @@ export class MapScene extends Phaser.Scene {
 
     this.session.state.position = { map: this.mapId, x: Math.round(this.pos.x), y: Math.round(this.pos.y) };
     this.updateArea();
+    if (moving) this.walkOutIfOnExit();
     const inGrass = this.inTallGrass();
     if (moving && inGrass && !input.sneak && Math.random() < 0.3) this.rustle.emitParticleAt(this.pos.x, this.pos.y - 2, 2);
     // Walking through tall grass rustles and scares birds from further away;
@@ -627,6 +630,21 @@ export class MapScene extends Phaser.Scene {
       }
     } finally {
       this.busy = false;
+    }
+  }
+
+  /** Indoors, stepping onto the exit mat leads outside (no Action needed). */
+  private walkOutIfOnExit(): void {
+    if (this.mapId === 'world' || this.exiting || this.busy) return;
+    for (const chunk of this.store.chunks()) {
+      for (const o of chunk.objects) {
+        if (o.type !== 'door' || o.props.to_map !== 'world') continue;
+        if (Math.abs(this.pos.x - o.x) < 8 && Math.abs(this.pos.y - 4 - o.y) < 8) {
+          this.exiting = true;
+          void this.goThrough(o);
+          return;
+        }
+      }
     }
   }
 
@@ -1214,7 +1232,8 @@ export class MapScene extends Phaser.Scene {
   private updateUmbrellas(): void {
     if (!this.textures.exists('umbrella')) return;
     const st = this.session.state;
-    this.umbrellas.angie ??= this.add.sprite(0, 0, 'umbrella', 0).setOrigin(0.5, 1).setVisible(false);
+    // Angie's is pink (frame 4).
+    this.umbrellas.angie ??= this.add.sprite(0, 0, 'umbrella', 4).setOrigin(0.5, 1).setVisible(false);
     // Angie only opens hers when she's equipped it and is outdoors.
     this.holdUmbrella(this.umbrellas.angie, this.angie, !!this.weatherRenderer && st.equipped.hand === 'umbrella');
     if (this.kei) {

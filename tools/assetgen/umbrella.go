@@ -3,8 +3,8 @@ package main
 import "path/filepath"
 
 // umbrellaColors are the canopy colors, one frame each (16×12, seen from the
-// 3/4 top-down view): red, navy, teal, yellow.
-var umbrellaColors = [][2]uint8{{cRed, cDarkRed}, {cBlue, cNavy}, {cTeal, cDarkTeal}, {cYellow, cOrange}}
+// 3/4 top-down view): red, navy, teal, yellow, and pink (frame 4, Angie's).
+var umbrellaColors = [][2]uint8{{cRed, cDarkRed}, {cBlue, cNavy}, {cTeal, cDarkTeal}, {cYellow, cOrange}, {cPink, cRed}}
 
 // genUmbrella draws an open umbrella held over a character's head.
 func genUmbrella(assets string) error {
