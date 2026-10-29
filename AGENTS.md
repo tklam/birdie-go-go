@@ -4,7 +4,7 @@ Guidance for AI coding agents (and humans) working in this repository.
 
 ## Project
 
-**Birdie Go Go** is a cozy, touch-friendly browser JRPG in **16-bit retro style**. Its world is a huge map modelled on **Hong Kong** (dense city, green spaces inside the city, hills, wetlands, islands), with a top-down Zelda-style overworld. The player is **Angie**, who photographs birds and teaches piano. She's joined by **O Boy** (a blue-green Pacific parrotlet) and **Kei** (an engineer, later her boyfriend and then husband). She gets around on foot or by bus, tram, metro, ferry, and teleport. Along the way she faces occasional wild dogs and monsters (short input-challenge encounters) and harsh weather that calls for the right gear.
+**Birdie Go Go** is a cozy, touch-friendly browser JRPG in **16-bit retro style**. Its world is a huge map modelled on **Hong Kong** (dense city, green spaces inside the city, hills, wetlands, islands), with a top-down Zelda-style overworld. The player is **Angie**, who photographs birds and teaches piano. She's joined by **O Boy** (a blue-green bird from the Bird Paradise, travelling the universe; he looks like a Pacific parrotlet) and **Kei** (an engineer, later her boyfriend and then husband). She gets around on foot or by bus, tram, metro, ferry, and teleport. Along the way she faces occasional wild dogs and monsters (short input-challenge encounters) and harsh weather that calls for the right gear.
 
 - Game design: [`SPEC.md`](SPEC.md), the source of truth.
 - Setup, architecture, workflows: [`developer_guide.md`](developer_guide.md).
@@ -43,7 +43,7 @@ Before declaring a task done, run `make test` and `make lint`. If you touched st
 
 1. **The server is optional.** No feature may require the update server to be reachable. The game must start, play, and save fully offline.
 2. **Content is data.** Story, dialogue, birds, spots, areas, songs, students, items, missions, transit lines, and events all live in `content/`. Never hardcode story beats, names, or balance numbers. If the event system can't express something, extend it and document the change in SPEC.md §9.4 and developer_guide.md.
-3. **Canon is fixed.** Angie; O Boy (blue-green Pacific parrotlet); Kei (CS/engineering, joins mid-game). Kei's stages are `met → friends → dating → engaged → married`.
+3. **Canon is fixed.** Angie; O Boy (a traveller from the Bird Paradise who looks like a blue-green Pacific parrotlet; no past-owner story); Kei (CS/engineering, joins mid-game). Kei's stages are `met → friends → dating → engaged → married`.
 4. **Original content.** The 16-bit look and the Zelda-style overworld are *style* references. Never copy maps, characters, sprites, music, or names from existing games. The world is Hong Kong-*inspired*: no real transit or shop logos or trademarks in assets. Use original or lightly fictionalized names.
 5. **16-bit constraints.** Native 320×180, integer scaling, whole-pixel positions, 16-color palettes per sprite/tile from the master palette (SPEC.md §1.3). `make lint` checks palettes.
 6. **Touch first.** Every interaction must work on a touchscreen. No hover-only UI. Tap targets must be at least 44 CSS px. Mouse and keyboard are equivalent alternatives, not the primary path.

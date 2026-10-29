@@ -9,7 +9,7 @@ Birdie Go Go is a cozy, browser-based JRPG. The player is **Angie**, a young wom
 1. **Bird photography** — exploring the overworld, finding birds, and capturing perfect photos in a dedicated *action view*.
 2. **Teaching piano** — visiting students, listening to them play, and flagging their mistakes in real time.
 
-Combat is light and occasional (§4.13). Progression comes from money, gear, the photo album, student growth, exploration, and Angie's relationships with her companions **O Boy** (a Pacific parrotlet) and **Kei** (an engineer who becomes her boyfriend, then husband).
+Combat is light and occasional (§4.13). Progression comes from money, gear, the photo album, student growth, exploration, and Angie's relationships with her companions **O Boy** (a little bird from the Bird Paradise, travelling the universe) and **Kei** (an engineer who becomes her boyfriend, then husband).
 
 ### 1.1 Pillars
 
@@ -46,7 +46,8 @@ The whole game (overworld, photo scenes, lessons, menus) looks and sounds like a
 - One combat-style stat: **Energy** (§4.12). She also has **money**, **gear**, **reputation** (as a teacher), and an **album**.
 
 ### 2.2 O Boy
-- A blue-greenish **Pacific parrotlet** (*Forpus coelestis*, likely a color mutation — hinting he's an escaped or abandoned pet).
+- A little bird from the **Bird Paradise**, a traveller journeying around the universe. On Earth he looks like a blue-greenish **Pacific parrotlet** (*Forpus coelestis*), with a faint starry shimmer in his feathers.
+- Where the Bird Paradise is, why he's travelling and why he stays with Angie unfold gently through the story (see §11).
 - Found by Angie during an early-game birding outing; she names him "O Boy". Joining is a scripted story event.
 - On the map he rides on Angie's shoulder and occasionally flutters off and back (cosmetic).
 - Initially wary/jealous of Kei; warms up as bond grows (a small three-way arc).
@@ -402,7 +403,7 @@ Abilities are **hints**, never automatic success.
 | Chapter | Summary | Key events |
 |---|---|---|
 | Prologue | Angie, new to the city, starts her first lessons and buys a basic camera | Tutorial: movement, first lesson, calibration, first photo |
-| 1 | Finding O Boy in a city park — a lost parrotlet among the wild parakeets and bulbuls | `oboy_found`, `oboy_joins` |
+| 1 | Finding O Boy at the waterfront park — a shimmering blue-green bird from the Bird Paradise, resting on his journey around the universe | `oboy_found`, `oboy_joins` |
 | 2 | Growing reputation; harder birds and students reveal gear limits | Wading boots; Wetlands opens; contest request |
 | 3 (mid-game) | Meets Kei (e.g. at the shop, fixing a broken camera) | `kei_met`, `kei_joins`; `kei.stage = friends` |
 | 4 | Outings become dates | `kei.stage = dating`; O Boy jealousy arc → `oboy_accepts_kei` |
@@ -566,6 +567,7 @@ Turn-based or deep combat systems (encounters stay short input challenges, §4.1
 - Final number of areas, species, students, songs.
 - Whether weather should ever block paths (e.g. flooded paths after a black rainstorm).
 - Whether married life adds gameplay or is post-game only.
+- The Bird Paradise and O Boy's journey: what it is like, where he's been, and whether it connects to Kei's digital realm or the folklore creatures.
 - Is Kei's digital realm a place the player can visit, or only something the teleports pass through? And are the monsters connected to it (e.g. folklore spirits slipping through his gateways), or unrelated?
 - Which specific folklore creatures to include, and how scary they should look (cozy-spooky vs. genuinely creepy).
 - Whether dog encounters should become rarer as the story progresses (e.g. a side quest to help an animal shelter).

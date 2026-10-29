@@ -2,15 +2,17 @@
   lines:
     - { speaker: angie, text: "Morning, Tseung Kwan O!" }
     - { speaker: neighbour, text: "Morning! Did you hear? Someone saw a little blue-green bird at the waterfront park." }
-    - { speaker: neighbour, text: "Not a wild one, I think. Too tame. Must be somebody's pet." }
-    - { speaker: angie, text: "A lost pet? I'll keep an eye out when I'm birding by the bay." }
+    - { speaker: neighbour, text: "Not like any bird in the books, they said. Its feathers sparkled like the night sky!" }
+    - { speaker: angie, text: "A bird that sparkles? I have to see that. I'll look for it when I'm birding by the bay." }
 - id: oboy_found
   lines:
-    - { speaker: angie, text: "That little teal bird... it's a Pacific parrotlet! They don't live wild here." }
-    - { speaker: angie, text: "Hey there. Are you lost?" }
+    - { speaker: angie, text: "That little teal bird... it looks like a Pacific parrotlet. But they don't live here." }
+    - { speaker: angie, text: "Wait. Your feathers are shimmering... like tiny stars." }
     - { speaker: parrotlet, text: "Chirp! Chirrup!" }
     - { speaker: angie, text: "Whoa, you landed right on my shoulder! You're not scared of me at all." }
-    - { speaker: angie, text: "Oh boy... you look hungry. Want to come home with me?" }
-    - { speaker: parrotlet, text: "Chirp!" }
-    - { speaker: angie, text: "Oh boy... O Boy! That's your name now." }
+    - { speaker: angie, text: "Where did you come from, little one?" }
+    - { speaker: parrotlet, text: "Chirrup!" }
+    - { speaker: angie, text: "You're looking up at the sky... From way up there? Are you a traveller?" }
+    - { speaker: parrotlet, text: "Chirp chirp!" }
+    - { speaker: angie, text: "Then rest with me for a while. Oh boy... O Boy! That's your name." }
     - { speaker: oboy, text: "Chirrup!" }

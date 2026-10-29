@@ -4,7 +4,7 @@
 
 ## Welcome
 
-You are **Angie**, newly moved into a flat in Tseung Kwan O, a new town on the bay at the edge of a big harbour city. You have a camera and a love of music. The city's skyscrapers sit right beside green hills, quiet wetlands, beaches, and islands. Spend your days exploring, photographing birds, and teaching piano. Along the way you'll meet **O Boy**, a little blue-green parrotlet with a mysterious past, and **Kei**, an engineer who can build just about anything.
+You are **Angie**, newly moved into a flat in Tseung Kwan O, a new town on the bay at the edge of a big harbour city. You have a camera and a love of music. The city's skyscrapers sit right beside green hills, quiet wetlands, beaches, and islands. Spend your days exploring, photographing birds, and teaching piano. Along the way you'll meet **O Boy**, a little blue-green bird from the Bird Paradise who is travelling around the universe, and **Kei**, an engineer who can build just about anything.
 
 The city has its rough edges, like stray dogs, the odd strange creature, and fierce weather, but there's no game over, so take your time.
 
