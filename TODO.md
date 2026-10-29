@@ -110,14 +110,14 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 ## M4: World and progression
 - [x] Clear Water Bay Country Park and Po Toi O fishing village (seamless region east of TKO)
 - [ ] More districts: peaks, harbourfront, peak trails, country park, NW wetlands, villages, beaches, an outlying island
-- [ ] Seasons with palette-swapped foliage
+- [x] Seasons with palette-swapped foliage (autumn and winter tile atlases on the world map)
 - [ ] Regional weather (§4.9)
   - [x] Climate profiles in `areas.yaml` + validation
   - [x] `core/weather`: drifting regional front, local variation, smoothing, deterministic, tested
   - [x] Typhoon fronts + signals and rainstorm warnings (HUD, announcements, `weather_warning`); ferries, spots and lessons close at T8+ or black rain
   - [x] Blend field in `worldbuild` + tests
   - [x] Client blend sampling (pure TS) + tests
-  - [~] WeatherRenderer: rain, dithered fog, cloud/evening tint done (haze line-scroll, sway, waves, ambience, muffled interiors still to do)
+  - [~] WeatherRenderer: rain, fog, cloud/evening tint, heat haze; rain and wind ambience, muffled indoors (sway and waves still to do)
   - [x] Weather in photo scenes (focus time, sharpness, visuals), weather-dependent bird tables and sheltering
   - [x] Radio forecast at home; `?debug=weather` overlay
 - [~] Gear gating (§4.6): gates, wading boots (Po Toi O mudflat), night lens (Night Woods); kayak still to do (needs islands)

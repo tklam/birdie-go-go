@@ -8,7 +8,7 @@ import { floatingButton } from '../ui/panel';
 import { CHUNK_TILES } from '../world/chunk';
 import { blendAt, easeWeather, mixWeather } from '../weather/blend';
 import { WeatherRenderer } from '../weather/renderer';
-import { CONTROL_SCHEMES, MAX_ENERGY, TEXT_SPEEDS, TIME_SLOTS, WINDOW_COLORS } from '../systems/state';
+import { CONTROL_SCHEMES, MAX_ENERGY, TEXT_SPEEDS, TIME_SLOTS, WINDOW_COLORS, season } from '../systems/state';
 import { findPath, type Tile } from '../world/pathfind';
 import { activeMissions, doneMissions, type PhotoResult } from '../systems/missions';
 import { assess, breakItem, drain, protection, toggleGear, useItem, type HazardReport } from '../systems/hazards';
@@ -101,6 +101,9 @@ interface OverworldEnemy {
  * encounter is in progress, and short post-escape calm.
  */
 const settled = { day: 0, ids: new Set<string>(), pending: '', calmUntil: 0 };
+
+/** The last outdoor rain and wind levels, heard muffled from indoors (SPEC.md §4.9). */
+const ambience = { rain: 0, wind: 0, next: 0 };
 
 interface OverworldBird {
   sprite: Phaser.GameObjects.Sprite;
@@ -276,7 +279,10 @@ export class MapScene extends Phaser.Scene {
     this.makeRustle();
     this.makeGlints();
 
-    this.chunkRenderer = new ChunkRenderer(this, this.index.tileset, this.index.tileSize);
+    // Outdoors, foliage follows the season: a palette-swapped atlas if there is one (SPEC.md §1.3).
+    const seasonal = `${this.index.tileset}_${season(this.session.state.day)}`;
+    const tileset = this.mapId === 'world' && this.textures.exists(seasonal) ? seasonal : this.index.tileset;
+    this.chunkRenderer = new ChunkRenderer(this, tileset, this.index.tileSize);
     this.store = new ChunkStore(this.index, workerChunkLoader(`${mapPath(this.mapId)}chunks/`), {
       loaded: (c) => {
         this.chunkRenderer.enqueue(c);
@@ -394,6 +400,18 @@ export class MapScene extends Phaser.Scene {
     this.nextBedtime = time + r.everySeconds * 1000;
   }
 
+  /** Rain and wind sounds from the weather at Angie, muffled indoors; four times a second. */
+  private updateAmbience(time: number): void {
+    if (time < ambience.next) return;
+    ambience.next = time + 250;
+    const w = this.weatherNow;
+    if (this.weatherRenderer && w) {
+      ambience.rain = Math.max(0, (w.precip - 0.12) / 0.8);
+      ambience.wind = Math.max(0, (w.wind - 0.3) / 0.7);
+    }
+    (this.registry.get('audio') as AudioEngine | undefined)?.setAmbience(ambience.rain, ambience.wind, !this.weatherRenderer);
+  }
+
   /** Now and then, a toast about an active mission (SPEC.md §9.5). */
   private remindMission(): void {
     const title = this.session.missionReminder();
@@ -498,6 +516,7 @@ export class MapScene extends Phaser.Scene {
     this.updateHazards(delta);
     this.hud.update(this.session.state, this.weatherLabel(), this.hazards?.exposed.map((e) => e.hazard.status) ?? []);
     this.updateMusic();
+    this.updateAmbience(time);
     this.updateBedtime(time);
     this.drawDebug();
     if (input.menu && this.ready && !this.busy) void this.openMenu();
@@ -1232,6 +1251,8 @@ export class MapScene extends Phaser.Scene {
       return;
     }
     await this.session.save();
+    // Lessons need quiet to hear the student's mistakes.
+    if (scene === 'Piano') (this.registry.get('audio') as AudioEngine | undefined)?.setAmbience(0, 0, true);
     // Iris onto Angie, the classic way into a minigame.
     await iris(this, 'out', this.pos.x, this.pos.y - 12);
     this.scene.start(scene, data);

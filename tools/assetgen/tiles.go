@@ -399,6 +399,13 @@ func genTiles(assets, tilesetDir string) error {
 	if err := atlas.save(atlasPath); err != nil {
 		return err
 	}
+	// Seasonal palette swaps of the same atlas (SPEC.md §1.3): spring and
+	// summer use the base greens.
+	for _, s := range seasonalTiles {
+		if err := recolor(atlas, s.swap).save(filepath.Join(assets, "tiles", "tko_"+s.season+".png")); err != nil {
+			return err
+		}
+	}
 
 	meta := newCanvas(len(tko.Meta)*tile, tile)
 	for i, m := range tko.Meta {
@@ -463,4 +470,27 @@ func writeTSJ(path, name, image string, columns, count, w, h int, tiles []tsjTil
 		return err
 	}
 	return os.WriteFile(path, append(data, '\n'), 0o644)
+}
+
+// seasonalTiles are the foliage palette swaps of the tile atlas: golden
+// grass and olive leaves in autumn, dry, dull greens in winter.
+var seasonalTiles = []struct {
+	season string
+	swap   map[uint8]uint8
+}{
+	{"autumn", map[uint8]uint8{cLightGreen: cYellowGreen, cGreen: cOlive, cPaleGreen: cSand}},
+	{"winter", map[uint8]uint8{cLightGreen: cOlive, cPaleGreen: cTan, cYellowGreen: cOlive}},
+}
+
+// recolor returns a copy of c with palette indices swapped.
+func recolor(c *canvas, swap map[uint8]uint8) *canvas {
+	b := c.img.Rect
+	out := newCanvas(b.Dx(), b.Dy())
+	for i, v := range c.img.Pix {
+		if to, ok := swap[v]; ok {
+			v = to
+		}
+		out.img.Pix[i] = v
+	}
+	return out
 }

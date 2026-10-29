@@ -2933,6 +2933,20 @@
     "frameHeight": 16,
     "placeholder": true
   },
+  "tiles_tko_autumn": {
+    "type": "spritesheet",
+    "file": "tiles/tko_autumn.png",
+    "frameWidth": 16,
+    "frameHeight": 16,
+    "placeholder": true
+  },
+  "tiles_tko_winter": {
+    "type": "spritesheet",
+    "file": "tiles/tko_winter.png",
+    "frameWidth": 16,
+    "frameHeight": 16,
+    "placeholder": true
+  },
   "umbrella": {
     "type": "spritesheet",
     "file": "chars/umbrella.png",

@@ -35,6 +35,8 @@ export class AudioEngine {
   private ctx: AudioContext | null = null;
   private buses: Record<Bus, GainNode> | null = null;
   private noise: AudioBuffer | null = null;
+  /** Weather ambience: rain hiss and wind rumble from looping noise. */
+  private ambience: { rain: GainNode; wind: GainNode; filter: BiquadFilterNode; out: GainNode } | null = null;
   private readonly volumes: Record<Bus, number> = { master: 1, music: 0.8, sfx: 0.8, piano: 1 };
   /** Sample id → URL (registered from the manifest), and decoded buffers. */
   private readonly sampleUrls = new Map<string, string>();
@@ -183,6 +185,60 @@ export class AudioEngine {
    * Plays a recorded sample on the SFX bus as soon as it's decoded. `rate`
    * shifts pitch and speed slightly so repeats don't sound identical.
    */
+  /**
+   * Weather ambience (SPEC.md §4.9): rain and wind levels 0–1, eased; muffled
+   * (low-passed and quieter) indoors. Built on first use.
+   */
+  setAmbience(rain: number, wind: number, muffled: boolean): void {
+    const ctx = this.ctx;
+    if (!ctx || !this.buses) return;
+    if (!this.ambience) this.ambience = this.buildAmbience(ctx, this.buses.sfx);
+    const a = this.ambience;
+    const t = ctx.currentTime;
+    a.rain.gain.setTargetAtTime(Math.max(0, Math.min(1, rain)) * 0.12, t, 0.6);
+    a.wind.gain.setTargetAtTime(Math.max(0, Math.min(1, wind)) * 0.16, t, 0.9);
+    a.filter.frequency.setTargetAtTime(muffled ? 450 : 16000, t, 0.3);
+    a.out.gain.setTargetAtTime(muffled ? 0.5 : 1, t, 0.3);
+  }
+
+  private buildAmbience(ctx: AudioContext, bus: AudioNode) {
+    // Two seconds of noise from a fixed LCG (no global random state).
+    const len = ctx.sampleRate * 2;
+    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    let x = 12345;
+    for (let i = 0; i < len; i++) {
+      x = (x * 1103515245 + 12345) >>> 0;
+      data[i] = (x / 2 ** 32) * 2 - 1;
+    }
+    const source = (offset: number) => {
+      const s = ctx.createBufferSource();
+      s.buffer = buf;
+      s.loop = true;
+      s.start(ctx.currentTime, offset);
+      return s;
+    };
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = 16000;
+    const out = ctx.createGain();
+    filter.connect(out).connect(bus);
+    const rainBand = ctx.createBiquadFilter();
+    rainBand.type = 'bandpass';
+    rainBand.frequency.value = 2800;
+    rainBand.Q.value = 0.6;
+    const rain = ctx.createGain();
+    rain.gain.value = 0;
+    source(0).connect(rainBand).connect(rain).connect(filter);
+    const windBand = ctx.createBiquadFilter();
+    windBand.type = 'lowpass';
+    windBand.frequency.value = 320;
+    const wind = ctx.createGain();
+    wind.gain.value = 0;
+    source(0.7).connect(windBand).connect(wind).connect(filter);
+    return { rain, wind, filter, out };
+  }
+
   playSample(id: string, opts: { rate?: number; gain?: number } = {}): void {
     const ctx = this.ctx;
     if (!ctx || !this.buses) return;

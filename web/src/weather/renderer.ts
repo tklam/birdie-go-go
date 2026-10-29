@@ -17,6 +17,8 @@ export class WeatherRenderer {
   private readonly tint: Phaser.GameObjects.Rectangle;
   private readonly fog: Phaser.GameObjects.Rectangle;
   private readonly rain: Phaser.GameObjects.Particles.ParticleEmitter;
+  private readonly haze: Phaser.GameObjects.Graphics;
+  private hazeTime = 0;
   private slant = 0;
   private calm = false;
   private pending = 0;
@@ -37,6 +39,7 @@ export class WeatherRenderer {
       })
       .setScrollFactor(0)
       .setDepth(depth + 2);
+    this.haze = scene.add.graphics().setScrollFactor(0).setDepth(depth + 1);
   }
 
   /**
@@ -50,6 +53,18 @@ export class WeatherRenderer {
 
     // Fog: a still, even haze, only once it's noticeable (fog > 0.3).
     this.fog.setAlpha(fogAlpha(p.fog));
+
+    // Heat haze on hot, clear days: faint light bands drifting up, like a
+    // 16-bit line-scroll shimmer (still with reduced motion).
+    const heat = hazeStrength(p);
+    this.haze.clear();
+    if (heat > 0) {
+      if (!reduced) this.hazeTime += dtMs;
+      for (let i = 0; i < 6; i++) {
+        const y = Math.round(H - ((this.hazeTime / 60 + i * 30) % (H + 10)));
+        this.haze.fillStyle(0xfff4d8, 0.05 * heat).fillRect(0, y, W, 2);
+      }
+    }
 
     // Rain: more drops with more precipitation, slanted by the wind.
     const drops = p.precip < 0.12 ? 0 : ((p.precip - 0.1) * 26) / (reduced ? 3 : 1);
@@ -71,10 +86,17 @@ export class WeatherRenderer {
   }
 
   destroy(): void {
+    this.haze.destroy();
     this.tint.destroy();
     this.fog.destroy();
     this.rain.destroy();
   }
+}
+
+/** Heat haze strength 0–1: from 30 °C under mostly clear skies, full at 35 °C. */
+export function hazeStrength(p: Pick<WeatherParams, 'temp' | 'cloud'>): number {
+  if (p.temp < 30 || p.cloud >= 0.4) return 0;
+  return Math.min(1, (p.temp - 29) / 6);
 }
 
 /** How opaque the fog haze is for a fog level: none below 0.3, rising to 0.45. */

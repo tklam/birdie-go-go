@@ -72,9 +72,11 @@ func gen(assets, tilesets string) error {
 	}
 
 	m := map[string]manifestEntry{
-		"tiles_tko":  {Type: "spritesheet", File: "tiles/tko.png", FrameWidth: tile, FrameHeight: tile, Placeholder: true},
-		"char_angie": {Type: "spritesheet", File: "chars/angie.png", FrameWidth: 16, FrameHeight: 24, Placeholder: true},
-		"char_oboy":  {Type: "spritesheet", File: "chars/oboy.png", FrameWidth: 8, FrameHeight: 8, Placeholder: true},
+		"tiles_tko":        {Type: "spritesheet", File: "tiles/tko.png", FrameWidth: tile, FrameHeight: tile, Placeholder: true},
+		"tiles_tko_autumn": {Type: "spritesheet", File: "tiles/tko_autumn.png", FrameWidth: tile, FrameHeight: tile, Placeholder: true},
+		"tiles_tko_winter": {Type: "spritesheet", File: "tiles/tko_winter.png", FrameWidth: tile, FrameHeight: tile, Placeholder: true},
+		"char_angie":       {Type: "spritesheet", File: "chars/angie.png", FrameWidth: 16, FrameHeight: 24, Placeholder: true},
+		"char_oboy":        {Type: "spritesheet", File: "chars/oboy.png", FrameWidth: 8, FrameHeight: 8, Placeholder: true},
 	}
 	for _, b := range birdLooks {
 		photo := fileExists(filepath.Join(photoBirds, b.id+".png"))
