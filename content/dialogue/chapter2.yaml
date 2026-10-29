@@ -8,6 +8,7 @@
     - { speaker: oboy, text: "Chirp! Chirp!", if: { party_has: oboy } }
     - { speaker: angie, text: "You're right, O Boy. My first real assignment! Let's go to the waterfront.", if: { party_has: oboy } }
     - { speaker: angie, text: "My first real assignment! Egrets love the waterfront in the morning.", if: { party_lacks: oboy } }
+    - { speaker: magazine_editor, text: "P.S. The new Wetland Line opens this week, from Tseung Kwan O Station to the fishponds. Our readers swear by the bird hide." }
 - id: mei_recital_ask
   lines:
     - { speaker: mei, text: "Miss Angie... can I tell you a secret?" }

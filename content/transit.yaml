@@ -14,6 +14,7 @@ stops:
   - { id: tram_eastern, name: Eastern Tram Stop }
   - { id: tko_station, name: Tseung Kwan O Station }
   - { id: island_station, name: Harbour Island Station }
+  - { id: wetland_station, name: Wetlands Station }
 lines:
   - id: minibus_16
     name: Green Minibus 16
@@ -61,3 +62,12 @@ lines:
     path: [[968, 520], [968, 1180], [664, 1180], [664, 1352]]
     speed: 400
     headway: 4
+  - id: wetland_line
+    name: Wetland Line
+    mode: metro
+    fare: 14
+    locked: true
+    stops: [tko_station, wetland_station]
+    path: [[968, 520], [968, 600], [1640, 600], [1640, 1112]]
+    speed: 400
+    headway: 6

@@ -3,7 +3,7 @@
   name: Birder
   sprite: char_birder
   kind: birder
-  areas: [tko_waterfront, tko_hillside, cwb_country_park, po_toi_o, island_harbourfront, island_peak]
+  areas: [tko_waterfront, tko_hillside, cwb_country_park, po_toi_o, island_harbourfront, island_peak, wetlands]
   slots: [morning, afternoon]
   per_chunk: 1
   lines:

@@ -109,7 +109,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 
 ## M4: World and progression
 - [x] Clear Water Bay Country Park and Po Toi O fishing village (seamless region east of TKO)
-- [~] More districts: Harbour Island (harbourfront with towers and a park, peak trail) done; NW wetlands, beaches and an outlying island still to do
+- [~] More districts: Harbour Island (harbourfront, park, peak trail) and the Fishpond Wetlands (fishponds, bird hide, deep mudflat; Wetland Line from chapter 2) done; beaches and an outlying island (kayak) still to do
 - [x] Seasons with palette-swapped foliage (autumn and winter tile atlases on the world map)
 - [ ] Regional weather (§4.9)
   - [x] Climate profiles in `areas.yaml` + validation
@@ -136,7 +136,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Rain balance: spring ~35% and summer ~40% wet slots (was 60–70%), autumn and winter mostly dry
 - [x] 104 bird species from freely licensed photos (birdphoto + segmentation masks + vision-checked auto picks), spread over the four spots by habitat and season
 - [x] Paged album for 100+ species
-- [~] More birding spots: Po Toi O mudflat (waders), Night Woods (owls), Harbourfront Park (cockatoos, parakeets), Peak Trail (raptors, laughingthrushes); wetland ducks still to do
+- [x] More birding spots: Po Toi O mudflat and Deep Bay Mudflat (waders), Fishpond Bird Hide (ducks, spoonbills), Night Woods (owls), Harbourfront Park (cockatoos), Peak Trail (raptors)
 - [x] Album milestones (5, 10, 25, 50, 100 species; Birding Society rewards)
 
 ## M4b: Hazards and encounters (§4.12–4.13)

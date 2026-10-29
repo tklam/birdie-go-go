@@ -48,6 +48,10 @@ func run(dir string, force bool) error {
 	if err := writeJSON(filepath.Join(dir, "clear_water_bay.tmj"), east.tiled("tilesets")); err != nil {
 		return err
 	}
+	marsh := wetlands()
+	if err := writeJSON(filepath.Join(dir, "wetlands.tmj"), marsh.tiled("tilesets")); err != nil {
+		return err
+	}
 	island := harbourIsland()
 	if err := writeJSON(filepath.Join(dir, "island.tmj"), island.tiled("tilesets")); err != nil {
 		return err
@@ -58,6 +62,7 @@ func run(dir string, force bool) error {
 			{"fileName": "tko.tmj", "x": 0, "y": 0, "width": m.w * tileSize, "height": m.h * tileSize},
 			{"fileName": "clear_water_bay.tmj", "x": m.w * tileSize, "y": 0, "width": east.w * tileSize, "height": east.h * tileSize},
 			{"fileName": "island.tmj", "x": 0, "y": m.h * tileSize, "width": island.w * tileSize, "height": island.h * tileSize},
+			{"fileName": "wetlands.tmj", "x": m.w * tileSize, "y": m.h * tileSize, "width": marsh.w * tileSize, "height": marsh.h * tileSize},
 		},
 	}
 	if err := writeJSON(filepath.Join(dir, "city.world"), world); err != nil {
@@ -291,6 +296,53 @@ func build() *tmap {
 // Country Park (woodland trails, a stream) and the Po Toi O fishing-village
 // cove. Its west edge lines up with TKO's east edge: hill trail (rows 0–19),
 // road (rows 30–32) and waterfront boardwalk (rows 54–55).
+// wetlands is the fishpond country (NW wetlands inspired, original layout),
+// reached by the Wetland Line: fishponds on bunds, reed beds, a bird hide on
+// a boardwalk, and a deep mudflat that needs wading boots.
+func wetlands() *tmap {
+	const w, h = 64, 40
+	m := newMap(w, h)
+	m.area(0, h, "wetlands")
+	m.fill(0, 0, w, 4, "water")
+	m.fill(0, 4, w, h-4, "grass")
+	// Fishponds in a grid of bunds (the paths between them).
+	for py := range 3 {
+		for px := range 4 {
+			m.fill(4+px*14, 8+py*8, 11, 5, "water")
+		}
+	}
+	m.fill(0, 6, w, 1, "trail")
+	for py := range 3 {
+		m.fill(0, 13+py*8, w, 2, "trail")
+	}
+	for px := range 5 {
+		m.fill(2+px*14, 6, 2, 26, "trail")
+	}
+	// Reed beds and tall grass along the edges.
+	m.fill(0, 33, w, 2, "reeds")
+	m.fill(46, 30, 12, 3, "tall_grass")
+	// The mudflat to the south, behind deep mud.
+	m.fill(0, 35, w, 5, "mud")
+	m.obj("wetland_mud_gate", "gate", 20, 35, map[string]string{"requires": "wading_boots", "w": "24", "h": "5", "hint": "The mud here is deep and soft. Wading boots would help."})
+	// A boardwalk out to the bird hide.
+	m.fill(30, 28, 3, 6, "boardwalk")
+	m.put(29, 27, "shop_front")
+	m.put(30, 27, "shop_front")
+	m.put(31, 27, "shop_front")
+	m.put(32, 27, "shop_front")
+	m.fill(29, 26, 4, 1, "awning")
+	m.put(5, 5, "station_sign")
+	m.obj("stop_wetland_station", "stop", 6, 5, map[string]string{"stop_id": "wetland_station"})
+	m.obj("wetland_hide", "spot", 31, 28, map[string]string{"spot_id": "wetland_hide"})
+	m.obj("wetland_mudflat", "spot", 32, 37, map[string]string{"spot_id": "wetland_mudflat"})
+	m.obj("pond_egrets", "bird", 10, 10, map[string]string{"species": "great_egret", "count": "2"})
+	m.obj("pond_ducks", "bird", 40, 18, map[string]string{"species": "little_grebe", "count": "2"})
+	m.obj("bund_dogs", "enemy", 50, 22, map[string]string{"enemy_id": "stray_dog_pack"})
+	m.obj("feather_reeds", "collectible", 12, 33, map[string]string{"item": "feather"})
+	m.obj("sheet_hide", "collectible", 34, 31, map[string]string{"song": "reed_bed_waltz"})
+	return m
+}
+
 // harbourIsland is the island across the harbour, south of Tseung Kwan O
 // (Hong Kong Island inspired, original layout): a harbourfront with a tram
 // road and towers, a park, and a peak trail up the hill.

@@ -1,12 +1,12 @@
 {
-  "columns": 9,
+  "columns": 10,
   "image": "../../../web/public/assets/tiles/meta.png",
   "imageheight": 16,
-  "imagewidth": 144,
+  "imagewidth": 160,
   "margin": 0,
   "name": "meta",
   "spacing": 0,
-  "tilecount": 9,
+  "tilecount": 10,
   "tiledversion": "1.10.2",
   "tileheight": 16,
   "tiles": [
@@ -97,6 +97,16 @@
           "name": "area",
           "type": "string",
           "value": "island_peak"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "properties": [
+        {
+          "name": "area",
+          "type": "string",
+          "value": "wetlands"
         }
       ]
     }

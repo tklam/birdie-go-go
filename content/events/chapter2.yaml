@@ -9,6 +9,7 @@
     - set_flag: chapter2_started
     - dialogue: chapter2_letter
     - start_mission: egret_cover
+    - unlock_line: wetland_line
 
 - id: mei_recital_ask
   trigger: { type: lesson_complete, student: mei }
@@ -61,3 +62,12 @@
   trigger: { type: talk, npc: old_villager }
   actions:
     - dialogue: villager_lore
+
+# Saves already past chapter 2 when the Wetland Line arrived get it the next morning.
+- id: wetland_line_open
+  trigger: { type: day_start }
+  conditions:
+    - chapter_at_least: 2
+    - flag_not_set: "line:wetland_line"
+  actions:
+    - unlock_line: wetland_line

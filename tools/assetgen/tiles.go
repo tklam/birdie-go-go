@@ -383,6 +383,7 @@ var metaColors = map[string]uint8{
 	"area_po_toi_o":            cTeal,
 	"area_island_harbourfront": cSky,
 	"area_island_peak":         cOlive,
+	"area_wetlands":            cYellowGreen,
 }
 
 // genTiles writes the TKO atlas and meta tileset images plus their Tiled
