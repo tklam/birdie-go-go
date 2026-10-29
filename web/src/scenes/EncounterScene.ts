@@ -45,6 +45,7 @@ import {
   type Outcome,
 } from '../encounter/rules';
 import { iris } from '../fx/iris';
+import { reducedMotion } from '../fx/motion';
 import { useItem } from '../systems/hazards';
 import type { Session } from '../systems/session';
 import { MAX_ENERGY } from '../systems/state';
@@ -703,7 +704,7 @@ export class EncounterScene extends Phaser.Scene {
       yoyo: true,
       onComplete: () => this.foe.setFrame(0),
     });
-    this.cameras.main.shake(180, 0.01);
+    if (!reducedMotion(this)) this.cameras.main.shake(180, 0.01);
     this.angie.setTint(0xff7070);
     this.time.delayedCall(250, () => this.angie.clearTint());
   }

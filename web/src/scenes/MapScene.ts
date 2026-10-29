@@ -8,7 +8,7 @@ import { floatingButton } from '../ui/panel';
 import { CHUNK_TILES } from '../world/chunk';
 import { blendAt, easeWeather, mixWeather } from '../weather/blend';
 import { WeatherRenderer } from '../weather/renderer';
-import { MAX_ENERGY, TIME_SLOTS } from '../systems/state';
+import { MAX_ENERGY, TEXT_SPEEDS, TIME_SLOTS, WINDOW_COLORS } from '../systems/state';
 import { activeMissions, doneMissions, type PhotoResult } from '../systems/missions';
 import { assess, breakItem, drain, protection, toggleGear, useItem, type HazardReport } from '../systems/hazards';
 import { InputReader } from '../systems/input';
@@ -27,6 +27,7 @@ import { downloadSave, pickSave } from '../systems/backup';
 import { loadJSON } from '../systems/data';
 import type { Manifest } from '../systems/assets';
 import { toast } from '../ui/toast';
+import { applyUiPrefs } from '../ui/prefs';
 import { TouchControls } from '../ui/touchControls';
 import type { AudioEngine } from '../audio/AudioEngine';
 import type { MusicPlayer } from '../audio/music';
@@ -419,7 +420,7 @@ export class MapScene extends Phaser.Scene {
     const target = this.weatherAt(this.pos.x, this.pos.y - 4);
     if (!target) return;
     this.weatherNow = this.weatherNow ? easeWeather(this.weatherNow, target, delta) : target;
-    this.weatherRenderer.update(this.weatherNow, s.state.slot, delta);
+    this.weatherRenderer.update(this.weatherNow, s.state.slot, delta, s.state.settings.reducedMotion);
   }
 
   /**
@@ -753,6 +754,7 @@ export class MapScene extends Phaser.Scene {
     const next = (v: number) => steps.find((x) => x > v + 0.01) ?? 0;
     const pct = (v: number) => `${Math.round(v * 100)}%`;
     let again = true;
+    const cursor = { selected: 0 };
     while (again) {
       again = false;
       const items: { label: string; run: () => Promise<boolean> }[] = [
@@ -774,6 +776,28 @@ export class MapScene extends Phaser.Scene {
             again = true;
             return false;
           },
+        },
+        {
+          label: `Text speed: ${st.textSpeed}`,
+          run: async () => {
+            st.textSpeed = cycle(TEXT_SPEEDS, st.textSpeed);
+            applyUiPrefs(st);
+            again = true;
+            return false;
+          },
+        },
+        {
+          label: `Windows: ${st.windowColor}`,
+          run: async () => {
+            st.windowColor = cycle(WINDOW_COLORS, st.windowColor);
+            applyUiPrefs(st);
+            again = true;
+            return false;
+          },
+        },
+        {
+          label: `Less motion: ${st.reducedMotion ? 'on' : 'off'}`,
+          run: async () => ((st.reducedMotion = !st.reducedMotion), (again = true), false),
         },
         {
           label: `Hold, not mash: ${st.holdInsteadOfMash ? 'on' : 'off'}`,
@@ -799,7 +823,7 @@ export class MapScene extends Phaser.Scene {
         });
       }
       items.push({ label: 'Back', run: async () => false });
-      await showMenu('Settings', items);
+      await showMenu('Settings', items, cursor);
     }
     await s.save();
     return true;
@@ -985,6 +1009,7 @@ export class MapScene extends Phaser.Scene {
             const state = await pickSave();
             if (!state) return true;
             s.state = state;
+            applyUiPrefs(s.state.settings);
             await s.save();
             this.scene.restart({});
           } catch (err) {
@@ -1598,4 +1623,9 @@ function labelFor(o: WorldObject): string | null {
     default:
       return null;
   }
+}
+
+/** The value after `current` in `values`, wrapping around. */
+function cycle<T>(values: readonly T[], current: T): T {
+  return values[(values.indexOf(current) + 1) % values.length];
 }

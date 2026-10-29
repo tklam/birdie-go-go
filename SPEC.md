@@ -35,6 +35,7 @@ The whole game (overworld, photo scenes, lessons, menus) looks and sounds like a
 - **Sprites**: 16×16 tiles; characters 16×24; outlines and limited shading in the 16-bit tradition. No smooth rotation or scaling of sprites, except deliberate era-style effects.
 - **Era-style effects** (used sparingly): pseudo-3D floor effect for the world map and teleport transitions, mosaic/pixelate fades, palette-cycling water and neon signs, horizontal line-scroll waves for heat haze and water, iris wipes into the photo and lesson scenes.
 - **UI**: classic JRPG windows: framed boxes with a gradient fill (player-selectable color, as in the genre), bitmap pixel font, a blinking cursor/hand, and a portrait in dialogue boxes. The HTML overlay renders these with the same pixel font and integer scaling so it matches the canvas.
+- **Reduced motion** (Settings): wipes and the teleport glitch become plain fades, the camera never shakes or flashes, and rain falls straight, slower and sparser. **Text speed** (slow/normal/fast/instant) and **window colour** (blue/green/plum/grey) are also settings; all settings survive New Game.
 - **Audio**: music and effects are **sequenced** (note data in YAML/MIDI) and played by the same SoundFont synth as the piano, using a 16-bit-style sample bank. The music sounds like the era and the downloads stay tiny. The lesson piano uses a clearer piano sample, so mistakes stay audible.
 - Original art and music only; the style evokes the era without copying any game.
 

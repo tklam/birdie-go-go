@@ -21,6 +21,7 @@ import { modal } from '../ui/overlay';
 import { floatingButton, showPanel } from '../ui/panel';
 import { TEXT as PIXEL_TEXT } from '../ui/text';
 import { iris } from '../fx/iris';
+import { reducedMotion } from '../fx/motion';
 
 /** Default lens and body (SPEC.md §5); upgrades come with gear. */
 const FRAME_W = 80;
@@ -205,7 +206,7 @@ export class PhotoScene extends Phaser.Scene {
     if (this.shotsLeft <= 0 || this.ending) return;
     this.shotsLeft--;
     this.alert = updateAlert(this.alert, this.alertInput(0, 0, true));
-    this.cameras.main.flash(80, 240, 240, 240);
+    if (!reducedMotion(this)) this.cameras.main.flash(80, 240, 240, 240);
 
     const frame = this.frameRect();
     const visible = this.birds
@@ -446,7 +447,7 @@ export class PhotoScene extends Phaser.Scene {
     // Gentle parallax on the far layers.
     const px = (this.vf.x - 160) / 160;
     this.layers.forEach((l, i) => l.setX(i < 2 ? -px * (i + 1) * 2 : 0));
-    if (this.weather) this.weatherRenderer?.update(this.weather, this.session.state.slot, delta);
+    if (this.weather) this.weatherRenderer?.update(this.weather, this.session.state.slot, delta, this.session.state.settings.reducedMotion);
     this.draw(time);
   }
 

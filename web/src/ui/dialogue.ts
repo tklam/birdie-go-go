@@ -1,11 +1,10 @@
 import { modal, overlay } from './overlay';
+import { textCharsPerSecond } from './prefs';
 
 export interface Line {
   speaker: string;
   text: string;
 }
-
-const CHARS_PER_SECOND = 45;
 
 /**
  * Shows lines one at a time in a 16-bit dialogue window with a typewriter
@@ -39,13 +38,15 @@ export function showDialogue(lines: Line[]): Promise<void> {
     };
     const type = () => {
       clearInterval(timer);
-      shown = 0;
+      const cps = textCharsPerSecond();
+      shown = cps > 0 ? 0 : lines[line].text.length;
       render();
+      if (cps <= 0) return;
       timer = window.setInterval(() => {
         shown++;
         render();
         if (shown >= lines[line].text.length) clearInterval(timer);
-      }, 1000 / CHARS_PER_SECOND);
+      }, 1000 / cps);
     };
     const advance = () => {
       if (shown < lines[line].text.length) {

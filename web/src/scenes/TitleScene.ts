@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import type { CoreClient } from '../core/client';
 import type { ContentBundle } from '../core/types.gen';
 import { Session } from '../systems/session';
+import { applyUiPrefs } from '../ui/prefs';
 import { TEXT } from '../ui/text';
 import { toast } from '../ui/toast';
 import { applyPacks, checkForUpdates, IndexedDBPackStore, updateServer } from '../systems/updates';
@@ -36,6 +37,7 @@ export class TitleScene extends Phaser.Scene {
         const audio = this.registry.get('audio') as { setVolume(bus: string, v: number): void } | undefined;
         audio?.setVolume('music', session.state.settings.musicVolume);
         audio?.setVolume('sfx', session.state.settings.sfxVolume);
+        applyUiPrefs(session.state.settings);
         status.setText(`core v${ping.coreVersion} · content v${content.game.contentVersion}`);
         document.body.dataset.boot = 'ok';
         const server = updateServer();

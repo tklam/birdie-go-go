@@ -18,6 +18,8 @@ export class WeatherRenderer {
   private readonly fog: Phaser.GameObjects.Rectangle;
   private readonly rain: Phaser.GameObjects.Particles.ParticleEmitter;
   private slant = 0;
+  private calm = false;
+  private pending = 0;
 
   constructor(scene: Phaser.Scene, depth: number = DEPTH.overhead + 10) {
     makeTextures(scene);
@@ -37,7 +39,11 @@ export class WeatherRenderer {
       .setDepth(depth + 2);
   }
 
-  update(p: WeatherParams, slot: TimeSlot, dtMs: number): void {
+  /**
+   * `reduced` (Settings → Reduced motion) draws a third of the drops, falling
+   * at half speed and straight down.
+   */
+  update(p: WeatherParams, slot: TimeSlot, dtMs: number, reduced = false): void {
     // Darker under heavy cloud and rain, and in the evening.
     const dusk = slot === 'evening' ? 0.28 : 0;
     this.tint.setFillStyle(slot === 'evening' ? 0x1b2050 : 0x202838, Math.min(0.55, p.cloud * 0.18 + p.precip * 0.18 + dusk));
@@ -46,13 +52,22 @@ export class WeatherRenderer {
     this.fog.setAlpha(fogAlpha(p.fog));
 
     // Rain: more drops with more precipitation, slanted by the wind.
-    const drops = p.precip < 0.12 ? 0 : Math.round((p.precip - 0.1) * 26);
-    const slant = Math.round(Math.cos(p.windDir) * p.wind * 160);
-    if (Math.abs(slant - this.slant) >= 8) {
+    const drops = p.precip < 0.12 ? 0 : ((p.precip - 0.1) * 26) / (reduced ? 3 : 1);
+    const slant = reduced ? 0 : Math.round(Math.cos(p.windDir) * p.wind * 160);
+    if (reduced !== this.calm) {
+      this.calm = reduced;
+      this.rain.updateConfig({ lifespan: reduced ? 1800 : 900, speedY: reduced ? { min: 130, max: 160 } : { min: 260, max: 320 } });
+      this.slant = Number.NaN;
+    }
+    if (!(Math.abs(slant - this.slant) < 8)) {
       this.slant = slant;
       this.rain.updateConfig({ speedX: { min: slant - 10, max: slant + 10 } });
     }
-    if (drops > 0) this.rain.emitParticle(Math.max(1, Math.round((drops * dtMs) / 16)));
+    // Fractional drops carry over so light rain still shows at high frame rates.
+    this.pending += (drops * dtMs) / 16;
+    const n = Math.floor(this.pending);
+    this.pending -= n;
+    if (n > 0) this.rain.emitParticle(n);
   }
 
   destroy(): void {

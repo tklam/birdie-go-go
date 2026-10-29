@@ -1,10 +1,13 @@
 import type Phaser from 'phaser';
+import { fade, reducedMotion } from './motion';
 
 /**
  * Kei's digital-dissolve: the screen breaks into flickering cyan and navy
  * scanline bars until it's covered ('out'), or clears from covered ('in').
+ * With reduced motion it's a plain fade through navy, without flicker.
  */
 export function glitch(scene: Phaser.Scene, mode: 'in' | 'out', ms = 500): Promise<void> {
+  if (reducedMotion(scene)) return fade(scene, mode, ms, 0x101018);
   const g = scene.add.graphics().setScrollFactor(0).setDepth(10_000_000);
   const colors = [0x3fbf9f, 0x8cc8f0, 0x1b2a4a, 0x101018];
   const start = scene.time.now;

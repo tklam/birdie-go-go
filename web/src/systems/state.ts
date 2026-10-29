@@ -55,6 +55,11 @@ export interface Position {
   y?: number;
 }
 
+export const TEXT_SPEEDS = ['slow', 'normal', 'fast', 'instant'] as const;
+export type TextSpeed = (typeof TEXT_SPEEDS)[number];
+export const WINDOW_COLORS = ['blue', 'green', 'plum', 'grey'] as const;
+export type WindowColor = (typeof WINDOW_COLORS)[number];
+
 export interface Settings {
   latencyOffsetMs: number;
   tapToMove: boolean;
@@ -62,7 +67,12 @@ export interface Settings {
   musicVolume: number;
   /** 0–1. */
   sfxVolume: number;
+  /** Calmer screen effects: fades instead of wipes, no shake or flash, gentle rain. */
   reducedMotion: boolean;
+  /** Dialogue typewriter speed. */
+  textSpeed: TextSpeed;
+  /** Colour theme of menu and dialogue windows. */
+  windowColor: WindowColor;
   /** Encounters (SPEC.md §4.13): holding fills the run meter instead of mashing. */
   holdInsteadOfMash: boolean;
   /** Encounters: combo windows are 1.5× longer. */
@@ -113,6 +123,8 @@ export function defaultSettings(): Settings {
     musicVolume: 0.8,
     sfxVolume: 0.8,
     reducedMotion: false,
+    textSpeed: 'normal',
+    windowColor: 'blue',
     holdInsteadOfMash: false,
     slowerPrompts: false,
     skipEncounters: false,

@@ -180,6 +180,9 @@
 /* Menus. */
 .menu-window {
   min-width: calc(var(--px) * 200);
+  max-height: calc(var(--game-h) - var(--px) * 16);
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 .menu-window .menu-item {
   padding-left: calc(var(--px) * 10);

@@ -8,16 +8,17 @@ export interface MenuItem {
 
 /**
  * A 16-bit menu window with a blinking cursor. Arrow keys / W,S move,
- * Space/Enter choose, Esc closes; tapping an item chooses it.
+ * Space/Enter choose, Esc closes; tapping an item chooses it. Long menus
+ * scroll. `selected` is the item the cursor starts on.
  */
-export function showMenu(title: string, items: MenuItem[]): Promise<void> {
+export function showMenu(title: string, items: MenuItem[], opts: { selected?: number } = {}): Promise<void> {
   const box = document.createElement('div');
   box.className = 'window panel menu-window';
   const h = document.createElement('div');
   h.className = 'speaker';
   h.textContent = title;
   box.appendChild(h);
-  let selected = 0;
+  let selected = Math.min(Math.max(0, opts.selected ?? 0), items.length - 1);
   let busy = false;
   let choose: () => Promise<void> = async () => {};
   const rows = items.map((item, i) => {
@@ -36,7 +37,10 @@ export function showMenu(title: string, items: MenuItem[]): Promise<void> {
   });
   overlay().appendChild(box);
   modal.open++;
-  const render = () => rows.forEach((r, i) => r.classList.toggle('selected', i === selected));
+  const render = () => {
+    rows.forEach((r, i) => r.classList.toggle('selected', i === selected));
+    rows[selected]?.scrollIntoView({ block: 'nearest' });
+  };
   render();
 
   return new Promise((resolve) => {
@@ -49,6 +53,7 @@ export function showMenu(title: string, items: MenuItem[]): Promise<void> {
     choose = async () => {
       if (busy) return;
       busy = true;
+      opts.selected = selected;
       box.style.visibility = 'hidden';
       window.removeEventListener('keydown', onKey, true);
       const keep = await items[selected].run();

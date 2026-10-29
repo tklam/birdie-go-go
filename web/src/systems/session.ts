@@ -66,9 +66,11 @@ export class Session {
     return { session: new Session(content, state, core, saves), hasSave: existing !== null };
   }
 
-  /** Starts over with a fresh state. */
+  /** Starts over with a fresh state, keeping the player's settings. */
   newGame(): void {
+    const settings = this.state.settings;
     this.state = newGame(this.content, (Math.random() * 2 ** 32) >>> 0);
+    this.state.settings = { ...this.state.settings, ...settings };
     this.weatherCache.clear();
   }
 

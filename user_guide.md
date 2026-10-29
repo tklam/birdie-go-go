@@ -204,12 +204,14 @@ Companions give **hints**. You still take the photo and catch the mistakes yours
 
 - Volume (music, effects, piano)
 - Controls: joystick or tap to move
-- Window color (classic JRPG menu colors)
+- Window color: blue, green, plum or grey
 - Recalibrate audio delay
-- Text speed
-- Reduced motion (turns off screen wobble and mosaic effects)
+- Text speed: slow, normal, fast or instant
+- Less motion: fades instead of wipes and glitches, no screen shake or camera flash, and gentler rain
 - Encounters: hold instead of mash, slower prompts, skip encounters
 - Export / import save
+
+Your settings are kept when you start a new game.
 
 ## Tips
 
