@@ -1,5 +1,11 @@
 /* 16-bit UI overlay. Sizes use --px, the size of one game pixel in CSS px,
    so windows line up with the pixel-perfect canvas (SPEC.md §1.3). */
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url('/fonts/PressStart2P-Regular.ttf') format('truetype');
+  font-display: block;
+}
+
 :root {
   --px: 4px;
   --win-top: #3f7fdf;
@@ -13,9 +19,9 @@
   position: fixed;
   inset: 0;
   pointer-events: none;
-  font-family: ui-monospace, 'DejaVu Sans Mono', Menlo, Consolas, monospace;
-  font-size: calc(var(--px) * 7);
-  line-height: 1.3;
+  font-family: 'Press Start 2P', monospace;
+  font-size: calc(var(--px) * 8);
+  line-height: 1.6;
   color: var(--text);
   -webkit-font-smoothing: none;
   font-smooth: never;
@@ -114,7 +120,7 @@
   background: linear-gradient(var(--win-top), var(--win-bottom));
   color: var(--text);
   font: inherit;
-  font-size: 13px;
+  font-size: 10px;
   font-weight: bold;
   text-shadow: 1px 1px 0 var(--win-shadow);
   box-shadow: 0 0 0 2px var(--win-shadow);

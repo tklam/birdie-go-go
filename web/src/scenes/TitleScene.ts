@@ -2,8 +2,7 @@ import Phaser from 'phaser';
 import type { CoreClient } from '../core/client';
 import type { ContentBundle } from '../core/types.gen';
 import { Session } from '../systems/session';
-
-const TEXT = { fontFamily: 'monospace', fontSize: '8px', color: '#c8d0e0' };
+import { TEXT } from '../ui/text';
 
 /** Title screen: New Game / Continue. Records <body data-boot> for automated checks. */
 export class TitleScene extends Phaser.Scene {
@@ -15,7 +14,7 @@ export class TitleScene extends Phaser.Scene {
     const { width, height } = this.scale;
     this.add.rectangle(0, 0, width, height, 0x1b2a4a).setOrigin(0, 0);
     this.add.text(width / 2, 44, 'BIRDIE GO GO', { ...TEXT, fontSize: '16px', color: '#ffe680' }).setOrigin(0.5);
-    this.add.text(width / 2, 62, 'a Tseung Kwan O story', TEXT).setOrigin(0.5);
+    this.add.text(width / 2, 62, 'a Tseung Kwan O story', { ...TEXT, color: '#c8d0e0' }).setOrigin(0.5);
     const status = this.add.text(width / 2, height - 10, '', { ...TEXT, color: '#6e6e80' }).setOrigin(0.5);
 
     const core = this.registry.get('core') as CoreClient;

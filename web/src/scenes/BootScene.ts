@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import type { ContentBundle, WorldIndex } from '../core/types.gen';
 import { queueManifest, type Manifest } from '../systems/assets';
+import { loadPixelFont } from '../ui/text';
 
 /**
  * Loads the manifest, then every asset it lists, plus the content bundle and
@@ -30,6 +31,6 @@ export class BootScene extends Phaser.Scene {
     this.registry.set('manifest', this.cache.json.get('manifest') as Manifest);
     this.registry.set('content', this.cache.json.get('content') as ContentBundle);
     this.registry.set('world', this.cache.json.get('world') as WorldIndex);
-    this.scene.start('Title');
+    void loadPixelFont().then(() => this.scene.start('Title'));
   }
 }

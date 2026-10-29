@@ -17,6 +17,7 @@ import type { Session } from '../systems/session';
 import { season } from '../systems/state';
 import { modal } from '../ui/overlay';
 import { floatingButton, showPanel } from '../ui/panel';
+import { TEXT as PIXEL_TEXT } from '../ui/text';
 
 /** Default lens and body (SPEC.md §5); upgrades come with gear. */
 const FRAME_W = 80;
@@ -30,7 +31,6 @@ const STEADY_SPEED = 40;
 /** Minimum hold before a release counts as a shot (so quick drags only aim). */
 const MIN_SHOT_HOLD_MS = 100;
 
-const PIXEL_TEXT = { fontFamily: 'monospace', fontSize: '8px', color: '#f0f0f0' };
 const RATING_LABEL = { perfect: '★★★ Perfect!', great: '★★ Great', good: '★ Good', blurry: 'Blurry…' } as const;
 
 type BirdState = 'arriving' | 'perched' | 'leaving' | 'gone';
