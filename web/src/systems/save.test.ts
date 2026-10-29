@@ -67,7 +67,7 @@ describe('serialize / deserialize', () => {
     raw.settings = { musicVolume: 0.2 };
     const s = deserialize(JSON.stringify(raw));
     expect(s.settings.musicVolume).toBe(0.2);
-    expect(s.settings.tapToMove).toBe(true);
+    expect(s.settings.controlScheme).toBe('joystick');
     expect(s.settings.latencyOffsetMs).toBe(0);
   });
 });

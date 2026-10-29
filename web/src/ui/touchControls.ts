@@ -8,10 +8,12 @@ export class TouchControls {
   private menuQueued = false;
   private readonly root: HTMLDivElement;
   private readonly actionBtn: HTMLButtonElement;
+  private readonly zone: HTMLDivElement;
 
   constructor() {
     this.root = document.createElement('div');
     const zone = document.createElement('div');
+    this.zone = zone;
     zone.className = 'joystick-zone touch-only';
     const ring = document.createElement('div');
     ring.className = 'joystick';
@@ -63,6 +65,15 @@ export class TouchControls {
     const menu = this.button('btn menu touch-only', 'Menu', () => (this.menuQueued = true));
     this.root.append(zone, this.actionBtn, menu);
     overlay().appendChild(this.root);
+  }
+
+  /** Shows or hides the joystick (hidden for tap-to-move, so taps reach the map). */
+  setJoystick(on: boolean): void {
+    this.zone.style.display = on ? '' : 'none';
+    if (!on) {
+      this.stick.x = 0;
+      this.stick.y = 0;
+    }
   }
 
   /** Sets the Action button label (e.g. "Talk"), or idles it with null. */

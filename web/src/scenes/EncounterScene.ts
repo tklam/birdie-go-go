@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { goodBad } from '../ui/prefs';
 import type { Enemy, Item } from '../core/types.gen';
 import {
   checkTimeout,
@@ -646,7 +647,7 @@ export class EncounterScene extends Phaser.Scene {
   private drawHud(): void {
     const g = this.hud.clear();
     const energy = this.session.state.energy;
-    bar(g, 6, 14, 84, 6, energy / MAX_ENERGY, energy > 25 ? 0x5fcf5f : 0xdf5f3f);
+    bar(g, 6, 14, 84, 6, energy / MAX_ENERGY, energy > 25 ? goodBad().good : goodBad().bad);
     bar(g, 230, 14, 84, 6, this.resolve / Math.max(1, this.enemy.resolve), 0xdf8f3f);
     this.energyText.setText(String(Math.round(energy)));
   }
@@ -681,14 +682,14 @@ export class EncounterScene extends Phaser.Scene {
         this.letters.push(t);
       }
     });
-    bar(g, Math.round(W / 2 - 60), y + TILE + 5, 120, 4, left, left > 0.3 ? 0xf0f0f0 : 0xdf5f3f);
+    bar(g, Math.round(W / 2 - 60), y + TILE + 5, 120, 4, left, left > 0.3 ? 0xf0f0f0 : goodBad().bad);
   }
 
   private drawRace(time: number): void {
     this.clearPrompt();
     const g = this.prompt;
     bar(g, 100, 148, 120, 6, this.race.run / 100, 0x5fcfdf);
-    bar(g, 100, 158, 120, 6, this.race.chase / 100, 0xdf5f3f);
+    bar(g, 100, 158, 120, 6, this.race.chase / 100, goodBad().bad);
     this.letters.push(
       this.add.text(96, 147, 'RUN', TEXT).setOrigin(1, 0).setDepth(21),
       this.add.text(96, 157, 'FOE', TEXT).setOrigin(1, 0).setDepth(21),

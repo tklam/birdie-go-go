@@ -51,7 +51,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] NPCs and context actions (Talk / Enter / Photograph)
 - [x] Overworld birds that flush unless Angie sneaks
 - [x] Area name display on entering an area
-- [ ] Optional tap-to-move (A* within loaded chunks)
+- [x] Optional tap-to-move (A* within loaded chunks; Settings → Controls)
 
 ### Photo (§5)
 - [x] Photo scene with parallax background and iris-wipe entry
@@ -179,8 +179,8 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 
 ## M7: Polish
 - [x] Settings: music/sound volume, encounter accessibility (hold, slow prompts, skip), lesson timing recalibration
-- [~] Settings: window color, text speed, reduced motion done; control scheme still to do
-- [~] Accessibility: reduced motion done (fades for wipes/glitch, no shake/flash, calm rain); captions for audio cues and color-blind-safe UI still to do
+- [x] Settings: window color, text speed, reduced motion, control scheme
+- [x] Accessibility: reduced motion (fades for wipes/glitch, no shake/flash, calm rain), captions for sound cues, colour-blind-safe palette
 - [ ] *(Parked for future development.)* Low-end phone performance pass
 - [~] Replace placeholder art and music with final 16-bit assets (characters redrawn in a top-down adventure style; birds from real photos; tiles and music still placeholders)
 

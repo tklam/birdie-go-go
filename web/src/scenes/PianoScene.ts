@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { goodBad } from '../ui/prefs';
 import { sheetSongs } from '../systems/collectibles';
 import { AudioEngine } from '../audio/AudioEngine';
 import type { CoreClient } from '../core/client';
@@ -546,7 +547,7 @@ export class PianoScene extends Phaser.Scene {
     }
     const xs = result.mistakes.map((m) => fx(this.toScore(m.onsetMs)));
     result.mistakes.forEach((m: GradedMistake, i) => {
-      const color = m.hit ? COLORS.green : COLORS.red;
+      const color = m.hit ? goodBad().good : goodBad().bad;
       g.fillStyle(color, 0.55);
       g.fillRect(xs[i], R.y + 8, 1, R.h - 12);
       pixels(g, xs[i], R.y + 4, m.hit ? CHECK : CROSS, color);

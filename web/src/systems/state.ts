@@ -60,9 +60,13 @@ export type TextSpeed = (typeof TEXT_SPEEDS)[number];
 export const WINDOW_COLORS = ['blue', 'green', 'plum', 'grey'] as const;
 export type WindowColor = (typeof WINDOW_COLORS)[number];
 
+export const CONTROL_SCHEMES = ['joystick', 'tap'] as const;
+export type ControlScheme = (typeof CONTROL_SCHEMES)[number];
+
 export interface Settings {
   latencyOffsetMs: number;
-  tapToMove: boolean;
+  /** Move with the joystick (and keys), or by tapping where to go (SPEC.md §4.4). */
+  controlScheme: ControlScheme;
   /** 0–1. */
   musicVolume: number;
   /** 0–1. */
@@ -79,6 +83,10 @@ export interface Settings {
   slowerPrompts: boolean;
   /** Encounters: offer "Skip" (auto-escape for half the Energy cost). */
   skipEncounters: boolean;
+  /** Captions for sound cues (O Boy's calls). */
+  captions: boolean;
+  /** Blue/orange instead of green/red, and distinct map marker shapes. */
+  colorBlindSafe: boolean;
 }
 
 export interface GameState {
@@ -123,7 +131,7 @@ export const MAX_ENERGY = 100;
 export function defaultSettings(): Settings {
   return {
     latencyOffsetMs: 0,
-    tapToMove: true,
+    controlScheme: 'joystick',
     musicVolume: 0.8,
     sfxVolume: 0.8,
     reducedMotion: false,
@@ -132,6 +140,8 @@ export function defaultSettings(): Settings {
     holdInsteadOfMash: false,
     slowerPrompts: false,
     skipEncounters: false,
+    captions: false,
+    colorBlindSafe: false,
   };
 }
 

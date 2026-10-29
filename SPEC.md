@@ -131,7 +131,7 @@ Hilly terrain is expressed with cliffs, stairs, slopes, and ledges (§4.5). Real
 | Action (context) | Action button (right side) | Click target when adjacent | Space / Enter |
 | Menu | Menu button (top right) | Menu button | Esc / Tab |
 
-Optional setting: **tap-to-move** (tap a destination; A* pathfinding on the collision grid).
+Optional setting: **tap-to-move** (tap a destination; A* pathfinding on the collision grid). *As built:* Settings → Controls switches between joystick and tap to move (`controlScheme`). In tap mode the joystick is hidden; tapping the map plans a 4-way A* path within the loaded chunks (unloaded tiles and closed gates count as walls; a tapped wall or NPC walks up next to it), and any key or stick input cancels it.
 
 ### 4.5 Terrain and interaction
 - **Tall grass**: birds hide in it; walking (not sneaking) through it rustles and can flush them.
@@ -315,7 +315,7 @@ Occasionally Angie meets something hostile: **wild dogs** (stray packs found on 
 | A / B | Two large buttons on the right | Click the on-screen A/B | Z / X (or J / K) |
 | Mash | Tap anywhere rapidly | Click rapidly | Space rapidly |
 
-Accessibility settings: **Hold instead of mash** (holding fills the meter at a fixed rate), **Slower prompts**, and **Skip encounter** (auto-escape at a small Energy cost).
+Accessibility settings: **Hold instead of mash** (holding fills the meter at a fixed rate), **Slower prompts**, and **Skip encounter** (auto-escape at a small Energy cost). Game-wide: **Captions** subtitle sound cues (O Boy's chirp, contact call and squawk), and **Colour-blind safe** swaps green/red for blue/orange (Okabe-Ito) in bars and lesson results and gives world-map markers distinct shapes.
 
 **Companions in encounters** (hints and assists, never automatic wins):
 - **O Boy**: a loud squawk distracts the enemy, removing one combo step (once per encounter). He flies to safety during fights.

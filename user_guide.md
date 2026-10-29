@@ -27,7 +27,7 @@ The city has its rough edges, like stray dogs, the odd strange creature, and fie
 | Action | Tap the **Action** button | *(coming soon)* | Space / Enter / Z |
 | Menu | Tap **Menu** (top right) | Menu button | Esc / Tab |
 
-The Action button shows what it will do: **Talk**, **Enter**, **Sleep**, **Photograph** (and later **Look**, **Sit**, **Board**). If you'd rather tap where you want to go, turn on **Tap to move** in Settings.
+The Action button shows what it will do: **Talk**, **Enter**, **Sleep**, **Photograph** (and later **Look**, **Sit**, **Board**). If you'd rather tap where you want to go, set **Controls** to **tap to move** in Settings: tap anywhere on the map and Angie walks there, finding her way around walls.
 
 ### Taking photos
 
@@ -215,6 +215,8 @@ Companions give **hints**. You still take the photo and catch the mistakes yours
 - Recalibrate audio delay
 - Text speed: slow, normal, fast or instant
 - Less motion: fades instead of wipes and glitches, no screen shake or camera flash, and gentler rain
+- Captions: a short subtitle whenever O Boy chirps, calls or squawks
+- Colour-blind safe: blue and orange instead of green and red, and different shapes for map markers
 - Encounters: hold instead of mash, slower prompts, skip encounters
 - Export / import save
 

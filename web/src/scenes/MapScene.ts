@@ -8,7 +8,8 @@ import { floatingButton } from '../ui/panel';
 import { CHUNK_TILES } from '../world/chunk';
 import { blendAt, easeWeather, mixWeather } from '../weather/blend';
 import { WeatherRenderer } from '../weather/renderer';
-import { MAX_ENERGY, TEXT_SPEEDS, TIME_SLOTS, WINDOW_COLORS } from '../systems/state';
+import { CONTROL_SCHEMES, MAX_ENERGY, TEXT_SPEEDS, TIME_SLOTS, WINDOW_COLORS } from '../systems/state';
+import { findPath, type Tile } from '../world/pathfind';
 import { activeMissions, doneMissions, type PhotoResult } from '../systems/missions';
 import { assess, breakItem, drain, protection, toggleGear, useItem, type HazardReport } from '../systems/hazards';
 import { InputReader } from '../systems/input';
@@ -195,6 +196,8 @@ export class MapScene extends Phaser.Scene {
   private fainting = false;
   /** The last warning announced ("day:slot:tag"), so each is announced once. */
   private lastWarning = '';
+  /** Tap-to-move: the tiles still to walk (SPEC.md §4.4). */
+  private tapPath: Tile[] = [];
   /** Whether Angie walked this frame (walking outdoors costs Energy). */
   private walking = false;
   private exiting = false;
@@ -241,7 +244,10 @@ export class MapScene extends Phaser.Scene {
     this.exiting = false;
     this.spotMarks = null;
     this.touch = new TouchControls();
+    this.touch.setJoystick(this.session.state.settings.controlScheme !== 'tap');
     this.input2 = new InputReader(this, this.touch);
+    this.tapPath = [];
+    this.input.on('pointerdown', (p: Phaser.Input.Pointer) => this.tapTo(p.worldX, p.worldY));
     this.hud = new Hud();
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       this.touch.destroy();
@@ -408,7 +414,7 @@ export class MapScene extends Phaser.Scene {
   update(time: number, delta: number): void {
     if (!this.loaded) return;
     const dt = Math.min(delta, 50) / 1000;
-    const input = this.input2.read();
+    const input = this.followTapPath(this.input2.read());
     if (this.ride) {
       this.updateRide(time, dt);
       return;
@@ -972,6 +978,16 @@ export class MapScene extends Phaser.Scene {
           },
         },
         {
+          label: `Controls: ${st.controlScheme === 'tap' ? 'tap to move' : 'joystick'}`,
+          run: async () => {
+            st.controlScheme = cycle(CONTROL_SCHEMES, st.controlScheme);
+            this.touch.setJoystick(st.controlScheme !== 'tap');
+            this.tapPath = [];
+            again = true;
+            return false;
+          },
+        },
+        {
           label: `Text speed: ${st.textSpeed}`,
           run: async () => {
             st.textSpeed = cycle(TEXT_SPEEDS, st.textSpeed);
@@ -988,6 +1004,14 @@ export class MapScene extends Phaser.Scene {
             again = true;
             return false;
           },
+        },
+        {
+          label: `Captions: ${st.captions ? 'on' : 'off'}`,
+          run: async () => ((st.captions = !st.captions), applyUiPrefs(st), (again = true), false),
+        },
+        {
+          label: `Colour-blind safe: ${st.colorBlindSafe ? 'on' : 'off'}`,
+          run: async () => ((st.colorBlindSafe = !st.colorBlindSafe), applyUiPrefs(st), (again = true), false),
         },
         {
           label: `Less motion: ${st.reducedMotion ? 'on' : 'off'}`,
@@ -1295,6 +1319,37 @@ export class MapScene extends Phaser.Scene {
       const sprite = this.add.sprite(o.x, o.y + 8, 'gateway_pad', 0).setOrigin(0.5, 1).setDepth(DEPTH.entities + o.y - 8);
       this.gateways.push({ object: o, sprite, chunk: chunkKey(chunk.cx, chunk.cy) });
     }
+  }
+
+  /** Tap-to-move: plans a walk to the tapped tile within the loaded chunks. */
+  private tapTo(wx: number, wy: number): void {
+    if (this.session.state.settings.controlScheme !== 'tap' || !this.ready || this.busy || this.ride || modal.open) return;
+    const ts = this.index.tileSize;
+    const start: Tile = [Math.floor(this.pos.x / ts), Math.floor((this.pos.y - 3) / ts)];
+    const goal: Tile = [Math.floor(wx / ts), Math.floor(wy / ts)];
+    this.tapPath = findPath(start, goal, (tx, ty) => this.collisionAt(tx, ty) !== 0) ?? [];
+  }
+
+  /** Turns the tap-to-move path into a walking direction while no key or stick is used. */
+  private followTapPath(input: ReturnType<InputReader['read']>): ReturnType<InputReader['read']> {
+    if (input.x !== 0 || input.y !== 0 || this.busy || modal.open) {
+      if (input.x !== 0 || input.y !== 0) this.tapPath = [];
+      return input;
+    }
+    const ts = this.index.tileSize;
+    while (this.tapPath.length) {
+      const [tx, ty] = this.tapPath[0];
+      const dx = tx * ts + ts / 2 - this.pos.x;
+      const dy = ty * ts + ts / 2 + 3 - this.pos.y;
+      const d = Math.hypot(dx, dy);
+      // Within a frame's step of the tile centre counts as there.
+      if (d < 4) {
+        this.tapPath.shift();
+        continue;
+      }
+      return { ...input, x: dx / d, y: dy / d };
+    }
+    return input;
   }
 
   /** Tile collision, with gear gates closed until Angie owns their item (SPEC.md §4.6). */

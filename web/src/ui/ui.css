@@ -411,3 +411,39 @@
 .panel.enc-help > div:not(.speaker):not(.panel-button) {
   margin-bottom: calc(var(--px) * 3);
 }
+
+/* Captions for sound cues. */
+.caption {
+  position: absolute;
+  left: 50%;
+  bottom: calc(50vh - var(--game-h) / 2 + var(--px) * 44);
+  transform: translateX(-50%);
+  font-size: calc(var(--px) * 6);
+  padding: calc(var(--px) * 1) calc(var(--px) * 4);
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.3s steps(3);
+}
+.caption.hidden {
+  opacity: 0;
+}
+
+/* Colour-blind-safe palette (Okabe-Ito) and distinct marker shapes. */
+.cb-safe .mm-spot {
+  background: #009e73;
+}
+.cb-safe .mm-stop {
+  background: #0072b2;
+  border-radius: 0;
+}
+.cb-safe .mm-gateway {
+  background: #56b4e9;
+}
+.cb-safe .mm-shop {
+  background: #e69f00;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+.cb-safe .mm-door {
+  background: #cc79a7;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
