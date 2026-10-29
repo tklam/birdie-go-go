@@ -2093,6 +2093,13 @@
     "frameHeight": 24,
     "placeholder": true
   },
+  "char_old_fisherman": {
+    "type": "spritesheet",
+    "file": "chars/old_fisherman.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
   "char_old_villager": {
     "type": "spritesheet",
     "file": "chars/old_villager.png",

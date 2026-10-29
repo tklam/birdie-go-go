@@ -208,6 +208,7 @@ type missionYAML struct {
 		MinScore  int    `yaml:"min_score"`
 		Line      string `yaml:"line"`
 		Stop      string `yaml:"stop"`
+		Game      string `yaml:"game"`
 	} `yaml:"objective"`
 	Reward struct {
 		Money int      `yaml:"money"`
@@ -305,7 +306,7 @@ func load(dir string) (*model.ContentBundle, error) {
 	b := &model.ContentBundle{
 		Areas: []model.Area{}, Birds: []model.Bird{}, Spots: []model.Spot{}, Students: []model.Student{},
 		Songs: []model.Song{}, Events: []model.Event{}, Dialogue: []model.Dialogue{}, Music: []model.Music{},
-		Items: []model.Item{}, Hazards: []model.Hazard{}, Enemies: []model.Enemy{}, Missions: []model.Mission{}, Ambient: []model.AmbientNPC{}, Shops: []model.Shop{},
+		Items: []model.Item{}, Hazards: []model.Hazard{}, Enemies: []model.Enemy{}, Missions: []model.Mission{}, Ambient: []model.AmbientNPC{}, Shops: []model.Shop{}, Minigames: []model.Minigame{},
 		Transit: model.Transit{Lines: []model.TransitLine{}, Stops: []model.TransitStop{}},
 	}
 
@@ -425,6 +426,40 @@ func load(dir string) (*model.ContentBundle, error) {
 	}
 	for _, x := range shops {
 		b.Shops = append(b.Shops, model.Shop{ID: x.ID, Title: x.Title, Stock: orEmpty(x.Stock)})
+	}
+
+	var games []struct {
+		ID      string    `yaml:"id"`
+		Type    string    `yaml:"type"`
+		Title   string    `yaml:"title"`
+		Intro   string    `yaml:"intro"`
+		Icons   []string  `yaml:"icons"`
+		Avoid   []string  `yaml:"avoid"`
+		Pairs   int       `yaml:"pairs"`
+		Target  int       `yaml:"target"`
+		Seconds int       `yaml:"seconds"`
+		Tempo   float64   `yaml:"tempo"`
+		Pattern []float64 `yaml:"pattern"`
+		Image   string    `yaml:"image"`
+		Size    int       `yaml:"size"`
+		Quiz    []struct {
+			Question string   `yaml:"question"`
+			Answers  []string `yaml:"answers"`
+			Correct  int      `yaml:"correct"`
+		} `yaml:"quiz"`
+	}
+	if err := readOptional(filepath.Join(dir, "minigames.yaml"), &games); err != nil {
+		return nil, err
+	}
+	for _, x := range games {
+		g := model.Minigame{
+			ID: x.ID, Type: x.Type, Title: x.Title, Intro: x.Intro, Icons: x.Icons, Avoid: x.Avoid,
+			Pairs: x.Pairs, Target: x.Target, Seconds: x.Seconds, Tempo: x.Tempo, Pattern: x.Pattern, Image: x.Image, Size: x.Size,
+		}
+		for _, q := range x.Quiz {
+			g.Quiz = append(g.Quiz, model.QuizQuestion{Question: q.Question, Answers: q.Answers, Correct: q.Correct})
+		}
+		b.Minigames = append(b.Minigames, g)
 	}
 
 	var missions []missionYAML

@@ -3,22 +3,23 @@ package model
 // ContentBundle is the validated game content emitted by tools/contentbuild
 // and loaded by the client at startup. Lists are never nil in a built bundle.
 type ContentBundle struct {
-	Game     GameInfo     `json:"game"`
-	Areas    []Area       `json:"areas"`
-	Birds    []Bird       `json:"birds"`
-	Spots    []Spot       `json:"spots"`
-	Students []Student    `json:"students"`
-	Songs    []Song       `json:"songs"`
-	Events   []Event      `json:"events"`
-	Dialogue []Dialogue   `json:"dialogue"`
-	Music    []Music      `json:"music"`
-	Items    []Item       `json:"items"`
-	Hazards  []Hazard     `json:"hazards"`
-	Enemies  []Enemy      `json:"enemies"`
-	Missions []Mission    `json:"missions"`
-	Shops    []Shop       `json:"shops"`
-	Ambient  []AmbientNPC `json:"ambient"`
-	Transit  Transit      `json:"transit"`
+	Game      GameInfo     `json:"game"`
+	Areas     []Area       `json:"areas"`
+	Birds     []Bird       `json:"birds"`
+	Spots     []Spot       `json:"spots"`
+	Students  []Student    `json:"students"`
+	Songs     []Song       `json:"songs"`
+	Events    []Event      `json:"events"`
+	Dialogue  []Dialogue   `json:"dialogue"`
+	Music     []Music      `json:"music"`
+	Items     []Item       `json:"items"`
+	Hazards   []Hazard     `json:"hazards"`
+	Enemies   []Enemy      `json:"enemies"`
+	Missions  []Mission    `json:"missions"`
+	Shops     []Shop       `json:"shops"`
+	Minigames []Minigame   `json:"minigames"`
+	Ambient   []AmbientNPC `json:"ambient"`
+	Transit   Transit      `json:"transit"`
 }
 
 // GameInfo is the top-level game metadata from content/game.yaml.
@@ -246,4 +247,42 @@ type Shop struct {
 	ID    string   `json:"id"`
 	Title string   `json:"title"`
 	Stock []string `json:"stock"`
+}
+
+// Minigame is a favour played as a short mini game (SPEC.md §4.14). Type
+// picks the game; the other fields configure it (each type uses some).
+type Minigame struct {
+	ID    string `json:"id"`
+	Type  string `json:"type"`
+	Title string `json:"title"`
+	// Intro explains the task in the story's words before play.
+	Intro string `json:"intro"`
+	// Quiz questions (quiz).
+	Quiz []QuizQuestion `json:"quiz,omitempty"`
+	// Icons are pictures: "bird:<species>" or "prop:<name>" (memory: the
+	// cards; catch: things to catch; find: the hidden birds).
+	Icons []string `json:"icons,omitempty"`
+	// Avoid are pictures not to catch (catch).
+	Avoid []string `json:"avoid,omitempty"`
+	// Pairs of cards (memory).
+	Pairs int `json:"pairs,omitempty"`
+	// Target is what wins: right answers (quiz), catches (catch), birds found
+	// (find), hits on the beat (rhythm).
+	Target int `json:"target,omitempty"`
+	// Seconds is the time limit (catch, find; 0 = none).
+	Seconds int `json:"seconds,omitempty"`
+	// Tempo in beats per minute and Pattern, the beats to strike (rhythm).
+	Tempo   float64   `json:"tempo,omitempty"`
+	Pattern []float64 `json:"pattern,omitempty"`
+	// Image is the picture to restore (slide: a manifest image id) and Size
+	// the puzzle's grid (3 or 4).
+	Image string `json:"image,omitempty"`
+	Size  int    `json:"size,omitempty"`
+}
+
+// QuizQuestion is one multiple-choice question; Correct indexes Answers.
+type QuizQuestion struct {
+	Question string   `json:"question"`
+	Answers  []string `json:"answers"`
+	Correct  int      `json:"correct"`
 }

@@ -1,0 +1,17 @@
+# Mini games for place stories and favours (SPEC.md §4.14). Types: quiz,
+# memory, rhythm, catch, find, slide. Icons: "bird:<species>" or "prop:<name>".
+- id: junk_bay_quiz
+  type: quiz
+  title: Junk Bay Quiz
+  intro: "Uncle Lam taps his pipe. \"Let's see if you were listening, young lady.\""
+  target: 2
+  quiz:
+    - question: "How did Junk Bay get its name?"
+      answers: ["Junks sheltered here from storms", "It was full of rubbish", "A sea captain called Junk"]
+      correct: 0
+    - question: "What was built on the land reclaimed from the bay?"
+      answers: ["A racecourse", "A new town", "An airport"]
+      correct: 1
+    - question: "What did Uncle Lam's family do before the new town?"
+      answers: ["Farmed rice", "Built ships", "Fished from their boat"]
+      correct: 2

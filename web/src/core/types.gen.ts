@@ -54,6 +54,7 @@ export interface ContentBundle {
   enemies: Enemy[];
   missions: Mission[];
   shops: Shop[];
+  minigames: Minigame[];
   ambient: AmbientNPC[];
   transit: Transit;
 }
@@ -346,6 +347,64 @@ export interface Shop {
   id: string;
   title: string;
   stock: string[];
+}
+/**
+ * Minigame is a favour played as a short mini game (SPEC.md §4.14). Type
+ * picks the game; the other fields configure it (each type uses some).
+ */
+export interface Minigame {
+  id: string;
+  type: string;
+  title: string;
+  /**
+   * Intro explains the task in the story's words before play.
+   */
+  intro: string;
+  /**
+   * Quiz questions (quiz).
+   */
+  quiz?: QuizQuestion[];
+  /**
+   * Icons are pictures: "bird:<species>" or "prop:<name>" (memory: the
+   * cards; catch: things to catch; find: the hidden birds).
+   */
+  icons?: string[];
+  /**
+   * Avoid are pictures not to catch (catch).
+   */
+  avoid?: string[];
+  /**
+   * Pairs of cards (memory).
+   */
+  pairs?: number /* int */;
+  /**
+   * Target is what wins: right answers (quiz), catches (catch), birds found
+   * (find), hits on the beat (rhythm).
+   */
+  target?: number /* int */;
+  /**
+   * Seconds is the time limit (catch, find; 0 = none).
+   */
+  seconds?: number /* int */;
+  /**
+   * Tempo in beats per minute and Pattern, the beats to strike (rhythm).
+   */
+  tempo?: number /* float64 */;
+  pattern?: number /* float64 */[];
+  /**
+   * Image is the picture to restore (slide: a manifest image id) and Size
+   * the puzzle's grid (3 or 4).
+   */
+  image?: string;
+  size?: number /* int */;
+}
+/**
+ * QuizQuestion is one multiple-choice question; Correct indexes Answers.
+ */
+export interface QuizQuestion {
+  question: string;
+  answers: string[];
+  correct: number /* int */;
 }
 
 //////////
@@ -732,7 +791,7 @@ export interface MissionWindow {
  * Objective is what completes a mission. Type "photograph" needs Species
  * (and optionally MinRating good|great|perfect, Area); "lesson" needs
  * Student and MinScore; "ride" needs Line and/or Stop (ride that line, or
- * arrive at that stop); "visit" needs Area.
+ * arrive at that stop); "visit" needs Area; "minigame" needs Game (win it).
  */
 export interface Objective {
   type: string;
@@ -743,6 +802,10 @@ export interface Objective {
   minScore?: number /* int */;
   line?: string;
   stop?: string;
+  /**
+   * Game is the mini game to win (type "minigame").
+   */
+  game?: string;
 }
 /**
  * Reward is given on completion.

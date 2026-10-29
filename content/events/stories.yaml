@@ -1,0 +1,21 @@
+# Place stories (SPEC.md §4.14): the first visit to an area tells a little of
+# its history, and a local asks a favour played as a mini game.
+
+# Junk Bay waterfront: how the bay got its name.
+- id: story_tko_waterfront
+  trigger: { type: enter_area, area: tko_waterfront }
+  actions:
+    - dialogue: story_tko_waterfront
+    - start_mission: favour_junk_bay
+- id: favour_junk_bay_play
+  once: false
+  trigger: { type: talk, npc: old_fisherman }
+  conditions: [{ flag_set: "mission:favour_junk_bay" }]
+  actions:
+    - start_minigame: junk_bay_quiz
+- id: old_fisherman_chat
+  once: false
+  trigger: { type: talk, npc: old_fisherman }
+  conditions: [{ flag_not_set: "mission:favour_junk_bay" }]
+  actions:
+    - dialogue: old_fisherman_chat

@@ -66,3 +66,10 @@
   objective: { type: photograph, species: japanese_tit, min_rating: good }
   reward: { money: 200, items: [milk_tea] }
   window: { from: "2026-12-26", to: "2027-01-10" }
+# Favours from place stories (content/events/stories.yaml).
+- id: favour_junk_bay
+  giver: old_fisherman
+  title: Old Lam's Story
+  description: "Old Lam on the Junk Bay waterfront wants to know you listened to his story. Talk to him for his quiz."
+  objective: { type: minigame, game: junk_bay_quiz }
+  reward: { money: 120, items: [milk_tea] }

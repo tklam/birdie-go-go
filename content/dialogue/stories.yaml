@@ -1,0 +1,11 @@
+# Place stories and the locals who tell them.
+- id: story_tko_waterfront
+  lines:
+    - { speaker: old_fisherman, text: "Taking pictures of my bay? Good. Sit a moment. Old Lam will tell you a story." }
+    - { speaker: old_fisherman, text: "Before the towers, this was open water. When typhoons came, the junks crowded in here to shelter. That's how it got its name." }
+    - { speaker: old_fisherman, text: "My family lived on our boat. We fished at night with lamps, and the egrets followed us home at dawn." }
+    - { speaker: old_fisherman, text: "Then they filled in the bay and built a new town on it. My grandchildren live on the twentieth floor now. Ha!" }
+    - { speaker: old_fisherman, text: "Come and talk to me when you're ready. I want to see if young people still listen." }
+- id: old_fisherman_chat
+  lines:
+    - { speaker: old_fisherman, text: "The egrets still come in at low tide. Some things the new town couldn't change." }

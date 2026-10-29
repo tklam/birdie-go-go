@@ -1,6 +1,6 @@
 import type { CoreClient } from '../core/client';
 import { portraitUrl, type Manifest } from './assets';
-import type { ContentBundle, WeatherArea, WeatherDay, WorldIndex } from '../core/types.gen';
+import type { ContentBundle, Minigame, WeatherArea, WeatherDay, WorldIndex } from '../core/types.gen';
 import { showDialogue } from '../ui/dialogue';
 import { EventRunner, visibleLines, type TriggerInput } from './events';
 import { IndexedDBSaveStore, MemorySaveStore, type SaveStore } from './save';
@@ -15,6 +15,7 @@ import {
   offerMissions,
   photoMissionsMet,
   reminderMission,
+  minigameMissionsMet,
   rideMissionsMet,
   startMission,
   visitMissionsMet,
@@ -58,6 +59,8 @@ export class Session {
    * scene); resolves when it's over.
    */
   sceneRunner?: (scene: string, data: Record<string, unknown>) => Promise<void>;
+  /** Plays a mini game (set by the map scene); resolves with whether it was won. */
+  minigameRunner?: (game: Minigame) => Promise<boolean>;
   /** The asset manifest, for dialogue portraits (set by the boot scene). */
   manifest?: Manifest;
   /** In-game minutes played in the current slot (one per real second on the map). */
@@ -77,6 +80,10 @@ export class Session {
         if (action.type === 'start_mission' && typeof action.value === 'string' && startMission(this.state, action.value)) {
           const m = this.content.missions.find((x) => x.id === action.value);
           if (m) await showPanel(`New mission: ${m.title}`, [m.description]);
+          return;
+        }
+        if (action.type === 'start_minigame' && typeof action.value === 'string') {
+          await this.playMinigame(action.value);
           return;
         }
         console.info('event action not handled yet', action.type, action.value);
@@ -150,6 +157,20 @@ export class Session {
       return;
     }
     if (typeof v.dialogue === 'string') await this.dialogue(v.dialogue);
+  }
+
+  /**
+   * start_minigame (SPEC.md §4.14): plays it, then fires minigame_complete
+   * `{game, won}` and completes minigame missions on a win.
+   */
+  async playMinigame(id: string): Promise<boolean> {
+    const game = this.content.minigames.find((g) => g.id === id);
+    if (!game || !this.minigameRunner) return false;
+    const won = await this.minigameRunner(game);
+    await this.fire({ type: 'minigame_complete', params: { game: id, won: String(won) } });
+    if (won) await this.checkMissions({ won: id });
+    await this.save();
+    return won;
   }
 
   /** Fires the album milestones the album has reached (SPEC.md §5.6). */
@@ -242,12 +263,15 @@ export class Session {
     lesson?: { studentId: string; score: number };
     ride?: { line: string; stop: string };
     visit?: string;
+    /** A mini game just won. */
+    won?: string;
   }): Promise<void> {
     const met = [
       ...(done.photos ? photoMissionsMet(this.state, this.content, done.photos) : []),
       ...(done.lesson ? lessonMissionsMet(this.state, this.content, done.lesson.studentId, done.lesson.score) : []),
       ...(done.ride ? rideMissionsMet(this.state, this.content, done.ride.line, done.ride.stop) : []),
       ...(done.visit ? visitMissionsMet(this.state, this.content, done.visit) : []),
+      ...(done.won ? minigameMissionsMet(this.state, this.content, done.won) : []),
     ];
     for (const m of met) {
       completeMission(this.state, m);

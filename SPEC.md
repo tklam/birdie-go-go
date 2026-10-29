@@ -327,6 +327,15 @@ Accessibility settings: **Hold instead of mash** (holding fills the meter at a f
 - **Kei** (`friends`+): an ultrasonic deterrent gadget against dogs lowers their resolve at the start. From `dating`, a camera-flash gadget stuns monsters briefly, so a combo gets a longer time window.
 - **Both**: O Boy distracts while Kei sets up the gadget, giving one free success.
 
+### 4.14 Place stories and mini games
+Visiting a place reveals a little of its (lightly fictionalized, Hong Kong-inspired) history: the first time Angie enters an area, a local tells its story and asks a favour, which becomes a mission. Favours are played as short **mini games**; failing costs nothing and can be retried any time.
+
+- **Content**: `content/minigames.yaml` (id, `type`, `title`, `intro`, and per-type settings); stories and favours are events (`content/events/stories.yaml`): `enter_area` → `dialogue` + `start_mission`; talking to the local while the mission is active → `start_minigame: <id>`.
+- **Events**: action `start_minigame`; trigger `minigame_complete` with `{game, won: "true"|"false"}`; mission objective `{type: minigame, game}` completes on a win.
+- **Types** (one scene each, `MG_<type>`, run over the paused map with the HUD hidden): `quiz` (questions about the story; `quiz`, `target` right answers), `memory` (match `pairs` of `icons`), `rhythm` (strike the drum on the `pattern` beats at `tempo`; `target` hits), `catch` (catch falling `icons`, not `avoid`, before `seconds`; `target` catches), `find` (spot `target` hidden birds from `icons` in a scene), `slide` (restore a picture: `image`, a `size`×`size` sliding puzzle).
+- **Icons**: `bird:<species>` (the bird's perched frame) or `prop:<name>`, small pictures drawn at runtime (bun, fish, shrimp, crab, shell, leaf, flower, mooncake, can, bottle, bag, lantern, tram, junk).
+- **Accessibility**: Slow prompts makes timed games 1.5× more forgiving; everything is playable by touch, mouse or keys.
+
 ## 5. Photo Scene (Action View)
 
 ### 5.1 Presentation

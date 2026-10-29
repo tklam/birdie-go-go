@@ -112,3 +112,8 @@ export function expireMissions(state: GameState, content: Pick<ContentBundle, 'm
     return true;
   });
 }
+
+/** Active minigame missions met by winning `game`. */
+export function minigameMissionsMet(state: GameState, content: Pick<ContentBundle, 'missions'>, game: string): Mission[] {
+  return activeMissions(state, content).filter((m) => m.objective.type === 'minigame' && m.objective.game === game);
+}

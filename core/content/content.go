@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"regexp"
 	"slices"
+	"strings"
 
 	"birdiegogo/core/model"
 	"birdiegogo/core/transit"
@@ -30,23 +31,24 @@ var (
 		model.MistakeWrongNote, model.MistakeMissedNote, model.MistakeExtraNote,
 		model.MistakeRush, model.MistakeDrag, model.MistakeHesitation,
 	}
-	Companions   = []string{"oboy", "kei"}
-	Instruments  = []string{"square", "pulse", "triangle", "noise"}
-	ItemKinds    = []string{"gear", "consumable", "gadget"}
-	GearSlots    = []string{"head", "body", "hand"}
-	EnemyKinds   = []string{"dog", "monster"}
-	Ratings      = []string{"good", "great", "perfect"}
-	AmbientKinds = []string{"walker", "birder"}
-	TransitModes = []string{"bus", "tram", "metro", "ferry"}
-	WeatherKeys  = []string{"cloud", "precip", "temp", "fog", "wind", "uv", "signal"}
-	KeiStages    = []string{"met", "friends", "dating", "engaged", "married"}
-	NamedWeather = []string{"typhoon", "thunderstorm", "rainstorm", "rain", "drizzle", "foggy", "windy", "hazy", "cloudy", "clear"}
+	Companions    = []string{"oboy", "kei"}
+	Instruments   = []string{"square", "pulse", "triangle", "noise"}
+	ItemKinds     = []string{"gear", "consumable", "gadget"}
+	GearSlots     = []string{"head", "body", "hand"}
+	EnemyKinds    = []string{"dog", "monster"}
+	Ratings       = []string{"good", "great", "perfect"}
+	AmbientKinds  = []string{"walker", "birder"}
+	TransitModes  = []string{"bus", "tram", "metro", "ferry"}
+	WeatherKeys   = []string{"cloud", "precip", "temp", "fog", "wind", "uv", "signal"}
+	KeiStages     = []string{"met", "friends", "dating", "engaged", "married"}
+	MinigameTypes = []string{"quiz", "memory", "rhythm", "catch", "find", "slide"}
+	NamedWeather  = []string{"typhoon", "thunderstorm", "rainstorm", "rain", "drizzle", "foggy", "windy", "hazy", "cloudy", "clear"}
 
 	TriggerTypes = []string{
 		"enter_area", "talk", "interact", "photo_taken", "photo_session_end", "lesson_complete",
 		"ride_complete", "mission_complete", "day_start", "time_slot_start", "album_milestone",
 		"item_obtained", "weather_warning", "encounter_won", "encounter_escaped", "energy_depleted",
-		"new_game",
+		"new_game", "minigame_complete",
 	}
 	ConditionTypes = []string{
 		"flag_set", "flag_not_set", "chapter_at_least", "bond_at_least", "kei_stage", "party_has",
@@ -57,7 +59,7 @@ var (
 	ActionTypes = []string{
 		"dialogue", "set_flag", "clear_flag", "set_chapter", "join_party", "add_bond", "set_kei_stage",
 		"give_item", "give_money", "unlock_area", "unlock_line", "unlock_teleport", "start_mission",
-		"start_encounter", "restore_energy", "add_status", "start_scene", "move_npc",
+		"start_encounter", "restore_energy", "add_status", "start_scene", "move_npc", "start_minigame",
 	}
 )
 
@@ -80,6 +82,10 @@ func Validate(b *model.ContentBundle) []error {
 	missions := v.ids("mission", len(b.Missions), func(i int) string { return b.Missions[i].ID })
 	v.ids("ambient", len(b.Ambient), func(i int) string { return b.Ambient[i].ID })
 	v.ids("shop", len(b.Shops), func(i int) string { return b.Shops[i].ID })
+	games := v.ids("minigame", len(b.Minigames), func(i int) string { return b.Minigames[i].ID })
+	for _, g := range b.Minigames {
+		v.minigame(g, birds)
+	}
 
 	for _, a := range b.Areas {
 		v.require(a.Name != "", "area %s: name is required", a.ID)
@@ -142,7 +148,7 @@ func Validate(b *model.ContentBundle) []error {
 		v.require(st.Name != "", "stop %s: name is required", st.ID)
 	}
 	for _, m := range b.Missions {
-		v.mission(m, refs{areas: areas, students: students, lines: lines, stops: stops}, birds, items)
+		v.mission(m, refs{areas: areas, students: students, lines: lines, stops: stops, games: games}, birds, items)
 	}
 	for _, bird := range b.Birds {
 		v.bird(bird)
@@ -194,7 +200,7 @@ func Validate(b *model.ContentBundle) []error {
 }
 
 type refs struct {
-	areas, spots, students, dialogue, missions, lines, stops map[string]bool
+	areas, spots, students, dialogue, missions, lines, stops, games map[string]bool
 }
 
 type validator struct {
@@ -388,6 +394,8 @@ func (v *validator) mission(m model.Mission, r refs, birds, items map[string]boo
 		v.require(o.Stop == "" || r.stops[o.Stop], "mission %s: unknown stop %q", m.ID, o.Stop)
 	case "visit":
 		v.require(r.areas[o.Area], "mission %s: unknown area %q", m.ID, o.Area)
+	case "minigame":
+		v.require(r.games[o.Game], "mission %s: unknown minigame %q", m.ID, o.Game)
 	default:
 		v.errs = append(v.errs, fmt.Errorf("mission %s: unknown objective type %q", m.ID, o.Type))
 	}
@@ -485,5 +493,34 @@ func (v *validator) service(l model.TransitLine) {
 	}
 	if err := transit.CheckService(first, last); err != nil {
 		v.require(false, "line %s: %v", l.ID, err)
+	}
+}
+
+// Props are the pictures mini games can draw without art: "prop:<name>".
+var Props = []string{"bun", "fish", "shrimp", "crab", "shell", "leaf", "flower", "mooncake", "can", "bottle", "bag", "lantern", "tram", "junk"}
+
+func (v *validator) minigame(g model.Minigame, birds map[string]bool) {
+	v.require(slices.Contains(MinigameTypes, g.Type), "minigame %s: unknown type %q", g.ID, g.Type)
+	v.require(g.Title != "" && g.Intro != "", "minigame %s: title and intro are required", g.ID)
+	for _, icon := range append(append([]string{}, g.Icons...), g.Avoid...) {
+		kind, name, _ := strings.Cut(icon, ":")
+		v.require((kind == "bird" && birds[name]) || (kind == "prop" && slices.Contains(Props, name)), "minigame %s: unknown icon %q", g.ID, icon)
+	}
+	switch g.Type {
+	case "quiz":
+		v.require(len(g.Quiz) > 0 && g.Target >= 1 && g.Target <= len(g.Quiz), "minigame %s: a quiz needs questions and a target of 1–%d", g.ID, len(g.Quiz))
+		for i, q := range g.Quiz {
+			v.require(q.Question != "" && len(q.Answers) >= 2 && q.Correct >= 0 && q.Correct < len(q.Answers), "minigame %s: question %d needs 2+ answers and a valid correct index", g.ID, i+1)
+		}
+	case "memory":
+		v.require(g.Pairs >= 2 && len(g.Icons) >= g.Pairs, "minigame %s: memory needs pairs ≥ 2 and as many icons", g.ID)
+	case "rhythm":
+		v.require(g.Tempo > 0 && len(g.Pattern) > 0 && g.Target >= 1 && g.Target <= len(g.Pattern), "minigame %s: rhythm needs tempo, a pattern and a target", g.ID)
+	case "catch":
+		v.require(len(g.Icons) > 0 && g.Target >= 1 && g.Seconds > 0, "minigame %s: catch needs icons, a target and seconds", g.ID)
+	case "find":
+		v.require(len(g.Icons) > 0 && g.Target >= 1 && g.Target <= len(g.Icons), "minigame %s: find needs icons and a target", g.ID)
+	case "slide":
+		v.require(g.Image != "" && (g.Size == 3 || g.Size == 4), "minigame %s: slide needs an image and size 3 or 4", g.ID)
 	}
 }

@@ -283,6 +283,25 @@ export class MapScene extends Phaser.Scene {
         : typeof data.dialogue === 'string'
           ? this.session.dialogue(data.dialogue)
           : Promise.resolve();
+    // Mini games (SPEC.md §4.14) run over the paused map, one scene per type.
+    this.session.minigameRunner = (game) => {
+      const key = `MG_${game.type}`;
+      if (!this.scene.manager.keys[key]) return Promise.resolve(false);
+      return new Promise<boolean>((resolve) => {
+        this.scene.pause();
+        this.hud.setVisible(false);
+        this.touch.setVisible(false);
+        this.scene.launch(key, {
+          game,
+          done: (won: boolean) => {
+            this.hud.setVisible(true);
+            this.touch.setVisible(true);
+            this.scene.resume();
+            resolve(won);
+          },
+        });
+      });
+    };
     this.touch = new TouchControls();
     this.touch.setJoystick(this.session.state.settings.controlScheme !== 'tap');
     this.input2 = new InputReader(this, this.touch);

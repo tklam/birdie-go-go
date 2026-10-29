@@ -273,6 +273,7 @@ func build() *tmap {
 	m.fill(0, 56, mapW, 1, "railing")
 	m.fill(0, 57, mapW, 1, "seawall")
 	m.obj("bay_ghost", "enemy", 70, 55, map[string]string{"enemy_id": "water_ghost"})
+	m.obj("old_fisherman", "npc", 36, 55, map[string]string{"npc_id": "old_fisherman", "sprite": "char_old_fisherman"})
 	m.obj("promenade_ghost", "enemy", 30, 55, map[string]string{"enemy_id": "water_ghost"})
 	m.fill(0, 58, mapW, 6, "water")
 	// A small ferry pier on Junk Bay.

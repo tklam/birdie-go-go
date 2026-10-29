@@ -28,7 +28,7 @@ type MissionWindow struct {
 // Objective is what completes a mission. Type "photograph" needs Species
 // (and optionally MinRating good|great|perfect, Area); "lesson" needs
 // Student and MinScore; "ride" needs Line and/or Stop (ride that line, or
-// arrive at that stop); "visit" needs Area.
+// arrive at that stop); "visit" needs Area; "minigame" needs Game (win it).
 type Objective struct {
 	Type      string `json:"type"`
 	Species   string `json:"species,omitempty"`
@@ -38,6 +38,8 @@ type Objective struct {
 	MinScore  int    `json:"minScore,omitempty"`
 	Line      string `json:"line,omitempty"`
 	Stop      string `json:"stop,omitempty"`
+	// Game is the mini game to win (type "minigame").
+	Game string `json:"game,omitempty"`
 }
 
 // Reward is given on completion.
