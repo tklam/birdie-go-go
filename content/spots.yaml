@@ -367,4 +367,18 @@
     - { species: pacific_golden_plover, weight: 2, seasons: [autumn, winter] }
     - { species: kentish_plover, weight: 2 }
     - { species: black_faced_spoonbill, weight: 1, seasons: [winter] }
+# Off Po Toi O, by kayak (SPEC.md §4.6).
+- id: sea_cave
+  name: Sea Cave
+  area: po_toi_o
+  background: bg_waterfront
+  shots: 10
+  requires_item: kayak
+  birds:
+    - { species: pacific_reef_heron, weight: 3 }
+    - { species: white_bellied_sea_eagle, weight: 2 }
+    - { species: blue_rock_thrush, weight: 3 }
+    - { species: osprey, weight: 2 }
+    - { species: whiskered_tern, weight: 2, seasons: [spring, summer, autumn] }
+    - { species: great_cormorant, weight: 2, seasons: [autumn, winter] }
 

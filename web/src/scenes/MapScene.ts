@@ -24,7 +24,7 @@ import { iris } from '../fx/iris';
 import { glitch } from '../fx/glitch';
 import { activityCost, crossedLow, walkCost } from '../systems/economy';
 import { collect, isCollected } from '../systems/collectibles';
-import { closedGateAt, gateFrom, spotBlocked, type Gate } from '../systems/gates';
+import { closedGateAt, gateFrom, openWaterAt, spotBlocked, type Gate } from '../systems/gates';
 import { bagUsed, pack, stow, takesSpace, unpack } from '../systems/bag';
 import { clockLabel, discoverStop, openLines, payFare, stopFlag, topUp } from '../systems/transit';
 import { closureReason, hazardForecast, warningAnnouncement, warningTag, warningsAt, type Warnings } from '../systems/warnings';
@@ -1419,7 +1419,10 @@ export class MapScene extends Phaser.Scene {
   /** Tile collision, with gear gates closed until Angie owns their item (SPEC.md §4.6). */
   private collisionAt(tx: number, ty: number): number {
     const c = this.store.collisionAt(tx, ty);
-    if (c || this.gates.length === 0) return c;
+    if (this.gates.length === 0) return c;
+    // A kayak takes Angie over the water of its channel.
+    if (c && this.store.groundAt(tx, ty) === this.waterTile && openWaterAt(this.gates, tx, ty, this.session.state.items)) return 0;
+    if (c) return c;
     const g = closedGateAt(this.gates, tx, ty, this.session.state.items);
     if (!g) return c;
     this.bumpedGate = g;

@@ -22,3 +22,4 @@
 - { id: af_module, name: Tracking AF, kind: gadget, price: 0, counters: [], build: { parts: 3, kei_stage: engaged }, description: "Kei's autofocus module: focusing is 30% faster." }
 - { id: stabilizer, name: Stabilizer, kind: gadget, price: 0, counters: [], build: { parts: 3, kei_stage: engaged }, description: "Kei's stabilizer: fast birds come out sharper." }
 - { id: night_lens, name: Night Lens, kind: gadget, price: 0, counters: [], build: { parts: 2, kei_stage: dating }, description: "Kei's bright lens for low light. Opens night-only birding spots." }
+- { id: kayak, name: Kayak, kind: gadget, price: 0, counters: [], build: { parts: 3, kei_stage: engaged }, description: "Kei's folding kayak. Paddle out to the sea cave off Po Toi O." }

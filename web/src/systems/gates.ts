@@ -12,6 +12,8 @@ export interface Gate {
   h: number;
   requires: string;
   hint: string;
+  /** Opens water (normally solid) once Angie has the item, e.g. paddling a kayak. */
+  water: boolean;
 }
 
 /** A `gate` world object (its point is the top-left tile's centre; props requires, w, h, hint). */
@@ -25,6 +27,7 @@ export function gateFrom(o: Pick<WorldObject, 'x' | 'y' | 'props'>, tileSize: nu
     h: Math.max(1, Number(o.props.h) || 1),
     requires,
     hint: o.props.hint ?? '',
+    water: o.props.water === 'true',
   };
 }
 
@@ -34,6 +37,11 @@ export function closedGateAt(gates: readonly Gate[], tx: number, ty: number, ite
     if (tx >= g.tx && tx < g.tx + g.w && ty >= g.ty && ty < g.ty + g.h && !((items[g.requires] ?? 0) > 0)) return g;
   }
   return null;
+}
+
+/** An open water gate at a tile (Angie has its item): its tiles are passable even over water. */
+export function openWaterAt(gates: readonly Gate[], tx: number, ty: number, items: GameState['items']): boolean {
+  return gates.some((g) => g.water && tx >= g.tx && tx < g.tx + g.w && ty >= g.ty && ty < g.ty + g.h && (items[g.requires] ?? 0) > 0);
 }
 
 /** Why a spot can't be used now ("needs" an item or "closed" at this time), or null. */

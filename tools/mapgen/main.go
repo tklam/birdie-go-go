@@ -472,6 +472,13 @@ func clearWaterBay() *tmap {
 	m.fill(30, 57, 3, 6, "pier")
 	m.put(28, 59, "boat")
 	m.put(34, 61, "boat")
+	// An islet with a sea cave, reached by kayak along a channel from the pier.
+	m.fill(52, 58, 6, 5, "hill_grass")
+	for _, p := range [][2]int{{52, 58}, {57, 58}, {52, 62}, {57, 62}, {56, 58}} {
+		m.put(p[0], p[1], "rock")
+	}
+	m.obj("kayak_channel", "gate", 33, 59, map[string]string{"requires": "kayak", "w": "19", "h": "2", "water": "true", "hint": "Too far to swim. A kayak would get you out to the islet."})
+	m.obj("sea_cave", "spot", 55, 60, map[string]string{"spot_id": "sea_cave"})
 	m.put(12, 54, "bench")
 	m.put(50, 54, "bench")
 	m.fill(56, 49, 6, 4, "mud")

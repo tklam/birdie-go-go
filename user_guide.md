@@ -187,7 +187,7 @@ Spending time together raises your **bond**, which unlocks new ways they can hel
 
 **Kei** follows you around and builds things.
 - His bird-call app names birds you can hear but can't see.
-- He builds gear that opens new areas (like a **night lens** for the owls of the Night Woods, in the evening), trail cameras that take photos while you're busy, and upgrades for your camera.
+- He builds gear that opens new areas (like a **night lens** for the owls of the Night Woods, in the evening, and later a **kayak** to paddle from the Po Toi O pier out to the Sea Cave), trail cameras that take photos while you're busy, and upgrades for your camera.
 - During lessons, his software can show the pitch of what the student plays and replay the mistakes you missed.
 
 Bring **both** and they'll work together, once O Boy gets used to having Kei around: in each photo session, Kei's app picks out a hidden bird and O Boy calls it in. They also chat as you explore new places.
