@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import type { WeatherDay, WeatherParams, WorldIndex, WorldObject } from '../core/types.gen';
+import type { Enemy, WeatherDay, WeatherParams, WorldIndex, WorldObject } from '../core/types.gen';
 import { blendAt, easeWeather, mixWeather } from '../weather/blend';
 import { WeatherRenderer } from '../weather/renderer';
 import { MAX_ENERGY, TIME_SLOTS } from '../systems/state';
@@ -38,6 +38,20 @@ const FLUSH_RADIUS = 44;
 type Facing = 'down' | 'left' | 'right' | 'up';
 const FACING_ROW: Record<Facing, number> = { down: 0, left: 1, right: 2, up: 3 };
 
+interface OverworldEnemy {
+  enemy: Enemy;
+  sprite: Phaser.GameObjects.Sprite;
+  chunk: string;
+  homeX: number;
+  homeY: number;
+  state: 'wander' | 'chase' | 'return';
+  target: { x: number; y: number };
+  nextWander: number;
+}
+
+/** Remembers which enemies were dealt with today, and short post-escape calm. */
+const settled = { day: 0, ids: new Set<string>(), calmUntil: 0 };
+
 interface OverworldBird {
   sprite: Phaser.GameObjects.Sprite;
   species: string;
@@ -56,7 +70,8 @@ export interface MapSceneData {
   /** Name to show on arrival (e.g. from a door's title). */
   title?: string;
   /** Set when returning from a task scene, to end the time slot. */
-  from?: 'Photo' | 'Piano';
+  from?: 'Photo' | 'Piano' | 'Encounter';
+  encounter?: { enemyId: string; outcome: 'won' | 'escaped' | 'lost' | 'skipped' };
   spotId?: string;
   studentId?: string;
 }
@@ -83,6 +98,7 @@ export class MapScene extends Phaser.Scene {
   private facing: Facing = 'down';
   private area: string | null = null;
   private birds: OverworldBird[] = [];
+  private enemies: OverworldEnemy[] = [];
   private flushedChunks = new Set<string>();
   private ready = false;
   private loaded = false;
@@ -108,6 +124,7 @@ export class MapScene extends Phaser.Scene {
   create(data: MapSceneData): void {
     this.session = this.registry.get('session') as Session;
     this.birds = [];
+    this.enemies = [];
     this.flushedChunks.clear();
     this.ready = false;
     this.loaded = false;
@@ -154,10 +171,12 @@ export class MapScene extends Phaser.Scene {
       loaded: (c) => {
         this.chunkRenderer.enqueue(c);
         this.spawnBirds(c);
+        this.spawnEnemies(c);
       },
       evicted: (c) => {
         this.chunkRenderer.remove(c);
         this.despawnBirds(c);
+        this.despawnEnemies(c);
       },
       failed: (key, err) => console.warn(`chunk ${key} failed to load`, err),
     });
@@ -202,6 +221,14 @@ export class MapScene extends Phaser.Scene {
     } else if (data.from === 'Piano') {
       await s.fire({ type: 'lesson_complete', params: data.studentId ? { student: data.studentId } : {} });
       await s.endSlot();
+    } else if (data.from === 'Encounter' && data.encounter) {
+      const e = data.encounter;
+      if (e.outcome === 'won' || e.outcome === 'escaped' || e.outcome === 'skipped') {
+        this.settle(e.enemyId, e.outcome === 'won');
+        await s.fire({ type: e.outcome === 'won' ? 'encounter_won' : 'encounter_escaped', params: { enemy: e.enemyId } });
+      } else if (e.outcome === 'lost') {
+        s.state.energy = 0;
+      }
     } else if (!s.state.firedEvents['prologue_arrival']) {
       await s.fire({ type: 'new_game' });
     }
@@ -271,6 +298,7 @@ export class MapScene extends Phaser.Scene {
     // sneaking through it hides Angie completely (SPEC.md §4.5).
     const flushRadius = inGrass ? (input.sneak ? 0 : FLUSH_RADIUS * 1.6) : FLUSH_RADIUS;
     this.updateBirds(time, moving && !input.sneak, flushRadius);
+    this.updateEnemies(time, dt, input.sneak, inGrass);
 
     this.updateWeather(delta);
     this.updateHazards(delta);
@@ -602,6 +630,100 @@ export class MapScene extends Phaser.Scene {
     items.push({ label: 'Close', run: async () => false });
     await showMenu('Menu', items);
     this.busy = false;
+  }
+
+  // --- Enemies (SPEC.md §4.13) --------------------------------------------
+
+  /** Marks an enemy as dealt with: defeated/driven off for the day, or calm for a while after an escape. */
+  private settle(enemyId: string, beaten: boolean): void {
+    if (settled.day !== this.session.state.day) {
+      settled.day = this.session.state.day;
+      settled.ids.clear();
+    }
+    if (beaten) settled.ids.add(enemyId);
+    settled.calmUntil = this.time.now + 15000;
+  }
+
+  private spawnEnemies(chunk: ChunkData): void {
+    const s = this.session;
+    if (settled.day !== s.state.day) {
+      settled.day = s.state.day;
+      settled.ids.clear();
+    }
+    for (const o of chunk.objects) {
+      if (o.type !== 'enemy') continue;
+      const enemy = s.content.enemies.find((e) => e.id === o.props.enemy_id);
+      if (!enemy || settled.ids.has(enemy.id) || !this.textures.exists(enemy.sprite)) continue;
+      if (enemy.slots.length && !enemy.slots.includes(s.state.slot)) continue;
+      const sprite = this.add.sprite(o.x, o.y, enemy.sprite, 0).setOrigin(0.5, 1).setDepth(DEPTH.entities + o.y);
+      this.enemies.push({ enemy, sprite, chunk: chunkKey(chunk.cx, chunk.cy), homeX: o.x, homeY: o.y, state: 'wander', target: { x: o.x, y: o.y }, nextWander: 0 });
+    }
+  }
+
+  private despawnEnemies(chunk: ChunkData): void {
+    const key = chunkKey(chunk.cx, chunk.cy);
+    this.enemies = this.enemies.filter((e) => {
+      if (e.chunk !== key) return true;
+      e.sprite.destroy();
+      return false;
+    });
+  }
+
+  /** Enemies wander near home, notice Angie (half as far when she sneaks or hides in grass), chase, and start an encounter on contact. */
+  private updateEnemies(time: number, dt: number, sneaking: boolean, inGrass: boolean): void {
+    if (!this.ready || this.busy || modal.open) return;
+    const calm = time < settled.calmUntil;
+    for (const e of this.enemies) {
+      const dx = this.pos.x - e.sprite.x;
+      const dy = this.pos.y - e.sprite.y;
+      const d = Math.hypot(dx, dy);
+      const sight = e.enemy.sight * (sneaking ? 0.5 : 1) * (inGrass && sneaking ? 0.5 : 1);
+      if (!calm && d < sight) e.state = 'chase';
+      else if (e.state === 'chase' && (d > e.enemy.sight * 2 || calm)) e.state = 'return';
+      let tx = e.target.x;
+      let ty = e.target.y;
+      let speed = e.enemy.speed * 0.35;
+      if (e.state === 'chase') {
+        tx = this.pos.x;
+        ty = this.pos.y;
+        speed = e.enemy.speed;
+      } else if (e.state === 'return') {
+        tx = e.homeX;
+        ty = e.homeY;
+        if (Math.hypot(tx - e.sprite.x, ty - e.sprite.y) < 4) e.state = 'wander';
+      } else if (time >= e.nextWander) {
+        e.nextWander = time + 1500 + Math.random() * 2500;
+        e.target = { x: e.homeX + (Math.random() - 0.5) * 48, y: e.homeY + (Math.random() - 0.5) * 32 };
+      }
+      const mx = tx - e.sprite.x;
+      const my = ty - e.sprite.y;
+      const m = Math.hypot(mx, my);
+      if (m > 1) {
+        const step = Math.min(m, speed * dt);
+        const ts = this.index.tileSize;
+        const next = move({ x: e.sprite.x, y: e.sprite.y }, (mx / m) * step, (my / m) * step, FEET, (x, y) => this.store.collisionAt(x, y), ts);
+        e.sprite.setPosition(next.x, next.y).setFlipX(mx < 0).setDepth(DEPTH.entities + next.y);
+        e.sprite.setFrame(Math.floor(time / 200) % 2);
+      }
+      if (e.state === 'chase' && d < 10) {
+        void this.startEncounter(e);
+        return;
+      }
+    }
+  }
+
+  private async startEncounter(e: OverworldEnemy): Promise<void> {
+    if (!this.scene.manager.keys['Encounter']) {
+      // The encounter scene isn't available yet: just shoo them off.
+      toast(`The ${e.enemy.name.toLowerCase()} wandered off.`);
+      this.settle(e.enemy.id, true);
+      e.sprite.destroy();
+      this.enemies = this.enemies.filter((x) => x !== e);
+      return;
+    }
+    this.busy = true;
+    toast(`${e.enemy.name}!`);
+    await this.leaveTo('Encounter', { enemyId: e.enemy.id, returnTo: 'Map', returnData: {} });
   }
 
   // --- Overworld birds ---------------------------------------------------

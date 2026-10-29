@@ -166,6 +166,8 @@ func build() *tmap {
 	m.fill(60, 6, 14, 2, "trail")
 	m.fill(46, 18, 4, 2, "stairs")
 	m.obj("hillside_birds", "bird", 76, 12, map[string]string{"species": "red_whiskered_bulbul", "count": "2"})
+	m.obj("hill_dogs", "enemy", 26, 6, map[string]string{"enemy_id": "stray_dog_pack"})
+	m.obj("hill_zombie", "enemy", 84, 8, map[string]string{"enemy_id": "hopping_zombie"})
 
 	// Town centre (rows 20–43).
 	m.area(20, 44, "tko_town")
@@ -228,6 +230,7 @@ func build() *tmap {
 	}
 	m.fill(0, 56, mapW, 1, "railing")
 	m.fill(0, 57, mapW, 1, "seawall")
+	m.obj("bay_ghost", "enemy", 70, 55, map[string]string{"enemy_id": "water_ghost"})
 	m.fill(0, 58, mapW, 6, "water")
 
 	// Objects.
