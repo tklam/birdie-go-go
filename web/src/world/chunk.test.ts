@@ -1,13 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { CHUNK_AREA, decodeChunk, fillChunk, NO_AREA } from './chunk';
+import { BLEND_CELLS, BLEND_SLOTS, CHUNK_AREA, decodeChunk, fillChunk, NO_AREA } from './chunk';
 
 /** Encodes a chunk the way tools/worldbuild does (before gzip). */
 export function encodeChunk(cx: number, cy: number, fill: { ground?: number; collision?: number; area?: number }, objects: unknown[] = []): ArrayBuffer {
   const json = new TextEncoder().encode(JSON.stringify(objects));
-  const size = 4 + 4 + CHUNK_AREA * 2 * 3 + CHUNK_AREA * 2 + 4 + json.length;
+  const blendBytes = BLEND_CELLS * BLEND_CELLS * BLEND_SLOTS * 2;
+  const size = 4 + 4 + CHUNK_AREA * 2 * 3 + CHUNK_AREA * 2 + blendBytes + 4 + json.length;
   const buf = new ArrayBuffer(size);
   const v = new DataView(buf);
-  'BGC1'.split('').forEach((c, i) => v.setUint8(i, c.charCodeAt(0)));
+  'BGC2'.split('').forEach((c, i) => v.setUint8(i, c.charCodeAt(0)));
   v.setUint16(4, cx, true);
   v.setUint16(6, cy, true);
   let o = 8;
@@ -19,6 +20,13 @@ export function encodeChunk(cx: number, cy: number, fill: { ground?: number; col
   o += CHUNK_AREA;
   for (let i = 0; i < CHUNK_AREA; i++) v.setUint8(o + i, fill.area ?? NO_AREA);
   o += CHUNK_AREA;
+  // Every blend cell: the fill area at full weight (or none).
+  for (let i = 0; i < blendBytes; i += BLEND_SLOTS * 2) {
+    v.setUint8(o + i, fill.area ?? NO_AREA);
+    v.setUint8(o + i + 1, fill.area === undefined ? 0 : 255);
+    for (let s = 1; s < BLEND_SLOTS; s++) v.setUint8(o + i + s * 2, NO_AREA);
+  }
+  o += blendBytes;
   v.setUint32(o, json.length, true);
   new Uint8Array(buf, o + 4).set(json);
   return buf;
@@ -34,6 +42,7 @@ describe('decodeChunk', () => {
     expect(c.detail[0]).toBe(0);
     expect(c.collision[10]).toBe(1);
     expect(c.area[10]).toBe(0);
+    expect([c.blend[0], c.blend[1], c.blend[2]]).toEqual([0, 255, NO_AREA]);
     expect(c.objects).toEqual(objects);
   });
 
@@ -49,5 +58,6 @@ describe('fillChunk', () => {
     expect(c.collision[123]).toBe(1);
     expect(c.area[123]).toBe(NO_AREA);
     expect(c.objects).toEqual([]);
+    expect(c.blend[0]).toBe(NO_AREA);
   });
 });

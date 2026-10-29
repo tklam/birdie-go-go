@@ -21,6 +21,7 @@ type options struct {
 	atlas      string // tileset name for visual layers
 	atlasAsset string // manifest id of the atlas image
 	fillTile   string // atlas tile name used for absent chunks
+	blendTiles int    // weather blend band in tiles
 }
 
 // tiledWorld is the subset of Tiled's .world format we read.
@@ -82,7 +83,9 @@ type tileRef struct {
 type chunk struct {
 	ground, detail, overhead [chunkArea]uint16
 	collision, area          [chunkArea]uint8
-	objects                  []model.WorldObject
+	// blend holds, per 4×4-tile cell, up to three (area, weight/255) pairs.
+	blend   [cellsPerChunk * cellsPerChunk][blendSlots][2]uint8
+	objects []model.WorldObject
 }
 
 func newChunk() *chunk {
@@ -131,6 +134,7 @@ func run(worldPath, outDir string, opts options) error {
 			return fmt.Errorf("%s: %w", path, err)
 		}
 	}
+	b.blendField(index.WidthChunks, index.HeightChunks, opts.blendTiles)
 	if len(w.Maps) > 0 && b.fill == 0 {
 		return fmt.Errorf("fill tile %q not found in tileset %q", opts.fillTile, opts.atlas)
 	}
@@ -352,6 +356,7 @@ func (b *builder) write(index model.WorldIndex, outDir string) error {
 	if index.TileNames == nil {
 		index.TileNames = []string{}
 	}
+	index.AreaCenters = b.areaCenters()
 	index.Areas = make([]string, len(b.areas))
 	for id, n := range b.areas {
 		index.Areas[n] = id
@@ -384,9 +389,9 @@ func (b *builder) write(index model.WorldIndex, outDir string) error {
 
 func encodeChunk(cx, cy int, c *chunk) ([]byte, error) {
 	var raw bytes.Buffer
-	raw.WriteString("BGC1")
+	raw.WriteString("BGC2")
 	le := binary.LittleEndian
-	for _, v := range []any{uint16(cx), uint16(cy), c.ground, c.detail, c.overhead, c.collision, c.area} {
+	for _, v := range []any{uint16(cx), uint16(cy), c.ground, c.detail, c.overhead, c.collision, c.area, c.blend} {
 		if err := binary.Write(&raw, le, v); err != nil {
 			return nil, err
 		}

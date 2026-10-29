@@ -12,14 +12,15 @@
 //
 // Chunk format (little endian, then gzip):
 //
-//	"BGC1"  magic
+//	"BGC2"  magic
 //	u16 cx, u16 cy
 //	u16[1024] ground, u16[1024] detail, u16[1024] overhead   (atlas frame + 1, 0 = empty)
 //	u8[1024]  collision                                     (model.Collision*)
 //	u8[1024]  area                                          (index into index.areas, 255 = none)
+//	u8[64][3][2] blend: per 4×4-tile cell, 3 × (area index, weight/255)   (255 = none)
 //	u32 n, then n bytes of JSON: []model.WorldObject
 //
-// The weather blend field and transit paths are added in later milestones.
+// Transit paths and the world-map pyramid are added in later milestones.
 package main
 
 import (
@@ -41,9 +42,10 @@ func main() {
 	tileset := flag.String("tileset", "tko", "name of the atlas tileset used by visual layers")
 	manifestID := flag.String("tileset-asset", "tiles_tko", "manifest id of the atlas image")
 	fill := flag.String("fill", "water", "atlas tile name for chunks with no map (solid)")
+	band := flag.Int("blend-tiles", 8, "weather blend band at area boundaries, in tiles")
 	flag.Parse()
 
-	opts := options{atlas: *tileset, atlasAsset: *manifestID, fillTile: *fill}
+	opts := options{atlas: *tileset, atlasAsset: *manifestID, fillTile: *fill, blendTiles: max(*band, 1)}
 	if err := run(*world, *out, opts); err != nil {
 		fmt.Fprintln(os.Stderr, "worldbuild:", err)
 		os.Exit(1)

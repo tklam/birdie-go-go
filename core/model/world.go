@@ -20,6 +20,9 @@ type WorldIndex struct {
 	Fill WorldFill `json:"fill"`
 	// Chunks maps "cx,cy" to the chunk file name under world/chunks/.
 	Chunks map[string]string `json:"chunks"`
+	// AreaCenters maps area ids to their centroids in world pixels (for the
+	// drifting weather front).
+	AreaCenters map[string]Point `json:"areaCenters"`
 	// Spawns maps spawn names to world pixel positions.
 	Spawns map[string]Point `json:"spawns"`
 }

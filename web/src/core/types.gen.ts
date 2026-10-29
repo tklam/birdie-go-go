@@ -522,6 +522,11 @@ export interface WorldIndex {
    */
   chunks: { [key: string]: string};
   /**
+   * AreaCenters maps area ids to their centroids in world pixels (for the
+   * drifting weather front).
+   */
+  areaCenters: { [key: string]: Point};
+  /**
    * Spawns maps spawn names to world pixel positions.
    */
   spawns: { [key: string]: Point};

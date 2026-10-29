@@ -71,6 +71,7 @@ type decoded struct {
 	cx, cy                   uint16
 	ground, detail, overhead [chunkArea]uint16
 	collision, area          [chunkArea]uint8
+	blend                    [cellsPerChunk * cellsPerChunk][blendSlots][2]uint8
 	objects                  []model.WorldObject
 }
 
@@ -89,12 +90,12 @@ func decode(t *testing.T, path string) decoded {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if string(raw[:4]) != "BGC1" {
+	if string(raw[:4]) != "BGC2" {
 		t.Fatalf("magic = %q", raw[:4])
 	}
 	r := bytes.NewReader(raw[4:])
 	var d decoded
-	for _, v := range []any{&d.cx, &d.cy, &d.ground, &d.detail, &d.overhead, &d.collision, &d.area} {
+	for _, v := range []any{&d.cx, &d.cy, &d.ground, &d.detail, &d.overhead, &d.collision, &d.area, &d.blend} {
 		if err := binary.Read(r, binary.LittleEndian, v); err != nil {
 			t.Fatal(err)
 		}
@@ -116,7 +117,7 @@ func decode(t *testing.T, path string) decoded {
 func TestRunBuildsChunks(t *testing.T) {
 	dir := writeTestWorld(t)
 	out := filepath.Join(dir, "out")
-	if err := run(filepath.Join(dir, "city.world"), out, options{atlas: "tko", atlasAsset: "tiles_tko", fillTile: "water"}); err != nil {
+	if err := run(filepath.Join(dir, "city.world"), out, options{atlas: "tko", atlasAsset: "tiles_tko", fillTile: "water", blendTiles: 8}); err != nil {
 		t.Fatal(err)
 	}
 	data, err := os.ReadFile(filepath.Join(out, "index.json"))
@@ -166,7 +167,7 @@ func TestRunBuildsChunks(t *testing.T) {
 func TestRunBuildsSingleMap(t *testing.T) {
 	dir := writeTestWorld(t)
 	out := filepath.Join(dir, "single")
-	if err := run(filepath.Join(dir, "m.tmj"), out, options{atlas: "tko", atlasAsset: "tiles_tko", fillTile: "water"}); err != nil {
+	if err := run(filepath.Join(dir, "m.tmj"), out, options{atlas: "tko", atlasAsset: "tiles_tko", fillTile: "water", blendTiles: 8}); err != nil {
 		t.Fatal(err)
 	}
 	data, err := os.ReadFile(filepath.Join(out, "index.json"))
@@ -196,7 +197,7 @@ func TestRunRejectsForeignTilesetOnVisualLayer(t *testing.T) {
 	if err := os.WriteFile(path, data, 0o644); err != nil {
 		t.Fatal(err)
 	}
-	err := run(filepath.Join(dir, "city.world"), filepath.Join(dir, "out"), options{atlas: "tko", atlasAsset: "tiles_tko", fillTile: "water"})
+	err := run(filepath.Join(dir, "city.world"), filepath.Join(dir, "out"), options{atlas: "tko", atlasAsset: "tiles_tko", fillTile: "water", blendTiles: 8})
 	if err == nil {
 		t.Fatal("expected an error")
 	}
