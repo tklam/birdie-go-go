@@ -91,7 +91,7 @@ Weather changes through the day and tends to travel, so rain over the islands th
 - **Autumn**: clear and dry. This is migration season and the best time for birding.
 - **Winter**: cool and dry. Winter visitors gather in the wetlands.
 
-**Typhoons and rainstorms.** Watch the warning signal in the corner of the screen. At **typhoon signal 8** or higher, ferries stop, most outdoor spots close, and lessons are cancelled, so Angie stays home for a cozy day indoors. Rare seabirds sometimes turn up right after a typhoon passes.
+**Typhoons and rainstorms.** Watch the warning signal in the corner of the screen. At **typhoon signal 8** or higher, or under a **black rainstorm warning**, ferries stop, birding spots close, and lessons are cancelled, so it's a good day to stay home. Amber and red rainstorm warnings show in the corner too. The radio also warns about high UV, heat, strong wind and cold expected tomorrow, and where. Rare seabirds sometimes turn up right after a typhoon passes.
 
 Weather matters for photos:
 - Some birds only show up in certain weather, and most hide during heavy rain.

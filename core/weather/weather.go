@@ -174,7 +174,39 @@ func Day(p model.WeatherDayPayload) (model.WeatherDay, error) {
 		out.Areas[i] = sm.areaDay(a, p.Day, out.TyphoonSignal)
 		out.Forecast[i] = sm.forecast(a, p.Day+1, sm.areaDay(a, p.Day+1, tomorrowSignal), tomorrowSignal)
 	}
+	out.Rainstorm = rainstormWarnings(out.Areas)
 	return out, nil
+}
+
+// Rainstorm warning levels and the rain that raises them (SPEC.md §4.9).
+const (
+	RainstormAmber = "amber"
+	RainstormRed   = "red"
+	RainstormBlack = "black"
+
+	rainstormAmberAt = 0.7
+	rainstormRedAt   = 0.85
+	rainstormBlackAt = 0.95
+)
+
+// rainstormWarnings is the warning per slot from the heaviest rain in any area.
+func rainstormWarnings(areas []model.AreaWeather) [3]string {
+	var out [3]string
+	for slot := range out {
+		peak := 0.0
+		for _, a := range areas {
+			peak = math.Max(peak, a.Slots[slot].Precip)
+		}
+		switch {
+		case peak >= rainstormBlackAt:
+			out[slot] = RainstormBlack
+		case peak >= rainstormRedAt:
+			out[slot] = RainstormRed
+		case peak >= rainstormAmberAt:
+			out[slot] = RainstormAmber
+		}
+	}
+	return out
 }
 
 func validate(p model.WeatherDayPayload) ([]area, error) {

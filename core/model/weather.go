@@ -54,6 +54,9 @@ type WeatherDay struct {
 	Areas []AreaWeather `json:"areas"`
 	// TyphoonSignal per slot (0 = none, 1, 3, 8, 10), shared by all areas.
 	TyphoonSignal [3]int `json:"typhoonSignal"`
+	// Rainstorm is the rainstorm warning per slot ("", "amber", "red",
+	// "black"), from the heaviest rain in any area.
+	Rainstorm [3]string `json:"rainstorm"`
 	// Forecast is tomorrow's weather as the radio reports it: the real
 	// generated weather with a little noise, morning-afternoon-evening.
 	Forecast []AreaWeather `json:"forecast"`

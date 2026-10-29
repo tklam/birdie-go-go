@@ -22,6 +22,7 @@ import { showMinimap, type MapMarker } from '../ui/minimap';
 import { iris } from '../fx/iris';
 import { glitch } from '../fx/glitch';
 import { activityCost, crossedLow, walkCost } from '../systems/economy';
+import { closureReason, hazardForecast, warningAnnouncement, warningTag, warningsAt, type Warnings } from '../systems/warnings';
 import { modal } from '../ui/overlay';
 import { showPanel } from '../ui/panel';
 import { downloadSave, pickSave } from '../systems/backup';
@@ -170,6 +171,8 @@ export class MapScene extends Phaser.Scene {
   private weatherRenderer: WeatherRenderer | null = null;
   private hazards: HazardReport | null = null;
   private fainting = false;
+  /** The last warning announced ("day:slot:tag"), so each is announced once. */
+  private lastWarning = '';
   /** Whether Angie walked this frame (walking outdoors costs Energy). */
   private walking = false;
   private exiting = false;
@@ -469,6 +472,7 @@ export class MapScene extends Phaser.Scene {
         (err: unknown) => console.warn('weather unavailable', err),
       );
     }
+    this.announceWarnings();
     const target = this.weatherAt(this.pos.x, this.pos.y - 4);
     if (!target) return;
     this.weatherNow = this.weatherNow ? easeWeather(this.weatherNow, target, delta) : target;
@@ -537,15 +541,40 @@ export class MapScene extends Phaser.Scene {
     return mixWeather(weights, (a) => w.areas.find((aw) => aw.area === this.index.areas[a])?.slots[slot]);
   }
 
+  /** Announces a newly raised typhoon signal or rainstorm warning once per slot (SPEC.md §4.9). */
+  private announceWarnings(): void {
+    const s = this.session;
+    if (!this.weatherDay || !this.ready || modal.open) return;
+    const w = warningsAt(this.weatherDay, s.state.slot);
+    const key = `${s.state.day}:${s.state.slot}:${warningTag(w)}`;
+    if (key === this.lastWarning) return;
+    this.lastWarning = key;
+    const text = warningAnnouncement(w);
+    if (!text) return;
+    toast(text, 4500);
+    if (w.signal) void s.fire({ type: 'weather_warning', params: { kind: 'typhoon', level: String(w.signal) } });
+    if (w.rainstorm) void s.fire({ type: 'weather_warning', params: { kind: 'rainstorm', level: w.rainstorm } });
+  }
+
+  /** Today's warnings for the current slot, indoors or out (the weather is cached). */
+  private async warningsNow(): Promise<Warnings> {
+    const s = this.session;
+    try {
+      return warningsAt(await s.weather(s.state.day, this.registry.get('world') as WorldIndex), s.state.slot);
+    } catch {
+      return { signal: 0, rainstorm: '' };
+    }
+  }
+
   /** "Rain 21°C", the named weather of the current area, or "" indoors. */
   private weatherLabel(): string {
     const w = this.weatherDay;
     if (!w || !this.area || !this.weatherNow) return '';
     const slot = TIME_SLOTS.indexOf(this.session.state.slot);
     const named = w.areas.find((a) => a.area === this.area)?.named[slot] ?? '';
-    const signal = w.typhoonSignal[slot];
+    const tag = warningTag(warningsAt(w, this.session.state.slot));
     const name = named.charAt(0).toUpperCase() + named.slice(1);
-    return `${name} ${Math.round(this.weatherNow.temp)}°C${signal ? ` T${signal}` : ''}`;
+    return `${name} ${Math.round(this.weatherNow.temp)}°C${tag ? ` ${tag}` : ''}`;
   }
 
   private drawDebug(): void {
@@ -639,6 +668,11 @@ export class MapScene extends Phaser.Scene {
       switch (o.type) {
         case 'spot': {
           const spotId = o.props.spot_id;
+          const closed = closureReason(await this.warningsNow());
+          if (closed) {
+            toast(`${closed}: the birding spots are closed. Stay safe!`, 3500);
+            return;
+          }
           const st = this.session.state;
           if ((st.items[TRAIL_CAMERA] ?? 0) > 0 && !st.flags[trailCamFlag(spotId)]) {
             let choice: 'photo' | 'trail' | null = null;
@@ -664,6 +698,11 @@ export class MapScene extends Phaser.Scene {
           const fired = await this.session.fire({ type: 'talk', params: { npc: o.props.npc_id ?? o.name } });
           if (fired.length > 0 && !student) break;
           if (student && this.scene.manager.keys['Piano']) {
+            const closed = closureReason(await this.warningsNow());
+            if (closed) {
+              toast(`${closed}: lessons are cancelled. Stay safe at home!`, 3500);
+              return;
+            }
             if (!this.spendEnergy(activityCost(this.session.content.game.energy, 'lesson'))) return;
             await this.leaveTo('Piano', { studentId: student, returnTo: 'Map' });
             return;
@@ -735,6 +774,7 @@ export class MapScene extends Phaser.Scene {
       const name = (id: string) => s.content.areas.find((a) => a.id === id)?.name ?? id;
       const cap = (x: string) => x.charAt(0).toUpperCase() + x.slice(1);
       lines = w.forecast.map((f) => `${name(f.area)}: ${cap(f.named[0])}, then ${f.named[1]}. ${Math.round(f.slots[1].temp)}°C`);
+      lines.push(...hazardForecast(s.content.hazards, w.forecast, name));
       if (w.typhoonSignal.some((x) => x > 0)) lines.unshift(`Typhoon signal No. ${Math.max(...w.typhoonSignal)} is in force!`);
     } catch {
       lines = ['Only static on the radio...'];
@@ -1180,6 +1220,11 @@ export class MapScene extends Phaser.Scene {
     ]);
     const choice = picked as (typeof options)[number] | null;
     if (!choice) return;
+    const closed = choice.line.mode === 'ferry' ? closureReason(await this.warningsNow()) : '';
+    if (closed) {
+      toast(`${closed}: ferries are suspended.`, 3500);
+      return;
+    }
     if (s.state.money < choice.line.fare) {
       toast("You can't afford the fare.");
       return;

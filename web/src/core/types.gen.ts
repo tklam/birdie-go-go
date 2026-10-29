@@ -860,6 +860,11 @@ export interface WeatherDay {
    */
   typhoonSignal: number /* int */[];
   /**
+   * Rainstorm is the rainstorm warning per slot ("", "amber", "red",
+   * "black"), from the heaviest rain in any area.
+   */
+  rainstorm: string[];
+  /**
    * Forecast is tomorrow's weather as the radio reports it: the real
    * generated weather with a little noise, morning-afternoon-evening.
    */

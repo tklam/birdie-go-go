@@ -562,3 +562,31 @@ func TestDayErrors(t *testing.T) {
 		}
 	}
 }
+
+func TestRainstormWarnings(t *testing.T) {
+	at := func(p ...float64) []model.AreaWeather {
+		var out []model.AreaWeather
+		for _, v := range p {
+			out = append(out, model.AreaWeather{Slots: [3]model.WeatherParams{{Precip: v}, {Precip: 0}, {Precip: v / 2}}})
+		}
+		return out
+	}
+	tests := []struct {
+		name   string
+		precip []float64
+		want   [3]string
+	}{
+		{"dry", []float64{0.2, 0.3}, [3]string{}},
+		{"amber in one area", []float64{0.1, 0.75}, [3]string{RainstormAmber, "", ""}},
+		{"red", []float64{0.9}, [3]string{RainstormRed, "", ""}},
+		{"black", []float64{1.0, 1.0}, [3]string{RainstormBlack, "", ""}},
+		{"black, half is amber", []float64{0.96, 1.5}, [3]string{RainstormBlack, "", RainstormAmber}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := rainstormWarnings(at(tt.precip...)); got != tt.want {
+				t.Errorf("rainstormWarnings = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

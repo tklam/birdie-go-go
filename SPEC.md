@@ -187,6 +187,8 @@ A **named weather** is derived from the parameters for UI, forecasts, and event 
 
 **Typhoons and warnings.** A typhoon is a multi-day weather front generated with low probability in summer/early autumn. Its strength raises a **typhoon signal** level (1 → 3 → 8 → 10, as in Hong Kong) shown in the HUD. At signal 8+: ferries are suspended, most outdoor birding spots close, lessons are cancelled, and Angie stays home (cozy indoor day). Heavy rain likewise raises a **rainstorm warning** (amber → red → black).
 
+*As built:* the core computes `rainstorm` per slot from the heaviest rain in any area (amber ≥ 0.7, red ≥ 0.85, black ≥ 0.95). The HUD shows the signal and warning (e.g. "T8", "Amber rain"); a newly raised one is announced once per slot and fires `weather_warning` with `{kind: typhoon|rainstorm, level}`. At signal 8+ or a black rainstorm, ferries are suspended, birding spots are closed and lessons are cancelled (Angie isn't forced home). The radio adds a warning line for each weather hazard (`hazards.yaml`) expected tomorrow afternoon, with the areas affected.
+
 **Simulation (Go core, deterministic).** For each day and time slot, every area's parameters are generated from the save's `worldSeed`:
 `value = climate_mean + regional_front + local_variation`, smoothed over time so weather evolves between slots instead of jumping.
 - The **regional front** is shared by all areas and drifts across the map along the wind direction: an area's front value is sampled with a delay proportional to its position along the wind direction, so rain reaches the islands, then the harbour, then the hills.

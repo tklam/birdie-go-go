@@ -38,7 +38,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] `worldbuild`: chunking, collision, areas, objects, content-hashed files, world index
 - [x] Streaming worker: fetch + gunzip + decode
 - [x] Active window, prefetch, LRU, one-bake-per-frame scheduler
-- [ ] `?debug=chunks` overlay
+- [x] `?debug=chunks` overlay
 - [x] `make bench` with frame-time and memory budgets (p95 16.7 ms at 4× CPU throttle, heap ≈12 MB)
 
 ### Overworld (§4)
@@ -114,12 +114,12 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] Regional weather (§4.9)
   - [x] Climate profiles in `areas.yaml` + validation
   - [x] `core/weather`: drifting regional front, local variation, smoothing, deterministic, tested
-  - [~] Typhoon fronts + signals done (shown in the HUD); rainstorm warnings and effects on transit/spots/lessons still to do
+  - [x] Typhoon fronts + signals and rainstorm warnings (HUD, announcements, `weather_warning`); ferries, spots and lessons close at T8+ or black rain
   - [x] Blend field in `worldbuild` + tests
   - [x] Client blend sampling (pure TS) + tests
   - [~] WeatherRenderer: rain, dithered fog, cloud/evening tint done (haze line-scroll, sway, waves, ambience, muffled interiors still to do)
   - [~] Weather in photo scenes (focus time, sharpness, visuals) done; weather-dependent bird tables and sheltering still to do
-  - [~] Radio forecast at home done; `?debug=weather` still to do
+  - [x] Radio forecast at home; `?debug=weather` overlay
 - [ ] Gear gating (§4.6)
 - [ ] Hidden collectibles: feathers, camera parts, sheet music
 - [~] Shop (select, see details, tap again to buy), gear and Kei-built upgrades from parts done; more shops and stock still to do
@@ -160,7 +160,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Companion assists in encounters: O Boy's squawk (one combo step fewer), Kei's whistle vs dogs (−25% resolve) and flash vs monsters (longer windows, from dating)
 - [x] Gear assists in encounters: umbrella block, whistle item
 - [x] Accessibility: hold instead of mash, slower prompts, skip encounter (Settings)
-- [~] Radio forecast per area done; explicit UV / heat / wind warnings still to do
+- [x] Radio forecast per area with hazard warnings (UV, heat, wind, cold, rain) and areas
 
 ## M5: Content updates (optional server, §9.6)
 - [x] `make pack VERSION=x.y.z`: validated content pack + manifest entry with size and SHA-256
