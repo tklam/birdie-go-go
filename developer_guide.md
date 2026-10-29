@@ -370,6 +370,7 @@ To add a trigger, condition, or action:
 ```sh
 make build        # → dist/ (static site: HTML, JS, core.wasm, content, world chunks, assets)
 ```
+- **GitHub Pages:** `.github/workflows/pages.yml` builds with `BASE_PATH=/<repo>/` and publishes on every push to `main`. One-time setup: repository Settings → Pages → Source: *GitHub Actions*. The game is then at `https://<user>.github.io/<repo>/`.
 - **Host `dist/` on any static host** (GitHub Pages, Netlify, Cloudflare Pages, S3+CDN). Serve `.wasm` as `application/wasm` and give hashed chunk and asset files long-lived `Cache-Control: immutable`.
 - **Optional update server:**
   ```sh
