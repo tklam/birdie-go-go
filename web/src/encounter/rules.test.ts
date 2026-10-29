@@ -12,6 +12,8 @@ import {
   successText,
   takeDamage,
   usableItems,
+  startResolve,
+  blockingItem,
 } from './rules';
 import { encounterSeed, rng } from './random';
 
@@ -119,5 +121,18 @@ describe('text', () => {
         for (const l of resultText(e, { outcome: o, energyLost: 24, drops: [] }, (id) => id).lines) expect(l.length).toBeLessThanOrEqual(38);
       }
     }
+  });
+});
+
+describe('gear assists', () => {
+  const whistle = item('whistle', { kind: 'gadget', assist: { resolveScale: 0.8 } });
+  const umbrella = item('umbrella', { kind: 'gear', slot: 'hand', assist: { block: true, blockWindowMs: 1000 } });
+  it('a carried whistle lowers starting resolve', () => {
+    expect(startResolve(50, {}, [whistle])).toBe(50);
+    expect(startResolve(50, { whistle: 1 }, [whistle])).toBe(40);
+  });
+  it('only a worn umbrella blocks', () => {
+    expect(blockingItem({}, [umbrella])).toBeNull();
+    expect(blockingItem({ hand: 'umbrella' }, [umbrella])?.id).toBe('umbrella');
   });
 });

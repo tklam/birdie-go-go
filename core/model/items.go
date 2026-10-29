@@ -19,6 +19,20 @@ type Item struct {
 	Description   string `json:"description"`
 	// Build says how Kei builds a gadget (SPEC.md §7.2).
 	Build *Build `json:"build,omitempty"`
+	// Assist is how the item helps in encounters (SPEC.md §4.13).
+	Assist *ItemAssist `json:"assist,omitempty"`
+}
+
+// ItemAssist is an item's help in encounters.
+type ItemAssist struct {
+	// ResolveScale (0–1) scales enemy resolve at the start of an encounter
+	// while Angie carries the item (e.g. a whistle); 0 means no effect.
+	ResolveScale float64 `json:"resolveScale,omitempty"`
+	// Block gives a quick one-arrow block prompt, while the item is worn,
+	// whenever Angie would be hurt; a miss hurts and breaks the item.
+	Block bool `json:"block,omitempty"`
+	// BlockWindowMs is the time to answer the block prompt.
+	BlockWindowMs int `json:"blockWindowMs,omitempty"`
 }
 
 // Build is a gadget recipe: camera parts needed and the Kei stage from

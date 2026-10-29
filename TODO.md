@@ -158,7 +158,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Tougher enemies, more spawn points, each spawn cleared separately
 - [ ] First folklore creatures, each with a lore-based weakness
 - [x] Companion assists in encounters: O Boy's squawk (one combo step fewer), Kei's whistle vs dogs (−25% resolve) and flash vs monsters (longer windows, from dating)
-- [ ] Gear assists in encounters: umbrella block, whistle item
+- [x] Gear assists in encounters: umbrella block, whistle item
 - [x] Accessibility: hold instead of mash, slower prompts, skip encounter (Settings)
 - [~] Radio forecast per area done; explicit UV / heat / wind warnings still to do
 

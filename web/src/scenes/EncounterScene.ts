@@ -7,6 +7,7 @@ import {
   inputSymbol,
   isDirection,
   keySymbol,
+  SLOWER_PROMPTS_FACTOR,
   startAttempt,
   swipeDirection,
   timeLeft,
@@ -31,6 +32,7 @@ import {
   MAX_CATCHES,
   addItems,
   applyResolveHit,
+  blockingItem,
   comboResolveHit,
   halveResolve,
   introLine,
@@ -38,6 +40,7 @@ import {
   resultText,
   rollDrops,
   skipCost,
+  startResolve,
   successText,
   takeDamage,
   usableItems,
@@ -48,7 +51,7 @@ import { oboySquawk } from '../audio/oboy';
 import type { AudioEngine } from '../audio/AudioEngine';
 import { iris } from '../fx/iris';
 import { reducedMotion } from '../fx/motion';
-import { useItem } from '../systems/hazards';
+import { breakItem, useItem } from '../systems/hazards';
 import type { Session } from '../systems/session';
 import { MAX_ENERGY } from '../systems/state';
 import { showMenu } from '../ui/menu';
@@ -181,7 +184,8 @@ export class EncounterScene extends Phaser.Scene {
       return;
     }
     this.enemy = enemy;
-    this.resolve = enemy.resolve;
+    this.resolve = startResolve(enemy.resolve, state.items, this.session.content.items);
+    if (this.resolve < enemy.resolve) this.time.delayedCall(1200, () => this.setMessage('Angie blows her whistle!'));
     const party = state.party;
     this.squawkReady = party.includes('oboy');
     this.windowBonus = 1;
@@ -433,7 +437,9 @@ export class EncounterScene extends Phaser.Scene {
         await this.wait(800);
       } else {
         this.setMessage(status === 'timeout' ? 'Too slow!' : 'Oops!');
-        this.hurt(this.enemy.damage);
+        await this.wait(500);
+        if (!this.alive(run)) return;
+        await this.takeHit(run);
         await this.wait(900);
         break;
       }
@@ -493,7 +499,9 @@ export class EncounterScene extends Phaser.Scene {
     }
     this.catches++;
     this.setMessage('Caught!');
-    this.hurt(this.enemy.damage);
+    await this.wait(500);
+    if (!this.alive(run)) return;
+    await this.takeHit(run);
     await this.wait(900);
     if (!this.alive(run)) return;
     this.resetPositions();
@@ -692,6 +700,36 @@ export class EncounterScene extends Phaser.Scene {
       g.fillStyle(0xf0d050).fillRect(x, y, 28, 28);
       arrow(g, x + 14, y + 14, this.dodge.dir, 0x101018, 8);
     }
+  }
+
+  /**
+   * The enemy lands a hit. With worn gear that blocks (an umbrella), a quick
+   * one-symbol prompt comes first: answer it to block; miss it and Angie is
+   * hurt and the gear breaks (SPEC.md §4.13).
+   */
+  private async takeHit(run: number): Promise<void> {
+    const state = this.session.state;
+    const shield = blockingItem(state.equipped, this.session.content.items);
+    if (shield?.assist) {
+      const name = shield.name.toLowerCase();
+      const combo = generateCombo(1, this.random);
+      this.setMessage(`Block with the ${name}!`);
+      this.drawCombo(combo, 0, 1, true);
+      this.showButtons(true);
+      const windowMs = (shield.assist.blockWindowMs ?? 1000) * (state.settings.slowerPrompts ? SLOWER_PROMPTS_FACTOR : 1);
+      const status = await this.playCombo(combo, Math.round(windowMs));
+      this.clearPrompt();
+      this.showButtons(false);
+      if (!this.alive(run)) return;
+      if (status === 'complete') {
+        this.setMessage(`Blocked with the ${name}!`);
+        this.animateSuccess();
+        return;
+      }
+      breakItem(state, shield.id);
+      this.setMessage(`Ouch! The ${name} broke!`);
+    }
+    this.hurt(this.enemy.damage);
   }
 
   // --- Animation ---------------------------------------------------------

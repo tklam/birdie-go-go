@@ -297,6 +297,10 @@ func (v *validator) item(it model.Item, hazards map[string]bool) {
 		v.require(it.Build.Parts >= 1, "item %s: build needs at least one part", it.ID)
 		v.require(slices.Contains(KeiStages, it.Build.KeiStage), "item %s: unknown Kei stage %q", it.ID, it.Build.KeiStage)
 	}
+	if a := it.Assist; a != nil {
+		v.require(a.ResolveScale >= 0 && a.ResolveScale <= 1, "item %s: assist resolve_scale must be 0–1", it.ID)
+		v.require(!a.Block || (it.Kind == "gear" && a.BlockWindowMs > 0), "item %s: a block assist needs worn gear and block_window_ms", it.ID)
+	}
 	for _, h := range it.Counters {
 		v.require(hazards[h], "item %s: unknown hazard %q", it.ID, h)
 	}

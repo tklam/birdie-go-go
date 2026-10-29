@@ -408,6 +408,29 @@ export interface Item {
    * Build says how Kei builds a gadget (SPEC.md §7.2).
    */
   build?: Build;
+  /**
+   * Assist is how the item helps in encounters (SPEC.md §4.13).
+   */
+  assist?: ItemAssist;
+}
+/**
+ * ItemAssist is an item's help in encounters.
+ */
+export interface ItemAssist {
+  /**
+   * ResolveScale (0–1) scales enemy resolve at the start of an encounter
+   * while Angie carries the item (e.g. a whistle); 0 means no effect.
+   */
+  resolveScale?: number /* float64 */;
+  /**
+   * Block gives a quick one-arrow block prompt, while the item is worn,
+   * whenever Angie would be hurt; a miss hurts and breaks the item.
+   */
+  block?: boolean;
+  /**
+   * BlockWindowMs is the time to answer the block prompt.
+   */
+  blockWindowMs?: number /* int */;
 }
 /**
  * Build is a gadget recipe: camera parts needed and the Kei stage from

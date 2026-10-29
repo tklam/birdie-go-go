@@ -53,6 +53,25 @@ export function takeDamage(state: Pick<GameState, 'energy'>, damage: number): nu
   return lost;
 }
 
+/**
+ * Enemy resolve at the start of an encounter: carried items with a
+ * resolve-scaling assist (e.g. a whistle) each scale it (SPEC.md §4.13).
+ */
+export function startResolve(resolve: number, owned: Readonly<Record<string, number>>, items: readonly Item[]): number {
+  let r = resolve;
+  for (const it of items) {
+    const scale = it.assist?.resolveScale;
+    if (scale && (owned[it.id] ?? 0) > 0) r *= scale;
+  }
+  return Math.max(1, Math.round(r));
+}
+
+/** The worn item that can block a hit (e.g. an open umbrella), if any. */
+export function blockingItem(equipped: GameState['equipped'], items: readonly Item[]): Item | null {
+  const worn = new Set(Object.values(equipped).filter((x): x is string => !!x));
+  return items.find((it) => it.assist?.block && worn.has(it.id)) ?? null;
+}
+
 /** Energy cost of the "Skip encounter" accessibility option: half damage. */
 export function skipCost(enemy: Pick<Enemy, 'damage'>): number {
   return Math.ceil(enemy.damage / 2);

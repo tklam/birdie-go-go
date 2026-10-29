@@ -129,6 +129,11 @@ type itemYAML struct {
 		Parts    int    `yaml:"parts"`
 		KeiStage string `yaml:"kei_stage"`
 	} `yaml:"build"`
+	Assist *struct {
+		ResolveScale  float64 `yaml:"resolve_scale"`
+		Block         bool    `yaml:"block"`
+		BlockWindowMs int     `yaml:"block_window_ms"`
+	} `yaml:"assist"`
 }
 
 type hazardYAML struct {
@@ -329,6 +334,9 @@ func load(dir string) (*model.ContentBundle, error) {
 		}
 		if x.Build != nil {
 			it.Build = &model.Build{Parts: x.Build.Parts, KeiStage: x.Build.KeiStage}
+		}
+		if a := x.Assist; a != nil {
+			it.Assist = &model.ItemAssist{ResolveScale: a.ResolveScale, Block: a.Block, BlockWindowMs: a.BlockWindowMs}
 		}
 		b.Items = append(b.Items, it)
 	}
