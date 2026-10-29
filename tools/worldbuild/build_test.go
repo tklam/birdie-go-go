@@ -163,6 +163,25 @@ func TestRunBuildsChunks(t *testing.T) {
 	}
 }
 
+func TestRunBuildsSingleMap(t *testing.T) {
+	dir := writeTestWorld(t)
+	out := filepath.Join(dir, "single")
+	if err := run(filepath.Join(dir, "m.tmj"), out, options{atlas: "tko", atlasAsset: "tiles_tko", fillTile: "water"}); err != nil {
+		t.Fatal(err)
+	}
+	data, err := os.ReadFile(filepath.Join(out, "index.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var index model.WorldIndex
+	if err := json.Unmarshal(data, &index); err != nil {
+		t.Fatal(err)
+	}
+	if index.WidthChunks != 2 || len(index.Chunks) != 2 || index.Spawns["start"].X != 600 {
+		t.Errorf("index = %+v", index)
+	}
+}
+
 func TestRunRejectsForeignTilesetOnVisualLayer(t *testing.T) {
 	dir := writeTestWorld(t)
 	path := filepath.Join(dir, "m.tmj")

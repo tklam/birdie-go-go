@@ -9,11 +9,12 @@ import { showMenu } from '../ui/menu';
 import { modal } from '../ui/overlay';
 import { showPanel } from '../ui/panel';
 import { downloadSave, pickSave } from '../systems/backup';
+import { loadJSON } from '../systems/data';
 import { toast } from '../ui/toast';
 import { TouchControls } from '../ui/touchControls';
-import { CHUNK_TILES, type ChunkData } from '../world/chunk';
+import type { ChunkData } from '../world/chunk';
 import { ChunkRenderer, DEPTH } from '../world/ChunkRenderer';
-import { createWorkerChunkLoader } from '../world/loader';
+import { workerChunkLoader } from '../world/loader';
 import { move, type Box } from '../world/movement';
 import { ChunkStore, chunkKey, wantedChunks } from '../world/streaming';
 
@@ -41,10 +42,21 @@ interface OverworldBird {
 }
 
 export interface MapSceneData {
+  /** Map to show: "world" (default) or an interior id. */
+  map?: string;
+  /** Spawn to place Angie at (otherwise her saved position). */
+  spawn?: string;
+  /** Name to show on arrival (e.g. from a door's title). */
+  title?: string;
   /** Set when returning from a task scene, to end the time slot. */
   from?: 'Photo' | 'Piano';
   spotId?: string;
   studentId?: string;
+}
+
+/** Where a map's index and chunks live under the site root. */
+function mapPath(map: string): string {
+  return map === 'world' ? 'world/' : `world/maps/${map}/`;
 }
 
 /** The streamed top-down overworld (SPEC.md §4). */
@@ -66,6 +78,8 @@ export class MapScene extends Phaser.Scene {
   private birds: OverworldBird[] = [];
   private flushedChunks = new Set<string>();
   private ready = false;
+  private loaded = false;
+  private mapId = 'world';
   /** Ground value of tall grass (atlas frame + 1), or −1 if the atlas has none. */
   private tallGrass = -1;
   private rustle!: Phaser.GameObjects.Particles.ParticleEmitter;
@@ -77,17 +91,43 @@ export class MapScene extends Phaser.Scene {
 
   create(data: MapSceneData): void {
     this.session = this.registry.get('session') as Session;
-    this.index = this.registry.get('world') as WorldIndex;
     this.birds = [];
+    this.flushedChunks.clear();
     this.ready = false;
-    this.busy = false;
+    this.loaded = false;
+    this.busy = true;
     this.area = null;
+    this.mapId = data.map ?? this.session.state.position.map ?? 'world';
+    this.touch = new TouchControls();
+    this.input2 = new InputReader(this, this.touch);
+    this.hud = new Hud();
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      this.touch.destroy();
+      this.hud.destroy();
+    });
+    this.cameras.main.fadeIn(250, 0, 0, 0);
+    const index =
+      this.mapId === 'world'
+        ? Promise.resolve(this.registry.get('world') as WorldIndex)
+        : loadJSON<WorldIndex>(`${mapPath(this.mapId)}index.json`);
+    void index.then(
+      (i) => this.setup(i, data),
+      (err: unknown) => {
+        console.error(`map ${this.mapId} failed to load`, err);
+        toast(`Couldn't load this place.`);
+        if (this.mapId !== 'world') this.scene.restart({ map: 'world' });
+      },
+    );
+  }
+
+  private setup(index: WorldIndex, data: MapSceneData): void {
+    this.index = index;
     this.makeAnimations();
     this.tallGrass = this.index.tileNames.indexOf('tall_grass') + 1 || -1;
     this.makeRustle();
 
     this.chunkRenderer = new ChunkRenderer(this, this.index.tileset, this.index.tileSize);
-    this.store = new ChunkStore(this.index, createWorkerChunkLoader(), {
+    this.store = new ChunkStore(this.index, workerChunkLoader(`${mapPath(this.mapId)}chunks/`), {
       loaded: (c) => {
         this.chunkRenderer.enqueue(c);
         this.spawnBirds(c);
@@ -100,10 +140,13 @@ export class MapScene extends Phaser.Scene {
     });
 
     const state = this.session.state;
-    const spawn = this.index.spawns[state.position.spawn ?? this.session.content.game.startSpawn];
+    const saved = state.position.map === this.mapId && !data.spawn ? state.position : null;
+    const spawn =
+      this.index.spawns[data.spawn ?? state.position.spawn ?? this.session.content.game.startSpawn] ??
+      Object.values(this.index.spawns)[0];
     this.pos = {
-      x: state.position.x ?? spawn?.x ?? 0,
-      y: state.position.y ?? spawn?.y ?? 0,
+      x: saved?.x ?? spawn?.x ?? 0,
+      y: saved?.y ?? spawn?.y ?? 0,
     };
     this.angie = this.add.sprite(this.pos.x, this.pos.y, 'char_angie', 0).setOrigin(0.5, 1);
     this.trail.reset(this.pos.x, this.pos.y);
@@ -111,19 +154,17 @@ export class MapScene extends Phaser.Scene {
       this.oboy = this.add.sprite(this.pos.x, this.pos.y, 'char_oboy', 0).setOrigin(0.5, 1).play('oboy-idle');
     }
 
-    const worldW = this.index.widthChunks * CHUNK_TILES * this.index.tileSize;
-    const worldH = this.index.heightChunks * CHUNK_TILES * this.index.tileSize;
-    this.cameras.main.setBounds(0, 0, worldW, worldH).setRoundPixels(true);
-    this.cameras.main.startFollow(this.angie, true, 1, 1);
-    this.cameras.main.fadeIn(250, 0, 0, 0);
-
-    this.touch = new TouchControls();
-    this.input2 = new InputReader(this, this.touch);
-    this.hud = new Hud();
-    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-      this.touch.destroy();
-      this.hud.destroy();
-    });
+    // Camera bounds come from the placed maps, not the chunk grid, so small
+    // interiors don't show fill around them.
+    const worldW = Math.max(...this.index.regions.map((r) => r.x + r.width), 1);
+    const worldH = Math.max(...this.index.regions.map((r) => r.y + r.height), 1);
+    const cam = this.cameras.main.setRoundPixels(true);
+    const bw = Math.max(worldW, cam.width);
+    const bh = Math.max(worldH, cam.height);
+    cam.setBounds(Math.floor((worldW - bw) / 2), Math.floor((worldH - bh) / 2), bw, bh);
+    cam.startFollow(this.angie, true, 1, 1);
+    if (data.title) toast(data.title);
+    this.loaded = true;
 
     void this.arrive(data);
   }
@@ -157,6 +198,7 @@ export class MapScene extends Phaser.Scene {
   }
 
   update(time: number, delta: number): void {
+    if (!this.loaded) return;
     const dt = Math.min(delta, 50) / 1000;
     const input = this.input2.read();
     const speed = input.sneak ? SNEAK_SPEED : WALK_SPEED;
@@ -191,7 +233,7 @@ export class MapScene extends Phaser.Scene {
       this.oboy.setPosition(this.pos.x + side, this.pos.y - 15).setDepth(DEPTH.entities + this.pos.y + 1);
     }
 
-    this.session.state.position = { map: 'world', x: Math.round(this.pos.x), y: Math.round(this.pos.y) };
+    this.session.state.position = { map: this.mapId, x: Math.round(this.pos.x), y: Math.round(this.pos.y) };
     this.updateArea();
     const inGrass = this.inTallGrass();
     if (moving && inGrass && !input.sneak && Math.random() < 0.3) this.rustle.emitParticleAt(this.pos.x, this.pos.y - 2, 2);
@@ -260,12 +302,39 @@ export class MapScene extends Phaser.Scene {
           break;
         }
         case 'door':
-          toast('The door is locked. (Interiors are coming soon.)');
+          await this.goThrough(o);
+          return;
+        case 'bed':
+          await this.sleep();
           break;
       }
     } finally {
       this.busy = false;
     }
+  }
+
+  private async goThrough(door: WorldObject): Promise<void> {
+    const map = door.props.to_map;
+    if (!map) return;
+    const data: MapSceneData = { map, spawn: door.props.to_spawn, title: door.props.title };
+    this.session.state.position = { map, spawn: door.props.to_spawn };
+    await this.session.save();
+    this.cameras.main.fadeOut(200, 0, 0, 0);
+    this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => this.scene.restart(data));
+  }
+
+  private async sleep(): Promise<void> {
+    const s = this.session;
+    if (s.state.slot !== 'evening') {
+      toast("It's too early to sleep.");
+      return;
+    }
+    this.cameras.main.fadeOut(600, 0, 0, 0);
+    await new Promise((r) => this.time.delayedCall(700, r));
+    await s.endSlot();
+    await s.save();
+    this.cameras.main.fadeIn(600, 0, 0, 0);
+    toast(`Good morning! Day ${s.state.day}`);
   }
 
   private async leaveTo(scene: string, data: object): Promise<void> {
@@ -426,6 +495,8 @@ export class MapScene extends Phaser.Scene {
 
 function labelFor(o: WorldObject): string | null {
   switch (o.type) {
+    case 'bed':
+      return 'Sleep';
     case 'spot':
       return 'Photograph';
     case 'npc':

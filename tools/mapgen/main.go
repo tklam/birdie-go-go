@@ -18,11 +18,10 @@ import (
 	"birdiegogo/tools/internal/tko"
 )
 
-const (
-	mapW, mapH = 96, 64
-	tileSize   = 16
-	metaFirst  = 1 + 32 // firstgid of meta.tsj, after the 32-tile atlas
-)
+const tileSize = 16
+
+// metaFirst is the firstgid of meta.tsj, right after the atlas.
+var metaFirst = len(tko.Tiles) + 1
 
 func main() {
 	dir := flag.String("world", "content/world", "world directory")
@@ -35,9 +34,6 @@ func main() {
 }
 
 func run(dir string, force bool) error {
-	if metaFirst != len(tko.Tiles)+1 {
-		return fmt.Errorf("metaFirst is %d but the atlas has %d tiles", metaFirst, len(tko.Tiles))
-	}
 	path := filepath.Join(dir, "tko.tmj")
 	if _, err := os.Stat(path); err == nil && !force {
 		return fmt.Errorf("%s exists; it may have been edited in Tiled (use -force to overwrite)", path)
@@ -45,14 +41,26 @@ func run(dir string, force bool) error {
 		return err
 	}
 	m := build()
-	if err := writeJSON(path, m.tiled()); err != nil {
+	if err := writeJSON(path, m.tiled("tilesets")); err != nil {
 		return err
 	}
 	world := map[string]any{
 		"type": "world", "onlyShowAdjacentMaps": false,
-		"maps": []map[string]any{{"fileName": "tko.tmj", "x": 0, "y": 0, "width": mapW * tileSize, "height": mapH * tileSize}},
+		"maps": []map[string]any{{"fileName": "tko.tmj", "x": 0, "y": 0, "width": m.w * tileSize, "height": m.h * tileSize}},
 	}
-	return writeJSON(filepath.Join(dir, "city.world"), world)
+	if err := writeJSON(filepath.Join(dir, "city.world"), world); err != nil {
+		return err
+	}
+	interiors := filepath.Join(filepath.Dir(dir), "interiors")
+	if err := os.MkdirAll(interiors, 0o755); err != nil {
+		return err
+	}
+	for name, im := range map[string]*tmap{"angie_flat": angieFlat(), "mei_flat": meiFlat()} {
+		if err := writeJSON(filepath.Join(interiors, name+".tmj"), im.tiled("../world/tilesets")); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 type object struct {
@@ -61,13 +69,26 @@ type object struct {
 	props     map[string]string
 }
 
+// tmap is a map being laid out; grids hold Tiled gids (0 = empty).
 type tmap struct {
-	ground, overhead, collision, areas [mapH][mapW]int // local ids + 1, 0 = empty
+	w, h                               int
+	ground, overhead, collision, areas [][]int
 	objects                            []object
 }
 
+func newMap(w, h int) *tmap {
+	grid := func() [][]int {
+		g := make([][]int, h)
+		for y := range g {
+			g[y] = make([]int, w)
+		}
+		return g
+	}
+	return &tmap{w: w, h: h, ground: grid(), overhead: grid(), collision: grid(), areas: grid()}
+}
+
 func (m *tmap) put(x, y int, name string) {
-	if x < 0 || y < 0 || x >= mapW || y >= mapH {
+	if x < 0 || y < 0 || x >= m.w || y >= m.h {
 		return
 	}
 	t := tko.Tiles[tko.ID(name)]
@@ -112,7 +133,7 @@ func (m *tmap) tower(x, y, w, h int) int {
 
 func (m *tmap) area(y0, y1 int, id string) {
 	for y := y0; y < y1; y++ {
-		for x := range mapW {
+		for x := range m.w {
 			m.areas[y][x] = metaFirst + tko.MetaID("area_"+id)
 		}
 	}
@@ -123,7 +144,8 @@ func (m *tmap) obj(name, typ string, x, y int, props map[string]string) {
 }
 
 func build() *tmap {
-	m := &tmap{}
+	const mapW, mapH = 96, 64
+	m := newMap(mapW, mapH)
 
 	// Hillside trail (rows 0–19).
 	m.area(0, 20, "tko_hillside")
@@ -211,9 +233,10 @@ func build() *tmap {
 	m.obj("estate_plaza", "spawn", 47, 28, nil)
 	m.obj("tko_estate_garden", "spot", 18, 38, map[string]string{"spot_id": "tko_estate_garden"})
 	m.obj("tko_waterfront_park", "spot", 40, 52, map[string]string{"spot_id": "tko_waterfront_park"})
-	m.obj("mei", "npc", meiDoor+1, 28, map[string]string{"npc_id": "mei", "student": "mei"})
-	m.obj("angie_home", "door", angieDoor, 27, map[string]string{"to_map": "angie_flat", "to_spawn": "front_door"})
-	m.obj("mei_home", "door", meiDoor, 27, map[string]string{"to_map": "mei_flat", "to_spawn": "front_door"})
+	m.obj("angie_home", "door", angieDoor, 27, map[string]string{"to_map": "angie_flat", "to_spawn": "front_door", "title": "Angie's flat"})
+	m.obj("angie_home_out", "spawn", angieDoor, 28, nil)
+	m.obj("mei_home", "door", meiDoor, 27, map[string]string{"to_map": "mei_flat", "to_spawn": "front_door", "title": "Mei's flat"})
+	m.obj("mei_home_out", "spawn", meiDoor, 28, nil)
 	m.obj("garden_birds", "bird", 20, 39, map[string]string{"species": "red_whiskered_bulbul", "count": "3"})
 	m.obj("garden_robin", "bird", 11, 38, map[string]string{"species": "oriental_magpie_robin", "count": "1"})
 	m.obj("mudflat_egrets", "bird", 6, 50, map[string]string{"species": "little_egret", "count": "2"})
@@ -221,15 +244,75 @@ func build() *tmap {
 	return m
 }
 
+// room lays out a 20×12 interior: walls around a floor, with the exit
+// door mat at the bottom middle.
+func room(floor string) *tmap {
+	m := newMap(20, 12)
+	m.fill(0, 0, 20, 12, "wall_interior")
+	m.fill(1, 2, 18, 9, floor)
+	m.fill(0, 0, 20, 2, "wall_interior")
+	for _, x := range []int{4, 9, 15} {
+		m.put(x, 1, "wall_window")
+	}
+	m.put(10, 11, "doormat")
+	m.obj("front_door", "spawn", 10, 10, nil)
+	return m
+}
+
+// exit adds the door object that leads back outside.
+func (m *tmap) exit(toSpawn string) {
+	m.obj("exit", "door", 10, 11, map[string]string{"to_map": "world", "to_spawn": toSpawn, "title": "Tseung Kwan O"})
+}
+
+func angieFlat() *tmap {
+	m := room("floor_wood")
+	m.put(2, 2, "bed_top")
+	m.put(2, 3, "bed_bottom")
+	m.obj("angie_bed", "bed", 2, 3, nil)
+	m.put(16, 2, "bookshelf")
+	m.put(17, 2, "bookshelf")
+	m.fill(13, 2, 2, 1, "counter")
+	m.put(9, 5, "table")
+	m.put(8, 5, "chair")
+	m.put(10, 5, "chair")
+	m.fill(7, 7, 6, 2, "rug")
+	m.put(18, 9, "plant")
+	m.put(1, 9, "plant")
+	m.exit("angie_home_out")
+	return m
+}
+
+func meiFlat() *tmap {
+	m := room("floor_tile")
+	m.put(4, 2, "piano_left")
+	m.put(5, 2, "piano_right")
+	m.put(5, 3, "chair")
+	m.obj("mei", "npc", 6, 3, map[string]string{"npc_id": "mei", "student": "mei"})
+	m.put(13, 3, "sofa")
+	m.put(14, 3, "sofa")
+	m.put(15, 3, "sofa")
+	m.put(14, 6, "table")
+	m.fill(12, 5, 5, 3, "rug")
+	m.put(14, 6, "table")
+	m.put(18, 2, "plant")
+	m.put(1, 2, "bookshelf")
+	m.exit("mei_home_out")
+	return m
+}
+
 // tiled renders the map as Tiled JSON (.tmj).
-func (m *tmap) tiled() map[string]any {
-	layer := func(id int, name string, grid *[mapH][mapW]int, visible bool) map[string]any {
-		data := make([]int, 0, mapW*mapH)
-		for y := range mapH {
-			data = append(data, grid[y][:]...)
+func (m *tmap) tiled(tilesetDir string) map[string]any {
+	layer := func(id int, name string, grid [][]int, visible bool) map[string]any {
+		data := make([]int, 0, m.w*m.h)
+		for y := range m.h {
+			if grid == nil {
+				data = append(data, make([]int, m.w)...)
+				continue
+			}
+			data = append(data, grid[y]...)
 		}
 		return map[string]any{
-			"id": id, "name": name, "type": "tilelayer", "width": mapW, "height": mapH,
+			"id": id, "name": name, "type": "tilelayer", "width": m.w, "height": m.h,
 			"x": 0, "y": 0, "opacity": 1, "visible": visible, "data": data,
 		}
 	}
@@ -245,22 +328,21 @@ func (m *tmap) tiled() map[string]any {
 			"width": 0, "height": 0, "rotation": 0, "visible": true, "properties": props,
 		})
 	}
-	var empty [mapH][mapW]int
 	return map[string]any{
 		"type": "map", "version": "1.10", "tiledversion": "1.10.2", "orientation": "orthogonal",
 		"renderorder": "right-down", "infinite": false, "compressionlevel": -1,
-		"width": mapW, "height": mapH, "tilewidth": tileSize, "tileheight": tileSize,
+		"width": m.w, "height": m.h, "tilewidth": tileSize, "tileheight": tileSize,
 		"nextlayerid": 7, "nextobjectid": len(m.objects) + 1,
 		"tilesets": []map[string]any{
-			{"firstgid": 1, "source": "tilesets/tko.tsj"},
-			{"firstgid": metaFirst, "source": "tilesets/meta.tsj"},
+			{"firstgid": 1, "source": tilesetDir + "/tko.tsj"},
+			{"firstgid": metaFirst, "source": tilesetDir + "/meta.tsj"},
 		},
 		"layers": []map[string]any{
-			layer(1, "ground", &m.ground, true),
-			layer(2, "detail", &empty, true),
-			layer(3, "collision", &m.collision, false),
-			layer(4, "overhead", &m.overhead, true),
-			layer(5, "areas", &m.areas, false),
+			layer(1, "ground", m.ground, true),
+			layer(2, "detail", nil, true),
+			layer(3, "collision", m.collision, false),
+			layer(4, "overhead", m.overhead, true),
+			layer(5, "areas", m.areas, false),
 			{"id": 6, "name": "objects", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0,
 				"opacity": 1, "visible": true, "objects": objects},
 		},

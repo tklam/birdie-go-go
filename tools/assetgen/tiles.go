@@ -205,6 +205,120 @@ var tileArt = map[string]func(k cell){
 		k.line(8, 4, 8, 13, cGray)
 		k.rect(1, 14, 14, 2, cGray)
 	},
+	"floor_wood": func(k cell) {
+		k.rect(0, 0, tile, tile, cTan)
+		for y := 3; y < tile; y += 4 {
+			k.line(0, y, 15, y, cBrown)
+		}
+		k.line(5, 0, 5, 2, cBrown)
+		k.line(11, 4, 11, 6, cBrown)
+		k.line(3, 8, 3, 10, cBrown)
+		k.line(13, 12, 13, 14, cBrown)
+	},
+	"floor_tile": func(k cell) {
+		k.rect(0, 0, tile, tile, cLightGray)
+		k.rect(0, 0, 8, 8, cWhite)
+		k.rect(8, 8, 8, 8, cWhite)
+	},
+	"wall_interior": func(k cell) {
+		k.rect(0, 0, tile, tile, cSand)
+		k.rect(0, 12, tile, 4, cBrown)
+		k.line(0, 12, 15, 12, cDarkBrown)
+	},
+	"wall_window": func(k cell) {
+		k.rect(0, 0, tile, tile, cSand)
+		k.rect(2, 2, 12, 8, cWhite)
+		k.rect(3, 3, 10, 6, cSky)
+		k.line(8, 3, 8, 8, cWhite)
+		k.rect(0, 12, tile, 4, cBrown)
+	},
+	"piano_left": func(k cell) {
+		k.rect(0, 0, tile, tile, cTan)
+		k.rect(1, 1, 15, 9, cBlack)
+		k.rect(1, 10, 15, 4, cWhite)
+		for x := 2; x < tile; x += 3 {
+			k.rect(x, 10, 1, 2, cBlack)
+		}
+		k.rect(1, 14, 15, 2, cDarkGray)
+	},
+	"piano_right": func(k cell) {
+		k.rect(0, 0, tile, tile, cTan)
+		k.rect(0, 1, 15, 9, cBlack)
+		k.rect(0, 10, 15, 4, cWhite)
+		for x := 1; x < 15; x += 3 {
+			k.rect(x, 10, 1, 2, cBlack)
+		}
+		k.rect(0, 14, 15, 2, cDarkGray)
+		k.rect(10, 3, 3, 2, cWhite)
+	},
+	"bed_top": func(k cell) {
+		k.rect(0, 0, tile, tile, cTan)
+		k.rect(1, 2, 14, 14, cBrown)
+		k.rect(2, 3, 12, 13, cWhite)
+		k.rect(3, 4, 10, 5, cPaleSky)
+	},
+	"bed_bottom": func(k cell) {
+		k.rect(0, 0, tile, tile, cTan)
+		k.rect(1, 0, 14, 14, cBrown)
+		k.rect(2, 0, 12, 13, cPink)
+		k.line(2, 4, 13, 4, cWhite)
+		k.speckle(2, 5, 12, 8, cRed, 0.08, 40)
+	},
+	"table": func(k cell) {
+		k.rect(0, 0, tile, tile, cTan)
+		k.rect(1, 3, 14, 9, cBrown)
+		k.rect(2, 4, 12, 7, cTan)
+		k.rect(2, 12, 2, 3, cDarkBrown)
+		k.rect(12, 12, 2, 3, cDarkBrown)
+		k.rect(6, 5, 4, 3, cWhite)
+	},
+	"chair": func(k cell) {
+		k.rect(0, 0, tile, tile, cTan)
+		k.rect(4, 2, 8, 4, cBrown)
+		k.rect(4, 7, 8, 4, cDarkBrown)
+		k.rect(4, 11, 2, 4, cDarkBrown)
+		k.rect(10, 11, 2, 4, cDarkBrown)
+	},
+	"sofa": func(k cell) {
+		k.rect(0, 0, tile, tile, cTan)
+		k.rect(0, 2, tile, 12, cBlue)
+		k.rect(0, 2, tile, 4, cNavy)
+		k.rect(2, 7, 12, 5, cBlue)
+		k.line(8, 7, 8, 11, cNavy)
+	},
+	"plant": func(k cell) {
+		k.rect(0, 0, tile, tile, cTan)
+		k.rect(5, 10, 6, 5, cBrick)
+		k.ellipse(2, 1, 12, 11, cDarkGreen)
+		k.speckle(3, 2, 10, 8, cLightGreen, 0.3, 41)
+	},
+	"rug": func(k cell) {
+		k.rect(0, 0, tile, tile, cDarkRed)
+		k.rect(2, 2, 12, 12, cRed)
+		k.rect(5, 5, 6, 6, cOrange)
+	},
+	"doormat": func(k cell) {
+		k.rect(0, 0, tile, tile, cTan)
+		k.rect(1, 3, 14, 10, cBrown)
+		k.speckle(2, 4, 12, 8, cDarkBrown, 0.3, 42)
+	},
+	"bookshelf": func(k cell) {
+		k.rect(0, 0, tile, tile, cDarkBrown)
+		for y := 1; y < tile; y += 5 {
+			k.rect(1, y, 14, 4, cBrown)
+			for x := 1; x < 15; x += 2 {
+				k.rect(x, y, 1, 4, []uint8{cRed, cBlue, cYellow, cGreen, cPurple}[(x+y)%5])
+			}
+		}
+	},
+	"counter": func(k cell) {
+		k.rect(0, 0, tile, tile, cLightGray)
+		k.rect(0, 0, tile, 6, cConcrete)
+		k.rect(3, 1, 8, 4, cGray)
+		k.rect(0, 6, tile, 10, cWhite)
+		k.line(0, 11, 15, 11, cLightGray)
+		k.rect(13, 8, 1, 2, cDarkGray)
+	},
 	"awning": func(k cell) {
 		for x := 0; x < tile; x += 4 {
 			k.rect(x, 0, 2, 10, cRed)

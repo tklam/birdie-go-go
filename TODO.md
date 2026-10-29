@@ -41,10 +41,10 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 
 ### Overworld (§4)
 - [x] Tseung Kwan O starter map (generated placeholder): housing estates, footbridge, mall plaza, estate garden, waterfront park, hillside trail
-- [ ] Interiors for Angie's flat and a student's flat
+- [x] Interiors for Angie's flat (bed: sleep to the next day) and Mei's flat (piano, Mei), linked by doors; built like the world (one map = one streamed index)
 - [x] Free 8-direction movement with wall sliding; walk/sneak
 - [x] Follow camera snapped to whole pixels
-- [ ] Interiors with fade transitions
+- [x] Interiors with fade transitions
 - [x] `overhead` layer; tall grass (rustles, scares birds from further, hides Angie when sneaking); ledges
 - [x] NPCs and context actions (Talk / Enter / Photograph)
 - [x] Overworld birds that flush unless Angie sneaks

@@ -2,6 +2,9 @@
 // streamed overworld the client loads (SPEC.md §9.7):
 //
 //	go run ./tools/worldbuild -world content/world/city.world -out web/public/world
+//	go run ./tools/worldbuild -world content/interiors/mei_flat.tmj -out web/public/world/maps/mei_flat -fill wall_interior
+//
+// A single .tmj (an interior) is treated as a world of one map.
 //
 // It writes world/index.json and one gzipped binary file per 32×32-tile
 // chunk under world/chunks/, named by content hash. Chunks with no map

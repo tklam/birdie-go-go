@@ -23,6 +23,11 @@ var Tiles = []Tile{
 	{Name: "stairs"}, {Name: "door"}, {Name: "flowerbed", Solid: true}, {Name: "reeds"},
 	{Name: "rock", Solid: true}, {Name: "ledge"}, {Name: "hill_grass"}, {Name: "trail"},
 	{Name: "boardwalk"}, {Name: "station_sign", Solid: true}, {Name: "shop_front", Solid: true}, {Name: "awning", Overhead: true},
+	// Interiors.
+	{Name: "floor_wood"}, {Name: "floor_tile"}, {Name: "wall_interior", Solid: true}, {Name: "wall_window", Solid: true},
+	{Name: "piano_left", Solid: true}, {Name: "piano_right", Solid: true}, {Name: "bed_top", Solid: true}, {Name: "bed_bottom", Solid: true},
+	{Name: "table", Solid: true}, {Name: "chair", Solid: true}, {Name: "sofa", Solid: true}, {Name: "plant", Solid: true},
+	{Name: "rug"}, {Name: "doormat"}, {Name: "bookshelf", Solid: true}, {Name: "counter", Solid: true},
 }
 
 // AtlasColumns is the width of the atlas in tiles.

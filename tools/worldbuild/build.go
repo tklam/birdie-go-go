@@ -12,6 +12,7 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"strings"
 
 	"birdiegogo/core/model"
 )
@@ -111,6 +112,14 @@ func run(worldPath, outDir string, opts options) error {
 	if err := json.Unmarshal(data, &w); err != nil {
 		return fmt.Errorf("%s: %w", worldPath, err)
 	}
+	if strings.HasSuffix(worldPath, ".tmj") {
+		// A single map (e.g. an interior) is a world of one map at 0,0.
+		var m tiledMap
+		if err := json.Unmarshal(data, &m); err != nil {
+			return fmt.Errorf("%s: %w", worldPath, err)
+		}
+		w = singleMapWorld(filepath.Base(worldPath), m)
+	}
 	index, err := buildIndex(w)
 	if err != nil {
 		return fmt.Errorf("%s: %w", worldPath, err)
@@ -126,6 +135,18 @@ func run(worldPath, outDir string, opts options) error {
 		return fmt.Errorf("fill tile %q not found in tileset %q", opts.fillTile, opts.atlas)
 	}
 	return b.write(index, outDir)
+}
+
+func singleMapWorld(file string, m tiledMap) tiledWorld {
+	w := tiledWorld{Type: "world"}
+	w.Maps = append(w.Maps, struct {
+		FileName string `json:"fileName"`
+		X        int    `json:"x"`
+		Y        int    `json:"y"`
+		Width    int    `json:"width"`
+		Height   int    `json:"height"`
+	}{FileName: file, Width: m.Width * m.TileWidth, Height: m.Height * m.TileWidth})
+	return w
 }
 
 // buildIndex validates map placement and computes the world size.

@@ -12,6 +12,7 @@ const repoRoot = fileURLToPath(new URL('..', import.meta.url));
 function goRebuild(): Plugin {
   const targets = [
     { dir: path.join(repoRoot, 'content', 'world'), make: 'world' },
+    { dir: path.join(repoRoot, 'content', 'interiors'), make: 'world' },
     { dir: path.join(repoRoot, 'content'), make: 'content' },
     { dir: path.join(repoRoot, 'core'), make: 'core' },
   ];

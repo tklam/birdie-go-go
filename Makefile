@@ -29,6 +29,10 @@ content:
 
 world:
 	$(GO) run ./tools/worldbuild -world content/world/city.world -out $(PUBLIC)/world
+	@for f in content/interiors/*.tmj; do \
+		id=$$(basename $$f .tmj); \
+		$(GO) run ./tools/worldbuild -world $$f -out $(PUBLIC)/world/maps/$$id -fill wall_interior || exit 1; \
+	done
 
 assets:
 	$(GO) run ./tools/assetgen gen -assets $(PUBLIC)/assets -tilesets content/world/tilesets
