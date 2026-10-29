@@ -442,6 +442,13 @@ func (v *validator) event(e model.Event, r refs) {
 		case "dialogue":
 			id, _ := a.Value.(string)
 			v.require(r.dialogue[id], "event %s: unknown dialogue %q", e.ID, id)
+		case "start_scene":
+			m, _ := a.Value.(map[string]any)
+			_, named := m["scene"].(string)
+			v.require(named, "event %s: start_scene needs a scene", e.ID)
+			if id, ok := m["dialogue"].(string); ok {
+				v.require(r.dialogue[id], "event %s: unknown dialogue %q", e.ID, id)
+			}
 		case "join_party":
 			who, _ := a.Value.(string)
 			v.require(slices.Contains(Companions, who), "event %s: unknown companion %q", e.ID, who)

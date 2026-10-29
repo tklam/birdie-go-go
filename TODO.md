@@ -174,7 +174,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 ## M6: Story (§8)
 - [x] Chapters 1–5 and finale events and dialogue (placeholder text: Bird Paradise traveller, magazine, recitals, first date, contest, proposal, wedding)
 - [x] Write the real story text (first draft of every scene; side characters Uncle Chan and Siu Ming; epilogue)
-- [~] Wedding (dialogue) and the shared home (photo wall, bed, piano, cupboard) done; a staged wedding scene still to do
+- [x] Wedding scene (staged at the waterfront park, via `start_scene`) and the shared home (photo wall, bed, piano, cupboard)
 - [x] Post-game free play (epilogue; seasonal and live missions, album and students continue)
 
 ## M7: Polish

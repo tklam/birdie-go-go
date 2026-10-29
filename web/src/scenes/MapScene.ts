@@ -261,6 +261,26 @@ export class MapScene extends Phaser.Scene {
     this.fainting = false;
     this.exiting = false;
     this.spotMarks = null;
+    // Events' staged scenes (start_scene) run over the paused map.
+    this.session.sceneRunner = (scene, data) =>
+      this.scene.manager.keys[scene]
+        ? new Promise<void>((resolve) => {
+            this.scene.pause();
+            this.hud.setVisible(false);
+            this.touch.setVisible(false);
+            this.scene.launch(scene, {
+              ...data,
+              done: () => {
+                this.hud.setVisible(true);
+                this.touch.setVisible(true);
+                this.scene.resume();
+                resolve();
+              },
+            });
+          })
+        : typeof data.dialogue === 'string'
+          ? this.session.dialogue(data.dialogue)
+          : Promise.resolve();
     this.touch = new TouchControls();
     this.touch.setJoystick(this.session.state.settings.controlScheme !== 'tap');
     this.input2 = new InputReader(this, this.touch);

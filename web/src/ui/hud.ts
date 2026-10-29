@@ -24,6 +24,11 @@ export class Hud {
     this.el.textContent = text;
   }
 
+  /** Hides the status window, e.g. during a staged scene. */
+  setVisible(on: boolean): void {
+    this.el.style.display = on ? '' : 'none';
+  }
+
   destroy(): void {
     this.el.remove();
   }

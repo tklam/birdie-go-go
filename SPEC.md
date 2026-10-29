@@ -533,6 +533,7 @@ Events live in `content/events/*.yaml`:
 - **Triggers**: `enter_area`, `talk`, `interact`, `photo_taken`, `photo_session_end`, `lesson_complete`, `ride_complete`, `mission_complete`, `day_start`, `time_slot_start`, `album_milestone`, `item_obtained`, `weather_warning`, `encounter_won`, `encounter_escaped`, `energy_depleted`.
 - **Conditions**: `flag_set`, `flag_not_set`, `chapter_at_least`, `bond_at_least`, `kei_stage`, `party_has`, `party_lacks`, `has_item`, `money_at_least`, `season`, `time_slot`, `weather` (named weather here), `typhoon_signal_at_least`, `album_has`, `mission_state`, `stop_discovered`, `energy_at_least`, `has_status`, `equipped`.
 - **Actions**: `dialogue`, `set_flag`, `clear_flag`, `set_chapter`, `join_party`, `add_bond`, `set_kei_stage`, `give_item`, `give_money`, `unlock_area`, `unlock_line`, `unlock_teleport`, `start_mission`, `start_encounter`, `restore_energy`, `add_status`, `start_scene`, `move_npc`.
+- `start_scene: { scene, dialogue? }` plays a staged scene over the paused map (HUD and touch controls hidden) and plays the dialogue over it, e.g. the **Wedding** scene; without that scene, only the dialogue plays.
 - Content is validated by `contentbuild` at build time and by the Go core when an update pack is loaded. Unknown dialogue IDs, species, items, areas, spots, songs, students, lines, stops, or missions are errors. Flags are free-form strings.
 - Dialogue lines may carry conditions (e.g. alternate lines when `party_has: kei`).
 - Events are evaluated in TypeScript on the main thread (instant reactions to game state).

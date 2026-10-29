@@ -62,7 +62,7 @@
     - flag_not_set: wedding_done
   actions:
     - set_flag: wedding_done
-    - dialogue: wedding
+    - start_scene: { scene: Wedding, dialogue: wedding }
     - set_kei_stage: married
     - set_chapter: 6
 

@@ -53,6 +53,11 @@ export class Session {
   /** Time slots since the last mission reminder; starts full so a loaded game reminds once. */
   private slotsSinceReminder = Number.POSITIVE_INFINITY;
   private reminderTurn = 0;
+  /**
+   * Plays a staged scene for an event's start_scene action (set by the map
+   * scene); resolves when it's over.
+   */
+  sceneRunner?: (scene: string, data: Record<string, unknown>) => Promise<void>;
   /** The asset manifest, for dialogue portraits (set by the boot scene). */
   manifest?: Manifest;
   /** In-game minutes played in the current slot (one per real second on the map). */
@@ -67,7 +72,7 @@ export class Session {
   ) {
     this.events = new EventRunner(content, {
       showDialogue: (id) => this.dialogue(id),
-      startScene: (value) => console.info('event start_scene not wired yet', value),
+      startScene: (value) => this.startScene(value),
       other: async (action) => {
         if (action.type === 'start_mission' && typeof action.value === 'string' && startMission(this.state, action.value)) {
           const m = this.content.missions.find((x) => x.id === action.value);
@@ -130,6 +135,21 @@ export class Session {
       throw err;
     });
     return this.transitLoaded;
+  }
+
+  /**
+   * start_scene: `{ scene, dialogue? }`. Without a runner (or the scene),
+   * the scene's dialogue plays on its own.
+   */
+  private async startScene(value: unknown): Promise<void> {
+    if (typeof value !== 'object' || value === null) return;
+    const v = value as Record<string, unknown>;
+    const scene = typeof v.scene === 'string' ? v.scene : '';
+    if (scene && this.sceneRunner) {
+      await this.sceneRunner(scene, v);
+      return;
+    }
+    if (typeof v.dialogue === 'string') await this.dialogue(v.dialogue);
   }
 
   /** Fires the album milestones the album has reached (SPEC.md §5.6). */

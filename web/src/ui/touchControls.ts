@@ -67,6 +67,11 @@ export class TouchControls {
     overlay().appendChild(this.root);
   }
 
+  /** Shows or hides all touch controls, e.g. during a staged scene. */
+  setVisible(on: boolean): void {
+    this.root.style.display = on ? '' : 'none';
+  }
+
   /** Shows or hides the joystick (hidden for tap-to-move, so taps reach the map). */
   setJoystick(on: boolean): void {
     this.zone.style.display = on ? '' : 'none';
