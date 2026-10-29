@@ -122,7 +122,8 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [ ] Gear gating (§4.6)
 - [ ] Hidden collectibles: feathers, camera parts, sheet music
 - [ ] Shop, gear, Kei-built upgrades from parts
-- [ ] Students: profiles, progress, new songs
+- [x] Students progress through their repertoire; second student Ah Fai in Po Toi O (his house and piano); two new original pieces
+- [ ] More students and songs
 - [ ] *(Parked for future development.)* eBird data for realism: species lists and seasonality per area (Tseung Kwan O, Junk Bay, …) feeding bird tables. Needs a free eBird API key kept outside git; build-time tool only. eBird/Macaulay photos are NOT freely licensed, so don't use them as art.
 - [x] Missions (§9.5): photograph and lesson objectives, rewards, Menu → Missions; Chapter 2 missions (magazine egret shot, Mei's recital)
 - [ ] Contests, transit missions, live missions from updates

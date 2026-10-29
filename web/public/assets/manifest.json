@@ -216,6 +216,13 @@
     "frameHeight": 24,
     "placeholder": true
   },
+  "char_fai": {
+    "type": "spritesheet",
+    "file": "chars/fai.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
   "char_jogger": {
     "type": "spritesheet",
     "file": "chars/jogger.png",

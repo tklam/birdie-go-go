@@ -262,3 +262,16 @@ describe('perfToScoreMs', () => {
     expect(perfToScoreMs(5000, pauses)).toBe(4000);
   });
 });
+
+describe('pickSong progression', () => {
+  const song = (id: string) => ({ id, title: id, tempo: 100, timeSignature: [4, 4] as [number, number], difficulty: 1, notes: [] });
+  const songs = [song('a'), song('b'), song('c')];
+  const student = { id: 's', name: 'S', level: 1, home: '', repertoire: ['a', 'missing', 'b', 'c'], tendencies: {}, fee: 1 };
+  it('moves through the repertoire with progress, skipping unknown songs', () => {
+    expect(pickSong(student, songs)?.id).toBe('a');
+    expect(pickSong(student, songs, undefined, 0.9)?.id).toBe('a');
+    expect(pickSong(student, songs, undefined, 1.2)?.id).toBe('b');
+    expect(pickSong(student, songs, undefined, 9)?.id).toBe('c');
+    expect(pickSong(student, songs, 'b', 0)?.id).toBe('b');
+  });
+});

@@ -21,6 +21,7 @@ var people = []look{
 	{id: "kei", hair: cBlack, top: cNavy, bottom: cBlue, skin: cSkin, shoes: cWhite, glasses: true},
 	{id: "neighbour", hair: cLightGray, top: cPurple, bottom: cDarkGray, skin: cSkin, shoes: cBlack, grayHair: true},
 	{id: "old_villager", hair: cWhite, top: cTan, bottom: cBrown, skin: cSkinShadow, shoes: cBlack, grayHair: true},
+	{id: "fai", hair: cBlack, top: cBlue, bottom: cTan, skin: cSkinShadow, shoes: cBlack, shorter: 2},
 	{id: "birder", hair: cDarkBrown, top: cDarkGreen, bottom: cTan, skin: cSkin, shoes: cBrown, camera: true, hat: true, hatColor: cTan},
 	{id: "jogger", hair: cBlack, top: cRed, bottom: cBlack, skin: cSkinShadow, shoes: cWhite},
 	{id: "office_worker", hair: cBlack, top: cWhite, bottom: cDarkGray, skin: cSkin, shoes: cBlack, glasses: true},

@@ -236,7 +236,7 @@ export class PianoScene extends Phaser.Scene {
     this.state = sharedState(this.registry, content);
     const student = content.students.find((s) => s.id === this.params.studentId);
     if (!student) throw new Error(`unknown student "${this.params.studentId}"`);
-    const song = pickSong(student, content.songs, this.params.songId);
+    const song = pickSong(student, content.songs, this.params.songId, this.state.students[student.id]?.progress ?? 0);
     if (!song) throw new Error(`${student.name} has no song to play`);
     this.student = student;
     this.song = song;

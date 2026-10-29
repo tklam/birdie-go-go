@@ -62,7 +62,7 @@ func run(dir string, force bool) error {
 	if err := os.MkdirAll(interiors, 0o755); err != nil {
 		return err
 	}
-	for name, im := range map[string]*tmap{"angie_flat": angieFlat(), "mei_flat": meiFlat()} {
+	for name, im := range map[string]*tmap{"angie_flat": angieFlat(), "mei_flat": meiFlat(), "fai_house": faiHouse()} {
 		if err := writeJSON(filepath.Join(interiors, name+".tmj"), im.tiled("../world/tilesets")); err != nil {
 			return err
 		}
@@ -315,6 +315,11 @@ func clearWaterBay() *tmap {
 			m.put(x+6, 48, "fishing_net")
 		}
 	}
+	// Ah Fai's family house.
+	m.put(18, 46, "door")
+	m.collision[46][18] = metaFirst + tko.MetaID("solid")
+	m.obj("fai_home", "door", 18, 46, map[string]string{"to_map": "fai_house", "to_spawn": "front_door", "title": "Ah Fai's house"})
+	m.obj("fai_home_out", "spawn", 18, 47, nil)
 	// A gap in the railing and a pier into the cove, with boats.
 	m.fill(30, 56, 3, 1, "boardwalk")
 	m.fill(30, 57, 3, 6, "pier")
@@ -401,6 +406,21 @@ func meiFlat() *tmap {
 	m.put(18, 2, "plant")
 	m.put(1, 2, "bookshelf")
 	m.exit("mei_home_out")
+	return m
+}
+
+func faiHouse() *tmap {
+	m := room("floor_wood")
+	m.put(14, 2, "piano_left")
+	m.put(15, 2, "piano_right")
+	m.put(15, 3, "chair")
+	m.obj("fai", "npc", 16, 3, map[string]string{"npc_id": "fai", "student": "fai", "sprite": "char_fai"})
+	m.put(2, 2, "fishing_net")
+	m.put(3, 2, "fishing_net")
+	m.put(8, 6, "table")
+	m.fill(6, 8, 6, 2, "rug")
+	m.put(18, 9, "plant")
+	m.exit("fai_home_out")
 	return m
 }
 

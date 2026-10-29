@@ -40,17 +40,17 @@ export function lessonSeed(worldSeed: number, day: number, studentId: string): n
 }
 
 /** The song with `songId` if given and known, else the first song of the student's repertoire that exists. */
-export function pickSong(student: Student, songs: readonly Song[], songId?: string): Song | undefined {
+export function pickSong(student: Student, songs: readonly Song[], songId?: string, progress = 0): Song | undefined {
   const byId = (id: string) => songs.find((s) => s.id === id);
   if (songId) {
     const s = byId(songId);
     if (s) return s;
   }
-  for (const id of student.repertoire) {
-    const s = byId(id);
-    if (s) return s;
-  }
-  return undefined;
+  // Students move on to the next piece of their repertoire as they progress
+  // (each lesson adds score/100 to progress).
+  const known = student.repertoire.map(byId).filter((s): s is Song => !!s);
+  if (known.length === 0) return undefined;
+  return known[Math.min(known.length - 1, Math.max(0, Math.floor(progress)))];
 }
 
 export interface LessonOutcome {

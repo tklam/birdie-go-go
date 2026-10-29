@@ -1,0 +1,51 @@
+# Original placeholder piece.
+id: harbour_lights
+title: Harbour Lights
+tempo: 96
+time_signature: [4, 4]
+difficulty: 2
+notes:
+  - { pitch: 43, start: 0, dur: 2, vel: 58 }
+  - { pitch: 67, start: 0, dur: 1, vel: 82 }
+  - { pitch: 71, start: 1, dur: 1, vel: 82 }
+  - { pitch: 50, start: 2, dur: 2, vel: 58 }
+  - { pitch: 74, start: 2, dur: 0.5, vel: 82 }
+  - { pitch: 72, start: 2.5, dur: 0.5, vel: 82 }
+  - { pitch: 71, start: 3, dur: 1, vel: 82 }
+  - { pitch: 50, start: 4, dur: 2, vel: 58 }
+  - { pitch: 69, start: 4, dur: 2, vel: 82 }
+  - { pitch: 54, start: 6, dur: 2, vel: 58 }
+  - { pitch: 74, start: 6, dur: 2, vel: 82 }
+  - { pitch: 48, start: 8, dur: 2, vel: 58 }
+  - { pitch: 76, start: 8, dur: 1, vel: 82 }
+  - { pitch: 74, start: 9, dur: 1, vel: 82 }
+  - { pitch: 55, start: 10, dur: 2, vel: 58 }
+  - { pitch: 72, start: 10, dur: 0.5, vel: 82 }
+  - { pitch: 71, start: 10.5, dur: 0.5, vel: 82 }
+  - { pitch: 69, start: 11, dur: 1, vel: 82 }
+  - { pitch: 43, start: 12, dur: 2, vel: 58 }
+  - { pitch: 71, start: 12, dur: 3, vel: 82 }
+  - { pitch: 50, start: 14, dur: 2, vel: 58 }
+  - { pitch: 48, start: 16, dur: 2, vel: 58 }
+  - { pitch: 72, start: 16, dur: 1, vel: 82 }
+  - { pitch: 76, start: 17, dur: 1, vel: 82 }
+  - { pitch: 52, start: 18, dur: 2, vel: 58 }
+  - { pitch: 74, start: 18, dur: 0.5, vel: 82 }
+  - { pitch: 72, start: 18.5, dur: 0.5, vel: 82 }
+  - { pitch: 71, start: 19, dur: 1, vel: 82 }
+  - { pitch: 50, start: 20, dur: 2, vel: 58 }
+  - { pitch: 69, start: 20, dur: 1, vel: 82 }
+  - { pitch: 67, start: 21, dur: 1, vel: 82 }
+  - { pitch: 54, start: 22, dur: 2, vel: 58 }
+  - { pitch: 66, start: 22, dur: 1, vel: 82 }
+  - { pitch: 69, start: 23, dur: 1, vel: 82 }
+  - { pitch: 50, start: 24, dur: 2, vel: 58 }
+  - { pitch: 67, start: 24, dur: 0.5, vel: 82 }
+  - { pitch: 69, start: 24.5, dur: 0.5, vel: 82 }
+  - { pitch: 71, start: 25, dur: 1, vel: 82 }
+  - { pitch: 48, start: 26, dur: 2, vel: 58 }
+  - { pitch: 72, start: 26, dur: 1, vel: 82 }
+  - { pitch: 69, start: 27, dur: 1, vel: 82 }
+  - { pitch: 43, start: 28, dur: 2, vel: 58 }
+  - { pitch: 67, start: 28, dur: 4, vel: 82 }
+  - { pitch: 50, start: 30, dur: 2, vel: 58 }

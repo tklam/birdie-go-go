@@ -2,6 +2,13 @@
   name: Mei
   level: 1
   home: mei_flat
-  repertoire: [morning_by_the_bay, little_ferry_waltz]
+  repertoire: [morning_by_the_bay, little_ferry_waltz, harbour_lights]
   tendencies: { rush: 2, wrong_note: 1 }
   fee: 120
+- id: fai
+  name: Ah Fai
+  level: 2
+  home: fai_house
+  repertoire: [fishing_boat_shanty, harbour_lights, little_ferry_waltz]
+  tendencies: { drag: 2, missed_note: 1, hesitation: 1 }
+  fee: 150
