@@ -117,7 +117,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
   - [x] Typhoon fronts + signals and rainstorm warnings (HUD, announcements, `weather_warning`); ferries, spots and lessons close at T8+ or black rain
   - [x] Blend field in `worldbuild` + tests
   - [x] Client blend sampling (pure TS) + tests
-  - [~] WeatherRenderer: rain, fog, cloud/evening tint, heat haze; rain and wind ambience, muffled indoors (sway and waves still to do)
+  - [x] WeatherRenderer: rain, fog, cloud/evening tint, heat haze, wind-blown leaves, wave crests; rain and wind ambience, muffled indoors
   - [x] Weather in photo scenes (focus time, sharpness, visuals), weather-dependent bird tables and sheltering
   - [x] Radio forecast at home; `?debug=weather` overlay
 - [~] Gear gating (§4.6): gates, wading boots (Po Toi O mudflat), night lens (Night Woods); kayak still to do (needs islands)

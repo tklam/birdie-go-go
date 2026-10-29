@@ -197,7 +197,7 @@ A **named weather** is derived from the parameters for UI, forecasts, and event 
 - **Local variation** is per area, so regions still differ.
 - Same seed + day + slot → same weather (reproducible, testable).
 
-**Rendering and sound (as built).** Over the map: a cloud/evening tint, a still fog haze, slanted rain, and on hot clear days (≥ 30 °C, cloud < 0.4) faint heat-haze bands drifting up. Rain and wind are heard as filtered noise scaled by the weather at Angie, muffled (low-passed, quieter) indoors and silent in lessons. On the world map, autumn and winter use palette-swapped tile atlases (golden grass and olive leaves; dry, dull greens).
+**Rendering and sound (as built).** Over the map: a cloud/evening tint, a still fog haze, slanted rain, and on hot clear days (≥ 30 °C, cloud < 0.4) faint heat-haze bands drifting up. In wind (≥ 0.5) leaves blow across the screen; wave crests flicker on visible water, more often in wind. Rain and wind are heard as filtered noise scaled by the weather at Angie, muffled (low-passed, quieter) indoors and silent in lessons. On the world map, autumn and winter use palette-swapped tile atlases (golden grass and olive leaves; dry, dull greens).
 
 **Boundary blending.** Areas are painted on the world's `areas` layer and can have any shape. At build time, the world tool (§9.7) computes a **blend weight field** on a coarse grid (cells of 4×4 tiles):
 - For each cell and each area within the blend band `B` (default **8 tiles**; configurable per area pair, e.g. 16 between hills and city): raw weight `max(0, 1 − d/B)`, where `d` is the distance in tiles from the cell to that area (0 inside it). Weights are normalized.

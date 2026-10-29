@@ -165,6 +165,10 @@ export class MapScene extends Phaser.Scene {
   private nextGateHint = 0;
   private passersby: Passerby[] = [];
   private glints!: Phaser.GameObjects.Particles.ParticleEmitter;
+  /** Wave crests on visible water (SPEC.md §4.9), more in wind. */
+  private waves!: Phaser.GameObjects.Particles.ParticleEmitter;
+  private waterTile = -1;
+  private nextWave = 0;
   /** The ride in progress (SPEC.md §4.11), if any. */
   private ride: {
     vehicle: Phaser.GameObjects.Sprite;
@@ -284,8 +288,10 @@ export class MapScene extends Phaser.Scene {
     this.makeAnimations();
     this.tallGrass = this.index.tileNames.indexOf('tall_grass') + 1 || -1;
     this.benchTile = this.index.tileNames.indexOf('bench') + 1 || -1;
+    this.waterTile = this.index.tileNames.indexOf('water') + 1 || -1;
     this.makeRustle();
     this.makeGlints();
+    this.makeWaves();
 
     // Outdoors, foliage follows the season: a palette-swapped atlas if there is one (SPEC.md §1.3).
     const seasonal = `${this.index.tileset}_${season(this.session.state.day)}`;
@@ -496,6 +502,7 @@ export class MapScene extends Phaser.Scene {
     for (const g of this.sparkles) g.sprite.setFrame(Math.floor(time / 400 + g.object.x) % 2);
     this.discoverStops();
     this.updateVehicles(time);
+    this.updateWaves(time);
     this.updatePassersby(time, dt);
     this.updateUmbrellas();
     this.drawSpotMarks(time);
@@ -1914,6 +1921,33 @@ export class MapScene extends Phaser.Scene {
     for (const [i, n] of this.npcs.entries()) {
       if (rain && !n.umbrella) n.umbrella = this.add.sprite(0, 0, 'umbrella', 2 + (i % 2)).setOrigin(0.5, 1);
       this.holdUmbrella(n.umbrella ?? null, n.sprite, rain);
+    }
+  }
+
+  private makeWaves(): void {
+    const key = 'wave-crest';
+    if (!this.textures.exists(key)) {
+      const g = this.make.graphics({}, false);
+      g.fillStyle(0xf0f8ff).fillRect(1, 0, 3, 1).fillStyle(0xc8e8f8).fillRect(0, 1, 5, 1);
+      g.generateTexture(key, 5, 2);
+      g.destroy();
+    }
+    this.waves = this.add
+      .particles(0, 0, key, { lifespan: 900, alpha: { start: 0.9, end: 0 }, speedX: { min: -4, max: 4 }, emitting: false })
+      .setDepth(DEPTH.entities - 1);
+  }
+
+  /** A few wave crests a moment on visible water tiles; windier water is choppier. */
+  private updateWaves(time: number): void {
+    if (this.waterTile < 0 || time < this.nextWave || !this.weatherRenderer) return;
+    const wind = this.weatherNow?.wind ?? 0.3;
+    this.nextWave = time + (this.session.state.settings.reducedMotion ? 400 : 120) / (0.5 + wind);
+    const view = this.cameras.main.worldView;
+    const ts = this.index.tileSize;
+    for (let i = 0; i < 3; i++) {
+      const x = view.x + Math.random() * view.width;
+      const y = view.y + Math.random() * view.height;
+      if (this.store.groundAt(Math.floor(x / ts), Math.floor(y / ts)) === this.waterTile) this.waves.emitParticleAt(Math.round(x), Math.round(y), 1);
     }
   }
 

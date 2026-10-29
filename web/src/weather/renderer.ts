@@ -18,6 +18,8 @@ export class WeatherRenderer {
   private readonly fog: Phaser.GameObjects.Rectangle;
   private readonly rain: Phaser.GameObjects.Particles.ParticleEmitter;
   private readonly haze: Phaser.GameObjects.Graphics;
+  private readonly leaves: Phaser.GameObjects.Particles.ParticleEmitter;
+  private pendingLeaves = 0;
   private hazeTime = 0;
   private slant = 0;
   private calm = false;
@@ -40,6 +42,17 @@ export class WeatherRenderer {
       .setScrollFactor(0)
       .setDepth(depth + 2);
     this.haze = scene.add.graphics().setScrollFactor(0).setDepth(depth + 1);
+    this.leaves = scene.add
+      .particles(0, 0, 'weather-leaf', {
+        lifespan: 2600,
+        speedY: { min: -10, max: 25 },
+        rotate: { min: 0, max: 360 },
+        frame: [0, 1],
+        frequency: -1,
+        quantity: 1,
+      })
+      .setScrollFactor(0)
+      .setDepth(depth + 2);
   }
 
   /**
@@ -78,6 +91,15 @@ export class WeatherRenderer {
       this.slant = slant;
       this.rain.updateConfig({ speedX: { min: slant - 10, max: slant + 10 } });
     }
+    // Wind: leaves blown across the screen (the trees' sway, in 16-bit terms).
+    if (p.wind >= 0.5 && !reduced) {
+      const dir = Math.cos(p.windDir) >= 0 ? 1 : -1;
+      this.leaves.updateConfig({ x: dir > 0 ? -8 : W + 8, y: { min: 0, max: H }, speedX: { min: dir * 60 * p.wind, max: dir * 140 * p.wind } });
+      this.pendingLeaves += ((p.wind - 0.45) * 0.6 * dtMs) / 16;
+      const k = Math.floor(this.pendingLeaves);
+      this.pendingLeaves -= k;
+      if (k > 0) this.leaves.emitParticle(k);
+    }
     // Fractional drops carry over so light rain still shows at high frame rates.
     this.pending += (drops * dtMs) / 16;
     const n = Math.floor(this.pending);
@@ -86,6 +108,7 @@ export class WeatherRenderer {
   }
 
   destroy(): void {
+    this.leaves.destroy();
     this.haze.destroy();
     this.tint.destroy();
     this.fog.destroy();
@@ -106,6 +129,18 @@ export function fogAlpha(fog: number): number {
 
 /** Generates the small pixel textures once per game. */
 function makeTextures(scene: Phaser.Scene): void {
+  if (!scene.textures.exists('weather-leaf')) {
+    // Two little leaves: green and autumn brown.
+    const g = scene.make.graphics({}, false);
+    g.fillStyle(0x58a048).fillRect(1, 0, 2, 1).fillRect(0, 1, 3, 1);
+    g.fillStyle(0xa0702c).fillRect(5, 0, 2, 1).fillRect(4, 1, 3, 1);
+    g.generateTexture('weather-leaf-sheet', 8, 2);
+    g.destroy();
+    const tex = scene.textures.get('weather-leaf-sheet');
+    tex.add(0, 0, 0, 0, 4, 2);
+    tex.add(1, 0, 4, 0, 4, 2);
+    scene.textures.renameTexture('weather-leaf-sheet', 'weather-leaf');
+  }
   if (!scene.textures.exists('weather-drop')) {
     const g = scene.make.graphics({}, false);
     g.fillStyle(0xc8e8f8, 0.9).fillRect(0, 0, 1, 3).fillStyle(0x8cc8f0, 0.7).fillRect(0, 3, 1, 2);
