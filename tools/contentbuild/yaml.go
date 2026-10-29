@@ -22,9 +22,19 @@ type gameYAML struct {
 }
 
 type areaYAML struct {
-	ID    string `yaml:"id"`
-	Name  string `yaml:"name"`
-	Music string `yaml:"music"`
+	ID       string                 `yaml:"id"`
+	Name     string                 `yaml:"name"`
+	Music    string                 `yaml:"music"`
+	Climate  map[string]climateYAML `yaml:"climate"`
+	Altitude float64                `yaml:"altitude"`
+}
+
+type climateYAML struct {
+	Cloud  [2]float64 `yaml:"cloud"`
+	Precip [2]float64 `yaml:"precip"`
+	Temp   [2]float64 `yaml:"temp"`
+	Fog    [2]float64 `yaml:"fog"`
+	Wind   [2]float64 `yaml:"wind"`
 }
 
 type birdYAML struct {
@@ -151,7 +161,11 @@ func load(dir string) (*model.ContentBundle, error) {
 		return nil, err
 	}
 	for _, a := range areas {
-		b.Areas = append(b.Areas, model.Area(a))
+		area := model.Area{ID: a.ID, Name: a.Name, Music: a.Music, Altitude: a.Altitude, Climate: map[string]model.Climate{}}
+		for season, c := range a.Climate {
+			area.Climate[season] = model.Climate(c)
+		}
+		b.Areas = append(b.Areas, area)
 	}
 
 	var birds []birdYAML

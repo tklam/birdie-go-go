@@ -12,7 +12,7 @@ import (
 func validBundle() *model.ContentBundle {
 	return &model.ContentBundle{
 		Game:  model.GameInfo{Title: "Birdie Go Go", ContentVersion: "0.1.0", StartMap: "tko", StartSpawn: "home"},
-		Areas: []model.Area{{ID: "tko_town", Name: "Tseung Kwan O"}},
+		Areas: []model.Area{{ID: "tko_town", Name: "Tseung Kwan O", Climate: climate()}},
 		Birds: []model.Bird{{
 			ID: "bulbul", Name: "Red-whiskered Bulbul", Sprite: "bird_bulbul", OverworldSprite: "owbird_bulbul",
 			Skittishness: 0.3, SizeBand: [2]float64{0.08, 0.3}, Speed: 120,
@@ -39,6 +39,11 @@ func validBundle() *model.ContentBundle {
 		}},
 		Dialogue: []model.Dialogue{{ID: "intro_lines", Lines: []model.DialogueLine{{Speaker: "angie", Text: "Hi!"}}}},
 	}
+}
+
+func climate() map[string]model.Climate {
+	c := model.Climate{Cloud: [2]float64{0.5, 0.2}, Precip: [2]float64{0.2, 0.2}, Temp: [2]float64{22, 3}, Fog: [2]float64{0.1, 0.1}, Wind: [2]float64{0.3, 0.2}}
+	return map[string]model.Climate{"spring": c, "summer": c, "autumn": c, "winter": c}
 }
 
 func TestValidBundle(t *testing.T) {
@@ -84,6 +89,12 @@ func TestValidateErrors(t *testing.T) {
 		}, "unknown Kei stage"},
 		{"empty dialogue", func(b *model.ContentBundle) { b.Dialogue[0].Lines = nil }, "no lines"},
 		{"area music", func(b *model.ContentBundle) { b.Areas[0].Music = "bgm_missing" }, "unknown music"},
+		{"missing season", func(b *model.ContentBundle) { delete(b.Areas[0].Climate, "winter") }, "climate for winter is missing"},
+		{"climate range", func(b *model.ContentBundle) {
+			c := b.Areas[0].Climate["spring"]
+			c.Fog = [2]float64{2, 0}
+			b.Areas[0].Climate["spring"] = c
+		}, "fog mean"},
 		{"instrument", func(b *model.ContentBundle) {
 			b.Music = []model.Music{{ID: "bgm", Title: "T", Tempo: 100, LoopBeats: 4, Tracks: []model.MusicTrack{{Instrument: "kazoo", Volume: 0.5}}}}
 		}, "unknown instrument"},

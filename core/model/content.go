@@ -28,6 +28,10 @@ type Area struct {
 	ID    string `json:"id"`
 	Name  string `json:"name"`
 	Music string `json:"music,omitempty"`
+	// Climate by season (SPEC.md §4.9); every season must be present.
+	Climate map[string]Climate `json:"climate"`
+	// Altitude 0–1 (sea level … peaks).
+	Altitude float64 `json:"altitude"`
 }
 
 // Bird is a species that can appear on the overworld and in photo scenes.

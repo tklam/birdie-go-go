@@ -67,6 +67,21 @@ func Validate(b *model.ContentBundle) []error {
 	for _, a := range b.Areas {
 		v.require(a.Name != "", "area %s: name is required", a.ID)
 		v.require(a.Music == "" || music[a.Music], "area %s: unknown music %q", a.ID, a.Music)
+		v.require(a.Altitude >= 0 && a.Altitude <= 1, "area %s: altitude must be 0–1", a.ID)
+		for _, season := range Seasons {
+			c, ok := a.Climate[season]
+			if !ok {
+				v.errs = append(v.errs, fmt.Errorf("area %s: climate for %s is missing", a.ID, season))
+				continue
+			}
+			for name, r := range map[string][2]float64{"cloud": c.Cloud, "precip": c.Precip, "fog": c.Fog, "wind": c.Wind} {
+				v.require(r[0] >= 0 && r[0] <= 1 && r[1] >= 0, "area %s %s: %s mean must be 0–1 and variability ≥ 0", a.ID, season, name)
+			}
+			v.require(c.Temp[1] >= 0, "area %s %s: temp variability must be ≥ 0", a.ID, season)
+		}
+		for season := range a.Climate {
+			v.require(slices.Contains(Seasons, season), "area %s: unknown season %q in climate", a.ID, season)
+		}
 	}
 	for _, m := range b.Music {
 		v.tune(m)

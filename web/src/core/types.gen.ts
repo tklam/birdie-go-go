@@ -37,6 +37,14 @@ export interface Area {
   id: string;
   name: string;
   music?: string;
+  /**
+   * Climate by season (SPEC.md §4.9); every season must be present.
+   */
+  climate: { [key: string]: Climate};
+  /**
+   * Altitude 0–1 (sea level … peaks).
+   */
+  altitude: number /* float64 */;
 }
 /**
  * Bird is a species that can appear on the overworld and in photo scenes.
@@ -393,6 +401,89 @@ export interface PackInfo {
   sha256: string;
   size: number /* int64 */;
   url: string;
+}
+
+//////////
+// source: weather.go
+
+/**
+ * Weather parameters (SPEC.md §4.9). Ranges: Cloud, Precip, Fog, Wind 0–1;
+ * Temp in °C; UV 0–11+; WindDir in radians (0 = blowing east, π/2 = south).
+ */
+export interface WeatherParams {
+  cloud: number /* float64 */;
+  precip: number /* float64 */;
+  temp: number /* float64 */;
+  fog: number /* float64 */;
+  wind: number /* float64 */;
+  windDir: number /* float64 */;
+  uv: number /* float64 */;
+}
+/**
+ * Climate is an area's per-parameter [mean, variability] for one season.
+ */
+export interface Climate {
+  cloud: number /* float64 */[];
+  precip: number /* float64 */[];
+  temp: number /* float64 */[];
+  fog: number /* float64 */[];
+  wind: number /* float64 */[];
+}
+/**
+ * WeatherArea is what the weather simulation needs to know about an area.
+ */
+export interface WeatherArea {
+  id: string;
+  /**
+   * Climate by season name (spring, summer, autumn, winter).
+   */
+  climate: { [key: string]: Climate};
+  /**
+   * Center is the area's centroid in world pixels (for the drifting front).
+   */
+  center: Point;
+  /**
+   * Altitude 0–1 (sea level … peaks) raises UV and lowers temperature.
+   */
+  altitude: number /* float64 */;
+}
+/**
+ * WeatherDayPayload asks the core for one day's weather.
+ */
+export interface WeatherDayPayload {
+  seed: number /* uint32 */;
+  day: number /* int */;
+  areas: WeatherArea[];
+}
+/**
+ * AreaWeather is one area's weather for each time slot of a day.
+ */
+export interface AreaWeather {
+  area: string;
+  /**
+   * Slots holds morning, afternoon and evening, in that order.
+   */
+  slots: WeatherParams[];
+  /**
+   * Named holds the derived named weather per slot (clear, cloudy, …).
+   */
+  named: string[];
+}
+/**
+ * WeatherDay is the core's answer to weather.day.
+ */
+export interface WeatherDay {
+  day: number /* int */;
+  areas: AreaWeather[];
+  /**
+   * TyphoonSignal per slot (0 = none, 1, 3, 8, 10), shared by all areas.
+   */
+  typhoonSignal: number /* int */[];
+  /**
+   * Forecast is tomorrow's weather as the radio reports it: the real
+   * generated weather with a little noise, morning-afternoon-evening.
+   */
+  forecast: AreaWeather[];
 }
 
 //////////
