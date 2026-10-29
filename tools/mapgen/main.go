@@ -193,6 +193,8 @@ func build() *tmap {
 	m.fill(36, 26, 23, 1, "awning")
 	m.fill(36, 26, 23, 4, "plaza")
 	m.put(60, 28, "station_sign")
+	m.put(63, 29, "station_sign")
+	m.obj("stop_tko_plaza", "stop", 62, 29, map[string]string{"stop_id": "tko_plaza"})
 	m.obj("plaza_shop", "shop", 47, 25, map[string]string{"title": "Plaza Convenience Store"})
 	m.obj("kei", "npc", 40, 27, map[string]string{"npc_id": "kei", "sprite": "char_kei", "requires_flag": "chapter3_started", "unless_flag": "kei_met"})
 	m.obj("neighbour", "npc", 54, 28, map[string]string{"npc_id": "neighbour", "sprite": "char_neighbour"})
@@ -242,6 +244,10 @@ func build() *tmap {
 	m.fill(0, 57, mapW, 1, "seawall")
 	m.obj("bay_ghost", "enemy", 70, 55, map[string]string{"enemy_id": "water_ghost"})
 	m.fill(0, 58, mapW, 6, "water")
+	// A small ferry pier on Junk Bay.
+	m.fill(70, 56, 3, 1, "boardwalk")
+	m.fill(70, 57, 3, 5, "pier")
+	m.obj("stop_tko_pier", "stop", 71, 55, map[string]string{"stop_id": "tko_pier"})
 
 	// Objects.
 	m.obj("estate_plaza", "spawn", 47, 28, nil)
@@ -319,6 +325,9 @@ func clearWaterBay() *tmap {
 	m.fill(56, 49, 6, 1, "reeds")
 
 	m.obj("cwb_stream", "spot", 22, 16, map[string]string{"spot_id": "cwb_stream"})
+	m.put(36, 44, "station_sign")
+	m.obj("stop_po_toi_o_village", "stop", 37, 44, map[string]string{"stop_id": "po_toi_o_village"})
+	m.obj("stop_po_toi_o_pier", "stop", 31, 56, map[string]string{"stop_id": "po_toi_o_pier"})
 	m.obj("po_toi_o_pier", "spot", 31, 60, map[string]string{"spot_id": "po_toi_o_pier"})
 	m.obj("forest_birds", "bird", 30, 14, map[string]string{"species": "oriental_magpie_robin", "count": "2"})
 	m.obj("cove_egrets", "bird", 58, 51, map[string]string{"species": "little_egret", "count": "2"})

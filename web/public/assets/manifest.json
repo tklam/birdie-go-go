@@ -355,5 +355,19 @@
     "frameWidth": 16,
     "frameHeight": 16,
     "placeholder": true
+  },
+  "vehicle_bus": {
+    "type": "spritesheet",
+    "file": "vehicles/minibus.png",
+    "frameWidth": 32,
+    "frameHeight": 20,
+    "placeholder": true
+  },
+  "vehicle_ferry": {
+    "type": "spritesheet",
+    "file": "vehicles/ferry.png",
+    "frameWidth": 48,
+    "frameHeight": 24,
+    "placeholder": true
   }
 }

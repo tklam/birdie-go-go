@@ -102,6 +102,7 @@ type builder struct {
 	chunks map[[2]int]*chunk
 	areas  map[string]int
 	spawns map[string]model.Point
+	stops  map[string]model.Point
 	fill   int
 	names  []string
 }
@@ -127,7 +128,7 @@ func run(worldPath, outDir string, opts options) error {
 	if err != nil {
 		return fmt.Errorf("%s: %w", worldPath, err)
 	}
-	b := &builder{opts: opts, chunks: map[[2]int]*chunk{}, areas: map[string]int{}, spawns: map[string]model.Point{}}
+	b := &builder{opts: opts, chunks: map[[2]int]*chunk{}, areas: map[string]int{}, spawns: map[string]model.Point{}, stops: map[string]model.Point{}}
 	for _, m := range w.Maps {
 		path := filepath.Join(filepath.Dir(worldPath), m.FileName)
 		if err := b.addMap(path, m.X, m.Y); err != nil {
@@ -235,6 +236,9 @@ func (b *builder) addMap(path string, ox, oy int) error {
 						return fmt.Errorf("duplicate spawn %q", o.Name)
 					}
 					b.spawns[o.Name] = model.Point{X: obj.X, Y: obj.Y}
+				}
+				if typ == "stop" && obj.Props["stop_id"] != "" {
+					b.stops[obj.Props["stop_id"]] = model.Point{X: obj.X, Y: obj.Y}
 				}
 				tx, ty := int(obj.X)/tileSize, int(obj.Y)/tileSize
 				c := b.chunk(tx/chunkTiles, ty/chunkTiles)
@@ -352,6 +356,7 @@ func (b *builder) write(index model.WorldIndex, outDir string) error {
 	index.Fill = model.WorldFill{Ground: b.fill, Collision: model.CollisionSolid}
 	index.Chunks = map[string]string{}
 	index.Spawns = b.spawns
+	index.Stops = b.stops
 	index.TileNames = b.names
 	if index.TileNames == nil {
 		index.TileNames = []string{}

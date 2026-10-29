@@ -54,6 +54,7 @@ export interface ContentBundle {
   enemies: Enemy[];
   missions: Mission[];
   ambient: AmbientNPC[];
+  transit: Transit;
 }
 /**
  * GameInfo is the top-level game metadata from content/game.yaml.
@@ -632,6 +633,45 @@ export interface PackInfo {
 }
 
 //////////
+// source: transit.go
+
+/**
+ * TransitLine is a bus, tram, metro or ferry line (SPEC.md §4.11). Vehicles
+ * ride on the map along Path (world pixels), which passes through the
+ * line's stops in order.
+ */
+export interface TransitLine {
+  id: string;
+  name: string;
+  mode: string;
+  fare: number /* int */;
+  stops: string[];
+  /**
+   * Path waypoints in world pixels, from the first stop to the last; the
+   * ride runs it forwards or backwards.
+   */
+  path: number /* float64 */[][];
+  /**
+   * Speed on the map in px/s.
+   */
+  speed: number /* float64 */;
+}
+/**
+ * TransitStop is a named stop; its position comes from the world index.
+ */
+export interface TransitStop {
+  id: string;
+  name: string;
+}
+/**
+ * Transit is the whole network.
+ */
+export interface Transit {
+  lines: TransitLine[];
+  stops: TransitStop[];
+}
+
+//////////
 // source: weather.go
 
 /**
@@ -754,6 +794,10 @@ export interface WorldIndex {
    * drifting weather front).
    */
   areaCenters: { [key: string]: Point};
+  /**
+   * Stops maps transit stop ids (objects of type "stop") to world pixels.
+   */
+  stops: { [key: string]: Point};
   /**
    * Spawns maps spawn names to world pixel positions.
    */

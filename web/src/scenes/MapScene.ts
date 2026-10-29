@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
 import type { AmbientNPC, Enemy, WeatherDay, WeatherParams, WorldIndex, WorldObject } from '../core/types.gen';
 import { rng } from '../photo/birds';
+import { pathLength, pointAt, ridePath, type Pt } from '../world/path';
+import { floatingButton } from '../ui/panel';
 import { CHUNK_TILES } from '../world/chunk';
 import { blendAt, easeWeather, mixWeather } from '../weather/blend';
 import { WeatherRenderer } from '../weather/renderer';
@@ -125,6 +127,8 @@ export class MapScene extends Phaser.Scene {
   private npcs: OverworldNpc[] = [];
   private passersby: Passerby[] = [];
   private glints!: Phaser.GameObjects.Particles.ParticleEmitter;
+  /** The ride in progress (SPEC.md §4.11), if any. */
+  private ride: { vehicle: Phaser.GameObjects.Sprite; path: Pt[]; length: number; distance: number; speed: number; to: string; line: string; removeSkip: () => void } | null = null;
   private kei: Phaser.GameObjects.Sprite | null = null;
   /** ?debug=chunks / ?debug=weather overlays (developer_guide.md §4.4–4.5). */
   private debug: { chunks: boolean; weather: boolean; g?: Phaser.GameObjects.Graphics; text?: Phaser.GameObjects.Text } = { chunks: false, weather: false };
@@ -158,6 +162,7 @@ export class MapScene extends Phaser.Scene {
     this.enemies = [];
     this.npcs = [];
     this.passersby = [];
+    this.ride = null;
     this.kei = null;
     this.flushedChunks.clear();
     this.ready = false;
@@ -305,6 +310,10 @@ export class MapScene extends Phaser.Scene {
     if (!this.loaded) return;
     const dt = Math.min(delta, 50) / 1000;
     const input = this.input2.read();
+    if (this.ride) {
+      this.updateRide(time, dt);
+      return;
+    }
     const speed = input.sneak ? SNEAK_SPEED : WALK_SPEED;
     const moving = this.ready && !this.busy && modal.open === 0 && (input.x !== 0 || input.y !== 0);
 
@@ -570,6 +579,9 @@ export class MapScene extends Phaser.Scene {
         case 'bench':
           await this.rest();
           break;
+        case 'stop':
+          await this.boardAt(o.props.stop_id);
+          return;
         case 'passerby':
           await showDialogue([{ speaker: o.name, text: o.props.line }]);
           break;
@@ -851,6 +863,89 @@ export class MapScene extends Phaser.Scene {
     this.busy = false;
   }
 
+  // --- Transit (SPEC.md §4.11) ----------------------------------------------
+
+  /** Lists rides from a stop; boarding pays the fare and starts the ride. */
+  private async boardAt(stopId: string): Promise<void> {
+    const s = this.session;
+    const t = s.content.transit;
+    const name = (id: string) => t.stops.find((x) => x.id === id)?.name ?? id;
+    const options = t.lines.flatMap((line) =>
+      line.stops.includes(stopId) ? line.stops.filter((x) => x !== stopId).map((to) => ({ line, to })) : [],
+    );
+    if (options.length === 0) {
+      toast('No services from here yet.');
+      return;
+    }
+    let picked: (typeof options)[number] | null = null;
+    await showMenu(`${name(stopId)}  $${s.state.money}`, [
+      ...options.map((o) => ({
+        label: `${o.line.name} → ${name(o.to)} $${o.line.fare}`,
+        run: async () => ((picked = o), false),
+      })),
+      { label: 'Not now', run: async () => false },
+    ]);
+    const choice = picked as (typeof options)[number] | null;
+    if (!choice) return;
+    if (s.state.money < choice.line.fare) {
+      toast("You can't afford the fare.");
+      return;
+    }
+    const path = ridePath(choice.line.path as Pt[], choice.line.stops, stopId, choice.to);
+    const key = choice.line.mode === 'ferry' ? 'vehicle_ferry' : 'vehicle_bus';
+    if (!path || !this.textures.exists(key)) return;
+    s.state.money -= choice.line.fare;
+    const start = pointAt(path, 0);
+    const vehicle = this.add.sprite(start.x, start.y, key, 0).setOrigin(0.5, 1).setDepth(DEPTH.entities + start.y);
+    this.angie.setVisible(false);
+    this.oboy?.setVisible(false);
+    this.kei?.setVisible(false);
+    this.cameras.main.startFollow(vehicle, true, 1, 1);
+    const removeSkip = floatingButton('Skip', 'back', () => {
+      if (this.ride) this.ride.distance = this.ride.length;
+    });
+    this.ride = { vehicle, path, length: pathLength(path), distance: 0, speed: choice.line.speed, to: choice.to, line: choice.line.id, removeSkip };
+    toast(`${choice.line.name} to ${name(choice.to)}`);
+  }
+
+  private updateRide(time: number, dt: number): void {
+    const r = this.ride;
+    if (!r) return;
+    const view = this.cameras.main.worldView;
+    const here = pointAt(r.path, r.distance);
+    // Stream ahead along the route.
+    this.store.update(wantedChunks({ x: view.x, y: view.y, w: view.width || 320, h: view.height || 180 }, this.store.chunkPx, this.index, 1, { x: here.dx, y: here.dy }));
+    this.chunkRenderer.update();
+    // Wait for the road ahead to load rather than drive into the void.
+    const ts = this.index.tileSize;
+    const ahead = pointAt(r.path, r.distance + 64);
+    if (!this.store.get(Math.floor(ahead.x / ts / CHUNK_TILES), Math.floor(ahead.y / ts / CHUNK_TILES))) return;
+    r.distance = Math.min(r.length, r.distance + r.speed * dt);
+    const p = pointAt(r.path, r.distance);
+    if (Math.abs(p.dx) > 0.1) r.vehicle.setFlipX(p.dx < 0);
+    r.vehicle.setPosition(p.x, p.y).setDepth(DEPTH.entities + p.y).setFrame(Math.floor(time / 150) % 2);
+    this.updateWeather(dt * 1000);
+    this.hud.update(this.session.state, this.weatherLabel());
+    if (r.distance >= r.length) void this.arrive_(r);
+  }
+
+  private async arrive_(r: NonNullable<MapScene['ride']>): Promise<void> {
+    this.ride = null;
+    r.removeSkip();
+    const stop = this.index.stops[r.to];
+    this.pos = { x: stop?.x ?? r.vehicle.x, y: (stop?.y ?? r.vehicle.y) + 4 };
+    r.vehicle.destroy();
+    this.angie.setVisible(true).setPosition(this.pos.x, this.pos.y);
+    this.oboy?.setVisible(true);
+    this.kei?.setVisible(true);
+    this.trail.reset(this.pos.x, this.pos.y);
+    this.cameras.main.startFollow(this.angie, true, 1, 1);
+    const s = this.session;
+    toast(`Arrived at ${s.content.transit.stops.find((x) => x.id === r.to)?.name ?? r.to}.`);
+    await s.fire({ type: 'ride_complete', params: { line: r.line } });
+    await s.save();
+  }
+
   // --- Passers-by (SPEC.md §4.3) --------------------------------------------
 
   /** Spawns each kind of passer-by on open tiles of its areas in a newly loaded chunk (same spots all day). */
@@ -863,7 +958,7 @@ export class MapScene extends Phaser.Scene {
       const areaIdx = def.areas.map((a) => this.index.areas.indexOf(a)).filter((i) => i >= 0);
       const open: number[] = [];
       for (let i = 0; i < chunk.area.length; i++) {
-        if (chunk.collision[i] === 0 && areaIdx.includes(chunk.area[i])) open.push(i);
+        if (chunk.collision[i] === 0 && areaIdx.includes(chunk.area[i]) && this.walkable(chunk.ground[i])) open.push(i);
       }
       if (open.length < 20) continue;
       const random = rng(s.state.worldSeed ^ (s.state.day * 7919) ^ (chunk.cx * 131 + chunk.cy * 977) ^ def.id.length * 31);
@@ -922,7 +1017,9 @@ export class MapScene extends Phaser.Scene {
         for (let tries = 0; tries < 6; tries++) {
           const tx = sx + (Math.random() - 0.5) * 140;
           const ty = sy + (Math.random() - 0.5) * 90;
-          if (this.store.collisionAt(Math.floor(tx / ts), Math.floor((ty - 2) / ts)) === 0) {
+          const gx = Math.floor(tx / ts);
+          const gy = Math.floor((ty - 2) / ts);
+          if (this.store.collisionAt(gx, gy) === 0 && this.walkable(this.store.groundAt(gx, gy))) {
             p.target = { x: tx, y: ty };
             break;
           }
@@ -935,6 +1032,12 @@ export class MapScene extends Phaser.Scene {
       const row = Math.abs(mx) > Math.abs(my) ? (mx < 0 ? 1 : 2) : my < 0 ? 3 : 0;
       p.sprite.setPosition(next.x, next.y).setDepth(DEPTH.entities + next.y).setFrame(row * 4 + 1 + (Math.floor(time / 160) % 3));
     }
+  }
+
+  /** Where passers-by may walk: not on roads (they use pavements and paths). */
+  private walkable(ground: number): boolean {
+    const name = this.index.tileNames[ground - 1];
+    return name !== 'road' && name !== 'road_line';
   }
 
   private makeGlints(): void {
@@ -1206,6 +1309,8 @@ export class MapScene extends Phaser.Scene {
 
 function labelFor(o: WorldObject): string | null {
   switch (o.type) {
+    case 'stop':
+      return 'Board';
     case 'shop':
       return 'Shop';
     case 'radio':

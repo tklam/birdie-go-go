@@ -23,6 +23,8 @@ type WorldIndex struct {
 	// AreaCenters maps area ids to their centroids in world pixels (for the
 	// drifting weather front).
 	AreaCenters map[string]Point `json:"areaCenters"`
+	// Stops maps transit stop ids (objects of type "stop") to world pixels.
+	Stops map[string]Point `json:"stops"`
 	// Spawns maps spawn names to world pixel positions.
 	Spawns map[string]Point `json:"spawns"`
 }

@@ -14,6 +14,7 @@ const index: WorldIndex = {
   fill: { ground: 7, collision: 1 },
   tileNames: [],
   areaCenters: {},
+  stops: {},
   chunks: { '0,0': 'a.bin', '1,0': 'b.bin', '1,1': 'c.bin' },
   spawns: {},
 };

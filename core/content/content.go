@@ -34,6 +34,7 @@ var (
 	EnemyKinds   = []string{"dog", "monster"}
 	Ratings      = []string{"good", "great", "perfect"}
 	AmbientKinds = []string{"walker", "birder"}
+	TransitModes = []string{"bus", "tram", "metro", "ferry"}
 	WeatherKeys  = []string{"cloud", "precip", "temp", "fog", "wind", "uv", "signal"}
 	KeiStages    = []string{"met", "friends", "dating", "engaged", "married"}
 
@@ -117,6 +118,21 @@ func Validate(b *model.ContentBundle) []error {
 		for _, sl := range a.Slots {
 			v.require(slices.Contains(TimeSlots, sl), "ambient %s: unknown time slot %q", a.ID, sl)
 		}
+	}
+	stops := v.ids("stop", len(b.Transit.Stops), func(i int) string { return b.Transit.Stops[i].ID })
+	v.ids("line", len(b.Transit.Lines), func(i int) string { return b.Transit.Lines[i].ID })
+	for _, l := range b.Transit.Lines {
+		v.require(l.Name != "", "line %s: name is required", l.ID)
+		v.require(slices.Contains(TransitModes, l.Mode), "line %s: unknown mode %q", l.ID, l.Mode)
+		v.require(l.Fare >= 0 && l.Speed > 0, "line %s: fare must be ≥ 0 and speed > 0", l.ID)
+		v.require(len(l.Stops) >= 2, "line %s: needs at least two stops", l.ID)
+		for _, st := range l.Stops {
+			v.require(stops[st], "line %s: unknown stop %q", l.ID, st)
+		}
+		v.require(len(l.Path) >= 2, "line %s: path needs at least two points", l.ID)
+	}
+	for _, st := range b.Transit.Stops {
+		v.require(st.Name != "", "stop %s: name is required", st.ID)
 	}
 	for _, m := range b.Missions {
 		v.mission(m, refs{areas: areas, students: students}, birds, items)

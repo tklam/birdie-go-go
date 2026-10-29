@@ -181,6 +181,22 @@ type ambientYAML struct {
 	Lines    []string `yaml:"lines"`
 }
 
+type transitYAML struct {
+	Lines []struct {
+		ID    string       `yaml:"id"`
+		Name  string       `yaml:"name"`
+		Mode  string       `yaml:"mode"`
+		Fare  int          `yaml:"fare"`
+		Stops []string     `yaml:"stops"`
+		Path  [][2]float64 `yaml:"path"`
+		Speed float64      `yaml:"speed"`
+	} `yaml:"lines"`
+	Stops []struct {
+		ID   string `yaml:"id"`
+		Name string `yaml:"name"`
+	} `yaml:"stops"`
+}
+
 type songYAML struct {
 	ID            string  `yaml:"id"`
 	Title         string  `yaml:"title"`
@@ -236,6 +252,7 @@ func load(dir string) (*model.ContentBundle, error) {
 		Areas: []model.Area{}, Birds: []model.Bird{}, Spots: []model.Spot{}, Students: []model.Student{},
 		Songs: []model.Song{}, Events: []model.Event{}, Dialogue: []model.Dialogue{}, Music: []model.Music{},
 		Items: []model.Item{}, Hazards: []model.Hazard{}, Enemies: []model.Enemy{}, Missions: []model.Mission{}, Ambient: []model.AmbientNPC{},
+		Transit: model.Transit{Lines: []model.TransitLine{}, Stops: []model.TransitStop{}},
 	}
 
 	var g gameYAML
@@ -284,6 +301,19 @@ func load(dir string) (*model.ContentBundle, error) {
 			h.Breaks = &model.HazardBreak{Item: x.Breaks.Item, Min: x.Breaks.Min}
 		}
 		b.Hazards = append(b.Hazards, h)
+	}
+
+	var transit transitYAML
+	if err := readOptional(filepath.Join(dir, "transit.yaml"), &transit); err != nil {
+		return nil, err
+	}
+	for _, l := range transit.Lines {
+		b.Transit.Lines = append(b.Transit.Lines, model.TransitLine{
+			ID: l.ID, Name: l.Name, Mode: l.Mode, Fare: l.Fare, Stops: orEmpty(l.Stops), Path: l.Path, Speed: l.Speed,
+		})
+	}
+	for _, st := range transit.Stops {
+		b.Transit.Stops = append(b.Transit.Stops, model.TransitStop{ID: st.ID, Name: st.Name})
 	}
 
 	var ambient []ambientYAML
