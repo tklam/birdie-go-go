@@ -58,7 +58,7 @@ type manifestEntry struct {
 }
 
 func gen(assets, tilesets string) error {
-	steps := []func(string) error{genAngie, genOBoy, genPeople, genPhotographer, genBirds, genBackgrounds, genEnemies, genVehicles, genUmbrella}
+	steps := []func(string) error{genCharacters, genOBoy, genPhotographer, genBirds, genBackgrounds, genEnemies, genVehicles, genUmbrella}
 	for _, step := range steps {
 		if err := step(assets); err != nil {
 			return err
