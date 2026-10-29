@@ -373,9 +373,10 @@ make build        # → dist/ (static site: HTML, JS, core.wasm, content, world 
 - **Host `dist/` on any static host** (GitHub Pages, Netlify, Cloudflare Pages, S3+CDN). Serve `.wasm` as `application/wasm` and give hashed chunk and asset files long-lived `Cache-Control: immutable`.
 - **Optional update server:**
   ```sh
-  make pack VERSION=1.1.0     # → packs/base-1.1.0.pack + updated manifest
+  make pack VERSION=1.1.0     # validates content/, writes packs/base-1.1.0.pack and updates packs/manifest.json
   go run ./server/cmd/birdie-server -addr :8080 -packs ./packs
   ```
+  A pack is JSON `{id, version, minClient, content}`; clients merge its content over theirs by id (missions, events, dialogue, birds, spots, items, transit, …). Map changes in packs are *(planned)*. Try it locally with `?updates=http://localhost:8080`; the pack applies on the next start.
   The game finds the server through `VITE_UPDATE_SERVER` at build time or the `?updates=` URL parameter. Run it behind HTTPS and enable CORS for the game's origin.
 - **Packs are additive:** bump `minClient` when a pack needs newer client code.
 

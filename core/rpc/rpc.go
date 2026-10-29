@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"strconv"
 
+	"birdiegogo/core/content"
 	"birdiegogo/core/lesson"
 	"birdiegogo/core/model"
 	"birdiegogo/core/weather"
@@ -79,6 +80,16 @@ func (s *Server) dispatch(req model.Request) (any, error) {
 			return nil, fmt.Errorf("weather.day: %w", err)
 		}
 		return day, nil
+	case "content.validate":
+		var b model.ContentBundle
+		if err := decodePayload(req.Payload, &b); err != nil {
+			return nil, err
+		}
+		out := model.ContentValidateResult{Errors: []string{}}
+		for _, e := range content.Validate(&b) {
+			out.Errors = append(out.Errors, e.Error())
+		}
+		return out, nil
 	default:
 		return nil, fmt.Errorf("unknown op %q", req.Op)
 	}

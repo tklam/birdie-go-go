@@ -150,10 +150,11 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [~] Radio forecast per area done; explicit UV / heat / wind warnings still to do
 
 ## M5: Content updates (optional server, §9.6)
-- [ ] `make pack`: build update packs (content + replaced chunks), manifest, SHA-256
-- [ ] `server/cmd/birdie-server`: serve manifest and packs, CORS, immutable caching
-- [ ] Client: check manifest, background download, validate via core, apply at title / day start
-- [ ] Live missions with real-world date windows
+- [x] `make pack VERSION=x.y.z`: validated content pack + manifest entry with size and SHA-256
+- [ ] Map updates in packs (replaced chunks / new regions)
+- [x] `server/cmd/birdie-server`: serve manifest and packs, CORS, immutable caching
+- [x] Client: background manifest check (`?updates=` or VITE_UPDATE_SERVER), SHA-256 check, validation in the Go core (`content.validate`), IndexedDB storage, merge by id at next start
+- [~] Live missions via packs work (verified end to end); real-world date windows still to do
 - [ ] Graceful handling of removed or expired IDs in saves
 - [ ] (Later) cloud save sync
 

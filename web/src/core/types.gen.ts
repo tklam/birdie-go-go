@@ -614,6 +614,13 @@ export interface PingResult {
   coreVersion: string;
 }
 /**
+ * ContentValidateResult is the result of the content.validate op: every
+ * problem found (empty when the bundle is valid).
+ */
+export interface ContentValidateResult {
+  errors: string[];
+}
+/**
  * UpdateManifest lists the content packs published by the optional update
  * server.
  */

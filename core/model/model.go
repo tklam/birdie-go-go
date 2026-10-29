@@ -36,6 +36,12 @@ type PingResult struct {
 	CoreVersion string `json:"coreVersion"`
 }
 
+// ContentValidateResult is the result of the content.validate op: every
+// problem found (empty when the bundle is valid).
+type ContentValidateResult struct {
+	Errors []string `json:"errors"`
+}
+
 // UpdateManifest lists the content packs published by the optional update
 // server.
 type UpdateManifest struct {

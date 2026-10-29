@@ -61,8 +61,9 @@ build: core content world web/node_modules
 server:
 	$(GO) run ./server/cmd/birdie-server -addr :8080 -packs packs
 
-pack:
-	@echo "pack: content packs arrive in TODO.md M5"; exit 1
+# Build a content update pack: make pack VERSION=1.1.0 [ID=base] [MIN_CLIENT=0.1.0]
+pack: content
+	$(GO) run ./tools/packbuild -bundle $(PUBLIC)/content/base.json -id $(or $(ID),base) -version $(VERSION) -min-client $(or $(MIN_CLIENT),0.1.0) -out packs
 
 web/node_modules: web/package.json web/package-lock.json
 	cd web && npm ci

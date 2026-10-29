@@ -3,6 +3,8 @@ import type { CoreClient } from '../core/client';
 import type { ContentBundle } from '../core/types.gen';
 import { Session } from '../systems/session';
 import { TEXT } from '../ui/text';
+import { toast } from '../ui/toast';
+import { applyPacks, checkForUpdates, IndexedDBPackStore, updateServer } from '../systems/updates';
 
 /** Title screen: New Game / Continue. Records <body data-boot> for automated checks. */
 export class TitleScene extends Phaser.Scene {
@@ -19,9 +21,16 @@ export class TitleScene extends Phaser.Scene {
     const status = this.add.text(width / 2, height - 10, '', { ...TEXT, color: '#6e6e80' }).setOrigin(0.5);
 
     const core = this.registry.get('core') as CoreClient;
-    const content = this.registry.get('content') as ContentBundle;
-    void Promise.all([core.ping('chirp'), Session.open(content, core)]).then(
-      ([ping, { session, hasSave }]) => {
+    const base = this.registry.get('content') as ContentBundle;
+    const packs = new IndexedDBPackStore();
+    // Installed content updates apply at start (SPEC.md §9.6).
+    const ready = applyPacks(base, packs, core).then(async ({ content, applied }) => {
+      if (applied.length) console.info('content packs applied:', applied.join(', '));
+      this.registry.set('content', content);
+      return { content, opened: await Session.open(content, core) };
+    });
+    void Promise.all([core.ping('chirp'), ready]).then(
+      ([ping, { content, opened: { session, hasSave } }]) => {
         this.registry.set('session', session);
         // Apply saved volumes.
         const audio = this.registry.get('audio') as { setVolume(bus: string, v: number): void } | undefined;
@@ -29,6 +38,12 @@ export class TitleScene extends Phaser.Scene {
         audio?.setVolume('sfx', session.state.settings.sfxVolume);
         status.setText(`core v${ping.coreVersion} · content v${content.game.contentVersion}`);
         document.body.dataset.boot = 'ok';
+        const server = updateServer();
+        if (server) {
+          void checkForUpdates(server, packs, core).then((got) => {
+            if (got.length) toast('An update was downloaded. It applies next time you start.', 4000);
+          });
+        }
         const options: [string, () => void][] = [];
         if (hasSave) options.push(['Continue', () => this.start()]);
         options.push([
