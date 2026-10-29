@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import type { Bird, Spot } from '../core/types.gen';
-import { available, idlePose, landingSpots, pickSpecies, rng, type Pose } from '../photo/birds';
+import { available, idlePose, landingSpots, rng, visitors, type Pose } from '../photo/birds';
 import type { Manifest, ManifestEntry } from '../systems/assets';
 import { frameIndex } from '../systems/assets';
 import {
@@ -110,7 +110,7 @@ export class PhotoScene extends Phaser.Scene {
 
     // Visitors for this session, chosen by the spot's bird table.
     const table = available(spot, { slot: state.slot, season: season(state.day), flags: state.flags });
-    this.toSpawn = pickSpecies(table, 3 + Math.floor(this.random() * 3), this.random);
+    this.toSpawn = visitors(table, 3 + Math.floor(this.random() * 3), this.random);
     this.nextSpawn = this.time.now + 600;
     for (const id of new Set(this.toSpawn)) this.measure(`bird_${id}`);
 

@@ -20,8 +20,21 @@ export function available(spot: Spot, ctx: { slot: TimeSlot; season: Season; fla
       b.weight > 0 &&
       (!b.slots?.length || b.slots.includes(ctx.slot)) &&
       (!b.seasons?.length || b.seasons.includes(ctx.season)) &&
-      (!b.requiresFlag || ctx.flags[b.requiresFlag] === true),
+      (!b.requiresFlag || ctx.flags[b.requiresFlag] === true) &&
+      (!b.unlessFlag || ctx.flags[b.unlessFlag] !== true),
   );
+}
+
+/**
+ * The session's visitors: `count` species by weight, plus one of each
+ * `always` entry (story birds), which arrives second so it isn't first in.
+ */
+export function visitors(table: SpotBird[], count: number, random: () => number): string[] {
+  const out = pickSpecies(table, count, random);
+  for (const b of table) {
+    if (b.always && !out.includes(b.species)) out.splice(Math.min(1, out.length), 0, b.species);
+  }
+  return out;
 }
 
 /** Picks `count` species ids by weight (with replacement). */

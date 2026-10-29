@@ -163,6 +163,21 @@
       "back_turned"
     ]
   },
+  "bird_pacific_parrotlet": {
+    "type": "spritesheet",
+    "file": "birds/pacific_parrotlet.png",
+    "frameWidth": 32,
+    "frameHeight": 32,
+    "frames": [
+      "perched",
+      "perched_alert",
+      "wings_spread",
+      "flying1",
+      "flying2",
+      "back_turned"
+    ],
+    "placeholder": true
+  },
   "bird_red_whiskered_bulbul": {
     "type": "spritesheet",
     "file": "birds/red_whiskered_bulbul.png",
@@ -201,6 +216,13 @@
   "owbird_oriental_magpie_robin": {
     "type": "spritesheet",
     "file": "birds/ow_oriental_magpie_robin.png",
+    "frameWidth": 8,
+    "frameHeight": 8,
+    "placeholder": true
+  },
+  "owbird_pacific_parrotlet": {
+    "type": "spritesheet",
+    "file": "birds/ow_pacific_parrotlet.png",
     "frameWidth": 8,
     "frameHeight": 8,
     "placeholder": true

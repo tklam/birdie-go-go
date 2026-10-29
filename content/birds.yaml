@@ -29,3 +29,14 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage, fly]
+# O Boy's species. In the story he's a blue-green (color mutation) pet that got loose.
+- id: pacific_parrotlet
+  name: Pacific Parrotlet
+  sprite: bird_pacific_parrotlet
+  overworld_sprite: owbird_pacific_parrotlet
+  skittishness: 0.1
+  size_band: [0.06, 0.25]
+  speed: 110
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.95, perched: 0.85, flying: 0.75, flapping: 0.5, back_turned: 0.4 }
+  behaviors: [perch, hop, fly]

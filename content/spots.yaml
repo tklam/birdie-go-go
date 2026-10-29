@@ -7,6 +7,8 @@
     - { species: little_egret, weight: 4 }
     - { species: oriental_magpie_robin, weight: 3, slots: [morning, afternoon] }
     - { species: red_whiskered_bulbul, weight: 2 }
+    # Chapter 1: a lost blue-green parrotlet among the wild birds (SPEC.md §8).
+    - { species: pacific_parrotlet, weight: 2, always: true, requires_flag: chapter1_started, unless_flag: oboy_found }
 - id: tko_estate_garden
   name: Estate Garden
   area: tko_town

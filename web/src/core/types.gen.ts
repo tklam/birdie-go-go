@@ -72,6 +72,16 @@ export interface SpotBird {
   slots?: string[];
   seasons?: string[];
   requiresFlag?: string;
+  /**
+   * UnlessFlag hides the entry once the flag is set (e.g. after a story
+   * bird has joined the party).
+   */
+  unlessFlag?: string;
+  /**
+   * Always guarantees one appearance per session while available (story
+   * birds).
+   */
+  always?: boolean;
 }
 /**
  * Student is a piano student (SPEC.md §6.5).

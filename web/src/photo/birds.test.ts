@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Spot } from '../core/types.gen';
-import { available, idlePose, landingSpots, pickSpecies, rng } from './birds';
+import { available, idlePose, landingSpots, pickSpecies, rng, visitors } from './birds';
 
 const spot: Spot = {
   id: 'park',
@@ -12,7 +12,7 @@ const spot: Spot = {
     { species: 'egret', weight: 4 },
     { species: 'robin', weight: 3, slots: ['morning'] },
     { species: 'gull', weight: 2, seasons: ['winter'] },
-    { species: 'parrotlet', weight: 1, requiresFlag: 'chapter1' },
+    { species: 'parrotlet', weight: 1, requiresFlag: 'chapter1', unlessFlag: 'oboy_joined' },
     { species: 'ghost', weight: 0 },
   ],
 };
@@ -23,6 +23,8 @@ describe('available', () => {
     expect(now).toEqual(['egret']);
     const later = available(spot, { slot: 'morning', season: 'winter', flags: { chapter1: true } }).map((b) => b.species);
     expect(later).toEqual(['egret', 'robin', 'gull', 'parrotlet']);
+    const after = available(spot, { slot: 'morning', season: 'winter', flags: { chapter1: true, oboy_joined: true } });
+    expect(after.map((b) => b.species)).not.toContain('parrotlet');
   });
 });
 
@@ -41,6 +43,20 @@ describe('pickSpecies', () => {
 
   it('returns nothing for an empty table', () => {
     expect(pickSpecies([], 3, rng(1))).toEqual([]);
+  });
+});
+
+describe('visitors', () => {
+  it('always includes story birds, arriving second', () => {
+    const table = [
+      { species: 'a', weight: 100 },
+      { species: 'story', weight: 0.001, always: true },
+    ];
+    for (let seed = 0; seed < 20; seed++) {
+      const v = visitors(table, 3, rng(seed));
+      expect(v.filter((s) => s === 'story')).toHaveLength(1);
+      expect(v[1]).toBe('story');
+    }
   });
 });
 

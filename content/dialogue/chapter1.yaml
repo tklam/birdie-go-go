@@ -1,0 +1,16 @@
+- id: chapter1_rumour
+  lines:
+    - { speaker: angie, text: "Morning, Tseung Kwan O!" }
+    - { speaker: neighbour, text: "Morning! Did you hear? Someone saw a little blue-green bird at the waterfront park." }
+    - { speaker: neighbour, text: "Not a wild one, I think. Too tame. Must be somebody's pet." }
+    - { speaker: angie, text: "A lost pet? I'll keep an eye out when I'm birding by the bay." }
+- id: oboy_found
+  lines:
+    - { speaker: angie, text: "That little teal bird... it's a Pacific parrotlet! They don't live wild here." }
+    - { speaker: angie, text: "Hey there. Are you lost?" }
+    - { speaker: parrotlet, text: "Chirp! Chirrup!" }
+    - { speaker: angie, text: "Whoa, you landed right on my shoulder! You're not scared of me at all." }
+    - { speaker: angie, text: "Oh boy... you look hungry. Want to come home with me until we find your owner?" }
+    - { speaker: parrotlet, text: "Chirp!" }
+    - { speaker: angie, text: "Oh boy... O Boy! That's your name now." }
+    - { speaker: oboy, text: "Chirrup!" }

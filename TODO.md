@@ -90,7 +90,8 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 
 ## M3: Companions (§7)
 - [ ] Bond system
-- [ ] O Boy join event (Chapter 1); shoulder perch; abilities; travel carrier
+- [x] O Boy join event (Chapter 1: rumour on day 2, guaranteed parrotlet at the waterfront, naming scene, joins the party); shoulder perch; alert slowdown in photo scenes
+- [ ] O Boy: piano hints, contact call, spotting, travel carrier
 - [ ] Party selection (home / talk to companion)
 - [ ] Kei join event (Chapter 3); follower movement; `friends` abilities
 - [ ] Kei romance stages and abilities through `married`

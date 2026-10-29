@@ -1,0 +1,21 @@
+# Chapter 1: finding O Boy (SPEC.md §8). Placeholder text until the story is written.
+- id: chapter1_rumour
+  trigger: { type: day_start }
+  conditions:
+    - flag_set: prologue_first_photo
+    - flag_not_set: chapter1_started
+  actions:
+    - set_chapter: 1
+    - set_flag: chapter1_started
+    - dialogue: chapter1_rumour
+
+- id: oboy_found
+  trigger: { type: photo_session_end, spot: tko_waterfront_park }
+  conditions:
+    - album_has: pacific_parrotlet
+    - flag_not_set: oboy_found
+  actions:
+    - dialogue: oboy_found
+    - set_flag: oboy_found
+    - join_party: oboy
+    - add_bond: { who: oboy, amount: 10 }

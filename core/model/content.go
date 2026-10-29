@@ -60,6 +60,12 @@ type SpotBird struct {
 	Slots        []string `json:"slots,omitempty"`
 	Seasons      []string `json:"seasons,omitempty"`
 	RequiresFlag string   `json:"requiresFlag,omitempty"`
+	// UnlessFlag hides the entry once the flag is set (e.g. after a story
+	// bird has joined the party).
+	UnlessFlag string `json:"unlessFlag,omitempty"`
+	// Always guarantees one appearance per session while available (story
+	// birds).
+	Always bool `json:"always,omitempty"`
 }
 
 // Student is a piano student (SPEC.md §6.5).

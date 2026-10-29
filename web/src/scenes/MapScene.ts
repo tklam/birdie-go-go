@@ -149,11 +149,9 @@ export class MapScene extends Phaser.Scene {
       x: saved?.x ?? spawn?.x ?? 0,
       y: saved?.y ?? spawn?.y ?? 0,
     };
+    this.oboy = null;
     this.angie = this.add.sprite(this.pos.x, this.pos.y, 'char_angie', 0).setOrigin(0.5, 1);
     this.trail.reset(this.pos.x, this.pos.y);
-    if (state.party.includes('oboy')) {
-      this.oboy = this.add.sprite(this.pos.x, this.pos.y, 'char_oboy', 0).setOrigin(0.5, 1).play('oboy-idle');
-    }
 
     // Camera bounds come from the placed maps, not the chunk grid, so small
     // interiors don't show fill around them.
@@ -229,9 +227,13 @@ export class MapScene extends Phaser.Scene {
     }
     this.angie.setPosition(this.pos.x, this.pos.y).setDepth(DEPTH.entities + this.pos.y);
     this.trail.push(this.pos.x, this.pos.y);
+    if (!this.oboy && this.session.state.party.includes('oboy')) {
+      this.oboy = this.add.sprite(this.pos.x, this.pos.y, 'char_oboy', 0).setOrigin(0.5, 1).play('oboy-idle');
+    }
     if (this.oboy) {
-      const side = this.facing === 'left' ? 3 : -3;
-      this.oboy.setPosition(this.pos.x + side, this.pos.y - 15).setDepth(DEPTH.entities + this.pos.y + 1);
+      // Perched on the shoulder away from where she's facing.
+      const side = this.facing === 'left' ? 5 : -5;
+      this.oboy.setFlipX(this.facing === 'left').setPosition(this.pos.x + side, this.pos.y - 11).setDepth(DEPTH.entities + this.pos.y + 1);
     }
 
     this.session.state.position = { map: this.mapId, x: Math.round(this.pos.x), y: Math.round(this.pos.y) };

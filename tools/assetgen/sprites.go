@@ -141,6 +141,8 @@ var birdLooks = []birdLook{
 		accent: cRed, beak: cBlack, legs: cDarkGray, accentAt: [2]int{3, 4}},
 	{id: "oriental_magpie_robin", back: cBlack, belly: cWhite, head: cBlack, wing: cWhite,
 		accent: cBlack, beak: cBlack, legs: cDarkGray, accentAt: [2]int{3, 4}},
+	{id: "pacific_parrotlet", back: cTeal, belly: cPaleGreen, head: cTeal, wing: cDarkTeal,
+		accent: cBlue, beak: cSkin, legs: cSkin, accentAt: [2]int{1, 2}},
 	{id: "little_egret", back: cWhite, belly: cWhite, head: cWhite, wing: cLightGray,
 		accent: cYellow, beak: cBlack, legs: cBlack, accentAt: [2]int{4, 2}, longNeck: true},
 }
