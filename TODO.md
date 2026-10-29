@@ -7,7 +7,7 @@ Milestones are ordered, and each one ends in something playable. `§n` refers to
 - [x] Design docs: SPEC.md, AGENTS.md, TODO.md, developer_guide.md, user_guide.md
 - [x] `git init`, `.gitignore`, `.editorconfig`
 - [x] Go module; `core/` skeleton with `core.wasm` and a worker "ping" round trip (verified in headless Chromium, dev and production builds)
-- [ ] Verify the TinyGo build of `core.wasm` (TinyGo wasn't installed locally; the standard Go fallback is used)
+- [x] Verify the TinyGo build of `core.wasm` (≈485 KB; standard Go fallback ≈3 MB)
 - [x] Vite + TypeScript + Phaser 3 app at 320×180 with pixel-perfect integer scaling (in device pixels)
 - [x] `tools/contentbuild` and `tools/worldbuild` skeletons (world index only; chunking is M1)
 - [x] `Makefile`: `dev`, `core`, `content`, `world`, `assets`, `gen`, `test`, `lint`, `bench`, `build`, `server`, `pack` (`bench`, `pack`, and `assets gen` are stubs that fail with a pointer to their milestone)
@@ -15,7 +15,8 @@ Milestones are ordered, and each one ends in something playable. `§n` refers to
 - [x] `tygo` config and first `types.gen.ts`
 - [x] Optional update server skeleton: health, manifest, pack files, CORS
 - [x] PWA: manifest + service worker precaching
-- [ ] PWA: verify offline start and install on a real phone
+- [x] PWA: offline start verified in headless Chromium (service worker precaches game, content, chunks, font)
+- [ ] PWA: verify install and offline play on a real phone
 - [x] CI workflow written (lint, test, build with TinyGo)
 - [ ] CI: confirm it passes on GitHub after the first push
 - [ ] HTTPS dev server for phone testing (needs an approved plugin, e.g. `@vitejs/plugin-basic-ssl`)
@@ -30,14 +31,14 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Input layer that unifies touch and keyboard (mouse: via touch controls; click-to-move later)
 - [~] 16-bit UI kit: window frames, dialogue box with typewriter, area toast pixel font (Press Start 2P), menus, album list (still to do: portraits)
 - [x] Touch controls: floating joystick, Action button (context label), Menu button
-- [ ] Audio: unlock on first gesture, SoundFont synth, music sequencer
+- [~] Audio: unlock on first gesture, synthesized piano, metronome, SFX (SoundFont sample bank and music sequencer still to do)
 
 ### World and streaming (§4.10, §9.7)
 - [x] `worldbuild`: chunking, collision, areas, objects, content-hashed files, world index
 - [x] Streaming worker: fetch + gunzip + decode
 - [x] Active window, prefetch, LRU, one-bake-per-frame scheduler
 - [ ] `?debug=chunks` overlay
-- [ ] `make bench` with frame-time and memory budgets
+- [x] `make bench` with frame-time and memory budgets (p95 16.7 ms at 4× CPU throttle, heap ≈12 MB)
 
 ### Overworld (§4)
 - [x] Tseung Kwan O starter map (generated placeholder): housing estates, footbridge, mall plaza, estate garden, waterfront park, hillside trail
@@ -63,9 +64,10 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Song format + 2 placeholder songs
 - [x] `core/lesson` generator (§6.2), deterministic, tested
 - [x] `core/lesson` grader (§6.3), tested
-- [ ] Piano roll, playhead, Mistake button
-- [ ] Latency calibration (§6.4)
-- [ ] Results screen revealing mistakes
+- [x] Piano roll, playhead, Mistake button
+- [x] Latency calibration (§6.4)
+- [x] Results screen revealing mistakes
+- [ ] Known issue: after a hesitation/drag the roll drifts from the audio (the roll is score time, audio is performance time); needs a score↔performance time map from the core
 
 ### Systems
 - [x] Event system (§9.4), unit tested

@@ -69,7 +69,7 @@ export default defineConfig({
         icons: [{ src: 'icon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' }],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,json,wasm}'],
+        globPatterns: ['**/*.{js,css,html,svg,png,json,wasm,bin,ttf}'],
         // core.wasm is ~3 MB with standard Go (smaller with TinyGo).
         maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
       },
