@@ -48,6 +48,10 @@ func run(dir string, force bool) error {
 	if err := writeJSON(filepath.Join(dir, "clear_water_bay.tmj"), east.tiled("tilesets")); err != nil {
 		return err
 	}
+	pebble := pebbleIsland()
+	if err := writeJSON(filepath.Join(dir, "pebble_island.tmj"), pebble.tiled("tilesets")); err != nil {
+		return err
+	}
 	marsh := wetlands()
 	if err := writeJSON(filepath.Join(dir, "wetlands.tmj"), marsh.tiled("tilesets")); err != nil {
 		return err
@@ -63,6 +67,7 @@ func run(dir string, force bool) error {
 			{"fileName": "clear_water_bay.tmj", "x": m.w * tileSize, "y": 0, "width": east.w * tileSize, "height": east.h * tileSize},
 			{"fileName": "island.tmj", "x": 0, "y": m.h * tileSize, "width": island.w * tileSize, "height": island.h * tileSize},
 			{"fileName": "wetlands.tmj", "x": m.w * tileSize, "y": m.h * tileSize, "width": marsh.w * tileSize, "height": marsh.h * tileSize},
+			{"fileName": "pebble_island.tmj", "x": (m.w + east.w) * tileSize, "y": 56 * tileSize, "width": pebble.w * tileSize, "height": pebble.h * tileSize},
 		},
 	}
 	if err := writeJSON(filepath.Join(dir, "city.world"), world); err != nil {
@@ -296,6 +301,55 @@ func build() *tmap {
 // Country Park (woodland trails, a stream) and the Po Toi O fishing-village
 // cove. Its west edge lines up with TKO's east edge: hill trail (rows 0–19),
 // road (rows 30–32) and waterfront boardwalk (rows 54–55).
+// pebbleIsland is an outlying island east of Clear Water Bay (original,
+// lightly inspired by Hong Kong's car-free islands), reached by the Island
+// Ferry from Po Toi O: a pier, a fishing village, a hilltop and a long beach.
+func pebbleIsland() *tmap {
+	const w, h = 64, 40
+	m := newMap(w, h)
+	m.area(0, 24, "pebble_village")
+	m.area(24, h, "pebble_beach")
+	m.fill(0, 0, w, 10, "water")
+	m.fill(10, 3, 3, 7, "pier")
+	m.put(15, 6, "boat")
+	m.put(6, 8, "boat")
+	m.fill(0, 10, w, 1, "seawall")
+	m.fill(10, 10, 3, 1, "boardwalk")
+	m.fill(0, 11, w, 3, "pavement")
+	for i, x := range []int{2, 16, 30, 44} {
+		m.fill(x, 14, 8, 1, "village_roof")
+		m.fill(x, 15, 8, 2, "village_wall")
+		if i%2 == 1 {
+			m.put(x+8, 16, "fishing_net")
+		}
+	}
+	m.fill(0, 17, w, 2, "pavement")
+	// The hilltop.
+	m.fill(0, 19, w, 5, "hill_grass")
+	for i := range 18 {
+		m.tree(int(hash(i, 31)%w), 20+int(hash(i, 32)%4))
+	}
+	m.fill(56, 11, 3, 13, "trail")
+	// The beach and the sea beyond.
+	m.fill(0, 24, w, 10, "sand")
+	m.fill(0, 34, w, 6, "water")
+	for _, x := range []int{8, 24, 40} {
+		m.put(x, 26, "bench")
+	}
+	for i := range 8 {
+		m.put(int(hash(i, 33)%w), 30+int(hash(i, 34)%3), "rock")
+	}
+	m.obj("stop_pebble_pier", "stop", 11, 11, map[string]string{"stop_id": "pebble_pier"})
+	m.obj("pebble_shop", "shop", 34, 16, map[string]string{"title": "Island Snack Shack", "shop_id": "pebble_snacks"})
+	m.obj("pebble_beach", "spot", 30, 28, map[string]string{"spot_id": "pebble_beach"})
+	m.obj("pebble_hilltop", "spot", 20, 21, map[string]string{"spot_id": "pebble_hilltop"})
+	m.obj("beach_plovers", "bird", 46, 29, map[string]string{"species": "kentish_plover", "count": "3"})
+	m.obj("feather_beach", "collectible", 60, 31, map[string]string{"item": "feather"})
+	m.obj("part_village", "collectible", 5, 18, map[string]string{"item": "camera_part"})
+	m.obj("beach_ghost", "enemy", 12, 32, map[string]string{"enemy_id": "water_ghost"})
+	return m
+}
+
 // wetlands is the fishpond country (NW wetlands inspired, original layout),
 // reached by the Wetland Line: fishponds on bunds, reed beds, a bird hide on
 // a boardwalk, and a deep mudflat that needs wading boots.

@@ -8,3 +8,6 @@
 - id: po_toi_o_store
   title: Village Store
   stock: [milk_tea, pineapple_bun, curry_fish_balls, water_bottle, sticky_rice, sea_salt, dog_treat]
+- id: pebble_snacks
+  title: Island Snack Shack
+  stock: [milk_tea, pineapple_bun, curry_fish_balls, water_bottle, sunscreen, sun_hat, sea_salt]

@@ -355,6 +355,13 @@ var tileArt = map[string]func(k cell){
 		k.ellipse(3, 5, 10, 6, cTan)
 		k.line(1, 8, 14, 8, cRed)
 	},
+	"sand": func(k cell) {
+		k.rect(0, 0, tile, tile, cSand)
+		for i := range 10 {
+			k.set(int(hash3(i, 3, 90)%tile), int(hash3(i, 4, 91)%tile), cTan)
+		}
+		k.set(int(hash3(1, 5, 92)%tile), int(hash3(2, 6, 93)%tile), cWhite)
+	},
 	"fishing_net": func(k cell) {
 		k.rect(0, 0, tile, tile, cBrown)
 		for i := 0; i < tile; i += 3 {
@@ -384,6 +391,8 @@ var metaColors = map[string]uint8{
 	"area_island_harbourfront": cSky,
 	"area_island_peak":         cOlive,
 	"area_wetlands":            cYellowGreen,
+	"area_pebble_village":      cBrick,
+	"area_pebble_beach":        cSand,
 }
 
 // genTiles writes the TKO atlas and meta tileset images plus their Tiled

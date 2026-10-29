@@ -381,4 +381,39 @@
     - { species: osprey, weight: 2 }
     - { species: whiskered_tern, weight: 2, seasons: [spring, summer, autumn] }
     - { species: great_cormorant, weight: 2, seasons: [autumn, winter] }
+# Pebble Island.
+- id: pebble_beach
+  name: Pebble Beach
+  area: pebble_beach
+  background: bg_waterfront
+  shots: 12
+  birds:
+    - { species: kentish_plover, weight: 3 }
+    - { species: common_sandpiper, weight: 2 }
+    - { species: pacific_reef_heron, weight: 3 }
+    - { species: whiskered_tern, weight: 2, seasons: [spring, summer, autumn] }
+    - { species: black_kite, weight: 2 }
+    - { species: white_bellied_sea_eagle, weight: 1 }
+    - { species: whimbrel, weight: 1, seasons: [spring, autumn] }
+    - { species: great_cormorant, weight: 2, seasons: [autumn, winter] }
+    - { species: black_headed_gull, weight: 2, seasons: [winter] }
+    - { species: blue_rock_thrush, weight: 2 }
+- id: pebble_hilltop
+  name: Island Hilltop
+  area: pebble_village
+  background: bg_garden
+  shots: 12
+  birds:
+    - { species: eurasian_hoopoe, weight: 2 }
+    - { species: red_flanked_bluetail, weight: 2, seasons: [winter] }
+    - { species: daurian_redstart, weight: 2, seasons: [winter] }
+    - { species: siberian_rubythroat, weight: 1, seasons: [autumn, winter] }
+    - { species: yellow_browed_warbler, weight: 2, seasons: [autumn, winter] }
+    - { species: asian_brown_flycatcher, weight: 2, seasons: [spring, autumn] }
+    - { species: black_naped_monarch, weight: 1 }
+    - { species: hair_crested_drongo, weight: 1, seasons: [spring, autumn] }
+    - { species: olive_backed_pipit, weight: 2, seasons: [autumn, winter] }
+    - { species: common_kestrel, weight: 1, seasons: [autumn, winter] }
+    - { species: white_throated_kingfisher, weight: 1 }
+    - { species: oriental_turtle_dove, weight: 2, seasons: [autumn, winter] }
 

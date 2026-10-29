@@ -15,6 +15,7 @@ stops:
   - { id: tko_station, name: Tseung Kwan O Station }
   - { id: island_station, name: Harbour Island Station }
   - { id: wetland_station, name: Wetlands Station }
+  - { id: pebble_pier, name: Pebble Island Pier }
 lines:
   - id: minibus_16
     name: Green Minibus 16
@@ -71,3 +72,13 @@ lines:
     path: [[968, 520], [968, 600], [1640, 600], [1640, 1112]]
     speed: 400
     headway: 6
+  - id: island_ferry
+    name: Island Ferry
+    mode: ferry
+    fare: 18
+    stops: [po_toi_o_pier, pebble_pier]
+    path: [[2040, 904], [2040, 1016], [2744, 1016], [2744, 1080]]
+    speed: 70
+    headway: 40
+    first: "07:00"
+    last: "21:00"

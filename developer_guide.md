@@ -57,7 +57,7 @@ Then open http://localhost:5173. `make dev` does the following:
 | `make pack` | *(planned, M5)* builds a content update pack |
 
 One-off tools:
-- `go run ./tools/mapgen -force` regenerates the placeholder Tseung Kwan O map and interiors. Don't run it once the maps have been edited in Tiled.
+- `go run ./tools/mapgen -force` regenerates the placeholder maps (Tseung Kwan O, Clear Water Bay, Harbour Island, the Wetlands, Pebble Island) and interiors. Don't run it once the maps have been edited in Tiled. To add a region or interior without touching hand-edited maps, generate into a scratch folder (`-world <dir>/world`) and copy just the new files and `city.world`. Adding a tile to the catalogue moves the meta tileset's `firstgid` up by one in every map; shift the meta gids in existing maps to match.
 - `go run ./tools/birdphoto -sources art/birds/sources.yaml -out art/birds/out` turns real bird photos into sprite sheets (see §6), then `make assets`.
 
 ## 4. Architecture

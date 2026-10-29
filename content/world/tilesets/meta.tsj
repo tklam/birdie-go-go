@@ -1,12 +1,12 @@
 {
-  "columns": 10,
+  "columns": 12,
   "image": "../../../web/public/assets/tiles/meta.png",
   "imageheight": 16,
-  "imagewidth": 160,
+  "imagewidth": 192,
   "margin": 0,
   "name": "meta",
   "spacing": 0,
-  "tilecount": 10,
+  "tilecount": 12,
   "tiledversion": "1.10.2",
   "tileheight": 16,
   "tiles": [
@@ -107,6 +107,26 @@
           "name": "area",
           "type": "string",
           "value": "wetlands"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "properties": [
+        {
+          "name": "area",
+          "type": "string",
+          "value": "pebble_village"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "properties": [
+        {
+          "name": "area",
+          "type": "string",
+          "value": "pebble_beach"
         }
       ]
     }

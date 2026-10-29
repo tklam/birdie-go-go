@@ -80,4 +80,25 @@
     summer: { cloud: [0.5, 0.3], precip: [0.06, 0.22], temp: [31, 1.5], fog: [0.1, 0.1], wind: [0.3, 0.25] }
     autumn: { cloud: [0.3, 0.2], precip: [0.0, 0.12], temp: [25, 2.5], fog: [0.2, 0.15], wind: [0.3, 0.2] }
     winter: { cloud: [0.4, 0.2], precip: [0.0, 0.1], temp: [15, 2.5], fog: [0.35, 0.2], wind: [0.45, 0.2] }
+# Pebble Island, an outlying island (Island Ferry from Po Toi O).
+- id: pebble_village
+  name: Pebble Island Village
+  music: bgm_waterfront
+  altitude: 0.05
+  walk_effort: 1.3   # hilly lanes
+  climate:
+    spring: { cloud: [0.65, 0.2], precip: [0.03, 0.2], temp: [21, 2.5], fog: [0.5, 0.25], wind: [0.5, 0.2] }
+    summer: { cloud: [0.5, 0.3], precip: [0.06, 0.22], temp: [30, 1.5], fog: [0.05, 0.05], wind: [0.45, 0.25] }
+    autumn: { cloud: [0.3, 0.2], precip: [0.0, 0.12], temp: [25, 2.5], fog: [0.05, 0.05], wind: [0.45, 0.2] }
+    winter: { cloud: [0.45, 0.2], precip: [0.0, 0.1], temp: [16, 2.5], fog: [0.15, 0.1], wind: [0.55, 0.2] }
+- id: pebble_beach
+  name: Pebble Beach
+  music: bgm_waterfront
+  altitude: 0
+  walk_effort: 1.5   # soft sand
+  climate:
+    spring: { cloud: [0.6, 0.2], precip: [0.03, 0.2], temp: [21, 2.5], fog: [0.5, 0.25], wind: [0.55, 0.2] }
+    summer: { cloud: [0.45, 0.3], precip: [0.06, 0.22], temp: [31, 1.5], fog: [0.05, 0.05], wind: [0.5, 0.25] }
+    autumn: { cloud: [0.3, 0.2], precip: [0.0, 0.12], temp: [25, 2.5], fog: [0.05, 0.05], wind: [0.5, 0.2] }
+    winter: { cloud: [0.45, 0.2], precip: [0.0, 0.1], temp: [16, 2.5], fog: [0.15, 0.1], wind: [0.6, 0.2] }
 

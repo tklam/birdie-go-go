@@ -1,12 +1,12 @@
 {
   "columns": 8,
   "image": "../../../web/public/assets/tiles/tko.png",
-  "imageheight": 112,
+  "imageheight": 128,
   "imagewidth": 128,
   "margin": 0,
   "name": "tko",
   "spacing": 0,
-  "tilecount": 56,
+  "tilecount": 57,
   "tiledversion": "1.10.2",
   "tileheight": 16,
   "tiles": [
@@ -737,6 +737,16 @@
           "name": "solid",
           "type": "bool",
           "value": true
+        }
+      ]
+    },
+    {
+      "id": 56,
+      "properties": [
+        {
+          "name": "name",
+          "type": "string",
+          "value": "sand"
         }
       ]
     }

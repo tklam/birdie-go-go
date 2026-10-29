@@ -1,6 +1,6 @@
 # Birdie Go Go: Player's Guide
 
-> This guide describes the game as planned. Playable now: Tseung Kwan O (town centre, estate garden, waterfront park, hillside trail), Clear Water Bay Country Park and Po Toi O, Harbour Island (harbourfront and peak trail), the Fishpond Wetlands, students' homes, bird photography, piano lessons, the album, and saves. Everything else arrives over the milestones in [TODO.md](TODO.md).
+> This guide describes the game as planned. Playable now: Tseung Kwan O (town centre, estate garden, waterfront park, hillside trail), Clear Water Bay Country Park and Po Toi O, Harbour Island (harbourfront and peak trail), the Fishpond Wetlands, Pebble Island (an outlying island with a beach), students' homes, bird photography, piano lessons, the album, and saves. Everything else arrives over the milestones in [TODO.md](TODO.md).
 
 ## Welcome
 
@@ -72,7 +72,7 @@ The world is big and seamless. You can walk from downtown streets into a hillsid
 | **Bus** | Wait at a stop and press **Board**. Ride along and watch the city go by. Tap **Get off at next stop**, or **Skip** to jump to your stop. |
 | **Tram** | Slow, cheap, and charming. The Harbourfront Tram runs along the waterfront of Harbour Island, with three stops. |
 | **Metro** | Go down into a station, pick your destination, and you're there in moments. The Harbour Line runs under the harbour from Tseung Kwan O Station (east of the plaza) to Harbour Island, and from chapter 2 the Wetland Line runs to the Fishpond Wetlands, where ducks and spoonbills winter. Rain doesn't affect it. |
-| **Ferry** | Cross the harbour or sail to the outlying islands. Stand on the deck, because seabirds follow the boat and make great photos. Long island trips take up part of the day. |
+| **Ferry** | Cross the harbour or sail to the outlying islands: the Island Ferry runs from Po Toi O pier to Pebble Island. Stand on the deck, because seabirds follow the boat and make great photos. Long island trips take up part of the day. |
 | **Teleport** | Later in the game, Kei's gateways link the real world with his digital realm. Use them to jump between places you've unlocked. |
 
 - Not sure how to get somewhere? The minibus driver by the plaza stop, the ferry deckhand on the Junk Bay pier, and the hiker at the Po Toi O village stop are happy to explain.

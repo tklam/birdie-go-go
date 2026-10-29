@@ -31,6 +31,7 @@ var Tiles = []Tile{
 	// Country park and fishing village.
 	{Name: "village_wall", Solid: true}, {Name: "village_roof", Solid: true}, {Name: "pier"}, {Name: "stream", Solid: true},
 	{Name: "stepping_stones"}, {Name: "fern"}, {Name: "boat", Solid: true}, {Name: "fishing_net", Solid: true},
+	{Name: "sand"},
 }
 
 // AtlasColumns is the width of the atlas in tiles.
@@ -62,6 +63,8 @@ var Meta = []struct {
 	{"area_island_harbourfront", "area", "island_harbourfront"},
 	{"area_island_peak", "area", "island_peak"},
 	{"area_wetlands", "area", "wetlands"},
+	{"area_pebble_village", "area", "pebble_village"},
+	{"area_pebble_beach", "area", "pebble_beach"},
 }
 
 // MetaID returns the local id of a meta tile by name.
