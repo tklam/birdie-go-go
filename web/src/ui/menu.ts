@@ -4,20 +4,31 @@ export interface MenuItem {
   label: string;
   /** Runs when chosen. Return true to keep the menu open. */
   run: () => Promise<boolean | void> | boolean | void;
+  /** Shown under the list while this item is highlighted (e.g. a shop item's description). */
+  detail?: () => string;
+}
+
+export interface MenuOptions {
+  /** The item the cursor starts on; updated to the last chosen item. */
+  selected?: number;
+  /** Tapping an item only highlights it; tapping it again chooses it (e.g. buying). */
+  tapToSelect?: boolean;
 }
 
 /**
- * A 16-bit menu window with a blinking cursor. Arrow keys / W,S move,
- * Space/Enter choose, Esc closes; tapping an item chooses it. Long menus
- * scroll. `selected` is the item the cursor starts on.
+ * A 16-bit menu window with a highlighted row and a blinking cursor. Arrow
+ * keys / W,S move, Space/Enter choose, Esc closes; tapping an item chooses it
+ * (or, with tapToSelect, highlights it first). Long menus scroll. `title` may
+ * be a function, re-read whenever the menu redraws (e.g. money in a shop).
  */
-export function showMenu(title: string, items: MenuItem[], opts: { selected?: number } = {}): Promise<void> {
+export function showMenu(title: string | (() => string), items: MenuItem[], opts: MenuOptions = {}): Promise<void> {
   const box = document.createElement('div');
   box.className = 'window panel menu-window';
   const h = document.createElement('div');
   h.className = 'speaker';
-  h.textContent = title;
-  box.appendChild(h);
+  const list = document.createElement('div');
+  list.className = 'menu-list';
+  box.append(h, list);
   let selected = Math.min(Math.max(0, opts.selected ?? 0), items.length - 1);
   let busy = false;
   let choose: () => Promise<void> = async () => {};
@@ -28,18 +39,24 @@ export function showMenu(title: string, items: MenuItem[], opts: { selected?: nu
     row.addEventListener('pointerdown', (e) => {
       e.preventDefault();
       e.stopPropagation();
+      const already = selected === i;
       selected = i;
       render();
-      void choose();
+      if (!opts.tapToSelect || already) void choose();
     });
-    box.appendChild(row);
+    list.appendChild(row);
     return row;
   });
+  const detail = document.createElement('div');
+  detail.className = 'menu-detail';
+  if (items.some((it) => it.detail)) box.appendChild(detail);
   overlay().appendChild(box);
   modal.open++;
   const render = () => {
+    h.textContent = typeof title === 'function' ? title() : title;
     rows.forEach((r, i) => r.classList.toggle('selected', i === selected));
     rows[selected]?.scrollIntoView({ block: 'nearest' });
+    detail.textContent = items[selected]?.detail?.() ?? '';
   };
   render();
 
@@ -59,6 +76,7 @@ export function showMenu(title: string, items: MenuItem[], opts: { selected?: nu
       const keep = await items[selected].run();
       busy = false;
       if (keep) {
+        render();
         box.style.visibility = 'visible';
         window.addEventListener('keydown', onKey, true);
       } else {

@@ -692,10 +692,15 @@ export class MapScene extends Phaser.Scene {
   private async shop(title: string): Promise<void> {
     const s = this.session;
     await showMenu(
-      `${title}  $${s.state.money}`,
+      () => `${title}  $${s.state.money}`,
       [
         ...s.content.items.filter((item) => item.price > 0).map((item) => ({
           label: `${item.name} $${item.price}`,
+          detail: () => {
+            const owned = s.state.items[item.id] ?? 0;
+            const afford = s.state.money >= item.price ? 'Choose it again to buy.' : "You can't afford it yet.";
+            return `${item.description} Owned: ${owned}. ${afford}`;
+          },
           run: async () => {
             if (s.state.money < item.price) {
               toast("You can't afford that.");
@@ -710,6 +715,7 @@ export class MapScene extends Phaser.Scene {
         })),
         { label: 'Leave', run: async () => false },
       ],
+      { tapToSelect: true },
     );
   }
 
