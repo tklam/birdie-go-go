@@ -1,0 +1,12 @@
+- id: prologue_arrival
+  lines:
+    - { speaker: angie, portrait: angie_happy, text: "Tseung Kwan O! New flat, new city, new start." }
+    - { speaker: angie, text: "Camera, check. Sheet music, check. Mei's lesson is this afternoon." }
+    - { speaker: angie, text: "There's a park by the bay. I bet the birds are up already." }
+- id: prologue_first_photo
+  lines:
+    - { speaker: angie, text: "My first bird photo in the city! That's going in the album." }
+- id: prologue_first_lesson
+  lines:
+    - { speaker: mei, text: "Did I play it right, Miss Angie?" }
+    - { speaker: angie, text: "Mostly! Let's go over the tricky bits next time." }

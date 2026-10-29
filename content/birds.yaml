@@ -1,0 +1,31 @@
+# Real species of the region, drawn as original art (developer_guide.md §5.1).
+- id: red_whiskered_bulbul
+  name: Red-whiskered Bulbul
+  sprite: bird_red_whiskered_bulbul
+  overworld_sprite: owbird_red_whiskered_bulbul
+  skittishness: 0.3
+  size_band: [0.08, 0.30]
+  speed: 120
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, fly]
+- id: oriental_magpie_robin
+  name: Oriental Magpie-Robin
+  sprite: bird_oriental_magpie_robin
+  overworld_sprite: owbird_oriental_magpie_robin
+  skittishness: 0.4
+  size_band: [0.08, 0.30]
+  speed: 130
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.95, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
+  behaviors: [perch, hop, forage, fly]
+- id: little_egret
+  name: Little Egret
+  sprite: bird_little_egret
+  overworld_sprite: owbird_little_egret
+  skittishness: 0.6
+  size_band: [0.10, 0.40]
+  speed: 90
+  seasons: [spring, summer, autumn, winter]
+  poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
+  behaviors: [wade, forage, fly]

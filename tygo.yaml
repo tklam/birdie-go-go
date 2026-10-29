@@ -1,0 +1,3 @@
+packages:
+  - path: "birdiegogo/core/model"
+    output_path: "web/src/core/types.gen.ts"

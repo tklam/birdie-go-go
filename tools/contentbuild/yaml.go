@@ -1,0 +1,298 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"path/filepath"
+	"sort"
+
+	"gopkg.in/yaml.v3"
+
+	"birdiegogo/core/model"
+)
+
+// The on-disk YAML shapes. They use snake_case keys and the compact forms
+// shown in developer_guide.md §5; load converts them to the shared model.
+
+type gameYAML struct {
+	Title          string `yaml:"title"`
+	ContentVersion string `yaml:"content_version"`
+	StartMap       string `yaml:"start_map"`
+	StartSpawn     string `yaml:"start_spawn"`
+}
+
+type areaYAML struct {
+	ID    string `yaml:"id"`
+	Name  string `yaml:"name"`
+	Music string `yaml:"music"`
+}
+
+type birdYAML struct {
+	ID              string             `yaml:"id"`
+	Name            string             `yaml:"name"`
+	Sprite          string             `yaml:"sprite"`
+	OverworldSprite string             `yaml:"overworld_sprite"`
+	Skittishness    float64            `yaml:"skittishness"`
+	SizeBand        [2]float64         `yaml:"size_band"`
+	Speed           float64            `yaml:"speed"`
+	Seasons         []string           `yaml:"seasons"`
+	Poses           map[string]float64 `yaml:"poses"`
+	Behaviors       []string           `yaml:"behaviors"`
+}
+
+type spotYAML struct {
+	ID         string `yaml:"id"`
+	Name       string `yaml:"name"`
+	Area       string `yaml:"area"`
+	Background string `yaml:"background"`
+	Shots      int    `yaml:"shots"`
+	Birds      []struct {
+		Species      string   `yaml:"species"`
+		Weight       float64  `yaml:"weight"`
+		Slots        []string `yaml:"slots"`
+		Seasons      []string `yaml:"seasons"`
+		RequiresFlag string   `yaml:"requires_flag"`
+	} `yaml:"birds"`
+}
+
+type studentYAML struct {
+	ID         string             `yaml:"id"`
+	Name       string             `yaml:"name"`
+	Level      int                `yaml:"level"`
+	Home       string             `yaml:"home"`
+	Repertoire []string           `yaml:"repertoire"`
+	Tendencies map[string]float64 `yaml:"tendencies"`
+	Fee        int                `yaml:"fee"`
+}
+
+type songYAML struct {
+	ID            string  `yaml:"id"`
+	Title         string  `yaml:"title"`
+	Tempo         float64 `yaml:"tempo"`
+	TimeSignature [2]int  `yaml:"time_signature"`
+	Difficulty    int     `yaml:"difficulty"`
+	Notes         []struct {
+		Pitch int     `yaml:"pitch"`
+		Start float64 `yaml:"start"`
+		Dur   float64 `yaml:"dur"`
+		Vel   int     `yaml:"vel"`
+	} `yaml:"notes"`
+}
+
+// eventYAML uses the compact forms from SPEC.md §9.4:
+//
+//	trigger: { type: photo_session_end, spot: park_fountain }
+//	conditions: [ { flag_not_set: oboy_found } ]
+//	actions:    [ { dialogue: oboy_found_scene } ]
+type eventYAML struct {
+	ID         string            `yaml:"id"`
+	Trigger    map[string]string `yaml:"trigger"`
+	Conditions []map[string]any  `yaml:"conditions"`
+	Actions    []map[string]any  `yaml:"actions"`
+	Once       *bool             `yaml:"once"`
+}
+
+type dialogueYAML struct {
+	ID    string `yaml:"id"`
+	Lines []struct {
+		Speaker  string         `yaml:"speaker"`
+		Portrait string         `yaml:"portrait"`
+		Text     string         `yaml:"text"`
+		If       map[string]any `yaml:"if"`
+	} `yaml:"lines"`
+}
+
+func readYAML(path string, v any) error {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return err
+	}
+	if err := yaml.Unmarshal(data, v); err != nil {
+		return fmt.Errorf("%s: %w", path, err)
+	}
+	return nil
+}
+
+// load reads content/ into a bundle. Every list is non-nil so the client
+// never has to check for null.
+func load(dir string) (*model.ContentBundle, error) {
+	b := &model.ContentBundle{
+		Areas: []model.Area{}, Birds: []model.Bird{}, Spots: []model.Spot{}, Students: []model.Student{},
+		Songs: []model.Song{}, Events: []model.Event{}, Dialogue: []model.Dialogue{},
+	}
+
+	var g gameYAML
+	if err := readYAML(filepath.Join(dir, "game.yaml"), &g); err != nil {
+		return nil, err
+	}
+	b.Game = model.GameInfo(g)
+
+	var areas []areaYAML
+	if err := readOptional(filepath.Join(dir, "areas.yaml"), &areas); err != nil {
+		return nil, err
+	}
+	for _, a := range areas {
+		b.Areas = append(b.Areas, model.Area(a))
+	}
+
+	var birds []birdYAML
+	if err := readOptional(filepath.Join(dir, "birds.yaml"), &birds); err != nil {
+		return nil, err
+	}
+	for _, x := range birds {
+		b.Birds = append(b.Birds, model.Bird{
+			ID: x.ID, Name: x.Name, Sprite: x.Sprite, OverworldSprite: x.OverworldSprite,
+			Skittishness: x.Skittishness, SizeBand: x.SizeBand, Speed: x.Speed,
+			Seasons: orEmpty(x.Seasons), Poses: x.Poses, Behaviors: orEmpty(x.Behaviors),
+		})
+	}
+
+	var spots []spotYAML
+	if err := readOptional(filepath.Join(dir, "spots.yaml"), &spots); err != nil {
+		return nil, err
+	}
+	for _, x := range spots {
+		s := model.Spot{ID: x.ID, Name: x.Name, Area: x.Area, Background: x.Background, Shots: x.Shots, Birds: []model.SpotBird{}}
+		for _, sb := range x.Birds {
+			s.Birds = append(s.Birds, model.SpotBird{
+				Species: sb.Species, Weight: sb.Weight, Slots: sb.Slots, Seasons: sb.Seasons, RequiresFlag: sb.RequiresFlag,
+			})
+		}
+		b.Spots = append(b.Spots, s)
+	}
+
+	var students []studentYAML
+	if err := readOptional(filepath.Join(dir, "students.yaml"), &students); err != nil {
+		return nil, err
+	}
+	for _, x := range students {
+		if x.Tendencies == nil {
+			x.Tendencies = map[string]float64{}
+		}
+		b.Students = append(b.Students, model.Student{
+			ID: x.ID, Name: x.Name, Level: x.Level, Home: x.Home,
+			Repertoire: orEmpty(x.Repertoire), Tendencies: x.Tendencies, Fee: x.Fee,
+		})
+	}
+
+	err := readDir(filepath.Join(dir, "songs"), func(path string) error {
+		var x songYAML
+		if err := readYAML(path, &x); err != nil {
+			return err
+		}
+		s := model.Song{ID: x.ID, Title: x.Title, Tempo: x.Tempo, TimeSignature: x.TimeSignature, Difficulty: x.Difficulty, Notes: []model.Note{}}
+		for _, n := range x.Notes {
+			s.Notes = append(s.Notes, model.Note(n))
+		}
+		b.Songs = append(b.Songs, s)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	err = readDir(filepath.Join(dir, "events"), func(path string) error {
+		var events []eventYAML
+		if err := readYAML(path, &events); err != nil {
+			return err
+		}
+		for _, x := range events {
+			e, err := convertEvent(x)
+			if err != nil {
+				return fmt.Errorf("%s: event %s: %w", path, x.ID, err)
+			}
+			b.Events = append(b.Events, e)
+		}
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	err = readDir(filepath.Join(dir, "dialogue"), func(path string) error {
+		var dialogue []dialogueYAML
+		if err := readYAML(path, &dialogue); err != nil {
+			return err
+		}
+		for _, x := range dialogue {
+			d := model.Dialogue{ID: x.ID, Lines: []model.DialogueLine{}}
+			for _, l := range x.Lines {
+				d.Lines = append(d.Lines, model.DialogueLine{
+					Speaker: l.Speaker, Portrait: l.Portrait, Text: l.Text, If: conditionsFromMap(l.If),
+				})
+			}
+			b.Dialogue = append(b.Dialogue, d)
+		}
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func convertEvent(x eventYAML) (model.Event, error) {
+	e := model.Event{
+		ID:         x.ID,
+		Trigger:    model.Trigger{Type: x.Trigger["type"], Params: map[string]string{}},
+		Conditions: []model.Condition{},
+		Actions:    []model.Action{},
+		Once:       x.Once == nil || *x.Once,
+	}
+	for k, v := range x.Trigger {
+		if k != "type" {
+			e.Trigger.Params[k] = v
+		}
+	}
+	for _, m := range x.Conditions {
+		typ, val, err := single(m)
+		if err != nil {
+			return e, fmt.Errorf("condition: %w", err)
+		}
+		e.Conditions = append(e.Conditions, model.Condition{Type: typ, Value: val})
+	}
+	for _, m := range x.Actions {
+		typ, val, err := single(m)
+		if err != nil {
+			return e, fmt.Errorf("action: %w", err)
+		}
+		e.Actions = append(e.Actions, model.Action{Type: typ, Value: val})
+	}
+	return e, nil
+}
+
+// single unpacks a one-key map like {flag_set: x}.
+func single(m map[string]any) (string, any, error) {
+	if len(m) != 1 {
+		return "", nil, fmt.Errorf("want exactly one key, got %d", len(m))
+	}
+	for k, v := range m {
+		return k, v, nil
+	}
+	panic("unreachable")
+}
+
+// conditionsFromMap turns {party_has: oboy, season: spring} into conditions,
+// sorted by type so output is deterministic.
+func conditionsFromMap(m map[string]any) []model.Condition {
+	if len(m) == 0 {
+		return nil
+	}
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	out := make([]model.Condition, 0, len(keys))
+	for _, k := range keys {
+		out = append(out, model.Condition{Type: k, Value: m[k]})
+	}
+	return out
+}
+
+func orEmpty(s []string) []string {
+	if s == nil {
+		return []string{}
+	}
+	return s
+}

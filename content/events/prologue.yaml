@@ -1,0 +1,23 @@
+# Prologue (SPEC.md §8). Placeholder text until the story is written.
+- id: prologue_arrival
+  trigger: { type: new_game }
+  conditions:
+    - flag_not_set: prologue_arrived
+  actions:
+    - dialogue: prologue_arrival
+    - set_flag: prologue_arrived
+    - set_chapter: 0
+- id: prologue_first_photo
+  trigger: { type: photo_session_end }
+  conditions:
+    - flag_not_set: prologue_first_photo
+  actions:
+    - dialogue: prologue_first_photo
+    - set_flag: prologue_first_photo
+- id: prologue_first_lesson
+  trigger: { type: lesson_complete, student: mei }
+  conditions:
+    - flag_not_set: prologue_first_lesson
+  actions:
+    - dialogue: prologue_first_lesson
+    - set_flag: prologue_first_lesson

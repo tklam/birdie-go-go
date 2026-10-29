@@ -1,0 +1,10 @@
+# Districts of the world (SPEC.md §4.3). Shapes are painted on the world's `areas` layer.
+- id: tko_town
+  name: Tseung Kwan O Town Centre
+  music: bgm_town
+- id: tko_waterfront
+  name: Junk Bay Waterfront
+  music: bgm_waterfront
+- id: tko_hillside
+  name: Hillside Trail
+  music: bgm_trail

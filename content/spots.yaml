@@ -1,0 +1,17 @@
+- id: tko_waterfront_park
+  name: Waterfront Park
+  area: tko_waterfront
+  background: bg_waterfront
+  shots: 12
+  birds:
+    - { species: little_egret, weight: 4 }
+    - { species: oriental_magpie_robin, weight: 3, slots: [morning, afternoon] }
+    - { species: red_whiskered_bulbul, weight: 2 }
+- id: tko_estate_garden
+  name: Estate Garden
+  area: tko_town
+  background: bg_garden
+  shots: 12
+  birds:
+    - { species: red_whiskered_bulbul, weight: 5 }
+    - { species: oriental_magpie_robin, weight: 4 }
