@@ -363,6 +363,8 @@ func pebbleIsland() *tmap {
 	}
 	m.obj("stop_pebble_pier", "stop", 11, 11, map[string]string{"stop_id": "pebble_pier"})
 	m.obj("pebble_shop", "shop", 34, 16, map[string]string{"title": "Island Snack Shack", "shop_id": "pebble_snacks"})
+	m.obj("bun_master", "npc", 24, 18, map[string]string{"npc_id": "bun_master", "sprite": "char_bun_master"})
+	m.obj("beach_cleaner", "npc", 36, 27, map[string]string{"npc_id": "beach_cleaner", "sprite": "char_beach_cleaner"})
 	m.obj("pebble_beach", "spot", 30, 28, map[string]string{"spot_id": "pebble_beach"})
 	m.obj("pebble_hilltop", "spot", 20, 21, map[string]string{"spot_id": "pebble_hilltop"})
 	m.obj("beach_plovers", "bird", 46, 29, map[string]string{"species": "kentish_plover", "count": "3"})
@@ -410,6 +412,7 @@ func wetlands() *tmap {
 	m.put(5, 5, "station_sign")
 	m.obj("stop_wetland_station", "stop", 6, 5, map[string]string{"stop_id": "wetland_station"})
 	m.obj("wetland_hide", "spot", 31, 28, map[string]string{"spot_id": "wetland_hide"})
+	m.obj("pond_keeper", "npc", 27, 30, map[string]string{"npc_id": "pond_keeper", "sprite": "char_pond_keeper"})
 	m.obj("wetland_mudflat", "spot", 32, 37, map[string]string{"spot_id": "wetland_mudflat"})
 	m.obj("pond_egrets", "bird", 10, 10, map[string]string{"species": "great_egret", "count": "2"})
 	m.obj("pond_ducks", "bird", 40, 18, map[string]string{"species": "little_grebe", "count": "2"})
@@ -479,6 +482,7 @@ func harbourIsland() *tmap {
 		m.obj("stop_"+s.id, "stop", s.x, 14, map[string]string{"stop_id": s.id})
 	}
 	m.obj("stop_island_station", "stop", 41, 20, map[string]string{"stop_id": "island_station"})
+	m.obj("tram_veteran", "npc", 48, 15, map[string]string{"npc_id": "tram_veteran", "sprite": "char_tram_veteran"})
 	m.obj("island_harbour_park", "spot", 90, 19, map[string]string{"spot_id": "island_harbour_park"})
 	m.obj("island_peak_trail", "spot", 64, 33, map[string]string{"spot_id": "island_peak_trail"})
 	m.obj("peak_dogs", "enemy", 30, 33, map[string]string{"enemy_id": "stray_dog_pack"})
@@ -573,6 +577,8 @@ func clearWaterBay() *tmap {
 	m.obj("hiker", "npc", 39, 45, map[string]string{"npc_id": "hiker", "sprite": "char_hiker"})
 	m.obj("stop_po_toi_o_pier", "stop", 31, 56, map[string]string{"stop_id": "po_toi_o_pier"})
 	m.obj("stop_cwb_park_gate", "stop", 10, 29, map[string]string{"stop_id": "cwb_park_gate"})
+	m.obj("park_ranger", "npc", 14, 31, map[string]string{"npc_id": "park_ranger", "sprite": "char_park_ranger"})
+	m.obj("temple_keeper", "npc", 40, 47, map[string]string{"npc_id": "temple_keeper", "sprite": "char_temple_keeper"})
 	m.obj("po_toi_o_pier", "spot", 31, 60, map[string]string{"spot_id": "po_toi_o_pier"})
 	m.obj("forest_birds", "bird", 30, 14, map[string]string{"species": "oriental_magpie_robin", "count": "2"})
 	m.obj("cove_egrets", "bird", 58, 51, map[string]string{"species": "little_egret", "count": "2"})

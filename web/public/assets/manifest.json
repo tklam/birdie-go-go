@@ -2009,6 +2009,13 @@
     "frameHeight": 24,
     "placeholder": true
   },
+  "char_beach_cleaner": {
+    "type": "spritesheet",
+    "file": "chars/beach_cleaner.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
   "char_bird_uncle": {
     "type": "spritesheet",
     "file": "chars/bird_uncle.png",
@@ -2019,6 +2026,13 @@
   "char_birder": {
     "type": "spritesheet",
     "file": "chars/birder.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
+  "char_bun_master": {
+    "type": "spritesheet",
+    "file": "chars/bun_master.png",
     "frameWidth": 16,
     "frameHeight": 24,
     "placeholder": true
@@ -2135,6 +2149,20 @@
     "frameHeight": 24,
     "placeholder": true
   },
+  "char_park_ranger": {
+    "type": "spritesheet",
+    "file": "chars/park_ranger.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
+  "char_pond_keeper": {
+    "type": "spritesheet",
+    "file": "chars/pond_keeper.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
   "char_ridge_hiker": {
     "type": "spritesheet",
     "file": "chars/ridge_hiker.png",
@@ -2180,6 +2208,20 @@
   "char_tea_picker": {
     "type": "spritesheet",
     "file": "chars/tea_picker.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
+  "char_temple_keeper": {
+    "type": "spritesheet",
+    "file": "chars/temple_keeper.png",
+    "frameWidth": 16,
+    "frameHeight": 24,
+    "placeholder": true
+  },
+  "char_tram_veteran": {
+    "type": "spritesheet",
+    "file": "chars/tram_veteran.png",
     "frameWidth": 16,
     "frameHeight": 24,
     "placeholder": true

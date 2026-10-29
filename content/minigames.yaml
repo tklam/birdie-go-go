@@ -15,3 +15,159 @@
     - question: "What did Uncle Lam's family do before the new town?"
       answers: ["Farmed rice", "Built ships", "Fished from their boat"]
       correct: 2
+
+- id: new_town_photo_game
+  type: slide
+  title: "Moving Day Photo"
+  intro: "Mrs Chan hands you the pieces. \"Careful, that's my mother's smile in the corner.\""
+  image: bg_garden_far
+  size: 3
+- id: hill_village_birds_game
+  type: find
+  title: "Birds of the Old Village"
+  intro: "He points his walking stick at the trees. \"There, and there. Can you see them?\""
+  icons: ["bird:red_whiskered_bulbul", "bird:oriental_magpie_robin", "bird:spotted_dove", "bird:masked_laughingthrush", "bird:grey_treepie", "bird:black_kite"]
+  target: 5
+  seconds: 60
+- id: park_ranger_count_game
+  type: memory
+  title: "Survey Cards"
+  intro: "Ranger Ho spreads the cards face down on a picnic table."
+  icons: ["bird:oriental_magpie_robin", "bird:red_whiskered_bulbul", "bird:great_barbet", "bird:blue_whistling_thrush", "bird:fork_tailed_sunbird", "bird:hwamei"]
+  pairs: 6
+- id: sea_goddess_drum_game
+  type: rhythm
+  title: "Festival Drum"
+  intro: "The keeper hands you two heavy sticks. \"Strong and steady. The lion dances to you.\""
+  target: 14
+  tempo: 92
+  pattern: [0, 1, 2, 3, 4, 5, 6, 6.5, 7, 8, 9, 10, 10.5, 11, 12, 13, 14, 14.5, 15, 16]
+- id: tram_history_quiz_game
+  type: quiz
+  title: "Tram Quiz"
+  intro: "He rings an imaginary bell. \"Question one!\""
+  target: 2
+  quiz:
+    - question: "What do people call the trams, from their bell?"
+      answers: ["Ding-ding", "Toot-toot", "Clang"]
+      correct: 0
+    - question: "How long have trams run along this shore?"
+      answers: ["Ten years", "Over a hundred years", "Since last spring"]
+      correct: 1
+    - question: "Why is the harbour further from the tracks now?"
+      answers: ["The sea dried up", "The tracks moved", "Land was reclaimed"]
+      correct: 2
+- id: peak_raptors_game
+  type: find
+  title: "Raptors on the Wind"
+  intro: "Uncle Chan shades his eyes. \"Up there. And there. Find them all.\""
+  icons: ["bird:crested_serpent_eagle", "bird:black_kite", "bird:peregrine_falcon", "bird:crested_goshawk", "bird:common_kestrel"]
+  target: 4
+  seconds: 50
+- id: shrimp_harvest_game
+  type: catch
+  title: "Shrimp Harvest"
+  intro: "The keeper hands you a woven basket. \"Shrimp yes, rubbish no!\""
+  icons: ["prop:shrimp", "prop:fish"]
+  avoid: ["prop:can", "prop:bag"]
+  target: 15
+  seconds: 40
+- id: bun_festival_game
+  type: catch
+  title: "Bun Rush"
+  intro: "Steam everywhere. \"Catch the buns! Not the lanterns, those are for the parade!\""
+  icons: ["prop:bun"]
+  avoid: ["prop:lantern"]
+  target: 18
+  seconds: 40
+- id: beach_cleanup_game
+  type: catch
+  title: "Beach Clean-Up"
+  intro: "She hands you gloves and a sack. \"Litter in, shells out!\""
+  icons: ["prop:can", "prop:bottle", "prop:bag"]
+  avoid: ["prop:shell", "prop:crab"]
+  target: 15
+  seconds: 40
+- id: seafood_sort_game
+  type: memory
+  title: "Sort the Catch"
+  intro: "Auntie flips the tank labels over. \"Two of each, quick!\""
+  icons: ["prop:fish", "prop:shrimp", "prop:crab", "prop:shell", "prop:junk"]
+  pairs: 5
+- id: volcano_quiz_game
+  type: quiz
+  title: "Volcano Quiz"
+  intro: "She taps a column with her hammer. \"Pop quiz!\""
+  target: 2
+  quiz:
+    - question: "What shape are the rock columns?"
+      answers: ["Squares", "Hexagons", "Circles"]
+      correct: 1
+    - question: "What made them?"
+      answers: ["Cooling volcanic ash", "Ancient builders", "Waves"]
+      correct: 0
+    - question: "Which bird loves these cliffs?"
+      answers: ["Little Egret", "Blue Rock Thrush", "Tree Sparrow"]
+      correct: 1
+- id: sampan_rowing_game
+  type: rhythm
+  title: "Sampan Rowing"
+  intro: "She hums a boat song. \"Pull... and pull... and pull...\""
+  target: 12
+  tempo: 80
+  pattern: [0, 2, 4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24, 26]
+- id: bird_garden_count_game
+  type: find
+  title: "Garden Visitors"
+  intro: "Uncle Ng sips his tea. \"They're shy. Look carefully.\""
+  icons: ["bird:swinhoes_white_eye", "bird:red_whiskered_bulbul", "bird:oriental_magpie_robin", "bird:scaly_breasted_munia", "bird:light_vented_bulbul", "bird:eurasian_tree_sparrow"]
+  target: 5
+  seconds: 60
+- id: lion_ridge_photo_game
+  type: slide
+  title: "The Lion's Poster"
+  intro: "She unrolls the torn poster. \"The lion's head goes at the top, of course.\""
+  image: bg_garden_mid
+  size: 3
+- id: estate_lanterns_game
+  type: memory
+  title: "Mid-Autumn Boxes"
+  intro: "Grandpa opens the boxes. \"Two of each for the corridor!\""
+  icons: ["prop:lantern", "prop:mooncake", "prop:bun", "prop:flower", "prop:tram", "prop:fish"]
+  pairs: 6
+- id: farm_quiz_game
+  type: quiz
+  title: "Farm Quiz"
+  intro: "He leans on his hoe. \"Now then.\""
+  target: 2
+  quiz:
+    - question: "What makes wet fields good for birds?"
+      answers: ["They're quiet", "Frogs, insects and worms", "Bird feeders"]
+      correct: 1
+    - question: "Which crop grows in water?"
+      answers: ["Watercress", "Potatoes", "Corn"]
+      correct: 0
+    - question: "Which bird stalks the fields like a little heron?"
+      answers: ["Cattle Egret", "Black Kite", "Tree Sparrow"]
+      correct: 0
+- id: lion_dance_drum_game
+  type: rhythm
+  title: "Lion Dance Drum"
+  intro: "The elder strikes the gong. \"The lion wakes! Drum!\""
+  target: 16
+  tempo: 104
+  pattern: [0, 1, 2, 2.5, 3, 4, 5, 6, 6.5, 7, 8, 9, 10, 10.5, 11, 12, 13, 14, 14.5, 15, 16, 17]
+- id: tea_harvest_game
+  type: catch
+  title: "Tea Leaves"
+  intro: "She ties a basket to your waist. \"Only the green leaves!\""
+  icons: ["prop:leaf", "prop:flower"]
+  avoid: ["prop:bag", "prop:can"]
+  target: 16
+  seconds: 40
+- id: stilt_village_memory_game
+  type: memory
+  title: "Grandma's Stall"
+  intro: "She lifts the lids of her jars. \"Two of each, my dear.\""
+  icons: ["prop:fish", "prop:shrimp", "prop:crab", "prop:shell", "prop:junk", "prop:lantern"]
+  pairs: 6

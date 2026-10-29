@@ -59,6 +59,12 @@ var people = []charSpec{
 	{id: "village_elder", hair: cWhite, top: cNavy, bottom: cBlack, skin: cSkinShadow, shoes: cBlack, hairStyle: "short", bottomStyle: "pants"},
 	{id: "tea_picker", hair: cBlack, top: cTeal, bottom: cDarkGreen, skin: cSkin, shoes: cBrown, hairStyle: "ponytail", bottomStyle: "pants", hat: true, hatColor: cSand},
 	{id: "stilt_grandma", hair: cWhite, top: cPurple, bottom: cBlack, skin: cSkinShadow, shoes: cBlack, hairStyle: "bun", bottomStyle: "pants"},
+	{id: "park_ranger", hair: cDarkBrown, top: cDarkGreen, bottom: cTan, skin: cSkin, shoes: cBrown, hairStyle: "short", bottomStyle: "pants", hat: true, hatColor: cDarkGreen},
+	{id: "temple_keeper", hair: cGray, top: cOrange, bottom: cBrown, skin: cSkinShadow, shoes: cBlack, hairStyle: "bun", bottomStyle: "pants"},
+	{id: "tram_veteran", hair: cLightGray, top: cGreen, bottom: cNavy, skin: cSkin, shoes: cBlack, hairStyle: "short", bottomStyle: "pants", hat: true, hatColor: cGreen},
+	{id: "pond_keeper", hair: cBlack, top: cTan, bottom: cDarkGreen, skin: cSkinShadow, shoes: cDarkGreen, hairStyle: "short", bottomStyle: "shorts", hat: true, hatColor: cSand},
+	{id: "bun_master", hair: cBlack, top: cWhite, bottom: cRed, skin: cSkin, shoes: cBlack, hairStyle: "short", bottomStyle: "pants", hat: true, hatColor: cWhite},
+	{id: "beach_cleaner", hair: cBrown, top: cYellow, bottom: cBlue, skin: cSkin, shoes: cWhite, hairStyle: "ponytail", bottomStyle: "shorts", hat: true, hatColor: cBlue},
 	// People who point Angie to the buses and ferries.
 	{id: "minibus_driver", hair: cBlack, top: cGreen, bottom: cDarkGray, skin: cSkinShadow, shoes: cBlack, hairStyle: "short", bottomStyle: "pants", hat: true, hatColor: cDarkGreen},
 	{id: "ferry_deckhand", hair: cDarkBrown, top: cOrange, bottom: cNavy, skin: cSkinShadow, shoes: cBlack, hairStyle: "short", bottomStyle: "pants", hat: true, hatColor: cNavy},

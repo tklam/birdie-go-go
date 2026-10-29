@@ -8,7 +8,7 @@
 - id: uncle_chan_chat
   once: false
   trigger: { type: talk, npc: uncle_chan }
-  conditions: [{ flag_set: met_uncle_chan }]
+  conditions: [{ flag_set: met_uncle_chan }, { flag_not_set: "mission:peak_raptors" }]
   actions:
     - dialogue: uncle_chan_chat
 - id: siu_ming_meet

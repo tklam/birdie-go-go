@@ -73,3 +73,117 @@
   description: "Old Lam on the Junk Bay waterfront wants to know you listened to his story. Talk to him for his quiz."
   objective: { type: minigame, game: junk_bay_quiz }
   reward: { money: 120, items: [milk_tea] }
+- id: new_town_photo
+  giver: neighbour
+  title: "Mrs Chan's Old Photo"
+  description: "Mrs Chan's photo of moving day in the new estate has faded and come apart. Put it back together for her."
+  objective: { type: minigame, game: new_town_photo_game }
+  reward: { money: 150, items: [pineapple_bun] }
+- id: hill_village_birds
+  giver: old_villager
+  title: "The Hill Village Birds"
+  description: "The old villager wants you to spot the birds that still live where his village once stood."
+  objective: { type: minigame, game: hill_village_birds_game }
+  reward: { money: 140, items: [water_bottle] }
+- id: park_ranger_count
+  giver: park_ranger
+  title: "The Ranger's Bird Count"
+  description: "Ranger Ho needs help sorting the bird cards for the country park survey."
+  objective: { type: minigame, game: park_ranger_count_game }
+  reward: { money: 150, items: [camera_part] }
+- id: sea_goddess_drum
+  giver: temple_keeper
+  title: "The Festival Drum"
+  description: "The temple keeper needs a drummer for the sea goddess festival rehearsal."
+  objective: { type: minigame, game: sea_goddess_drum_game }
+  reward: { money: 160, items: [sticky_rice] }
+- id: tram_history_quiz
+  giver: tram_veteran
+  title: "A Century of Trams"
+  description: "The retired tram driver will tell you his favourite stories, if you can answer his quiz."
+  objective: { type: minigame, game: tram_history_quiz_game }
+  reward: { money: 140, items: [milk_tea] }
+- id: peak_raptors
+  giver: uncle_chan
+  title: "Raptors Over the Peak"
+  description: "Uncle Chan wants to see if you can spot the raptors riding the ridge winds."
+  objective: { type: minigame, game: peak_raptors_game }
+  reward: { money: 170, items: [camera_part] }
+- id: shrimp_harvest
+  giver: pond_keeper
+  title: "Shrimp Pond Harvest"
+  description: "The pond keeper is draining a shrimp pond and needs a quick pair of hands."
+  objective: { type: minigame, game: shrimp_harvest_game }
+  reward: { money: 150, items: [lunch_box] }
+- id: bun_festival
+  giver: bun_master
+  title: "The Bun Festival"
+  description: "The bun master needs help catching buns for the festival tower."
+  objective: { type: minigame, game: bun_festival_game }
+  reward: { money: 160, items: [pineapple_bun] }
+- id: beach_cleanup
+  giver: beach_cleaner
+  title: "Beach Clean-Up"
+  description: "Help the volunteers clean the beach before the plovers come to nest."
+  objective: { type: minigame, game: beach_cleanup_game }
+  reward: { money: 150, items: [sun_hat] }
+- id: seafood_sort
+  giver: seafood_auntie
+  title: "The Seafood Boats"
+  description: "Auntie's seafood tanks need sorting before the lunch crowd. Match the catch!"
+  objective: { type: minigame, game: seafood_sort_game }
+  reward: { money: 140, items: [lunch_box] }
+- id: volcano_quiz
+  giver: geologist
+  title: "The Old Volcano"
+  description: "The geologist will lend you her field notes if you can answer her questions."
+  objective: { type: minigame, game: volcano_quiz_game }
+  reward: { money: 150, items: [camera_part] }
+- id: sampan_rowing
+  giver: sampan_lady
+  title: "Row the Sampan"
+  description: "The sampan lady will row you round the shelter if you keep the oar's rhythm."
+  objective: { type: minigame, game: sampan_rowing_game }
+  reward: { money: 140, items: [milk_tea] }
+- id: bird_garden_count
+  giver: bird_uncle
+  title: "The Bird Garden"
+  description: "Uncle Ng wants you to find the wild birds that visit the bird garden."
+  objective: { type: minigame, game: bird_garden_count_game }
+  reward: { money: 150, items: [camera_part] }
+- id: lion_ridge_photo
+  giver: ridge_hiker
+  title: "The Lion's Spirit"
+  description: "The hiker's old poster of the ridge is in pieces. Restore it."
+  objective: { type: minigame, game: lion_ridge_photo_game }
+  reward: { money: 150, items: [whistle] }
+- id: estate_lanterns
+  giver: estate_grandpa
+  title: "Lanterns for the Estate"
+  description: "Grandpa Wong is getting the estate ready for the Mid-Autumn party. Match the decorations."
+  objective: { type: minigame, game: estate_lanterns_game }
+  reward: { money: 150, items: [milk_tea] }
+- id: farm_quiz
+  giver: farmer
+  title: "Fields for the Birds"
+  description: "Farmer Tang wants to know if you understand why his fields matter to the birds."
+  objective: { type: minigame, game: farm_quiz_game }
+  reward: { money: 150, items: [camera_part] }
+- id: lion_dance_drum
+  giver: village_elder
+  title: "The Lion Dance"
+  description: "The village elder needs a drummer for the lion dance at the gate."
+  objective: { type: minigame, game: lion_dance_drum_game }
+  reward: { money: 170, items: [dog_treat] }
+- id: tea_harvest
+  giver: tea_picker
+  title: "Tea in the Clouds"
+  description: "Help the tea picker gather leaves before the mist rolls in."
+  objective: { type: minigame, game: tea_harvest_game }
+  reward: { money: 160, items: [milk_tea] }
+- id: stilt_village_memory
+  giver: stilt_grandma
+  title: "Life on Stilts"
+  description: "Grandma Lau's shrimp-paste stall is in a muddle. Match her wares."
+  objective: { type: minigame, game: stilt_village_memory_game }
+  reward: { money: 150, items: [lunch_box] }

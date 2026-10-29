@@ -19,3 +19,309 @@
   conditions: [{ flag_not_set: "mission:favour_junk_bay" }]
   actions:
     - dialogue: old_fisherman_chat
+
+- id: story_tko_town
+  trigger: { type: enter_area, area: tko_town }
+  actions:
+    - dialogue: story_tko_town
+    - start_mission: new_town_photo
+- id: new_town_photo_play
+  once: false
+  trigger: { type: talk, npc: neighbour }
+  conditions: [{ flag_set: "mission:new_town_photo" }]
+  actions:
+    - start_minigame: new_town_photo_game
+- id: story_tko_hillside
+  trigger: { type: enter_area, area: tko_hillside }
+  actions:
+    - dialogue: story_tko_hillside
+    - start_mission: hill_village_birds
+- id: hill_village_birds_play
+  once: false
+  trigger: { type: talk, npc: old_villager }
+  conditions: [{ flag_set: "mission:hill_village_birds" }]
+  actions:
+    - start_minigame: hill_village_birds_game
+- id: story_cwb_country_park
+  trigger: { type: enter_area, area: cwb_country_park }
+  actions:
+    - dialogue: story_cwb_country_park
+    - start_mission: park_ranger_count
+- id: park_ranger_count_play
+  once: false
+  trigger: { type: talk, npc: park_ranger }
+  conditions: [{ flag_set: "mission:park_ranger_count" }]
+  actions:
+    - start_minigame: park_ranger_count_game
+- id: park_ranger_chat
+  once: false
+  trigger: { type: talk, npc: park_ranger }
+  conditions: [{ flag_not_set: "mission:park_ranger_count" }]
+  actions:
+    - dialogue: park_ranger_chat
+- id: story_po_toi_o
+  trigger: { type: enter_area, area: po_toi_o }
+  actions:
+    - dialogue: story_po_toi_o
+    - start_mission: sea_goddess_drum
+- id: sea_goddess_drum_play
+  once: false
+  trigger: { type: talk, npc: temple_keeper }
+  conditions: [{ flag_set: "mission:sea_goddess_drum" }]
+  actions:
+    - start_minigame: sea_goddess_drum_game
+- id: temple_keeper_chat
+  once: false
+  trigger: { type: talk, npc: temple_keeper }
+  conditions: [{ flag_not_set: "mission:sea_goddess_drum" }]
+  actions:
+    - dialogue: temple_keeper_chat
+- id: story_island_harbourfront
+  trigger: { type: enter_area, area: island_harbourfront }
+  actions:
+    - dialogue: story_island_harbourfront
+    - start_mission: tram_history_quiz
+- id: tram_history_quiz_play
+  once: false
+  trigger: { type: talk, npc: tram_veteran }
+  conditions: [{ flag_set: "mission:tram_history_quiz" }]
+  actions:
+    - start_minigame: tram_history_quiz_game
+- id: tram_veteran_chat
+  once: false
+  trigger: { type: talk, npc: tram_veteran }
+  conditions: [{ flag_not_set: "mission:tram_history_quiz" }]
+  actions:
+    - dialogue: tram_veteran_chat
+- id: story_island_peak
+  trigger: { type: enter_area, area: island_peak }
+  actions:
+    - dialogue: story_island_peak
+    - start_mission: peak_raptors
+- id: peak_raptors_play
+  once: false
+  trigger: { type: talk, npc: uncle_chan }
+  conditions: [{ flag_set: "mission:peak_raptors" }]
+  actions:
+    - start_minigame: peak_raptors_game
+- id: story_wetlands
+  trigger: { type: enter_area, area: wetlands }
+  actions:
+    - dialogue: story_wetlands
+    - start_mission: shrimp_harvest
+- id: shrimp_harvest_play
+  once: false
+  trigger: { type: talk, npc: pond_keeper }
+  conditions: [{ flag_set: "mission:shrimp_harvest" }]
+  actions:
+    - start_minigame: shrimp_harvest_game
+- id: pond_keeper_chat
+  once: false
+  trigger: { type: talk, npc: pond_keeper }
+  conditions: [{ flag_not_set: "mission:shrimp_harvest" }]
+  actions:
+    - dialogue: pond_keeper_chat
+- id: story_pebble_village
+  trigger: { type: enter_area, area: pebble_village }
+  actions:
+    - dialogue: story_pebble_village
+    - start_mission: bun_festival
+- id: bun_festival_play
+  once: false
+  trigger: { type: talk, npc: bun_master }
+  conditions: [{ flag_set: "mission:bun_festival" }]
+  actions:
+    - start_minigame: bun_festival_game
+- id: bun_master_chat
+  once: false
+  trigger: { type: talk, npc: bun_master }
+  conditions: [{ flag_not_set: "mission:bun_festival" }]
+  actions:
+    - dialogue: bun_master_chat
+- id: story_pebble_beach
+  trigger: { type: enter_area, area: pebble_beach }
+  actions:
+    - dialogue: story_pebble_beach
+    - start_mission: beach_cleanup
+- id: beach_cleanup_play
+  once: false
+  trigger: { type: talk, npc: beach_cleaner }
+  conditions: [{ flag_set: "mission:beach_cleanup" }]
+  actions:
+    - start_minigame: beach_cleanup_game
+- id: beach_cleaner_chat
+  once: false
+  trigger: { type: talk, npc: beach_cleaner }
+  conditions: [{ flag_not_set: "mission:beach_cleanup" }]
+  actions:
+    - dialogue: beach_cleaner_chat
+- id: story_sai_kung_town
+  trigger: { type: enter_area, area: sai_kung_town }
+  actions:
+    - dialogue: story_sai_kung_town
+    - start_mission: seafood_sort
+- id: seafood_sort_play
+  once: false
+  trigger: { type: talk, npc: seafood_auntie }
+  conditions: [{ flag_set: "mission:seafood_sort" }]
+  actions:
+    - start_minigame: seafood_sort_game
+- id: seafood_auntie_chat
+  once: false
+  trigger: { type: talk, npc: seafood_auntie }
+  conditions: [{ flag_not_set: "mission:seafood_sort" }]
+  actions:
+    - dialogue: seafood_auntie_chat
+- id: story_geopark
+  trigger: { type: enter_area, area: geopark }
+  actions:
+    - dialogue: story_geopark
+    - start_mission: volcano_quiz
+- id: volcano_quiz_play
+  once: false
+  trigger: { type: talk, npc: geologist }
+  conditions: [{ flag_set: "mission:volcano_quiz" }]
+  actions:
+    - start_minigame: volcano_quiz_game
+- id: geologist_chat
+  once: false
+  trigger: { type: talk, npc: geologist }
+  conditions: [{ flag_not_set: "mission:volcano_quiz" }]
+  actions:
+    - dialogue: geologist_chat
+- id: story_old_town_harbour
+  trigger: { type: enter_area, area: old_town_harbour }
+  actions:
+    - dialogue: story_old_town_harbour
+    - start_mission: sampan_rowing
+- id: sampan_rowing_play
+  once: false
+  trigger: { type: talk, npc: sampan_lady }
+  conditions: [{ flag_set: "mission:sampan_rowing" }]
+  actions:
+    - start_minigame: sampan_rowing_game
+- id: sampan_lady_chat
+  once: false
+  trigger: { type: talk, npc: sampan_lady }
+  conditions: [{ flag_not_set: "mission:sampan_rowing" }]
+  actions:
+    - dialogue: sampan_lady_chat
+- id: story_old_town_market
+  trigger: { type: enter_area, area: old_town_market }
+  actions:
+    - dialogue: story_old_town_market
+    - start_mission: bird_garden_count
+- id: bird_garden_count_play
+  once: false
+  trigger: { type: talk, npc: bird_uncle }
+  conditions: [{ flag_set: "mission:bird_garden_count" }]
+  actions:
+    - start_minigame: bird_garden_count_game
+- id: bird_uncle_chat
+  once: false
+  trigger: { type: talk, npc: bird_uncle }
+  conditions: [{ flag_not_set: "mission:bird_garden_count" }]
+  actions:
+    - dialogue: bird_uncle_chat
+- id: story_lion_ridge
+  trigger: { type: enter_area, area: lion_ridge }
+  actions:
+    - dialogue: story_lion_ridge
+    - start_mission: lion_ridge_photo
+- id: lion_ridge_photo_play
+  once: false
+  trigger: { type: talk, npc: ridge_hiker }
+  conditions: [{ flag_set: "mission:lion_ridge_photo" }]
+  actions:
+    - start_minigame: lion_ridge_photo_game
+- id: ridge_hiker_chat
+  once: false
+  trigger: { type: talk, npc: ridge_hiker }
+  conditions: [{ flag_not_set: "mission:lion_ridge_photo" }]
+  actions:
+    - dialogue: ridge_hiker_chat
+- id: story_lion_estate
+  trigger: { type: enter_area, area: lion_estate }
+  actions:
+    - dialogue: story_lion_estate
+    - start_mission: estate_lanterns
+- id: estate_lanterns_play
+  once: false
+  trigger: { type: talk, npc: estate_grandpa }
+  conditions: [{ flag_set: "mission:estate_lanterns" }]
+  actions:
+    - start_minigame: estate_lanterns_game
+- id: estate_grandpa_chat
+  once: false
+  trigger: { type: talk, npc: estate_grandpa }
+  conditions: [{ flag_not_set: "mission:estate_lanterns" }]
+  actions:
+    - dialogue: estate_grandpa_chat
+- id: story_long_valley
+  trigger: { type: enter_area, area: long_valley }
+  actions:
+    - dialogue: story_long_valley
+    - start_mission: farm_quiz
+- id: farm_quiz_play
+  once: false
+  trigger: { type: talk, npc: farmer }
+  conditions: [{ flag_set: "mission:farm_quiz" }]
+  actions:
+    - start_minigame: farm_quiz_game
+- id: farmer_chat
+  once: false
+  trigger: { type: talk, npc: farmer }
+  conditions: [{ flag_not_set: "mission:farm_quiz" }]
+  actions:
+    - dialogue: farmer_chat
+- id: story_walled_village
+  trigger: { type: enter_area, area: walled_village }
+  actions:
+    - dialogue: story_walled_village
+    - start_mission: lion_dance_drum
+- id: lion_dance_drum_play
+  once: false
+  trigger: { type: talk, npc: village_elder }
+  conditions: [{ flag_set: "mission:lion_dance_drum" }]
+  actions:
+    - start_minigame: lion_dance_drum_game
+- id: village_elder_chat
+  once: false
+  trigger: { type: talk, npc: village_elder }
+  conditions: [{ flag_not_set: "mission:lion_dance_drum" }]
+  actions:
+    - dialogue: village_elder_chat
+- id: story_tea_plateau
+  trigger: { type: enter_area, area: tea_plateau }
+  actions:
+    - dialogue: story_tea_plateau
+    - start_mission: tea_harvest
+- id: tea_harvest_play
+  once: false
+  trigger: { type: talk, npc: tea_picker }
+  conditions: [{ flag_set: "mission:tea_harvest" }]
+  actions:
+    - start_minigame: tea_harvest_game
+- id: tea_picker_chat
+  once: false
+  trigger: { type: talk, npc: tea_picker }
+  conditions: [{ flag_not_set: "mission:tea_harvest" }]
+  actions:
+    - dialogue: tea_picker_chat
+- id: story_stilt_village
+  trigger: { type: enter_area, area: stilt_village }
+  actions:
+    - dialogue: story_stilt_village
+    - start_mission: stilt_village_memory
+- id: stilt_village_memory_play
+  once: false
+  trigger: { type: talk, npc: stilt_grandma }
+  conditions: [{ flag_set: "mission:stilt_village_memory" }]
+  actions:
+    - start_minigame: stilt_village_memory_game
+- id: stilt_grandma_chat
+  once: false
+  trigger: { type: talk, npc: stilt_grandma }
+  conditions: [{ flag_not_set: "mission:stilt_village_memory" }]
+  actions:
+    - dialogue: stilt_grandma_chat

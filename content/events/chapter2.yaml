@@ -55,11 +55,13 @@
 - id: neighbour_chat
   once: false
   trigger: { type: talk, npc: neighbour }
+  conditions: [{ flag_not_set: "mission:new_town_photo" }]
   actions:
     - dialogue: neighbour_chat
 - id: villager_lore
   once: false
   trigger: { type: talk, npc: old_villager }
+  conditions: [{ flag_not_set: "mission:hill_village_birds" }]
   actions:
     - dialogue: villager_lore
 

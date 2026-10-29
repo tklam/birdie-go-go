@@ -9,3 +9,148 @@
 - id: old_fisherman_chat
   lines:
     - { speaker: old_fisherman, text: "The egrets still come in at low tide. Some things the new town couldn't change." }
+- id: story_tko_town
+  lines:
+    - { speaker: neighbour, text: "Angie! Come, come. Did you know this whole town centre was sea when I was a girl?" }
+    - { speaker: neighbour, text: "They filled the bay with earth from the hills, and the towers went up one by one. We were the first family in our block." }
+    - { speaker: neighbour, text: "Moving day! No lift yet, so we carried everything up twelve floors. My father carried the rice cooker like a trophy." }
+    - { speaker: neighbour, text: "I have a photo of that day, but it's all faded and torn. Would you help me put it back together?" }
+- id: story_tko_hillside
+  lines:
+    - { speaker: old_villager, text: "This trail was our village path. Rice terraces down there, before the new town." }
+    - { speaker: old_villager, text: "When the families moved down to the towers, the forest came back. The birds came back with it." }
+    - { speaker: old_villager, text: "My eyes aren't what they were. Tell me which birds still live here. Count them for me." }
+- id: park_ranger_chat
+  lines:
+    - { speaker: park_ranger, text: "Take only photos, leave only footprints." }
+- id: story_cwb_country_park
+  lines:
+    - { speaker: park_ranger, text: "Welcome to the country park! Not long ago these hills were bare, cut for firewood and fought over in wartime." }
+    - { speaker: park_ranger, text: "When the park was set up, we planted trees, thousands of them. Now look: forest, streams, birds everywhere." }
+    - { speaker: park_ranger, text: "We count the birds every year. My survey cards got shuffled in the wind. Help me match them up?" }
+- id: temple_keeper_chat
+  lines:
+    - { speaker: temple_keeper, text: "The sea is calm today. The goddess is pleased." }
+- id: story_po_toi_o
+  lines:
+    - { speaker: temple_keeper, text: "Ah, a visitor to Po Toi O. Our little temple has watched over this cove for hundreds of years." }
+    - { speaker: temple_keeper, text: "Fishermen prayed to the sea goddess for calm water and full nets. Every spring the whole village celebrates." }
+    - { speaker: temple_keeper, text: "There's lion dancing, and a drum that shakes the hills! But our drummer has a sore arm this year. Could you keep the beat?" }
+- id: tram_veteran_chat
+  lines:
+    - { speaker: tram_veteran, text: "Sit upstairs at the front. Best seat in the city." }
+- id: story_island_harbourfront
+  lines:
+    - { speaker: tram_veteran, text: "Ding-ding! That's what we all call the trams here. I drove them for thirty-five years." }
+    - { speaker: tram_veteran, text: "They've run along this shore for more than a hundred years. The first ones had one deck; the double-deckers came later." }
+    - { speaker: tram_veteran, text: "The sea used to come right up to the tracks. They kept reclaiming land, and now the harbour's way over there!" }
+    - { speaker: tram_veteran, text: "Let's see what you remember. A quiz, for an old driver?" }
+- id: story_island_peak
+  lines:
+    - { speaker: uncle_chan, text: "Before the road, wealthy folk were carried up this path in sedan chairs. Four men to a chair, all the way up!" }
+    - { speaker: uncle_chan, text: "The porters knew every step. Now it's joggers, hikers and us bird people." }
+    - { speaker: uncle_chan, text: "At noon the eagles ride the warm air off the ridge. Let's see how sharp your eyes are." }
+- id: pond_keeper_chat
+  lines:
+    - { speaker: pond_keeper, text: "Winter is when the spoonbills come. Bring your camera." }
+- id: story_wetlands
+  lines:
+    - { speaker: pond_keeper, text: "These ponds are old, older than my grandfather. Shrimp come in with the tide, grow in the ponds, and we catch them when we drain the water." }
+    - { speaker: pond_keeper, text: "And when the water's low, the birds come for the leftovers. Herons, egrets, spoonbills. We share." }
+    - { speaker: pond_keeper, text: "Today's harvest day. Catch the shrimp, and leave the rubbish out of my basket!" }
+- id: bun_master_chat
+  lines:
+    - { speaker: bun_master, text: "Lotus paste is the best filling. Don't argue." }
+- id: story_pebble_village
+  lines:
+    - { speaker: bun_master, text: "Welcome to Pebble Island! You've come in festival season." }
+    - { speaker: bun_master, text: "Long ago a plague struck the island. The villagers held a festival, and it passed. We've held it ever since." }
+    - { speaker: bun_master, text: "We build a tower of buns and race to climb it! But first, the buns. They're coming out of the steamers fast. Catch!" }
+- id: beach_cleaner_chat
+  lines:
+    - { speaker: beach_cleaner, text: "Every bottle we pick up is one less for a turtle." }
+- id: story_pebble_beach
+  lines:
+    - { speaker: beach_cleaner, text: "Hi! We're the Saturday beach volunteers. Every tide brings something in." }
+    - { speaker: beach_cleaner, text: "This beach used to be quieter. Now the plovers have to share it with bottles and bags." }
+    - { speaker: beach_cleaner, text: "Grab the litter as the waves bring it, but leave the shells. They belong to the beach." }
+- id: seafood_auntie_chat
+  lines:
+    - { speaker: seafood_auntie, text: "The sea eagles wait for the boats too. Smart birds." }
+- id: story_sai_kung_town
+  lines:
+    - { speaker: seafood_auntie, text: "You want fish? Ha, you want birds! Everyone with a camera wants the eagles over the harbour." }
+    - { speaker: seafood_auntie, text: "My family sold fish from our sampan, right off the side of the boat. People leaned over the railing to choose." }
+    - { speaker: seafood_auntie, text: "Now we have a shop, but the boats still come in every morning. Help me sort today's catch? Pairs in each tank!" }
+- id: geologist_chat
+  lines:
+    - { speaker: geologist, text: "Rocks remember everything. You just have to read them." }
+- id: story_geopark
+  lines:
+    - { speaker: geologist, text: "See those columns? Hexagons, all lined up. Nature made those, not people." }
+    - { speaker: geologist, text: "A huge volcano erupted here long before the dinosaurs died out. The ash cooled slowly and cracked into six-sided columns." }
+    - { speaker: geologist, text: "Today it's a geopark, protected for everyone. The blue rock thrushes love the cliffs. Quick quiz?" }
+- id: sampan_lady_chat
+  lines:
+    - { speaker: sampan_lady, text: "The egrets fish beside my boat every morning. Old friends." }
+- id: story_old_town_harbour
+  lines:
+    - { speaker: sampan_lady, text: "I was born on a boat, right here in the typhoon shelter. Hundreds of families lived on the water then." }
+    - { speaker: sampan_lady, text: "When a typhoon came, the boats crowded behind the breakwater, roped together. We sang to keep calm." }
+    - { speaker: sampan_lady, text: "Most families moved ashore long ago. I still row. Here, take the oar. Pull on the beat!" }
+- id: bird_uncle_chat
+  lines:
+    - { speaker: bird_uncle, text: "A singing bird is a happy morning." }
+- id: story_old_town_market
+  lines:
+    - { speaker: bird_uncle, text: "In my youth, men walked their songbirds here in little cages, every morning, to let them sing to each other." }
+    - { speaker: bird_uncle, text: "The old bird street is a garden now. Some people still bring their birds. But look how many wild ones come too!" }
+    - { speaker: bird_uncle, text: "They come for the seed and the company. Can you find them all among the leaves?" }
+- id: ridge_hiker_chat
+  lines:
+    - { speaker: ridge_hiker, text: "Every time I reach the top, I feel like the whole city's cheering." }
+- id: story_lion_ridge
+  lines:
+    - { speaker: ridge_hiker, text: "See the rock up there? A lion, crouching, watching over the city." }
+    - { speaker: ridge_hiker, text: "People who grew up below it worked hard, side by side, through tough times. They say that's the Lion Ridge spirit: never give up, help each other." }
+    - { speaker: ridge_hiker, text: "My dad had a poster of the ridge in his shop. It got torn in a move. Can you put it back together?" }
+- id: estate_grandpa_chat
+  lines:
+    - { speaker: estate_grandpa, text: "Come back at Mid-Autumn. The playground glows with lanterns." }
+- id: story_lion_estate
+  lines:
+    - { speaker: estate_grandpa, text: "This estate went up in the sixties. Tiny flats, but the corridors were our living rooms. Every door stayed open." }
+    - { speaker: estate_grandpa, text: "Kids ran between flats, aunties shared soup, and at Mid-Autumn the whole block lit lanterns together." }
+    - { speaker: estate_grandpa, text: "We still do! The decorations are all mixed up in the boxes, though. Match them for an old man?" }
+- id: farmer_chat
+  lines:
+    - { speaker: farmer, text: "Good soil, clean water, plenty of birds. That's a good farm." }
+- id: story_long_valley
+  lines:
+    - { speaker: farmer, text: "My family has farmed these wet fields for generations. Watercress, lotus, rice in the old days." }
+    - { speaker: farmer, text: "Wet fields mean frogs, insects, worms. And that means birds! Snipes, buntings, egrets, all year round." }
+    - { speaker: farmer, text: "People wanted to build here. We said: the birds need fields, and so do we. Answer me a few questions, birder." }
+- id: village_elder_chat
+  lines:
+    - { speaker: village_elder, text: "The wood behind the village has owls. Listen at dusk." }
+- id: story_walled_village
+  lines:
+    - { speaker: village_elder, text: "These walls were built to keep out pirates and bandits. Every family inside, the gate shut at night." }
+    - { speaker: village_elder, text: "The woods behind us are our feng shui wood. We never cut them. They guard the village's luck, and the birds." }
+    - { speaker: village_elder, text: "Tomorrow the lion dances at the gate for the festival. It needs a strong drum. Show me your rhythm!" }
+- id: tea_picker_chat
+  lines:
+    - { speaker: tea_picker, text: "The leiothrixes sing in the tea bushes. Prettiest birds on the island." }
+- id: story_tea_plateau
+  lines:
+    - { speaker: tea_picker, text: "Up here we're in the clouds half the year. Tea loves it: cool, misty, slow growing." }
+    - { speaker: tea_picker, text: "Monks planted the first bushes on this plateau. The tea was famous for its sweetness." }
+    - { speaker: tea_picker, text: "The wind's shaking the leaves loose today. Catch the good leaves, quick, and watch out for litter blowing up from the path!" }
+- id: stilt_grandma_chat
+  lines:
+    - { speaker: stilt_grandma, text: "Look for the pink dolphins at the mouth of the creek." }
+- id: story_stilt_village
+  lines:
+    - { speaker: stilt_grandma, text: "Our houses stand on stilts over the creek. When the tide comes in, the sea is under our floor!" }
+    - { speaker: stilt_grandma, text: "We dried fish on the roofs and made shrimp paste in the sun. You could smell this village from the sea." }
+    - { speaker: stilt_grandma, text: "And the pink dolphins! Sometimes they swim right up the channel. Now, help me sort my stall, will you?" }
