@@ -26,15 +26,3 @@ export function pointAt(path: readonly Pt[], distance: number): { x: number; y: 
   const [x, y] = path[path.length - 1];
   return { x, y, dx: 0, dy: 0 };
 }
-
-/**
- * The part of a line's path from one stop to another. Stops are the path's
- * end points in the line's stop order (first stop = first point, last stop =
- * last point); riding against that order reverses the path.
- */
-export function ridePath(path: readonly Pt[], stops: readonly string[], from: string, to: string): Pt[] | null {
-  const a = stops.indexOf(from);
-  const b = stops.indexOf(to);
-  if (a < 0 || b < 0 || a === b) return null;
-  return a < b ? [...path] : [...path].reverse();
-}

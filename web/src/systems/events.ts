@@ -10,6 +10,7 @@ import type {
   DialogueLine,
   Event,
 } from '../core/types.gen';
+import { lineFlag, stopFlag } from './transit';
 import {
   clampBond,
   isCompanion,
@@ -125,6 +126,7 @@ const CONDITIONS: Record<string, Check> = {
     return list ? list.includes(s.slot) : null;
   },
   album_has: (v, s) => (isNonEmptyString(v) ? s.album[v] !== undefined : null),
+  stop_discovered: (v, s) => (isNonEmptyString(v) ? s.flags[stopFlag(v)] === true : null),
 };
 
 /**
@@ -172,6 +174,14 @@ export function applyStateAction(action: Action, state: GameState, ctx: Conditio
       return true;
     case 'clear_flag':
       if (isNonEmptyString(v)) delete state.flags[v];
+      else bad();
+      return true;
+    case 'unlock_line':
+      if (isNonEmptyString(v)) state.flags[lineFlag(v)] = true;
+      else bad();
+      return true;
+    case 'unlock_teleport':
+      if (isNonEmptyString(v)) state.flags[`gateway:${v}`] = true;
       else bad();
       return true;
     case 'set_chapter':

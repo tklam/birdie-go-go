@@ -11,6 +11,7 @@ import { showPanel } from '../ui/panel';
 import { advanceSlot } from './time';
 import { billsDue, payBills } from './economy';
 import { albumMilestones } from './milestones';
+import { clockMinutes } from './transit';
 
 /** The autosave slot. */
 export const AUTOSAVE = 'auto';
@@ -39,6 +40,9 @@ export class Session {
   /** Time slots since the last mission reminder; starts full so a loaded game reminds once. */
   private slotsSinceReminder = Number.POSITIVE_INFINITY;
   private reminderTurn = 0;
+  /** In-game minutes played in the current slot (one per real second on the map). */
+  slotMinutes = 0;
+  private transitLoaded: Promise<unknown> | null = null;
 
   constructor(
     readonly content: ContentBundle,
@@ -99,6 +103,20 @@ export class Session {
     return m.title;
   }
 
+  /** Now, in absolute in-game minutes (SPEC.md §4.11). */
+  clock(): number {
+    return clockMinutes(this.state.day, this.state.slot, this.slotMinutes);
+  }
+
+  /** Loads the transit network into the core once (stop positions from the world index). */
+  transitReady(stopPositions: Record<string, { x: number; y: number }>): Promise<unknown> {
+    this.transitLoaded ??= this.core.transitLoad({ transit: this.content.transit, stopPositions }).catch((err: unknown) => {
+      this.transitLoaded = null;
+      throw err;
+    });
+    return this.transitLoaded;
+  }
+
   /** Fires the album milestones the album has reached (SPEC.md §5.6). */
   async checkAlbum(): Promise<void> {
     for (const t of albumMilestones(this.state, this.content.events)) await this.fire(t);
@@ -120,6 +138,7 @@ export class Session {
   async endSlot(): Promise<void> {
     tickConsumables(this.state);
     this.slotsSinceReminder++;
+    this.slotMinutes = 0;
     const triggers = advanceSlot(this.state);
     if (triggers.some((t) => t.type === 'day_start')) {
       // Overnight, trail cameras catch a bird each.

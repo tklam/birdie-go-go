@@ -79,15 +79,15 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 ## M2: Transit (§4.11)
 - [x] `transit.yaml` schema + validation; stop objects indexed by worldbuild
 - [x] `core/transit`: network graph, timetables, `VehicleAt`, route planner, tested
-- [ ] On-map vehicles from timetables (no off-screen sim)
+- [x] On-map vehicles from timetables (no off-screen sim)
 - [x] Bus rides on the map with route prefetch and Skip (Green Minibus 16: TKO Plaza ↔ Po Toi O)
 - [ ] Trams; Get off at intermediate stops
 - [ ] Metro: station interiors, destination picker, in-car scene
 - [x] Ferry rides on the map (Junk Bay Pier ↔ Po Toi O Pier)
 - [ ] Ferry deck scene and ferry-deck photo spots
 - [~] Fares paid from money (a separate transit card and top-up still to do)
-- [ ] Route planner UI with transfers
-- [ ] Stop discovery; line unlocks via events
+- [x] Route planner UI with transfers (boarding menu, multi-leg rides, game clock)
+- [x] Stop discovery; line unlocks via events (`unlock_line`, `unlock_teleport`, `stop_discovered`)
 - [x] World map (Menu → Map): one-pixel-per-tile overview built by worldbuild, markers for Angie, birding spots, transit, open gateways, shop and homes
 - [ ] World map: zoom levels for a much larger world, discovered-areas fog, transit lines
 - [x] Teleport waypoints: Kei's gateways (digitalization/undigitalization through his digital kingdom) (plaza, country park, Po Toi O), glitch-dissolve transition, unlocked once dating with bond 45+

@@ -801,6 +801,11 @@ export interface TransitLine {
    */
   first?: string;
   last?: string;
+  /**
+   * Locked lines can't be ridden until an unlock_line event opens them
+   * (SPEC.md §4.11).
+   */
+  locked?: boolean;
 }
 /**
  * TransitStop is a named stop; its position comes from the world index.

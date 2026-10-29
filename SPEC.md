@@ -246,6 +246,12 @@ Rules:
 - **Stops along a line**: the first and last stops sit on the path's ends; intermediate stops snap to the nearest point of the path past the previous stop (from their world-index positions), or are spaced evenly when they have none.
 - **Planner**: a time-dependent multi-criteria search over stops. Each leg is one vehicle from its boarding stop to any later stop of the line, so a fare is paid once per boarding and staying aboard is not a transfer. The best itinerary has the earliest arrival, then the lowest fare, then the fewest transfers; full ties go to the line listed first in content. Callers pass the unlocked lines and any suspended modes (e.g. ferry at signal 8+); with no allowed connection the planner reports the destination as unreachable. `ignoreTimetable` boards every leg immediately (no waits).
 
+*As built (client):*
+- **Game clock**: slots start at 07:00, 12:00 and 17:00 and last five hours; the clock is the slot start plus in-game minutes played in it (one per real second on the map and while riding, held at the slot's last minute, not saved).
+- **Boarding** is the route planner: the stop lists every stop reachable on open lines from now, sorted by arrival, each with its fare; the detail line shows the legs, departure times, changes and arrival. The whole fare is paid up front; waits advance the clock; at a change the next leg starts from the transfer stop. Skip jumps to the end of the current leg.
+- **Vehicles on the map** come from `transit.vehicles` (polled twice a second, moved along their heading in between); only those near the camera get sprites.
+- **Discovery and unlocks**: walking near a stop (or arriving at one) discovers it (flag `stop:<id>`), and only discovered stops show on the world map. Lines with `locked: true` need an `unlock_line` event (flag `line:<id>`); `unlock_teleport` opens a gateway; `stop_discovered` is a condition.
+
 ### 4.12 Energy, weather hazards and outdoor gear
 Weather isn't just scenery; it can also be an **enemy**.
 

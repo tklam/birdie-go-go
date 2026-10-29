@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
-import type { AmbientNPC, Enemy, WeatherDay, WeatherParams, WorldIndex, WorldObject } from '../core/types.gen';
+import type { AmbientNPC, Enemy, TransitItinerary, TransitLeg, TransitVehicle, WeatherDay, WeatherParams, WorldIndex, WorldObject } from '../core/types.gen';
 import { rng } from '../photo/birds';
-import { pathLength, pointAt, ridePath, type Pt } from '../world/path';
+import { pathLength, pointAt, type Pt } from '../world/path';
 import { arrowToward, edgePoint, nearby } from '../world/nearby';
 import { build, buildStatus, CAMERA_PART, placeTrailCamera, TRAIL_CAMERA, trailCamFlag } from '../systems/gadgets';
 import { floatingButton } from '../ui/panel';
@@ -23,6 +23,7 @@ import { iris } from '../fx/iris';
 import { glitch } from '../fx/glitch';
 import { activityCost, crossedLow, walkCost } from '../systems/economy';
 import { collect, isCollected } from '../systems/collectibles';
+import { clockLabel, discoverStop, openLines, stopFlag } from '../systems/transit';
 import { closureReason, hazardForecast, warningAnnouncement, warningTag, warningsAt, type Warnings } from '../systems/warnings';
 import { modal } from '../ui/overlay';
 import { showPanel } from '../ui/panel';
@@ -151,7 +152,20 @@ export class MapScene extends Phaser.Scene {
   private passersby: Passerby[] = [];
   private glints!: Phaser.GameObjects.Particles.ParticleEmitter;
   /** The ride in progress (SPEC.md §4.11), if any. */
-  private ride: { vehicle: Phaser.GameObjects.Sprite; path: Pt[]; length: number; distance: number; speed: number; to: string; line: string; removeSkip: () => void } | null = null;
+  private ride: {
+    vehicle: Phaser.GameObjects.Sprite;
+    path: Pt[];
+    length: number;
+    distance: number;
+    speed: number;
+    to: string;
+    line: string;
+    /** Legs still to ride after this one (transfers). */
+    next: TransitLeg[];
+    removeSkip: () => void;
+  } | null = null;
+  /** Timetabled vehicles drawn on the map (SPEC.md §4.11): the last poll and its sprites. */
+  private vehicles = { list: [] as TransitVehicle[], clock: 0, pending: false, nextPoll: 0, sprites: new Map<string, Phaser.GameObjects.Sprite>() };
   private kei: Phaser.GameObjects.Sprite | null = null;
   /** Umbrellas held over Angie's and Kei's heads (SPEC.md §4.12). */
   private umbrellas: { angie: Phaser.GameObjects.Sprite | null; kei: Phaser.GameObjects.Sprite | null } = { angie: null, kei: null };
@@ -390,6 +404,8 @@ export class MapScene extends Phaser.Scene {
     const speed = input.sneak ? SNEAK_SPEED : WALK_SPEED;
     const moving = this.ready && !this.busy && modal.open === 0 && (input.x !== 0 || input.y !== 0);
     this.walking = moving;
+    // The in-game clock: one minute per real second of play (SPEC.md §4.11).
+    if (this.ready && !this.busy && modal.open === 0) this.session.slotMinutes += dt;
 
     // Stream the world around the camera, a ring ahead when moving.
     const view = this.cameras.main.worldView;
@@ -426,6 +442,8 @@ export class MapScene extends Phaser.Scene {
     this.updateNpcs();
     for (const g of this.gateways) g.sprite.setVisible(this.gatewayOpen(g.object)).setFrame(Math.floor(time / 300) % 2);
     for (const g of this.sparkles) g.sprite.setFrame(Math.floor(time / 400 + g.object.x) % 2);
+    this.discoverStops();
+    this.updateVehicles(time);
     this.updatePassersby(time, dt);
     this.updateUmbrellas();
     this.drawSpotMarks(time);
@@ -836,6 +854,8 @@ export class MapScene extends Phaser.Scene {
     const indoors = this.mapId !== 'world';
     const markers: MapMarker[] = world.landmarks
       .filter((l) => l.type !== 'gateway' || s.state.flags[`gateway:${l.id}`])
+      // A stop shows up after the first visit (SPEC.md §4.11).
+      .filter((l) => l.type !== 'stop' || s.state.flags[stopFlag(l.id)])
       .map((l) => ({
         x: l.x,
         y: l.y,
@@ -1231,41 +1251,75 @@ export class MapScene extends Phaser.Scene {
 
   // --- Transit (SPEC.md §4.11) ----------------------------------------------
 
-  /** Lists rides from a stop; boarding pays the fare and starts the ride. */
+  /**
+   * The route planner at a stop (SPEC.md §4.11): every reachable stop on open
+   * lines, with the core's best itinerary (transfers included) from now.
+   * Choosing one pays the whole fare and starts the first leg.
+   */
   private async boardAt(stopId: string): Promise<void> {
     const s = this.session;
     const t = s.content.transit;
     const name = (id: string) => t.stops.find((x) => x.id === id)?.name ?? id;
-    const options = t.lines.flatMap((line) =>
-      line.stops.includes(stopId) ? line.stops.filter((x) => x !== stopId).map((to) => ({ line, to })) : [],
+    const lineName = (id: string) => t.lines.find((l) => l.id === id)?.name ?? id;
+    discoverStop(s.state, stopId);
+    const closed = closureReason(await this.warningsNow());
+    try {
+      await s.transitReady(this.index.stops);
+    } catch {
+      toast('The timetable board is blank today.');
+      return;
+    }
+    const now = s.clock();
+    const lines = openLines(t.lines, s.state);
+    const excludeModes = closed ? ['ferry'] : [];
+    const plans = (
+      await Promise.all(
+        t.stops
+          .filter((x) => x.id !== stopId)
+          .map((x) => s.core.transitPlan({ from: stopId, to: x.id, time: now, lines, excludeModes }).catch(() => null)),
+      )
+    ).filter((p): p is TransitItinerary => p !== null && p.legs.length > 0);
+    if (plans.length === 0) {
+      toast(closed ? `${closed}: ferries are suspended.` : 'No services from here yet.', 3500);
+      return;
+    }
+    plans.sort((a, b) => a.arrive - b.arrive);
+    const describe = (p: TransitItinerary) => {
+      const legs = p.legs.map((l) => `${lineName(l.line)} at ${clockLabel(l.depart)} to ${name(l.to)}`).join(', then ');
+      return `${legs}. Arrive ${clockLabel(p.arrive)}${p.transfers ? ` (${p.transfers} change${p.transfers > 1 ? 's' : ''})` : ''}.`;
+    };
+    let picked: TransitItinerary | null = null;
+    await showMenu(
+      `${name(stopId)} ${clockLabel(now)}  $${s.state.money}`,
+      [
+        ...plans.map((p) => ({
+          label: `${name(p.to)} $${p.fare}`,
+          detail: () => describe(p),
+          run: async () => ((picked = p), false),
+        })),
+        { label: 'Not now', run: async () => false },
+      ],
+      { tapToSelect: true },
     );
-    if (options.length === 0) {
-      toast('No services from here yet.');
-      return;
-    }
-    let picked: (typeof options)[number] | null = null;
-    await showMenu(`${name(stopId)}  $${s.state.money}`, [
-      ...options.map((o) => ({
-        label: `${o.line.name} → ${name(o.to)} $${o.line.fare}`,
-        run: async () => ((picked = o), false),
-      })),
-      { label: 'Not now', run: async () => false },
-    ]);
-    const choice = picked as (typeof options)[number] | null;
+    const choice = picked as TransitItinerary | null;
     if (!choice) return;
-    const closed = choice.line.mode === 'ferry' ? closureReason(await this.warningsNow()) : '';
-    if (closed) {
-      toast(`${closed}: ferries are suspended.`, 3500);
-      return;
-    }
-    if (s.state.money < choice.line.fare) {
+    if (s.state.money < choice.fare) {
       toast("You can't afford the fare.");
       return;
     }
-    const path = ridePath(choice.line.path as Pt[], choice.line.stops, stopId, choice.to);
-    const key = choice.line.mode === 'ferry' ? 'vehicle_ferry' : 'vehicle_bus';
-    if (!path || !this.textures.exists(key)) return;
-    s.state.money -= choice.line.fare;
+    s.state.money -= choice.fare;
+    this.startLeg(choice.legs[0], choice.legs.slice(1));
+  }
+
+  /** Waits for and rides one leg of a trip; the rest follow as transfers. */
+  private startLeg(leg: TransitLeg, next: TransitLeg[]): void {
+    const s = this.session;
+    const line = s.content.transit.lines.find((l) => l.id === leg.line);
+    const key = leg.mode === 'ferry' ? 'vehicle_ferry' : 'vehicle_bus';
+    const path = leg.path.map(([x, y]): Pt => [x, y]);
+    if (!line || path.length < 2 || !this.textures.exists(key)) return;
+    if (leg.wait >= 1) toast(`Waited ${Math.round(leg.wait)} min for the ${line.name}.`);
+    s.slotMinutes += leg.wait;
     const start = pointAt(path, 0);
     const vehicle = this.add.sprite(start.x, start.y, key, 0).setOrigin(0.5, 1).setDepth(DEPTH.entities + start.y);
     this.angie.setVisible(false);
@@ -1273,12 +1327,18 @@ export class MapScene extends Phaser.Scene {
     this.kei?.setVisible(false);
     this.umbrellas.angie?.setVisible(false);
     this.umbrellas.kei?.setVisible(false);
+    for (const v of this.vehicles.sprites.values()) v.destroy();
+    this.vehicles.sprites.clear();
     this.cameras.main.startFollow(vehicle, true, 1, 1);
     const removeSkip = floatingButton('Skip', 'back', () => {
-      if (this.ride) this.ride.distance = this.ride.length;
+      const r = this.ride;
+      if (!r) return;
+      s.slotMinutes += (r.length - r.distance) / r.speed;
+      r.distance = r.length;
     });
-    this.ride = { vehicle, path, length: pathLength(path), distance: 0, speed: choice.line.speed, to: choice.to, line: choice.line.id, removeSkip };
-    toast(`${choice.line.name} to ${name(choice.to)}`);
+    this.ride = { vehicle, path, length: pathLength(path), distance: 0, speed: line.speed, to: leg.to, line: line.id, next, removeSkip };
+    const name = s.content.transit.stops.find((x) => x.id === leg.to)?.name ?? leg.to;
+    toast(`${line.name} to ${name}`);
   }
 
   private updateRide(time: number, dt: number): void {
@@ -1294,6 +1354,7 @@ export class MapScene extends Phaser.Scene {
     const ahead = pointAt(r.path, r.distance + 64);
     if (!this.store.get(Math.floor(ahead.x / ts / CHUNK_TILES), Math.floor(ahead.y / ts / CHUNK_TILES))) return;
     r.distance = Math.min(r.length, r.distance + r.speed * dt);
+    this.session.slotMinutes += dt;
     const p = pointAt(r.path, r.distance);
     if (Math.abs(p.dx) > 0.1) r.vehicle.setFlipX(p.dx < 0);
     r.vehicle.setPosition(p.x, p.y).setDepth(DEPTH.entities + p.y).setFrame(Math.floor(time / 150) % 2);
@@ -1305,18 +1366,87 @@ export class MapScene extends Phaser.Scene {
   private async arrive_(r: NonNullable<MapScene['ride']>): Promise<void> {
     this.ride = null;
     r.removeSkip();
+    const s = this.session;
+    const name = s.content.transit.stops.find((x) => x.id === r.to)?.name ?? r.to;
+    discoverStop(s.state, r.to);
+    r.vehicle.destroy();
+    await s.fire({ type: 'ride_complete', params: { line: r.line } });
+    const [leg, ...rest] = r.next;
+    if (leg) {
+      toast(`Change at ${name}.`);
+      this.startLeg(leg, rest);
+      return;
+    }
     const stop = this.index.stops[r.to];
     this.pos = { x: stop?.x ?? r.vehicle.x, y: (stop?.y ?? r.vehicle.y) + 4 };
-    r.vehicle.destroy();
     this.angie.setVisible(true).setPosition(this.pos.x, this.pos.y);
     this.oboy?.setVisible(true);
     this.kei?.setVisible(true);
     this.trail.reset(this.pos.x, this.pos.y);
     this.cameras.main.startFollow(this.angie, true, 1, 1);
-    const s = this.session;
-    toast(`Arrived at ${s.content.transit.stops.find((x) => x.id === r.to)?.name ?? r.to}.`);
-    await s.fire({ type: 'ride_complete', params: { line: r.line } });
+    toast(`Arrived at ${name}.`);
     await s.save();
+  }
+
+  /** Stops Angie walks past are discovered and show on the map (SPEC.md §4.11). */
+  private discoverStops(): void {
+    if (this.mapId !== 'world') return;
+    for (const [id, p] of Object.entries(this.index.stops)) {
+      if (Math.hypot(p.x - this.pos.x, p.y - this.pos.y) < 40 && discoverStop(this.session.state, id)) {
+        toast(`New stop: ${this.session.content.transit.stops.find((x) => x.id === id)?.name ?? id}`);
+      }
+    }
+  }
+
+  /**
+   * Buses and ferries on the map, from the timetables in the core (polled
+   * twice a second, moved along their heading in between). Only those in
+   * view get sprites; nothing is simulated off-screen.
+   */
+  private updateVehicles(time: number): void {
+    if (this.mapId !== 'world' || !this.ready) return;
+    const s = this.session;
+    const v = this.vehicles;
+    if (!v.pending && time >= v.nextPoll) {
+      v.pending = true;
+      v.nextPoll = time + 500;
+      const clock = s.clock();
+      s.transitReady(this.index.stops)
+        .then(() => s.core.transitVehicles({ time: clock, lines: openLines(s.content.transit.lines, s.state) }))
+        .then((r) => {
+          v.list = r.vehicles;
+          v.clock = clock;
+        })
+        .catch(() => undefined)
+        .finally(() => (v.pending = false));
+    }
+    const since = s.clock() - v.clock;
+    const view = this.cameras.main.worldView;
+    const seen = new Set<string>();
+    for (const veh of v.list) {
+      const line = s.content.transit.lines.find((l) => l.id === veh.line);
+      if (!line) continue;
+      const x = Math.round(veh.x + veh.dx * line.speed * since);
+      const y = Math.round(veh.y + veh.dy * line.speed * since);
+      if (x < view.x - 48 || x > view.right + 48 || y < view.y - 48 || y > view.bottom + 48) continue;
+      const key = `${veh.line}:${veh.direction}:${veh.depart}`;
+      const texture = line.mode === 'ferry' ? 'vehicle_ferry' : 'vehicle_bus';
+      if (!this.textures.exists(texture)) continue;
+      seen.add(key);
+      let sprite = v.sprites.get(key);
+      if (!sprite) {
+        sprite = this.add.sprite(x, y, texture, 0).setOrigin(0.5, 1);
+        v.sprites.set(key, sprite);
+      }
+      if (Math.abs(veh.dx) > 0.1) sprite.setFlipX(veh.dx < 0);
+      sprite.setPosition(x, y).setDepth(DEPTH.entities + y).setFrame(Math.floor(time / 150) % 2);
+    }
+    for (const [key, sprite] of v.sprites) {
+      if (!seen.has(key)) {
+        sprite.destroy();
+        v.sprites.delete(key);
+      }
+    }
   }
 
   // --- Passers-by (SPEC.md §4.3) --------------------------------------------

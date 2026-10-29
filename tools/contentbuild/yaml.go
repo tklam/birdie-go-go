@@ -228,6 +228,7 @@ type transitYAML struct {
 		Headway float64      `yaml:"headway"`
 		First   string       `yaml:"first"`
 		Last    string       `yaml:"last"`
+		Locked  bool         `yaml:"locked"`
 	} `yaml:"lines"`
 	Stops []struct {
 		ID   string `yaml:"id"`
@@ -378,7 +379,7 @@ func load(dir string) (*model.ContentBundle, error) {
 	for _, l := range transit.Lines {
 		b.Transit.Lines = append(b.Transit.Lines, model.TransitLine{
 			ID: l.ID, Name: l.Name, Mode: l.Mode, Fare: l.Fare, Stops: orEmpty(l.Stops), Path: l.Path, Speed: l.Speed,
-			Headway: l.Headway, First: l.First, Last: l.Last,
+			Headway: l.Headway, First: l.First, Last: l.Last, Locked: l.Locked,
 		})
 	}
 	for _, st := range transit.Stops {

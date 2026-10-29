@@ -27,6 +27,9 @@ type TransitLine struct {
 	// of First.
 	First string `json:"first,omitempty"`
 	Last  string `json:"last,omitempty"`
+	// Locked lines can't be ridden until an unlock_line event opens them
+	// (SPEC.md §4.11).
+	Locked bool `json:"locked,omitempty"`
 }
 
 // TransitStop is a named stop; its position comes from the world index.
