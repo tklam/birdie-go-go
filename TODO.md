@@ -182,6 +182,8 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Settings: music/sound volume, encounter accessibility (hold, slow prompts, skip), lesson timing recalibration
 - [x] Settings: window color, text speed, reduced motion, control scheme
 - [x] Accessibility: reduced motion (fades for wipes/glitch, no shake/flash, calm rain), captions for sound cues, colour-blind-safe palette
+- [x] Health-check fixes: the closing key no longer reopens a dialogue; ferry deck photos land at the destination; unique collectible names and enemies kept away from arrivals (worldbuild checks); encounter-loss notice (`energy.faint`); scrolling notice panels and 44 px menu rows; Menu button for mouse; Skip/Back in the timing check; Leave in every mini game; queued dialogues; map markers hidden in unvisited areas
+- [ ] Bus: "Get off at next stop" during a ride (SPEC.md §4.11; only Skip exists so far)
 - [ ] *(Parked for future development.)* Low-end phone performance pass
 - [~] Replace placeholder art and music with final 16-bit assets (characters redrawn in a top-down adventure style; birds from real photos; tiles and music still placeholders)
 
