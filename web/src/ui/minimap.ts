@@ -1,4 +1,4 @@
-import { modal, overlay } from './overlay';
+import { closeModal, modal, overlay } from './overlay';
 
 export interface MapMarker {
   /** World pixels. */
@@ -189,7 +189,7 @@ export async function showMinimap(opts: {
     close = () => {
       box.remove();
       window.removeEventListener('keydown', onKey, true);
-      modal.open--;
+      closeModal();
       resolve();
     };
     const onKey = (e: KeyboardEvent) => {

@@ -1,4 +1,4 @@
-import { modal, overlay } from './overlay';
+import { closeModal, modal, overlay } from './overlay';
 
 /**
  * Shows a centered 16-bit window with a title, lines of text and a button.
@@ -26,7 +26,7 @@ export function showPanel(title: string, lines: string[], button = 'OK'): Promis
     const close = () => {
       box.remove();
       window.removeEventListener('keydown', onKey);
-      modal.open--;
+      closeModal();
       resolve();
     };
     const onKey = (e: KeyboardEvent) => {

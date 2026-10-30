@@ -1,4 +1,4 @@
-import { modal, overlay } from './overlay';
+import { closeModal, modal, overlay } from './overlay';
 
 export interface MenuItem {
   label: string;
@@ -64,7 +64,7 @@ export function showMenu(title: string | (() => string), items: MenuItem[], opts
     const close = () => {
       box.remove();
       window.removeEventListener('keydown', onKey, true);
-      modal.open--;
+      closeModal();
       resolve();
     };
     choose = async () => {

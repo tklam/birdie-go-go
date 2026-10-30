@@ -1,4 +1,4 @@
-import { modal, overlay } from './overlay';
+import { closeModal, modal, overlay } from './overlay';
 import { textCharsPerSecond } from './prefs';
 
 export interface Line {
@@ -72,7 +72,7 @@ export function showDialogue(lines: Line[], onLine?: (index: number) => void): P
       clearInterval(timer);
       box.remove();
       window.removeEventListener('keydown', onKey);
-      modal.open--;
+      closeModal();
       resolve();
     };
     const onKey = (e: KeyboardEvent) => {

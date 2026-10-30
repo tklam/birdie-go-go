@@ -23,5 +23,15 @@ export function setOverlayZoom(zoom: number): void {
   s.setProperty('--game-h', `${GAME_HEIGHT * zoom}px`);
 }
 
-/** True while a modal window (dialogue, menu) owns input. */
-export const modal = { open: 0 };
+/**
+ * True while a modal window (dialogue, menu) owns input. `closedAt` is when
+ * the last one closed (performance.now()), so the key press that closed it
+ * isn't read again as a fresh action by the scene underneath.
+ */
+export const modal = { open: 0, closedAt: -Infinity };
+
+/** Marks a modal window as closed; call instead of `modal.open--`. */
+export function closeModal(): void {
+  modal.open = Math.max(0, modal.open - 1);
+  modal.closedAt = performance.now();
+}
