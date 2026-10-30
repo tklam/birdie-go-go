@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import type { AudioEngine } from '../audio/AudioEngine';
 import { reducedMotion } from '../fx/motion';
-import { backdrop, finish, intro, result, slower, type MinigameData } from '../minigames/common';
+import { backdrop, finish, intro, leaveControls, result, slower, type MinigameData } from '../minigames/common';
 import {
   endMs,
   hits,
@@ -63,6 +63,8 @@ export class RhythmScene extends Phaser.Scene {
   private nextGuide = 0;
   private lastBeat = 0;
   private onDone: (() => void) | null = null;
+  /** The player left the last round early, so it isn't won. */
+  private left = false;
 
   private notes!: Phaser.GameObjects.Graphics;
   private drum!: Phaser.GameObjects.Graphics;
@@ -82,6 +84,7 @@ export class RhythmScene extends Phaser.Scene {
     this.audio = sharedAudio(this.registry);
     this.drawStage(data.game.title);
     this.setupInput();
+    leaveControls(this, () => this.endRound(true));
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       this.run++;
       this.phase = 'idle';
@@ -103,7 +106,7 @@ export class RhythmScene extends Phaser.Scene {
         if (run !== this.run) return;
         const state = await this.play(data);
         if (run !== this.run) return;
-        const won = hits(state) >= this.target;
+        const won = !this.left && hits(state) >= this.target;
         const again = await result(won, [
           `${hits(state)} of ${state.notes.length} beats hit (${state.perfect} perfect).`,
           `Best combo ${state.bestCombo}. Score ${state.score}.`,
@@ -130,13 +133,19 @@ export class RhythmScene extends Phaser.Scene {
     if (sweepMisses(this.state, judgeMs, this.win) > 0) this.show('miss');
     this.drawNotes((this.audio.outputTime() - this.startTime) * 1000);
     this.drawDrum(audioNow < this.struckUntil);
-    if (judgeMs > endMs(this.state, this.win) + TAIL_MS) {
-      this.phase = 'idle';
-      this.showButton(false);
-      const done = this.onDone;
-      this.onDone = null;
-      done?.();
-    }
+    if (judgeMs > endMs(this.state, this.win) + TAIL_MS) this.endRound(false);
+  }
+
+  /** Ends the round (after the last beat, or early with Leave); unjudged beats count as missed. */
+  private endRound(early: boolean): void {
+    if (this.phase !== 'playing') return;
+    this.left = early;
+    this.phase = 'idle';
+    this.showButton(false);
+    this.countText.setText('');
+    const done = this.onDone;
+    this.onDone = null;
+    done?.();
   }
 
   // --- flow ------------------------------------------------------------------

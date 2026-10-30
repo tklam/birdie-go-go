@@ -187,7 +187,7 @@ The first time you visit each of the 20 districts, someone local tells you a lit
 | **Find** | Tap the hidden birds in the picture (or move the cursor with the arrows and press Space). **Hint** helps after a while. |
 | **Slide** | Tap a piece next to the gap to slide it, until the old photo is whole again. **Hint** shows the finished picture. |
 
-You can't fail for good: try again as often as you like, or leave and come back later. **Slow prompts** in Settings makes the timed games gentler.
+You can't fail for good: try again as often as you like, or leave and come back later. **Leave** (top left, or Esc; in the quiz, the last answer) stops a game partway. **Slow prompts** in Settings makes the timed games gentler.
 
 ## Companions
 

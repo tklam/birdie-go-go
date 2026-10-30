@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import type { AudioEngine } from '../audio/AudioEngine';
 import { hashString, rng } from '../encounter/random';
 import { reducedMotion } from '../fx/motion';
-import { backdrop, finish, iconTexture, intro, result, slower, type MinigameData } from '../minigames/common';
+import { backdrop, finish, iconTexture, intro, leaveControls, result, slower, type MinigameData } from '../minigames/common';
 import {
   deal,
   flip,
@@ -41,6 +41,8 @@ interface Card {
 export class MemoryScene extends Phaser.Scene {
   private objects: Phaser.GameObjects.GameObject[] = [];
   private onKey: ((key: string) => void) | null = null;
+  /** Ends the current round early (Leave or Esc); null between rounds. */
+  private leave: (() => void) | null = null;
 
   constructor() {
     super('MG_memory');
@@ -49,10 +51,12 @@ export class MemoryScene extends Phaser.Scene {
   create(data: MinigameData): void {
     this.objects = [];
     this.onKey = null;
+    this.leave = null;
     backdrop(this, 0x1f3a2e);
     this.add.text(160, 12, data.game.title, { ...TEXT, color: '#ffe680' }).setOrigin(0.5);
     const status = this.add.text(160, 164, '', TEXT).setOrigin(0.5);
     this.input.keyboard?.on('keydown', (e: KeyboardEvent) => this.onKey?.(e.key));
+    leaveControls(this, () => this.leave?.());
 
     const icons = data.game.icons?.length ? data.game.icons : PROP_NAMES.map((n) => `prop:${n}`);
     const pairs = pairCount(data.game.pairs, icons.length);
@@ -153,8 +157,10 @@ export class MemoryScene extends Phaser.Scene {
       let busy = false;
       const end = (ms: number) => {
         this.onKey = null;
+        this.leave = null;
         this.time.delayedCall(ms, () => resolve(state));
       };
+      this.leave = () => end(0);
       pick = (i: number) => {
         if (busy || !this.onKey) return;
         const r = flip(state, i);
