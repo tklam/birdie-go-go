@@ -72,6 +72,17 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,json,wasm,bin,ttf,mp3}'],
+        // The plugin's default ignores also drop `manifest*.json`, which
+        // would leave the asset manifest (assets/manifest.json) out of the
+        // precache: offline starts would break and updated installs would
+        // read a stale copy from the HTTP cache. List the ignores ourselves.
+        globIgnores: ['**/node_modules/**/*', 'sw.js', 'workbox-*.js'],
+        // Only Vite's content-hashed bundles (name-HASH.js/.css) are safe to
+        // cache without a revision. The plugin's default treats everything
+        // under assets/ that way, but our sprites, audio and manifest there
+        // keep their names when they change, so they need revisions or
+        // installed copies never see the new versions.
+        dontCacheBustURLsMatching: /-[A-Za-z0-9_-]{8}\.(?:js|css)$/,
         // core.wasm is ~3 MB with standard Go (smaller with TinyGo).
         maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
       },

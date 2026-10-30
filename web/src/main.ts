@@ -52,7 +52,23 @@ window.addEventListener('resize', () => {
 });
 
 // App updates wait for the title screen or the next launch (SPEC.md §9.1).
-const updateSW = registerSW({ onNeedRefresh: () => setAppUpdate(() => void updateSW(true)) });
+// Browsers only look for a new version when the page loads, and an installed
+// app resumed from the background doesn't reload, so also look when it comes
+// back to the foreground and hourly. Offline, the check just fails quietly.
+const UPDATE_CHECK_MS = 60 * 60 * 1000;
+const updateSW = registerSW({
+  onNeedRefresh: () => setAppUpdate(() => void updateSW(true)),
+  onRegisteredSW: (_url, registration) => {
+    if (!registration) return;
+    const check = () => {
+      if (navigator.onLine) registration.update().catch(() => undefined);
+    };
+    setInterval(check, UPDATE_CHECK_MS);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') check();
+    });
+  },
+});
 onAppUpdate(() => {
   if (!game.scene.isActive('Title')) toast('A new version is ready. It loads from the title screen or next time you start.', 5000);
 });

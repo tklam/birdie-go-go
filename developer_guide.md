@@ -168,6 +168,7 @@ Debugging: `?debug=weather` shows an overlay with each area's values, the blend 
 - **Active window:** the chunks under the camera plus a 1-chunk margin, and one more ring in the direction of travel. Tiles in chunks that aren't loaded yet count as solid.
 - **Decoding** happens in a worker per map. **Baking** into two pooled render textures per chunk (below and above characters) happens on the main thread, at most one chunk per frame.
 - **Caching:** an in-memory LRU of 64 decoded chunks; the service worker precaches chunk files for offline play.
+- **Service worker precache** (`web/vite.config.ts`): everything in `dist/` matching `globPatterns` is precached. Only Vite's hashed bundles (`name-HASH.js/.css`) skip revisions (`dontCacheBustURLsMatching`); everything else, including the unhashed files in `public/assets/`, gets a content revision, so a changed sprite or `manifest.json` reaches installed copies. Keep `globIgnores` explicit: the plugin's defaults drop `manifest*.json`. To check a release, grep `dist/sw.js` for `revision:null` (it should list only hashed bundles).
 - **Overworld birds** spawn from `bird` objects when their chunk loads and are removed when it's evicted.
 
 ## 5. Content authoring

@@ -472,7 +472,7 @@ All story is data-driven (§9.4). The dialogue is a full first draft (content/di
 ### 9.1 Overview
 The game is a **static web app** — no server is needed to play. An **optional Go server** delivers content updates (maps, tasks, missions, events) and, later, cloud saves.
 
-**App updates.** The service worker uses the prompt strategy: a newly deployed version downloads in the background and waits, so a running game keeps its own cached files (world chunks are content-hashed and streamed lazily, so swapping them mid-session would leave blank areas). The title screen offers **Update now**; during play a single toast says a new version is ready; otherwise it takes over on the next launch. Saves migrate forward on load (§9.8).
+**App updates.** The service worker uses the prompt strategy: a newly deployed version downloads in the background and waits, so a running game keeps its own cached files (world chunks are content-hashed and streamed lazily, so swapping them mid-session would leave blank areas). The title screen offers **Update now**; during play a single toast says a new version is ready; otherwise it takes over on the next launch. Besides each launch, the game looks for a new version whenever it returns to the foreground (an installed app resumed from the background never reloads) and hourly while open; offline, the check fails quietly. Every precached file except Vite's content-hashed bundles carries a revision, so changed art, audio, the asset manifest or content always reach installed copies. Saves migrate forward on load (§9.8).
 
 ```
 ┌──────────────── Browser (static files, PWA) ─────────────────┐
