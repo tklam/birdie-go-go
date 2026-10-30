@@ -196,7 +196,7 @@ func borderFields() *tmap {
 	m.obj("village_elder", "npc", 32, 39, map[string]string{"npc_id": "village_elder", "sprite": "char_village_elder"})
 	m.obj("field_snipe", "bird", 18, 22, map[string]string{"species": "cattle_egret", "count": "3"})
 	m.obj("field_dogs", "enemy", 44, 20, map[string]string{"enemy_id": "stray_dog_pack"})
-	m.obj("sheet_village", "collectible", 46, 47, map[string]string{"song": "harbour_lights"})
+	m.obj("sheet_walled_village", "collectible", 46, 47, map[string]string{"song": "harbour_lights"})
 	return m
 }
 

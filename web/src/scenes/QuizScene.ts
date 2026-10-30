@@ -24,23 +24,28 @@ export class QuizScene extends Phaser.Scene {
         await intro(data.game, `Answer at least ${data.game.target ?? 1} of ${data.game.quiz?.length ?? 0} questions right.`);
         const qs = data.game.quiz ?? [];
         const state = startQuiz();
+        let left = false;
         while (!quizOver(state, qs)) {
           const q = qs[state.index];
           score.setText(`Question ${state.index + 1}/${qs.length} · right ${state.right}`);
+          // Leave (or Esc, which closes the menu unanswered) ends the round.
           let choice = -1;
           await showMenu(
             q.question,
-            q.answers.map((a, i) => ({ label: a, run: async () => ((choice = i), false) })),
+            [...q.answers.map((a, i) => ({ label: a, run: async () => ((choice = i), false) })), { label: 'Leave', run: async () => false }],
             { tapToSelect: false },
           );
-          if (choice < 0) continue;
+          if (choice < 0) {
+            left = true;
+            break;
+          }
           const ok = answer(state, qs, choice);
           if (ok) audio?.chime();
           else audio?.buzz();
           score.setText(ok ? 'Right!' : `It was: ${q.answers[q.correct]}`);
           await new Promise((r) => this.time.delayedCall(ok ? 600 : 1400, r));
         }
-        const won = state.right >= (data.game.target ?? qs.length);
+        const won = !left && state.right >= (data.game.target ?? qs.length);
         const again = await result(won, [`${state.right} of ${qs.length} right.`]);
         if (!again) {
           finish(this, data, won);

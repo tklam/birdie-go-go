@@ -70,6 +70,26 @@ type EnergyRules struct {
 	LowWarningText string `json:"lowWarningText"`
 	// TooTiredText is shown when Angie is too tired to start an activity.
 	TooTiredText string `json:"tooTiredText"`
+	// Faint is what happens when Energy runs out (no game over); nil uses
+	// the client's plain fallback.
+	Faint *FaintRules `json:"faint,omitempty"`
+}
+
+// FaintRules: when Energy reaches 0 a neighbour helps Angie home, she pays
+// up to Fee (never below $0) and wakes with RecoverTo Energy. Weather and
+// Encounter are the notices for running out in bad weather or losing an
+// encounter; "{fee}" in a line is replaced by the amount paid.
+type FaintRules struct {
+	Fee       int       `json:"fee"`
+	RecoverTo int       `json:"recoverTo"`
+	Weather   FaintText `json:"weather"`
+	Encounter FaintText `json:"encounter"`
+}
+
+// FaintText is a titled notice.
+type FaintText struct {
+	Title string   `json:"title"`
+	Lines []string `json:"lines"`
 }
 
 // Bill is a regular cost paid in the morning of every EveryDays-th day

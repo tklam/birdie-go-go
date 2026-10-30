@@ -14,8 +14,8 @@ The city has its rough edges, like stray dogs, the odd strange creature, and fie
 - After your first visit you can **install** the game (Add to Home Screen) and play **offline**.
 - Play in **landscape**. If you hold your phone upright, the game will ask you to rotate it.
 - The game opens on a poster of Angie, O Boy and Kei. Tap, click or press any key to reach the title screen.
-- Tap or click **Start**. This also turns on the sound. Headphones help a lot during piano lessons.
-- On your first lesson, the game asks you to **calibrate**: tap along with 8 clicks so it can account for your device's audio delay.
+- Tap or click **New Game** (or **Continue** once you have a save). This also turns on the sound. Headphones help a lot during piano lessons.
+- On your first lesson, the game asks you to **calibrate**: tap along with 8 clicks so it can account for your device's audio delay. If you can't tap in time, **Skip** uses the default timing (you can try again later in Settings), and **Back** leaves without the lesson.
 
 ## Controls
 
@@ -26,7 +26,7 @@ The city has its rough edges, like stray dogs, the odd strange creature, and fie
 | Move | Touch the left side and drag (joystick) | *(coming soon)* | Arrows / WASD |
 | Sneak | Push the joystick only a little | Hold right button while moving | Hold Shift |
 | Action | Tap the **Action** button | *(coming soon)* | Space / Enter / Z |
-| Menu | Tap **Menu** (top right) | Menu button | Esc / Tab |
+| Menu | Tap **Menu** (top right) | Click **Menu** (top right) | Esc / Tab |
 
 The Action button shows what it will do: **Talk**, **Enter**, **Sleep**, **Photograph** (and later **Look**, **Sit**, **Board**). If you'd rather tap where you want to go, set **Controls** to **tap to move** in Settings: tap anywhere on the map and Angie walks there, finding her way around walls.
 
@@ -48,7 +48,7 @@ The Action button shows what it will do: **Talk**, **Enter**, **Sleep**, **Photo
 
 ## Your day
 
-Each day has three parts: **Morning, Afternoon, and Evening**. A photo session or a piano lesson uses up one part of the day. Walking around and most transit rides are free. Different birds show up at different times of day, in different seasons, and in different weather, so come back to your favorite spots often.
+Each day has three parts: **Morning, Afternoon, and Evening**. A photo session or a piano lesson uses up one part of the day. Walking and riding don't use up a part of the day by themselves, but the clock keeps ticking (a minute of game time for each second you play, plus the wait and the ride), and every ride costs a fare. Different birds show up at different times of day, in different seasons, and in different weather, so come back to your favorite spots often.
 
 The game saves automatically at the end of each part of the day, when you go through a door, and before photo sessions and lessons. When the evening is over, go home and **Sleep** in your bed to start the next day. If you stay out in the evening, a reminder appears now and then at the top of the screen.
 
@@ -65,13 +65,13 @@ The world is big and seamless. You can walk from downtown streets into a hillsid
 - The city is busy: joggers, office workers, aunties, students, and fellow **birders** who stop to photograph birds. Say hello; some have useful tips. Birders may also be shooting next to you during a photo session, and their clicking shutters can make birds a little nervous.
 - Look around for hidden **feathers**, **camera parts**, and **sheet music**.
 - Every place has its own sounds: traffic and crossing signals in town, mahjong tiles in the old market, waves and gulls at the piers, cicadas and songbirds on the trails, frogs in the wetlands. Birds near you call, so listen for them before you see them. Turn **Sound** down in Settings if you'd rather have quiet.
-- Open the **World Map** from the Menu to see where you've been, your birding spots, and the transit lines. Places you haven't explored yet are dark. Tap **+** and **−** to zoom (drag to look around), and **Close** when you're done.
+- Open the **World Map** from the Menu to see where you've been, your birding spots, and the transit lines. Places you haven't explored yet are dark, and their spots and shops appear once you've been there. Tap **+** and **−** to zoom (drag to look around), and **Close** when you're done.
 
 ## Getting around
 
 | | How it works |
 |---|---|
-| **Bus** | Green Minibus 16 runs to Po Toi O and Green Minibus 1A to Sai Kung. Wait at a stop and press **Board**. Ride along and watch the city go by. Tap **Get off at next stop**, or **Skip** to jump to your stop. |
+| **Bus** | Green Minibus 16 runs to Po Toi O and Green Minibus 1A to Sai Kung. Wait at a stop and press **Board**. Ride along and watch the city go by, or tap **Skip** to jump to your stop. |
 | **Tram** | Slow, cheap, and charming. The Harbourfront Tram runs along the waterfront road of Harbour Island, with three stops; listen for its *ding-ding* as it comes along. |
 | **Metro** | Go down into a station, pick your destination, and you're there in moments. The Ridge Line runs from the Old Town under Lion Ridge to the Border Fields. The Harbour Line runs under the harbour from Tseung Kwan O Station (east of the plaza) to Harbour Island, and from chapter 2 the Wetland Line runs to the Fishpond Wetlands, where ducks and spoonbills winter. Rain doesn't affect it. |
 | **Ferry** | Cross the harbour or sail to the outlying islands: the Island Ferry runs from Po Toi O pier to Pebble Island. Stand on the deck, because seabirds follow the boat and make great photos. Long island trips take up part of the day. |
@@ -189,7 +189,7 @@ The first time you visit each of the 20 districts, someone local tells you a lit
 | **Find** | Tap the hidden birds in the picture (or move the cursor with the arrows and press Space). **Hint** helps after a while. |
 | **Slide** | Tap a piece next to the gap to slide it, until the old photo is whole again. **Hint** shows the finished picture. |
 
-You can't fail for good: try again as often as you like, or leave and come back later. **Slow prompts** in Settings makes the timed games gentler.
+You can't fail for good: try again as often as you like, or leave and come back later. **Leave** (top left, or Esc; in the quiz, the last answer) stops a game partway. **Slow prompts** in Settings makes the timed games gentler.
 
 ## Companions
 
@@ -220,22 +220,23 @@ Companions give **hints**. You still take the photo and catch the mistakes yours
 
 ## Saves and updates
 
-- Your progress is saved **on your device**. To back it up or move to another device, use **Settings → Export save** and **Import save**. If the game is connected to an update server, **Settings → Cloud save** can upload your save and give you a sync code; enter that code on another device to download it.
+- Your progress is saved **on your device**. To back it up or move to another device, use **Menu → Export save** and **Import save**. If the game is connected to an update server, **Menu → Cloud save** can upload your save and give you a sync code; enter that code on another device to download it.
 - Clearing your browser's site data deletes your save, so export one first.
 - When you're online, the game may download **updates** (new areas, missions, and events) in the background. They take effect the next time you're at the title screen or a new day starts. Without a connection, everything you already have still works. When a new version of the game itself is ready, you'll see a short notice; it loads from **Update now** on the title screen, or by itself the next time you start the game. Your saves carry over.
 
 ## Settings
 
-- Volume (music, effects, piano)
+- Volume: music and sound effects (the piano in lessons always plays at full volume)
 - Controls: joystick or tap to move
 - Window color: blue, green, plum or grey
-- Recalibrate audio delay
+- Lesson timing: recalibrate audio delay
 - Text speed: slow, normal, fast or instant
 - Less motion: fades instead of wipes and glitches, no screen shake or camera flash, and gentler rain
 - Captions: a short subtitle whenever O Boy chirps, calls or squawks, a nearby bird calls, or a tram, ferry or minibus sounds its bell or horn
 - Colour-blind safe: blue and orange instead of green and red, and different shapes for map markers
-- Encounters: hold instead of mash, slower prompts, skip encounters
-- Export / import save
+- Encounters: hold, not mash; slow prompts; skip fights
+
+**Export save**, **Import save** and (with an update server) **Cloud save** are in the Menu itself.
 
 Your settings are kept when you start a new game.
 

@@ -189,8 +189,38 @@
   text-align: right;
   color: #f0d050;
 }
+/* Notices fit the game area: the text scrolls, the title and button stay. */
+.panel.notice {
+  box-sizing: border-box;
+  max-height: calc(var(--game-h) - var(--px) * 8);
+  display: flex;
+  flex-direction: column;
+}
+.panel-body {
+  overflow-y: auto;
+  min-height: 0;
+  flex: 1 1 auto;
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #f0d050 transparent;
+}
+.panel.notice .panel-button {
+  flex: none;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
 .btn.back {
   left: max(16px, env(safe-area-inset-left));
+  top: 16px;
+  min-width: 56px;
+  min-height: 44px;
+  border-radius: 8px;
+}
+.btn.skip {
+  right: max(16px, env(safe-area-inset-right));
   top: 16px;
   min-width: 56px;
   min-height: 44px;
@@ -206,22 +236,31 @@
 
 /* Menus. */
 .menu-window {
-  min-width: calc(var(--px) * 200);
-  max-height: calc(var(--game-h) - var(--px) * 16);
+  box-sizing: border-box;
+  min-width: min(calc(var(--px) * 200), calc(100vw - 16px));
+  max-height: calc(var(--game-h) - var(--px) * 8);
   display: flex;
   flex-direction: column;
 }
-/* Only the items scroll; the title and the detail line stay put. */
+/* Only the items scroll (drag, wheel or arrow keys); the title and the
+   detail line stay put. */
 .menu-list {
   overflow-y: auto;
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: #f0d050 transparent;
+  touch-action: pan-y;
+  overscroll-behavior: contain;
   min-height: 0;
   flex: 1 1 auto;
 }
+/* Rows are tap targets of at least 44 CSS px (AGENTS.md rule 6). */
 .menu-window .menu-item {
   padding-left: calc(var(--px) * 10);
   position: relative;
   cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
 }
 .menu-window .menu-item.selected {
   background: rgba(240, 240, 240, 0.16);
@@ -240,6 +279,8 @@
   content: '▶';
   position: absolute;
   left: 0;
+  top: 50%;
+  transform: translateY(-50%);
   color: #f0d050;
   animation: blink 0.8s steps(1) infinite;
 }

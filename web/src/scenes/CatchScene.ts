@@ -3,10 +3,9 @@ import type { AudioEngine } from '../audio/AudioEngine';
 import { hashString } from '../encounter/random';
 import { reducedMotion } from '../fx/motion';
 import { BASKET_HALF, BASKET_SPEED, BASKET_Y, catchOver, clampBasket, startCatch, stepCatch, timeLeft, type CatchConfig, type CatchState } from '../minigames/catch';
-import { backdrop, finish, iconTexture, intro, result, slower, type MinigameData } from '../minigames/common';
+import { backdrop, finish, iconTexture, intro, leaveControls, result, slower, type MinigameData } from '../minigames/common';
 import type { Session } from '../systems/session';
 import { modal } from '../ui/overlay';
-import { floatingButton } from '../ui/panel';
 import { TEXT } from '../ui/text';
 
 const BAR = { x: 60, y: 14, w: 200, h: 4 };
@@ -44,9 +43,8 @@ export class CatchScene extends Phaser.Scene {
     this.basket = this.add.graphics().setDepth(5);
     this.drawBasket();
     this.setupInput();
-    const removeBack = floatingButton('Leave', 'back', () => this.roundDone?.(false));
+    leaveControls(this, () => this.roundDone?.(false));
     this.events.once('shutdown', () => {
-      removeBack();
       this.clearItems();
       this.state = null;
       this.roundDone = null;

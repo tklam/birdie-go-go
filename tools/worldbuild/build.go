@@ -10,6 +10,7 @@ import (
 	"errors"
 	"fmt"
 	"image/color"
+	"math"
 	"os"
 	"path/filepath"
 	"sort"
@@ -111,10 +112,16 @@ type builder struct {
 	spawns map[string]model.Point
 	stops  map[string]model.Point
 	gates  map[string]model.Gateway
-	colors []color.NRGBA // average color per atlas tile, for the overview map
-	marks  []model.Landmark
-	fill   int
-	names  []string
+	// collectibles maps each collectible's name to its map: a save marks a
+	// collectible taken by name, so names must be unique across the world.
+	collectibles map[string]string
+	// enemies and arrivals (stops, doors, spawns, gateways) are checked
+	// against each other once all maps are in: see checkEnemies.
+	enemies, arrivals []model.WorldObject
+	colors            []color.NRGBA // average color per atlas tile, for the overview map
+	marks             []model.Landmark
+	fill              int
+	names             []string
 }
 
 func run(worldPath, outDir string, opts options) error {
@@ -138,19 +145,56 @@ func run(worldPath, outDir string, opts options) error {
 	if err != nil {
 		return fmt.Errorf("%s: %w", worldPath, err)
 	}
-	b := &builder{opts: opts, chunks: map[[2]int]*chunk{}, areas: map[string]int{}, spawns: map[string]model.Point{}, stops: map[string]model.Point{}, gates: map[string]model.Gateway{}}
+	b := &builder{opts: opts, chunks: map[[2]int]*chunk{}, areas: map[string]int{}, spawns: map[string]model.Point{}, stops: map[string]model.Point{}, gates: map[string]model.Gateway{}, collectibles: map[string]string{}}
 	for _, m := range w.Maps {
 		path := filepath.Join(filepath.Dir(worldPath), m.FileName)
 		if err := b.addMap(path, m.X, m.Y); err != nil {
 			return fmt.Errorf("%s: %w", path, err)
 		}
 	}
+	if err := b.checkEnemies(); err != nil {
+		return fmt.Errorf("%s: %w", worldPath, err)
+	}
+	b.landmarkAreas()
 	b.sealUncovered()
 	b.blendField(index.WidthChunks, index.HeightChunks, opts.blendTiles)
 	if len(w.Maps) > 0 && b.fill == 0 {
 		return fmt.Errorf("fill tile %q not found in tileset %q", opts.fillTile, opts.atlas)
 	}
 	return b.write(index, outDir)
+}
+
+// landmarkAreas sets each landmark's area from the areas layer under it.
+func (b *builder) landmarkAreas() {
+	names := make(map[int]string, len(b.areas))
+	for id, n := range b.areas {
+		names[n] = id
+	}
+	for i, m := range b.marks {
+		tx, ty := int(m.X)/tileSize, int(m.Y)/tileSize
+		if c, ok := b.chunks[[2]int{tx / chunkTiles, ty / chunkTiles}]; ok {
+			b.marks[i].Area = names[int(c.area[(ty%chunkTiles)*chunkTiles+tx%chunkTiles])]
+		}
+	}
+}
+
+// minEnemyDistance keeps enemies' homes this far (px) from where Angie
+// arrives or boards: more than the widest sight (80) plus wandering (24),
+// so no encounter starts the moment she steps off a ferry or out of a door
+// (every encounter must be avoidable, AGENTS.md rule 13).
+const minEnemyDistance = 128
+
+// checkEnemies rejects enemies placed too close to a stop, door, spawn or
+// gateway.
+func (b *builder) checkEnemies() error {
+	for _, e := range b.enemies {
+		for _, a := range b.arrivals {
+			if d := math.Hypot(e.X-a.X, e.Y-a.Y); d < minEnemyDistance {
+				return fmt.Errorf("enemy %q is %.0f px from %s %q (want at least %d)", e.Name, d, a.Type, a.Name, minEnemyDistance)
+			}
+		}
+	}
+	return nil
 }
 
 func singleMapWorld(file string, m tiledMap) tiledWorld {
@@ -253,6 +297,21 @@ func (b *builder) addMap(path string, ox, oy int) error {
 						return fmt.Errorf("duplicate spawn %q", o.Name)
 					}
 					b.spawns[o.Name] = model.Point{X: obj.X, Y: obj.Y}
+				}
+				if typ == "collectible" {
+					if o.Name == "" {
+						return fmt.Errorf("collectible at %v,%v needs a name", obj.X, obj.Y)
+					}
+					if other, dup := b.collectibles[o.Name]; dup {
+						return fmt.Errorf("duplicate collectible %q (also in %s)", o.Name, other)
+					}
+					b.collectibles[o.Name] = filepath.Base(path)
+				}
+				switch typ {
+				case "enemy":
+					b.enemies = append(b.enemies, obj)
+				case "stop", "door", "spawn", "gateway":
+					b.arrivals = append(b.arrivals, obj)
 				}
 				if mark, ok := landmark(obj); ok {
 					b.marks = append(b.marks, mark)

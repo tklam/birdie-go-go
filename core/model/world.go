@@ -42,11 +42,13 @@ type WorldIndex struct {
 }
 
 // Landmark is a place marked on the in-game map. ID is the spot, stop or
-// gateway id (or the object's name).
+// gateway id (or the object's name). Area is the area it stands in, if any:
+// the map shows it once Angie has been there.
 type Landmark struct {
 	Type  string  `json:"type"`
 	ID    string  `json:"id"`
 	Title string  `json:"title,omitempty"`
+	Area  string  `json:"area,omitempty"`
 	X     float64 `json:"x"`
 	Y     float64 `json:"y"`
 }

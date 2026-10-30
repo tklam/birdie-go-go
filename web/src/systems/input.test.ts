@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { combine, SNEAK_THRESHOLD } from './input';
+import { combine, pressedSince, SNEAK_THRESHOLD } from './input';
 
 const none = { left: false, right: false, up: false, down: false, sneak: false };
 
@@ -22,5 +22,20 @@ describe('combine', () => {
     expect(combine(none, { x: 0.1, y: 0 })).toEqual({ x: 0, y: 0, sneak: false });
     expect(combine(none, { x: SNEAK_THRESHOLD - 0.1, y: 0 }).sneak).toBe(true);
     expect(combine(none, { x: 0.9, y: 0 })).toEqual({ x: 0.9, y: 0, sneak: false });
+  });
+});
+
+describe('pressedSince', () => {
+  it('ignores the key press that closed a dialogue', () => {
+    // The press at t=100 closed the window at t=100.4 (same event).
+    expect(pressedSince(100, 100.4)).toBe(false);
+  });
+
+  it('accepts a later press', () => {
+    expect(pressedSince(250, 100.4)).toBe(true);
+  });
+
+  it('accepts any press before a window has ever closed', () => {
+    expect(pressedSince(0, -Infinity)).toBe(true);
   });
 });

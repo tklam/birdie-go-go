@@ -4,12 +4,17 @@ import { clickTimes } from '../audio/voice';
 import { calibrate } from '../piano/calibration';
 import { setLatencyOffset } from '../piano/lesson';
 import type { GameState } from '../systems/state';
+import { modal } from '../ui/overlay';
+import { floatingButton } from '../ui/panel';
 import { BIG_TEXT, COLORS, drawWindow, hasScene, sharedAudio, sharedContent, sharedState, TEXT } from './PianoScene';
 
 export interface CalibrationSceneData {
   /** Scene to start afterwards (default 'Title'). */
   returnTo?: string;
   returnData?: object;
+  /** Scene for Back (default: returnTo, with returnData). */
+  backTo?: string;
+  backData?: object;
 }
 
 const W = 320;
@@ -64,7 +69,15 @@ export class CalibrationScene extends Phaser.Scene {
     this.input.on('pointerdown', () => this.onTap());
     this.input.keyboard?.on('keydown-SPACE', () => this.onTap());
     this.input.keyboard?.on('keydown-ENTER', () => this.onTap());
-    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.run++);
+    // A way out for anyone who can't tap in time (SPEC.md §6.4).
+    const removeBack = floatingButton('Back', 'back', () => this.back());
+    const removeSkip = floatingButton('Skip', 'skip', () => this.skip());
+    this.input.keyboard?.on('keydown-ESC', () => !modal.open && this.back());
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      this.run++;
+      removeBack();
+      removeSkip();
+    });
 
     const run = this.run;
     void sharedContent(this.registry).then((content) => {
@@ -84,9 +97,26 @@ export class CalibrationScene extends Phaser.Scene {
 
   private showIntro(): void {
     this.phase = 'intro';
-    this.body.setText('Tap along with the clicks.\n\nTap anywhere (or Space)\nexactly on each click.\nIt tunes lesson timing\nto your device.');
+    this.body.setText('Tap along with the clicks.\n\nTap anywhere (or Space)\nexactly on each click.\nIt tunes lesson timing\nto your device. (Skip keeps\nthe default timing.)');
     this.prompt.setText('Tap to start');
     this.g.clear();
+  }
+
+  /** Leaves without changing the timing. */
+  private back(): void {
+    const to = this.params.backTo ?? this.params.returnTo;
+    const data = this.params.backTo ? this.params.backData : this.params.returnData;
+    this.scene.start(to && hasScene(this, to) ? to : 'Title', data);
+  }
+
+  /** Keeps the current (default) offset, counts as calibrated and carries on. */
+  private skip(): void {
+    if (this.state) setLatencyOffset(this.state, this.state.settings.latencyOffsetMs);
+    this.finish();
+  }
+
+  private finish(): void {
+    this.scene.start(this.params.returnTo && hasScene(this, this.params.returnTo) ? this.params.returnTo : 'Title', this.params.returnData);
   }
 
   private onTap(): void {
@@ -99,7 +129,7 @@ export class CalibrationScene extends Phaser.Scene {
         this.taps.push((this.audio.currentTime - this.t0) * 1000);
         break;
       case 'done':
-        this.scene.start(this.params.returnTo && hasScene(this, this.params.returnTo) ? this.params.returnTo : 'Title', this.params.returnData);
+        this.finish();
         break;
     }
   }

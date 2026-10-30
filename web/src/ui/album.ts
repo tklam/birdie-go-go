@@ -1,7 +1,7 @@
 import type { ContentBundle } from '../core/types.gen';
 import type { Manifest } from '../systems/assets';
 import type { GameState } from '../systems/state';
-import { modal, overlay } from './overlay';
+import { closeModal, modal, overlay } from './overlay';
 
 const STARS = { perfect: '★★★', great: '★★', good: '★', blurry: '' } as const;
 
@@ -50,7 +50,7 @@ export function showAlbum(content: ContentBundle, state: GameState, manifest: Ma
     const done = () => {
       box.remove();
       window.removeEventListener('keydown', onKey, true);
-      modal.open--;
+      closeModal();
       resolve();
     };
     const onKey = (e: KeyboardEvent) => {

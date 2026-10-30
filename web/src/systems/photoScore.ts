@@ -121,6 +121,17 @@ export function sharpnessFactor(speed: number, threshold: number): number {
   return clamp01(1 - (speed - threshold) / ((SHARPNESS_ZERO_MULTIPLE - 1) * threshold));
 }
 
+/** Ratings from best to worst. */
+export const RATINGS: readonly PhotoRating[] = ['perfect', 'great', 'good', 'blurry'];
+
+/**
+ * A session's best rating, or 'none' without photos: the `best` param of
+ * the photo_session_end trigger (SPEC.md §9.4).
+ */
+export function bestRating(ratings: readonly PhotoRating[]): PhotoRating | 'none' {
+  return RATINGS.find((r) => ratings.includes(r)) ?? 'none';
+}
+
 export function ratingFor(score: number): PhotoRating {
   if (score >= RATING_THRESHOLDS.perfect) return 'perfect';
   if (score >= RATING_THRESHOLDS.great) return 'great';

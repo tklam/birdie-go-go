@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import type { AudioEngine } from '../audio/AudioEngine';
 import { hashString } from '../encounter/random';
 import { reducedMotion } from '../fx/motion';
-import { finish, iconTexture, intro, result, slower, type MinigameData } from '../minigames/common';
+import { finish, iconTexture, intro, leaveControls, result, slower, type MinigameData } from '../minigames/common';
 import { findOver, findTarget, findTimeLeft, hintBird, HIT_R, layoutFind, startFind, tapFind, type FindConfig, type FindLayout, type FindState } from '../minigames/find';
 import { ensureProp } from '../minigames/props';
 import { frameIndex, type Manifest } from '../systems/assets';
@@ -55,9 +55,8 @@ export class FindScene extends Phaser.Scene {
     this.status = this.add.text(316, 170, '', TEXT).setOrigin(1, 0).setDepth(51).setShadow(1, 1, '#101018', 0);
     this.cursor = this.add.graphics().setDepth(60).setVisible(false);
     this.setupInput();
-    const removeBack = floatingButton('Leave', 'back', () => this.roundDone?.(false));
+    leaveControls(this, () => this.roundDone?.(false));
     this.events.once('shutdown', () => {
-      removeBack();
       this.removeHint?.();
       this.removeHint = null;
       this.clearRound();

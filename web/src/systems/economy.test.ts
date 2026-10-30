@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Bill, EnergyRules } from '../core/types.gen';
-import { activityCost, billsDue, crossedLow, payBills, walkCost } from './economy';
+import { activityCost, billsDue, crossedLow, faintOutcome, payBills, walkCost } from './economy';
 
 const bills: Bill[] = [
   { name: 'Electricity', amount: 12, everyDays: 1 },
@@ -46,5 +46,31 @@ describe('energy rules', () => {
     expect(crossedLow(rules, 26, 24)).toBe(true);
     expect(crossedLow(rules, 24, 23)).toBe(false);
     expect(crossedLow(undefined, 26, 0)).toBe(false);
+  });
+});
+
+describe('faintOutcome', () => {
+  const faint = {
+    fee: 50,
+    recoverTo: 60,
+    weather: { title: 'Dizzy', lines: ['Exhausted by the weather.', 'Helped home. (-${fee})'] },
+    encounter: { title: 'Worn out', lines: ['Worn out from the chase.', 'Helped home. (-${fee})'] },
+  };
+  const withFaint: EnergyRules = { ...rules, faint };
+
+  it('words an encounter loss differently from the weather', () => {
+    expect(faintOutcome(withFaint, 'weather', 100).lines[0]).toBe('Exhausted by the weather.');
+    const lost = faintOutcome(withFaint, 'encounter', 100);
+    expect(lost.title).toBe('Worn out');
+    expect(lost.lines.join(' ')).not.toContain('weather');
+  });
+
+  it('caps the fee at the money Angie has', () => {
+    expect(faintOutcome(withFaint, 'encounter', 20)).toMatchObject({ fee: 20, recoverTo: 60 });
+    expect(faintOutcome(withFaint, 'weather', 20).lines[1]).toBe('Helped home. (-$20)');
+  });
+
+  it('has a plain fallback without rules', () => {
+    expect(faintOutcome(undefined, 'encounter', 100)).toMatchObject({ fee: 0, recoverTo: 60 });
   });
 });

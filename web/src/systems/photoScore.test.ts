@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import type { ContentBundle } from '../core/types.gen';
 import {
   addToAlbum,
+  bestRating,
   ALERT_DECAY_PER_SEC,
   ALERT_SHOT_BUMP,
   ALERT_SPEED_THRESHOLD,
@@ -52,6 +53,18 @@ function shot(overrides: Partial<ShotInput> = {}): ShotInput {
     ...overrides,
   };
 }
+
+describe('bestRating', () => {
+  it("is the session's best photo", () => {
+    expect(bestRating(['good', 'perfect', 'blurry'])).toBe('perfect');
+    expect(bestRating(['blurry', 'great'])).toBe('great');
+    expect(bestRating(['blurry'])).toBe('blurry');
+  });
+
+  it('is none without photos', () => {
+    expect(bestRating([])).toBe('none');
+  });
+});
 
 describe('pickSubject', () => {
   it('picks the in-frame bird closest to the center', () => {

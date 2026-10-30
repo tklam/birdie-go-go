@@ -60,11 +60,26 @@ export class InputReader {
       },
       this.touch.stick,
     );
-    const action = this.touch.takeAction() || justDown(k.SPACE) || justDown(k.ENTER) || justDown(k.Z);
-    const menu = this.touch.takeMenu() || justDown(k.ESC) || justDown(k.TAB);
+    // A key press that closed a dialogue or menu isn't also a fresh action.
+    const after = modal.closedAt;
+    const action = this.touch.takeAction() || freshPress(k.SPACE, after) || freshPress(k.ENTER, after) || freshPress(k.Z, after);
+    const menu = this.touch.takeMenu() || freshPress(k.ESC, after) || freshPress(k.TAB, after);
     if (modal.open > 0) return { x: 0, y: 0, sneak: false, action: false, menu: false };
     return { ...dir, action, menu };
   }
+}
+
+/**
+ * Whether a key went down after `since` (performance.now() time). Phaser
+ * stamps keys with the DOM event's timeStamp, on the same clock (pure).
+ */
+export function pressedSince(timeDown: number, since: number): boolean {
+  return timeDown > since;
+}
+
+/** A just-down key pressed after `since`; consumes the press either way. */
+function freshPress(key: Phaser.Input.Keyboard.Key, since: number): boolean {
+  return justDown(key) && pressedSince(key.timeDown, since);
 }
 
 // Same as Phaser.Input.Keyboard.JustDown, without importing Phaser at

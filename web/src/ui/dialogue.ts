@@ -1,5 +1,6 @@
-import { modal, overlay } from './overlay';
+import { closeModal, modal, overlay } from './overlay';
 import { textCharsPerSecond } from './prefs';
+import { serial } from './serial';
 
 export interface Line {
   speaker: string;
@@ -8,13 +9,21 @@ export interface Line {
   portrait?: string | null;
 }
 
+/** Dialogues wait their turn, so two at once (e.g. two area stories) never stack. */
+const queue = serial();
+
 /**
  * Shows lines one at a time in a 16-bit dialogue window with a typewriter
  * effect. Tap/click, Space or Enter finishes the line or advances. Resolves
- * after the last line.
+ * after the last line. A dialogue asked for while another is showing opens
+ * after it.
  */
 export function showDialogue(lines: Line[], onLine?: (index: number) => void): Promise<void> {
   if (lines.length === 0) return Promise.resolve();
+  return queue(() => present(lines, onLine));
+}
+
+function present(lines: Line[], onLine?: (index: number) => void): Promise<void> {
   const box = document.createElement('div');
   box.className = 'window dialogue';
   const face = document.createElement('div');
@@ -72,7 +81,7 @@ export function showDialogue(lines: Line[], onLine?: (index: number) => void): P
       clearInterval(timer);
       box.remove();
       window.removeEventListener('keydown', onKey);
-      modal.open--;
+      closeModal();
       resolve();
     };
     const onKey = (e: KeyboardEvent) => {

@@ -34,6 +34,12 @@ type gameYAML struct {
 		LowWarning           int     `yaml:"low_warning"`
 		LowWarningText       string  `yaml:"low_warning_text"`
 		TooTiredText         string  `yaml:"too_tired_text"`
+		Faint                *struct {
+			Fee       int       `yaml:"fee"`
+			RecoverTo int       `yaml:"recover_to"`
+			Weather   faintText `yaml:"weather"`
+			Encounter faintText `yaml:"encounter"`
+		} `yaml:"faint"`
 	} `yaml:"energy"`
 	Bills []struct {
 		Name      string `yaml:"name"`
@@ -46,6 +52,12 @@ type gameYAML struct {
 		TopUp        int    `yaml:"top_up"`
 	} `yaml:"transit_card"`
 	BagCapacity int `yaml:"bag_capacity"`
+}
+
+// faintText is a titled notice (energy.faint in game.yaml).
+type faintText struct {
+	Title string   `yaml:"title"`
+	Lines []string `yaml:"lines"`
 }
 
 type areaYAML struct {
@@ -331,6 +343,13 @@ func load(dir string) (*model.ContentBundle, error) {
 			WalkPerMin: e.WalkPerMin, IndoorRecoveryPerMin: e.IndoorRecoveryPerMin,
 			PhotoSession: e.PhotoSession, Lesson: e.Lesson,
 			LowWarning: e.LowWarning, LowWarningText: e.LowWarningText, TooTiredText: e.TooTiredText,
+		}
+		if f := e.Faint; f != nil {
+			b.Game.Energy.Faint = &model.FaintRules{
+				Fee: f.Fee, RecoverTo: f.RecoverTo,
+				Weather:   model.FaintText{Title: f.Weather.Title, Lines: append([]string{}, f.Weather.Lines...)},
+				Encounter: model.FaintText{Title: f.Encounter.Title, Lines: append([]string{}, f.Encounter.Lines...)},
+			}
 		}
 	}
 	if c := g.TransitCard; c != nil {

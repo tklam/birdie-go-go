@@ -7,12 +7,28 @@
     - dialogue: prologue_arrival
     - set_flag: prologue_arrived
     - set_chapter: 0
+# The first photo good enough for the album; the reaction follows its rating
+# (`best` is the session's best: perfect, great, good, blurry or none).
 - id: prologue_first_photo
-  trigger: { type: photo_session_end }
+  trigger: { type: photo_session_end, best: good }
   conditions:
     - flag_not_set: prologue_first_photo
   actions:
     - dialogue: prologue_first_photo
+    - set_flag: prologue_first_photo
+- id: prologue_first_photo_great
+  trigger: { type: photo_session_end, best: great }
+  conditions:
+    - flag_not_set: prologue_first_photo
+  actions:
+    - dialogue: prologue_first_photo
+    - set_flag: prologue_first_photo
+- id: prologue_first_photo_perfect
+  trigger: { type: photo_session_end, best: perfect }
+  conditions:
+    - flag_not_set: prologue_first_photo
+  actions:
+    - dialogue: prologue_first_photo_perfect
     - set_flag: prologue_first_photo
 - id: prologue_first_lesson
   trigger: { type: lesson_complete, student: mei }

@@ -1,20 +1,24 @@
-import { modal, overlay } from './overlay';
+import { closeModal, modal, overlay } from './overlay';
 
 /**
  * Shows a centered 16-bit window with a title, lines of text and a button.
- * Resolves when the player taps the window or presses Space/Enter.
+ * Long text scrolls (drag or wheel) between the title and the button, which
+ * stay on screen. Resolves when the player taps the window or presses
+ * Space/Enter.
  */
 export function showPanel(title: string, lines: string[], button = 'OK'): Promise<void> {
   const box = document.createElement('div');
-  box.className = 'window panel';
+  box.className = 'window panel notice';
   const h = document.createElement('div');
   h.className = 'speaker';
   h.textContent = title;
-  box.appendChild(h);
+  const body = document.createElement('div');
+  body.className = 'panel-body';
+  box.append(h, body);
   for (const l of lines) {
     const p = document.createElement('div');
     p.textContent = l;
-    box.appendChild(p);
+    body.appendChild(p);
   }
   const b = document.createElement('div');
   b.className = 'panel-button';
@@ -26,7 +30,7 @@ export function showPanel(title: string, lines: string[], button = 'OK'): Promis
     const close = () => {
       box.remove();
       window.removeEventListener('keydown', onKey);
-      modal.open--;
+      closeModal();
       resolve();
     };
     const onKey = (e: KeyboardEvent) => {
@@ -35,9 +39,10 @@ export function showPanel(title: string, lines: string[], button = 'OK'): Promis
         close();
       }
     };
-    // Ignore the press that opened the panel.
+    // Ignore the press that opened the panel. A click (not pointerdown)
+    // closes it, so dragging to scroll the text doesn't.
     setTimeout(() => {
-      box.addEventListener('pointerdown', (e) => {
+      box.addEventListener('click', (e) => {
         e.preventDefault();
         close();
       });

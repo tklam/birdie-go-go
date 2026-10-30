@@ -11,6 +11,7 @@ import { WeatherRenderer } from '../weather/renderer';
 import { CONTROL_SCHEMES, MAX_ENERGY, TEXT_SPEEDS, TIME_SLOTS, WINDOW_COLORS, season } from '../systems/state';
 import { findPath, type Tile } from '../world/pathfind';
 import { activeMissions, doneMissions, type PhotoResult } from '../systems/missions';
+import { bestRating } from '../systems/photoScore';
 import { assess, breakItem, drain, protection, toggleGear, useItem, type HazardReport } from '../systems/hazards';
 import { InputReader } from '../systems/input';
 import { FollowerTrail } from '../systems/party';
@@ -19,10 +20,10 @@ import { showAlbum } from '../ui/album';
 import { Hud } from '../ui/hud';
 import { showMenu } from '../ui/menu';
 import { showDialogue } from '../ui/dialogue';
-import { showMinimap, type MapMarker } from '../ui/minimap';
+import { landmarkShown, showMinimap, type MapMarker } from '../ui/minimap';
 import { iris } from '../fx/iris';
 import { glitch } from '../fx/glitch';
-import { activityCost, crossedLow, walkCost } from '../systems/economy';
+import { activityCost, crossedLow, type FaintCause, faintOutcome, walkCost } from '../systems/economy';
 import { collect, isCollected } from '../systems/collectibles';
 import { cloudDownload, cloudUpload, formatCode, normalizeCode } from '../systems/cloud';
 import { updateServer } from '../systems/updates';
@@ -221,10 +222,14 @@ export class MapScene extends Phaser.Scene {
   private weatherRenderer: WeatherRenderer | null = null;
   private hazards: HazardReport | null = null;
   private fainting = false;
+  /** Why Energy ran out, for the faint notice: a lost encounter, or else the weather. */
+  private faintCause: FaintCause = 'weather';
   /** The last warning announced ("day:slot:tag"), so each is announced once. */
   private lastWarning = '';
   /** Riding the metro: the map waits while the screen is dark. */
   private underground = false;
+  /** Leaving for another scene from a ride: the map stands still (state.position is already set). */
+  private leaving = false;
   /** Tap-to-move: the tiles still to walk (SPEC.md §4.4). */
   private tapPath: Tile[] = [];
   /** Whether Angie walked this frame (walking outdoors costs Energy). */
@@ -255,6 +260,7 @@ export class MapScene extends Phaser.Scene {
     this.sparkles = [];
     this.gates = [];
     this.underground = false;
+    this.leaving = false;
     this.passersby = [];
     this.ride = null;
     this.kei = null;
@@ -272,21 +278,18 @@ export class MapScene extends Phaser.Scene {
     this.weatherRenderer = null;
     this.hazards = null;
     this.fainting = false;
+    this.faintCause = 'weather';
     this.exiting = false;
     this.spotMarks = null;
     // Events' staged scenes (start_scene) run over the paused map.
     this.session.sceneRunner = (scene, data) =>
       this.scene.manager.keys[scene]
         ? new Promise<void>((resolve) => {
-            this.scene.pause();
-            this.hud.setVisible(false);
-            this.touch.setVisible(false);
+            const release = this.holdMap();
             this.scene.launch(scene, {
               ...data,
               done: () => {
-                this.hud.setVisible(true);
-                this.touch.setVisible(true);
-                this.scene.resume();
+                release();
                 resolve();
               },
             });
@@ -299,15 +302,11 @@ export class MapScene extends Phaser.Scene {
       const key = `MG_${game.type}`;
       if (!this.scene.manager.keys[key]) return Promise.resolve(false);
       return new Promise<boolean>((resolve) => {
-        this.scene.pause();
-        this.hud.setVisible(false);
-        this.touch.setVisible(false);
+        const release = this.holdMap();
         this.scene.launch(key, {
           game,
           done: (won: boolean) => {
-            this.hud.setVisible(true);
-            this.touch.setVisible(true);
-            this.scene.resume();
+            release();
             resolve(won);
           },
         });
@@ -336,6 +335,25 @@ export class MapScene extends Phaser.Scene {
         if (this.mapId !== 'world') this.scene.restart({ map: 'world' });
       },
     );
+  }
+
+  /**
+   * Pauses the map (HUD and touch controls hidden) under a staged scene or
+   * mini game; the returned function undoes it. Only a running map is
+   * paused, and only a map this paused is resumed: Phaser warns about
+   * pausing a scene that is still starting, already paused or shut down
+   * (e.g. a second runner while the first holds the map).
+   */
+  private holdMap(): () => void {
+    const paused = this.sys.isActive();
+    if (paused) this.scene.pause();
+    this.hud.setVisible(false);
+    this.touch.setVisible(false);
+    return () => {
+      this.hud.setVisible(true);
+      this.touch.setVisible(true);
+      if (paused && this.sys.isPaused()) this.scene.resume();
+    };
   }
 
   private setup(index: WorldIndex, data: MapSceneData): void {
@@ -424,9 +442,10 @@ export class MapScene extends Phaser.Scene {
     const s = this.session;
     if (data.from === 'Photo' || data.from === 'Piano') s.growBond();
     if (data.from === 'Photo') {
-      await s.fire({ type: 'photo_session_end', params: data.spotId ? { spot: data.spotId } : {} });
-      const area = s.content.spots.find((x) => x.id === data.spotId)?.area ?? '';
       const shots = (this.registry.get('lastPhotos') as { species: string; result: { rating: PhotoResult['rating'] } }[] | undefined) ?? [];
+      const best = bestRating(shots.map((p) => p.result.rating));
+      await s.fire({ type: 'photo_session_end', params: data.spotId ? { spot: data.spotId, best } : { best } });
+      const area = s.content.spots.find((x) => x.id === data.spotId)?.area ?? '';
       await s.checkMissions({ photos: shots.map((p) => ({ species: p.species, rating: p.result.rating, area })) });
       await s.checkAlbum();
       await s.endSlot();
@@ -442,6 +461,7 @@ export class MapScene extends Phaser.Scene {
         await s.fire({ type: e.outcome === 'won' ? 'encounter_won' : 'encounter_escaped', params: { enemy: e.enemyId } });
       } else if (e.outcome === 'lost') {
         s.state.energy = 0;
+        this.faintCause = 'encounter';
       }
     } else if (!s.state.firedEvents['prologue_arrival']) {
       await s.fire({ type: 'new_game' });
@@ -533,7 +553,7 @@ export class MapScene extends Phaser.Scene {
       this.updateRide(time, dt);
       return;
     }
-    if (this.underground) return;
+    if (this.underground || this.leaving) return;
     const speed = input.sneak ? SNEAK_SPEED : WALK_SPEED;
     const moving = this.ready && !this.busy && modal.open === 0 && (input.x !== 0 || input.y !== 0);
     this.walking = moving;
@@ -682,16 +702,13 @@ export class MapScene extends Phaser.Scene {
     this.fainting = true;
     this.busy = true;
     const s = this.session;
-    const fee = Math.min(s.state.money, 50);
+    const out = faintOutcome(s.content.game.energy, this.faintCause, s.state.money);
+    this.faintCause = 'weather';
     this.cameras.main.fadeOut(900, 0, 0, 0);
     await new Promise((r) => this.time.delayedCall(1000, r));
-    await showPanel('You feel dizzy...', [
-      'Angie sat down, exhausted by the weather.',
-      `A kind neighbour helped her home. (-$${fee})`,
-      'Pack the right gear next time!',
-    ]);
-    s.state.money -= fee;
-    s.state.energy = 60;
+    await showPanel(out.title, out.lines);
+    s.state.money -= out.fee;
+    s.state.energy = out.recoverTo;
     await s.endSlot();
     const home = homeMap(s.state.flags);
     s.state.position = { map: home, spawn: 'front_door' };
@@ -1037,10 +1054,10 @@ export class MapScene extends Phaser.Scene {
     }
     const s = this.session;
     const indoors = this.mapId !== 'world';
-    const markers: MapMarker[] = world.landmarks
-      .filter((l) => l.type !== 'gateway' || s.state.flags[`gateway:${l.id}`])
-      // A stop shows up after the first visit (SPEC.md §4.11).
-      .filter((l) => l.type !== 'stop' || s.state.flags[stopFlag(l.id)])
+    // Only what Angie has found: places in areas she's been to, discovered
+    // stops (SPEC.md §4.11) and open gateways.
+    const shown = world.landmarks.filter((l) => landmarkShown(l, s.state.flags));
+    const markers: MapMarker[] = shown
       .map((l) => ({
         x: l.x,
         y: l.y,
@@ -1052,7 +1069,7 @@ export class MapScene extends Phaser.Scene {
     if (here) markers.push({ x: here.x, y: here.y, kind: 'angie' });
     const area = indoors ? 'Indoors' : (s.content.areas.find((a) => a.id === this.area)?.name ?? 'Map');
     const spotName = (id: string) => s.content.spots.find((x) => x.id === id)?.name ?? id;
-    const close = here ? nearby(world.landmarks.filter((l) => l.type === 'spot'), here.x, here.y, MapScene.SPOT_RADIUS) : [];
+    const close = here ? nearby(shown.filter((l) => l.type === 'spot'), here.x, here.y, MapScene.SPOT_RADIUS) : [];
     for (const m of markers) if (m.kind === 'spot' && close.some((c) => c.x === m.x && c.y === m.y)) m.near = true;
     const note = close.length
       ? `Nearby: ${close.map((c) => `${spotName(c.id)} ${arrowToward(here?.x ?? 0, here?.y ?? 0, c.x, c.y)}`).join(', ')}`
@@ -1422,7 +1439,8 @@ export class MapScene extends Phaser.Scene {
     return true;
   }
 
-  private async leaveTo(scene: string, data: object): Promise<void> {
+  /** Saves and irises out (onto `focus`, by default Angie) into another scene. */
+  private async leaveTo(scene: string, data: object, focus: { x: number; y: number } = { x: this.pos.x, y: this.pos.y - 12 }): Promise<void> {
     if (!this.scene.manager.keys[scene]) {
       toast('Coming soon!');
       return;
@@ -1434,7 +1452,7 @@ export class MapScene extends Phaser.Scene {
       this.sounds()?.set(null);
     }
     // Iris onto Angie, the classic way into a minigame.
-    await iris(this, 'out', this.pos.x, this.pos.y - 12);
+    await iris(this, 'out', focus.x, focus.y);
     this.scene.start(scene, data);
   }
 
@@ -1832,12 +1850,15 @@ export class MapScene extends Phaser.Scene {
     const dest = r.next.length ? r.next[r.next.length - 1].to : r.to;
     discoverStop(s.state, r.to);
     discoverStop(s.state, dest);
+    // The map stands still from here, so update() doesn't put the saved
+    // position back on the departure pier while the iris closes.
+    this.leaving = true;
     const stop = this.index.stops[dest];
     if (stop) s.state.position = { map: 'world', x: Math.round(stop.x), y: Math.round(stop.y + 4) };
     await s.fire({ type: 'ride_complete', params: { line: r.line } });
     await s.checkMissions({ ride: { line: r.line, stop: r.to } });
     this.busy = true;
-    await this.leaveTo('Photo', { spotId: FERRY_DECK, returnTo: 'Map', weather: this.weatherNow, statuses: [] });
+    await this.leaveTo('Photo', { spotId: FERRY_DECK, returnTo: 'Map', weather: this.weatherNow, statuses: [] }, { x: r.vehicle.x, y: r.vehicle.y - 12 });
   }
 
   /** Stops Angie walks past are discovered and show on the map (SPEC.md §4.11). */

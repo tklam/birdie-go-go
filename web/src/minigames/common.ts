@@ -6,7 +6,8 @@ import type { Minigame } from '../core/types.gen';
 import { frameIndex, type Manifest } from '../systems/assets';
 import type { Session } from '../systems/session';
 import { showMenu } from '../ui/menu';
-import { showPanel } from '../ui/panel';
+import { modal } from '../ui/overlay';
+import { floatingButton, showPanel } from '../ui/panel';
 import { ensureProp } from './props';
 
 export interface MinigameData {
@@ -41,6 +42,20 @@ export async function result(won: boolean, lines: string[]): Promise<boolean> {
         ]),
   ]);
   return again;
+}
+
+/**
+ * Every mini game's way out mid-round: a Leave button (top left) and Esc.
+ * `onLeave` should end the round as not won (the result menu then offers
+ * Try again or Leave for now); it may be called when no round is on.
+ * Both go away when the scene shuts down.
+ */
+export function leaveControls(scene: Phaser.Scene, onLeave: () => void): void {
+  const remove = floatingButton('Leave', 'back', onLeave);
+  scene.input.keyboard?.on('keydown', (e: KeyboardEvent) => {
+    if (e.code === 'Escape' && !modal.open) onLeave();
+  });
+  scene.events.once('shutdown', remove);
 }
 
 /** Ends the game: reports the outcome and stops the scene. */

@@ -134,6 +134,30 @@ export interface EnergyRules {
    * TooTiredText is shown when Angie is too tired to start an activity.
    */
   tooTiredText: string;
+  /**
+   * Faint is what happens when Energy runs out (no game over); nil uses
+   * the client's plain fallback.
+   */
+  faint?: FaintRules;
+}
+/**
+ * FaintRules: when Energy reaches 0 a neighbour helps Angie home, she pays
+ * up to Fee (never below $0) and wakes with RecoverTo Energy. Weather and
+ * Encounter are the notices for running out in bad weather or losing an
+ * encounter; "{fee}" in a line is replaced by the amount paid.
+ */
+export interface FaintRules {
+  fee: number /* int */;
+  recoverTo: number /* int */;
+  weather: FaintText;
+  encounter: FaintText;
+}
+/**
+ * FaintText is a titled notice.
+ */
+export interface FaintText {
+  title: string;
+  lines: string[];
 }
 /**
  * Bill is a regular cost paid in the morning of every EveryDays-th day
@@ -1365,12 +1389,14 @@ export interface WorldIndex {
 }
 /**
  * Landmark is a place marked on the in-game map. ID is the spot, stop or
- * gateway id (or the object's name).
+ * gateway id (or the object's name). Area is the area it stands in, if any:
+ * the map shows it once Angie has been there.
  */
 export interface Landmark {
   type: string;
   id: string;
   title?: string;
+  area?: string;
   x: number /* float64 */;
   y: number /* float64 */;
 }

@@ -22,6 +22,24 @@ energy:
   low_warning: 25
   low_warning_text: "Angie's tummy rumbles. Time for a snack from the shop!"
   too_tired_text: "Angie is too tired. Eat something or rest first."
+  # No game over (SPEC.md §4.12): at 0 Energy a neighbour helps Angie home.
+  # She pays up to `fee` ({fee} in a line is the amount) and wakes with
+  # `recover_to` Energy. One notice for the weather, one for a lost encounter.
+  faint:
+    fee: 50
+    recover_to: 60
+    weather:
+      title: "You feel dizzy..."
+      lines:
+        - "Angie sat down, exhausted by the weather."
+        - "A kind neighbour helped her home. (-${fee})"
+        - "Pack the right gear next time!"
+    encounter:
+      title: "That was too much..."
+      lines:
+        - "Angie is worn out from the chase."
+        - "A kind neighbour helped her home. (-${fee})"
+        - "Sneak past, or rest before the next one!"
 # Paid each morning they're due (every_days: 1 = daily). Money never goes below 0.
 bills:
   - { name: Electricity, amount: 12 }

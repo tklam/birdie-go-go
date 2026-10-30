@@ -35,3 +35,29 @@ export function walkCost(rules: EnergyRules | undefined, area: Pick<Area, 'walkE
 export function crossedLow(rules: EnergyRules | undefined, before: number, after: number): boolean {
   return !!rules?.lowWarning && before >= rules.lowWarning && after < rules.lowWarning;
 }
+
+export type FaintCause = 'weather' | 'encounter';
+
+/** The fallback when game.yaml sets no energy.faint rules. */
+const FAINT_FALLBACK = { fee: 0, recoverTo: 60, title: 'Angie needs a rest...', lines: ['A kind neighbour helped her home.'] };
+
+/**
+ * What happens when Energy runs out (SPEC.md §4.12): the notice for the
+ * cause, the fee (capped by Angie's money, "{fee}" filled in) and the
+ * Energy she wakes with.
+ */
+export function faintOutcome(
+  rules: EnergyRules | undefined,
+  cause: FaintCause,
+  money: number,
+): { title: string; lines: string[]; fee: number; recoverTo: number } {
+  const f = rules?.faint;
+  const text = f ? (cause === 'encounter' ? f.encounter : f.weather) : FAINT_FALLBACK;
+  const fee = Math.max(0, Math.min(money, f?.fee ?? FAINT_FALLBACK.fee));
+  return {
+    title: text.title,
+    lines: text.lines.map((l) => l.replaceAll('{fee}', String(fee))),
+    fee,
+    recoverTo: f?.recoverTo ?? FAINT_FALLBACK.recoverTo,
+  };
+}

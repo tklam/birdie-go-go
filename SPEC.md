@@ -259,7 +259,7 @@ Rules:
 - **Boarding** is the route planner: the stop lists every stop reachable on open lines from now, sorted by arrival, each with its fare; the detail line shows the legs, departure times, changes and arrival. The whole fare is paid up front; waits advance the clock; at a change the next leg starts from the transfer stop. Skip jumps to the end of the current leg.
 - **Ferry deck**: on a ferry leg a **Deck** button starts a photo session at the `ferry_deck` spot (seabirds; costs a photo session's Energy and the slot); the trip ends there, and Angie comes back at its destination.
 - **Vehicles on the map** come from `transit.vehicles` (polled twice a second, moved along their heading in between); only those near the camera get sprites.
-- **World map**: transit lines (open, with a discovered stop) are drawn over the overview; areas Angie hasn't entered (flag `area:<id>`) are darkened using `overview_areas.png` (worldbuild: one grey pixel per tile = area index); − and + zoom ×1–×3 around Angie, and the view scrolls.
+- **World map**: transit lines (open, with a discovered stop) are drawn over the overview; areas Angie hasn't entered (flag `area:<id>`) are darkened using `overview_areas.png` (worldbuild: one grey pixel per tile = area index), and their spots, shops and doors stay hidden until she does (worldbuild records each landmark's `area`); − and + zoom ×1–×3 around Angie, and the view scrolls.
 - **Modes on the map**: buses, trams and ferries are drawn from the timetables; the metro runs underground: the Metro scene shows the platform as the train pulls in, then the car (tunnel lights, riders, a route strip of the stops passed) and a chime on arrival; the clock advances by the wait and ride, Angie comes up at the destination station and any further legs continue from there.
 - **Bells**: a line's `bell` cue (the tram's ding-ding, a ferry horn, a minibus beep) sounds when Angie's vehicle leaves and when it arrives, and once from each timetabled vehicle that passes within 160 px of her.
 - **Discovery and unlocks**: walking near a stop (or arriving at one) discovers it (flag `stop:<id>`), and only discovered stops show on the world map. Lines with `locked: true` need an `unlock_line` event (flag `line:<id>`); `unlock_teleport` opens a gateway; `stop_discovered` is a condition.
@@ -290,7 +290,7 @@ Weather isn't just scenery; it can also be an **enemy**.
 - In the photo scene, the *Soaked* and *Overheated* statuses carry over: a fogged lens means longer focus, and heat haze lowers sharpness. *As built:* a hazard's optional `photo: { focus_scale, sharpness_scale }` in `hazards.yaml` applies while Angie is exposed when a session starts (heavy rain ×1.3 focus time, heat ×0.8 sharpness).
 - **Weather birds and sheltering.** A spot's bird entry may list `weather` (named weathers); it only appears then (e.g. terns in rain, storm-blown seabirds at the pier, ospreys on windy days). Birds shelter from rain: one visitor fewer in rain, two fewer in rainstorms, thunderstorms and typhoons.
 
-**No game over.** If Energy reaches 0, Angie gets dizzy and sits down. A passer-by (or a companion) helps her to the nearest shelter, clinic, or home. The rest of the time slot is lost, she pays a small clinic fee, and her gear may need repair (Kei can fix it once he's around). Story progress is never lost.
+**No game over.** If Energy reaches 0, Angie gets dizzy and sits down. A passer-by (or a companion) helps her to the nearest shelter, clinic, or home. The rest of the time slot is lost, she pays a small clinic fee, and her gear may need repair (Kei can fix it once he's around). Story progress is never lost. *As built:* `energy.faint` in `content/game.yaml` sets the fee (`fee`, capped by Angie's money), the Energy she wakes with (`recover_to`) and two notices: `weather` when hazards or walking drain her, `encounter` when she loses an encounter. She is helped home and the slot ends.
 
 ### 4.13 Encounters: wild dogs and monsters
 Occasionally Angie meets something hostile: **wild dogs** (stray packs found on the city's edges and in country parks) and, rarely, **monsters**:
@@ -341,7 +341,7 @@ Visiting a place reveals a little of its (lightly fictionalized, Hong Kong-inspi
 - **Rhythm**: four count-in clicks, then the `pattern` beats (beat 0 = first after the count-in) scroll right→left to a drum, with soft guide clicks on whole beats. Strike with DRUM, the right half of the screen, Space or Z; each tap (audio clock, minus the latency offset, §6.4) hits the nearest unhit beat: Perfect within ±90 ms, Good within ±160 ms (×1.5 with Slow prompts); beats whose window passes are misses; stray taps cost nothing. Score: Perfect 100, Good 50, +10 per combo step (up to +100). Win with `target` hits (default: ¾ of the beats).
 - **Icons**: `bird:<species>` (the bird's perched frame) or `prop:<name>`, small pictures drawn at runtime (bun, fish, shrimp, crab, shell, leaf, flower, mooncake, can, bottle, bag, lantern, tram, junk).
 - **Accessibility**: Slow prompts makes timed games 1.5× more forgiving; everything is playable by touch, mouse or keys.
-- *As built:* **catch**: a basket follows the pointer (or ←/→); about 30% of spawns are `avoid` items, each caught costing a point; the round ends early on the target; spawns are seeded per attempt. **find**: birds at half or full size in perched/alert/back-turned frames among decoy leaves, tap within 22 px; a missed tap costs 2 s; Hint after 15 s; `image` may name a background. **memory**: 34-px cards; moves allowed `pairs + ⌈(2·pairs + 4) × slower⌉`. **slide**: shuffled by legal moves from solved (always solvable); Hint shows the picture; no time limit. **rhythm**: a 4-click count-in, then judged on the audio clock with the calibrated latency (Perfect ±90 ms, Good ±160 ms, × slower); stray taps are free. Catch, find and slide have a Leave button; every game ends with Try again or Leave for now.
+- *As built:* **catch**: a basket follows the pointer (or ←/→); about 30% of spawns are `avoid` items, each caught costing a point; the round ends early on the target; spawns are seeded per attempt. **find**: birds at half or full size in perched/alert/back-turned frames among decoy leaves, tap within 22 px; a missed tap costs 2 s; Hint after 15 s; `image` may name a background. **memory**: 34-px cards; moves allowed `pairs + ⌈(2·pairs + 4) × slower⌉`. **slide**: shuffled by legal moves from solved (always solvable); Hint shows the picture; no time limit. **rhythm**: a 4-click count-in, then judged on the audio clock with the calibrated latency (Perfect ±90 ms, Good ±160 ms, × slower); stray taps are free. Every game has a way out mid-round: a Leave button (top left; in the quiz, a Leave answer) and Esc. Leaving ends the round unwon; every game ends with Try again or Leave for now.
 
 ## 5. Photo Scene (Action View)
 
@@ -416,7 +416,7 @@ Difficulty controls mistake count, spacing (min 1.5 s apart), and subtlety. Stud
 - Grading is done by the Go core against the answer key, which the UI never sees before the lesson ends. (It's single-player, so this keeps the code honest rather than preventing cheating. A future leaderboard can re-verify, since lessons are deterministic from their seed.)
 
 ### 6.4 Calibration
-- First lesson (and in Settings): tap along to 8 metronome clicks; the median offset becomes the latency offset.
+- First lesson (and in Settings): tap along to 8 metronome clicks; the median offset becomes the latency offset. **Skip** keeps the current (default) offset and counts as calibrated; **Back** (or Esc) leaves without a lesson, or back to the map from Settings.
 
 ### 6.5 Students
 - Each student has a name, level, repertoire, mistake tendencies (e.g. "rushes fast passages"), and a small story arc.
@@ -552,6 +552,7 @@ Events live in `content/events/*.yaml`:
 - `start_scene: { scene, dialogue? }` plays a staged scene over the paused map (HUD and touch controls hidden) and plays the dialogue over it, e.g. the **Wedding** scene; without that scene, only the dialogue plays.
 - Content is validated by `contentbuild` at build time and by the Go core when an update pack is loaded. Unknown dialogue IDs, species, items, areas, spots, songs, students, lines, stops, or missions are errors. Flags are free-form strings.
 - Dialogue lines may carry conditions (e.g. alternate lines when `party_has: kei`).
+- *As built:* `photo_session_end` carries `spot` and `best`, the session's best rating (`perfect`, `great`, `good`, `blurry`, or `none` without photos), so a reaction can match the photo (e.g. the prologue's first photo).
 - Events are evaluated in TypeScript on the main thread (instant reactions to game state).
 
 ### 9.5 Missions
@@ -580,7 +581,7 @@ Objective types: `photograph`, `lesson` (student, min score), `visit`, `ride` (l
 - Packs **override by ID**; removals must be listed explicitly (`remove:`).
 - Saves reference content by ID; IDs that disappear are ignored gracefully (e.g. an expired live mission).
 - Offline or with no server configured, the game simply uses the content it already has.
-- **Cloud saves** (server started with `-saves`): Settings → Cloud save uploads the save (the first upload makes a sync code, kept in settings) or downloads one by code, replacing the local game; downloads go through the normal save migrations.
+- **Cloud saves** (server started with `-saves`): Menu → Cloud save uploads the save (the first upload makes a sync code, kept in settings) or downloads one by code, replacing the local game; downloads go through the normal save migrations.
 
 **Optional server API**
 | Method & path | Purpose |
@@ -611,7 +612,7 @@ Objective types: `photograph`, `lesson` (student, min score), `visit`, `ride` (l
 ### 9.8 Save data
 `saveVersion`, `worldSeed`, flags, chapter, day/slot/season, position (area + world coordinates), Energy, status effects, equipped gear and bag contents, money, transit card balance, items, album (photo metadata + small thumbnails), students' progress, missions, discovered stops, unlocked lines and teleports, bond values, `kei.stage`, party, settings (latency offset, control scheme, volume).
 - Stored in **IndexedDB** on the device; autosaved at the end of each slot, on entering interiors, and after rides.
-- **Export/import** a save file from Settings (backup or moving devices).
+- **Export/import** a save file from the Menu (backup or moving devices).
 - Migrations run on load according to `saveVersion`.
 
 ### 9.9 Assets

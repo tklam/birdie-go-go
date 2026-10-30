@@ -227,6 +227,8 @@ Every area must define all four seasons. Area shapes are painted on the world's 
 - Tilesets are external `.tsj` files in `content/world/tilesets/`: `tko.tsj` (the atlas, with a `name` property per tile) and `meta.tsj` (collision and area marker tiles). Visual layers may only use the atlas.
 - Layers: `ground`, `detail`, `overhead` (drawn above characters), `collision` (meta tiles `solid` or `ledge_south`), `areas` (meta tiles naming an area), and `objects`.
 - Object types in use: `spawn`, `door` (`to_map`, `to_spawn`, `title`), `npc` (`npc_id`, `student`), `spot` (`spot_id`), `bird` (`species`, `count`), `bed`. *(Planned:)* `gate`, `collectible`, `stop`, `route`.
+- A `collectible` (`item` or `song`) is remembered in the save by its object name, so `worldbuild` rejects a name used twice anywhere in the world (as it does for spawn names).
+- An `enemy` (`enemy_id`) must sit at least 128 px (8 tiles) from every stop, door, spawn and gateway, more than any enemy's sight plus its wandering, so arriving or boarding never starts an encounter; `worldbuild` rejects closer ones.
 - Interiors are single 20×12 maps in `content/interiors/<id>.tmj`, built with `-fill wall_interior`. A door's `to_map` is an interior id or `world`.
 - `content/game.yaml` sets `start_map` (`world`) and `start_spawn`, plus `mission_reminder_slots` (time slots between active-mission reminders, 0 = off) and `bedtime_reminder` (`every_seconds`, 0 = off, and the `lines` that take turns when Angie is out in the evening).
 - Chunks outside the authored maps aren't stored; they're filled with the `-fill` tile (water for the city).
