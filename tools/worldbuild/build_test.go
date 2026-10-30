@@ -206,3 +206,39 @@ func TestRunRejectsForeignTilesetOnVisualLayer(t *testing.T) {
 		t.Fatal("expected an error")
 	}
 }
+
+// Saves mark collectibles taken by name, so a repeated name would take both.
+func TestRunRejectsDuplicateCollectibles(t *testing.T) {
+	sheet := func(x int) map[string]any {
+		return map[string]any{"name": "sheet_village", "type": "collectible", "x": x, "y": 8,
+			"properties": []map[string]any{{"name": "song", "type": "string", "value": "tune"}}}
+	}
+	for _, tc := range []struct {
+		name    string
+		objects []any
+		wantErr bool
+	}{
+		{"unique", []any{sheet(40)}, false},
+		{"duplicate", []any{sheet(40), sheet(80)}, true},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			dir := writeTestWorld(t)
+			path := filepath.Join(dir, "m.tmj")
+			data, _ := os.ReadFile(path)
+			var m map[string]any
+			if err := json.Unmarshal(data, &m); err != nil {
+				t.Fatal(err)
+			}
+			objs := m["layers"].([]any)[3].(map[string]any)
+			objs["objects"] = append(objs["objects"].([]any), tc.objects...)
+			data, _ = json.Marshal(m)
+			if err := os.WriteFile(path, data, 0o644); err != nil {
+				t.Fatal(err)
+			}
+			err := run(filepath.Join(dir, "city.world"), filepath.Join(dir, "out"), options{atlas: "tko", atlasAsset: "tiles_tko", fillTile: "water", blendTiles: 8})
+			if (err != nil) != tc.wantErr {
+				t.Fatalf("err = %v, want error: %v", err, tc.wantErr)
+			}
+		})
+	}
+}

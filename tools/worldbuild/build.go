@@ -111,10 +111,13 @@ type builder struct {
 	spawns map[string]model.Point
 	stops  map[string]model.Point
 	gates  map[string]model.Gateway
-	colors []color.NRGBA // average color per atlas tile, for the overview map
-	marks  []model.Landmark
-	fill   int
-	names  []string
+	// collectibles maps each collectible's name to its map: a save marks a
+	// collectible taken by name, so names must be unique across the world.
+	collectibles map[string]string
+	colors       []color.NRGBA // average color per atlas tile, for the overview map
+	marks        []model.Landmark
+	fill         int
+	names        []string
 }
 
 func run(worldPath, outDir string, opts options) error {
@@ -138,7 +141,7 @@ func run(worldPath, outDir string, opts options) error {
 	if err != nil {
 		return fmt.Errorf("%s: %w", worldPath, err)
 	}
-	b := &builder{opts: opts, chunks: map[[2]int]*chunk{}, areas: map[string]int{}, spawns: map[string]model.Point{}, stops: map[string]model.Point{}, gates: map[string]model.Gateway{}}
+	b := &builder{opts: opts, chunks: map[[2]int]*chunk{}, areas: map[string]int{}, spawns: map[string]model.Point{}, stops: map[string]model.Point{}, gates: map[string]model.Gateway{}, collectibles: map[string]string{}}
 	for _, m := range w.Maps {
 		path := filepath.Join(filepath.Dir(worldPath), m.FileName)
 		if err := b.addMap(path, m.X, m.Y); err != nil {
@@ -253,6 +256,15 @@ func (b *builder) addMap(path string, ox, oy int) error {
 						return fmt.Errorf("duplicate spawn %q", o.Name)
 					}
 					b.spawns[o.Name] = model.Point{X: obj.X, Y: obj.Y}
+				}
+				if typ == "collectible" {
+					if o.Name == "" {
+						return fmt.Errorf("collectible at %v,%v needs a name", obj.X, obj.Y)
+					}
+					if other, dup := b.collectibles[o.Name]; dup {
+						return fmt.Errorf("duplicate collectible %q (also in %s)", o.Name, other)
+					}
+					b.collectibles[o.Name] = filepath.Base(path)
 				}
 				if mark, ok := landmark(obj); ok {
 					b.marks = append(b.marks, mark)
