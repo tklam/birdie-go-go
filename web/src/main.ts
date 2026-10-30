@@ -64,6 +64,10 @@ const updateSW = registerSW({
       if (navigator.onLine) registration.update().catch(() => undefined);
     };
     setInterval(check, UPDATE_CHECK_MS);
+    // A new version is downloading (not the first install).
+    registration.addEventListener('updatefound', () => {
+      if (navigator.serviceWorker.controller) toast('Downloading a new version…', 3000);
+    });
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') check();
     });
