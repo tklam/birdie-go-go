@@ -1,9 +1,9 @@
 - id: prologue_arrival
   lines:
     - { speaker: angie, portrait: angie_happy, text: "Tseung Kwan O! New flat, new city, new start." }
-    - { speaker: angie, text: "Twenty-third floor... and I can see the bay from the kitchen window. Grandma would have loved this." }
+    - { speaker: angie, text: "Twenty-third floor, with the bay right outside the kitchen window. Grandma would have loved it." }
     - { speaker: angie, text: "Okay, Angie. Unpacking can wait. Camera, check. Sheet music, check. Harbour Pass, check." }
-    - { speaker: angie, text: "Snacks... none. The plaza shop sells them, and the cupboard here can hold what won't fit in my bag." }
+    - { speaker: angie, text: "Snacks... none. The shop here on the plaza sells them, and the cupboard at home can hold what won't fit in my bag." }
     - { speaker: angie, text: "Mei's first lesson is this afternoon. Before that... the waterfront park is just down the road." }
     - { speaker: angie, text: "Somewhere out there is my first Hong Kong bird. Let's go find it!" }
 - id: prologue_first_photo
