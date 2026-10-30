@@ -10,6 +10,7 @@ import (
 	"errors"
 	"fmt"
 	"image/color"
+	"math"
 	"os"
 	"path/filepath"
 	"sort"
@@ -114,10 +115,13 @@ type builder struct {
 	// collectibles maps each collectible's name to its map: a save marks a
 	// collectible taken by name, so names must be unique across the world.
 	collectibles map[string]string
-	colors       []color.NRGBA // average color per atlas tile, for the overview map
-	marks        []model.Landmark
-	fill         int
-	names        []string
+	// enemies and arrivals (stops, doors, spawns, gateways) are checked
+	// against each other once all maps are in: see checkEnemies.
+	enemies, arrivals []model.WorldObject
+	colors            []color.NRGBA // average color per atlas tile, for the overview map
+	marks             []model.Landmark
+	fill              int
+	names             []string
 }
 
 func run(worldPath, outDir string, opts options) error {
@@ -148,12 +152,34 @@ func run(worldPath, outDir string, opts options) error {
 			return fmt.Errorf("%s: %w", path, err)
 		}
 	}
+	if err := b.checkEnemies(); err != nil {
+		return fmt.Errorf("%s: %w", worldPath, err)
+	}
 	b.sealUncovered()
 	b.blendField(index.WidthChunks, index.HeightChunks, opts.blendTiles)
 	if len(w.Maps) > 0 && b.fill == 0 {
 		return fmt.Errorf("fill tile %q not found in tileset %q", opts.fillTile, opts.atlas)
 	}
 	return b.write(index, outDir)
+}
+
+// minEnemyDistance keeps enemies' homes this far (px) from where Angie
+// arrives or boards: more than the widest sight (80) plus wandering (24),
+// so no encounter starts the moment she steps off a ferry or out of a door
+// (every encounter must be avoidable, AGENTS.md rule 13).
+const minEnemyDistance = 128
+
+// checkEnemies rejects enemies placed too close to a stop, door, spawn or
+// gateway.
+func (b *builder) checkEnemies() error {
+	for _, e := range b.enemies {
+		for _, a := range b.arrivals {
+			if d := math.Hypot(e.X-a.X, e.Y-a.Y); d < minEnemyDistance {
+				return fmt.Errorf("enemy %q is %.0f px from %s %q (want at least %d)", e.Name, d, a.Type, a.Name, minEnemyDistance)
+			}
+		}
+	}
+	return nil
 }
 
 func singleMapWorld(file string, m tiledMap) tiledWorld {
@@ -265,6 +291,12 @@ func (b *builder) addMap(path string, ox, oy int) error {
 						return fmt.Errorf("duplicate collectible %q (also in %s)", o.Name, other)
 					}
 					b.collectibles[o.Name] = filepath.Base(path)
+				}
+				switch typ {
+				case "enemy":
+					b.enemies = append(b.enemies, obj)
+				case "stop", "door", "spawn", "gateway":
+					b.arrivals = append(b.arrivals, obj)
 				}
 				if mark, ok := landmark(obj); ok {
 					b.marks = append(b.marks, mark)

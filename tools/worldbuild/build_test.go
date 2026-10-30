@@ -207,6 +207,38 @@ func TestRunRejectsForeignTilesetOnVisualLayer(t *testing.T) {
 	}
 }
 
+// Every encounter must be avoidable, so enemies keep away from arrivals.
+func TestRunRejectsEnemiesNearArrivals(t *testing.T) {
+	for _, tc := range []struct {
+		name    string
+		x       int
+		wantErr bool
+	}{
+		{"far from the spawn", 600 - minEnemyDistance - 10, false},
+		{"next to the spawn", 600 - 16, true},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			dir := writeTestWorld(t)
+			path := filepath.Join(dir, "m.tmj")
+			data, _ := os.ReadFile(path)
+			var m map[string]any
+			if err := json.Unmarshal(data, &m); err != nil {
+				t.Fatal(err)
+			}
+			objs := m["layers"].([]any)[3].(map[string]any)
+			objs["objects"] = append(objs["objects"].([]any), map[string]any{"name": "dogs", "type": "enemy", "x": tc.x, "y": 8})
+			data, _ = json.Marshal(m)
+			if err := os.WriteFile(path, data, 0o644); err != nil {
+				t.Fatal(err)
+			}
+			err := run(filepath.Join(dir, "city.world"), filepath.Join(dir, "out"), options{atlas: "tko", atlasAsset: "tiles_tko", fillTile: "water", blendTiles: 8})
+			if (err != nil) != tc.wantErr {
+				t.Fatalf("err = %v, want error: %v", err, tc.wantErr)
+			}
+		})
+	}
+}
+
 // Saves mark collectibles taken by name, so a repeated name would take both.
 func TestRunRejectsDuplicateCollectibles(t *testing.T) {
 	sheet := func(x int) map[string]any {

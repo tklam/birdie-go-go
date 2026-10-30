@@ -293,7 +293,9 @@ func build() *tmap {
 	}
 	m.fill(0, 56, mapW, 1, "railing")
 	m.fill(0, 57, mapW, 1, "seawall")
-	m.obj("bay_ghost", "enemy", 70, 55, map[string]string{"enemy_id": "water_ghost"})
+	// Water ghosts haunt the far ends of the boardwalks, well away from the
+	// piers, so boarding a ferry never walks into one (AGENTS.md rule 13).
+	m.obj("bay_ghost", "enemy", 90, 55, map[string]string{"enemy_id": "water_ghost"})
 	m.obj("old_fisherman", "npc", 36, 55, map[string]string{"npc_id": "old_fisherman", "sprite": "char_old_fisherman"})
 	m.obj("promenade_ghost", "enemy", 30, 55, map[string]string{"enemy_id": "water_ghost"})
 	m.fill(0, 58, mapW, 6, "water")
@@ -582,14 +584,14 @@ func clearWaterBay() *tmap {
 	m.obj("po_toi_o_pier", "spot", 31, 60, map[string]string{"spot_id": "po_toi_o_pier"})
 	m.obj("forest_birds", "bird", 30, 14, map[string]string{"species": "oriental_magpie_robin", "count": "2"})
 	m.obj("cove_egrets", "bird", 58, 51, map[string]string{"species": "little_egret", "count": "2"})
-	m.obj("village_dogs", "enemy", 22, 50, map[string]string{"enemy_id": "stray_dog_pack"})
+	m.obj("village_dogs", "enemy", 4, 50, map[string]string{"enemy_id": "stray_dog_pack"})
 	m.obj("park_zombie", "enemy", 48, 20, map[string]string{"enemy_id": "hopping_zombie"})
 	// Hidden collectibles (SPEC.md §4.5).
 	m.obj("feather_woods", "collectible", 10, 30, map[string]string{"item": "feather"})
 	m.obj("sheet_village", "collectible", 50, 52, map[string]string{"song": "tram_bell_rag"})
 	m.obj("part_stream", "collectible", 26, 20, map[string]string{"item": "camera_part"})
 	m.obj("feather_cove", "collectible", 60, 52, map[string]string{"item": "feather"})
-	m.obj("pier_ghost", "enemy", 31, 58, map[string]string{"enemy_id": "water_ghost"})
+	m.obj("pier_ghost", "enemy", 13, 55, map[string]string{"enemy_id": "water_ghost"})
 	return m
 }
 
