@@ -62,7 +62,7 @@ export class TouchControls {
     zone.addEventListener('pointercancel', end);
 
     this.actionBtn = this.button('btn action touch-only idle', 'A', () => (this.actionQueued = true));
-    const menu = this.button('btn menu touch-only', 'Menu', () => (this.menuQueued = true));
+    const menu = this.button('btn menu', 'Menu', () => (this.menuQueued = true));
     this.root.append(zone, this.actionBtn, menu);
     overlay().appendChild(this.root);
   }

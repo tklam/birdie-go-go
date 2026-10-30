@@ -36,7 +36,8 @@ export function showMenu(title: string | (() => string), items: MenuItem[], opts
     const row = document.createElement('div');
     row.className = 'menu-item';
     row.textContent = item.label;
-    row.addEventListener('pointerdown', (e) => {
+    // A click (not pointerdown), so dragging a long list to scroll it doesn't choose.
+    row.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
       const already = selected === i;
