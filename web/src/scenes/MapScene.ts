@@ -22,7 +22,7 @@ import { showDialogue } from '../ui/dialogue';
 import { showMinimap, type MapMarker } from '../ui/minimap';
 import { iris } from '../fx/iris';
 import { glitch } from '../fx/glitch';
-import { activityCost, crossedLow, walkCost } from '../systems/economy';
+import { activityCost, crossedLow, type FaintCause, faintOutcome, walkCost } from '../systems/economy';
 import { collect, isCollected } from '../systems/collectibles';
 import { cloudDownload, cloudUpload, formatCode, normalizeCode } from '../systems/cloud';
 import { updateServer } from '../systems/updates';
@@ -211,6 +211,8 @@ export class MapScene extends Phaser.Scene {
   private weatherRenderer: WeatherRenderer | null = null;
   private hazards: HazardReport | null = null;
   private fainting = false;
+  /** Why Energy ran out, for the faint notice: a lost encounter, or else the weather. */
+  private faintCause: FaintCause = 'weather';
   /** The last warning announced ("day:slot:tag"), so each is announced once. */
   private lastWarning = '';
   /** Riding the metro: the map waits while the screen is dark. */
@@ -264,6 +266,7 @@ export class MapScene extends Phaser.Scene {
     this.weatherRenderer = null;
     this.hazards = null;
     this.fainting = false;
+    this.faintCause = 'weather';
     this.exiting = false;
     this.spotMarks = null;
     // Events' staged scenes (start_scene) run over the paused map.
@@ -434,6 +437,7 @@ export class MapScene extends Phaser.Scene {
         await s.fire({ type: e.outcome === 'won' ? 'encounter_won' : 'encounter_escaped', params: { enemy: e.enemyId } });
       } else if (e.outcome === 'lost') {
         s.state.energy = 0;
+        this.faintCause = 'encounter';
       }
     } else if (!s.state.firedEvents['prologue_arrival']) {
       await s.fire({ type: 'new_game' });
@@ -650,16 +654,13 @@ export class MapScene extends Phaser.Scene {
     this.fainting = true;
     this.busy = true;
     const s = this.session;
-    const fee = Math.min(s.state.money, 50);
+    const out = faintOutcome(s.content.game.energy, this.faintCause, s.state.money);
+    this.faintCause = 'weather';
     this.cameras.main.fadeOut(900, 0, 0, 0);
     await new Promise((r) => this.time.delayedCall(1000, r));
-    await showPanel('You feel dizzy...', [
-      'Angie sat down, exhausted by the weather.',
-      `A kind neighbour helped her home. (-$${fee})`,
-      'Pack the right gear next time!',
-    ]);
-    s.state.money -= fee;
-    s.state.energy = 60;
+    await showPanel(out.title, out.lines);
+    s.state.money -= out.fee;
+    s.state.energy = out.recoverTo;
     await s.endSlot();
     const home = homeMap(s.state.flags);
     s.state.position = { map: home, spawn: 'front_door' };

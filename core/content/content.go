@@ -231,6 +231,12 @@ func (v *validator) game(g model.GameInfo) {
 			"game: energy values must not be negative")
 		v.require(e.LowWarning == 0 || e.LowWarningText != "", "game: energy.low_warning needs low_warning_text")
 		v.require(e.PhotoSession+e.Lesson == 0 || e.TooTiredText != "", "game: energy activity costs need too_tired_text")
+		if f := e.Faint; f != nil {
+			v.require(f.Fee >= 0, "game: energy.faint.fee %d must not be negative", f.Fee)
+			v.require(f.RecoverTo > 0 && f.RecoverTo <= 100, "game: energy.faint.recover_to %d must be 1–100", f.RecoverTo)
+			v.require(f.Weather.Title != "" && len(f.Weather.Lines) > 0, "game: energy.faint.weather needs a title and lines")
+			v.require(f.Encounter.Title != "" && len(f.Encounter.Lines) > 0, "game: energy.faint.encounter needs a title and lines")
+		}
 	}
 	if c := g.TransitCard; c != nil {
 		v.require(c.Name != "" && c.StartBalance >= 0 && c.TopUp > 0, "game: transit_card needs a name, a start_balance ≥ 0 and a top_up > 0")
