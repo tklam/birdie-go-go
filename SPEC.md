@@ -83,6 +83,7 @@ Day starts → choose time slot activity → explore overworld → task (photo /
 - Photo requests and contests pay money.
 - Money buys gear and parts. After Kei joins, many upgrades are **built by Kei** from parts instead of bought.
 - **Bills.** Each morning, the bills due that day (`bills` in `content/game.yaml`: name, amount, `every_days`) are deducted and listed in a panel: daily electricity and phone, water and gas every other day, rent weekly. Money never goes below 0; an unpaid remainder is simply forgiven, with a nudge to earn more. Together with food (§4.12), this keeps money worth earning.
+- **Companions chip in.** Each morning, before the bills, every companion in Angie's party adds part of his earnings (`contributions` in `content/game.yaml`: `income × share`, rounded), listed in the same panel. Kei's share follows the relationship (`by_stage`: none until dating, then 20%, 35% engaged, 50% married, from an income of $160 a day); O Boy shares half the small tips passers-by give him for his singing. A companion away from the party gives nothing that morning.
 
 ## 4. Overworld (Map Scene)
 

@@ -86,6 +86,15 @@ func TestValidateErrors(t *testing.T) {
 		{"bad version", func(b *model.ContentBundle) { b.Game.ContentVersion = "v1" }, "MAJOR.MINOR.PATCH"},
 		{"missing start", func(b *model.ContentBundle) { b.Game.StartMap = "" }, "start_map"},
 		{"clock rate", func(b *model.ContentBundle) { b.Game.ClockRate = -1 }, "clock_rate"},
+		{"contribution companion", func(b *model.ContentBundle) {
+			b.Game.Contributions = []model.Contribution{{Companion: "bob", From: "x", Income: 1}}
+		}, "unknown companion"},
+		{"contribution share", func(b *model.ContentBundle) {
+			b.Game.Contributions = []model.Contribution{{Companion: "kei", From: "x", Income: 1, Share: 2}}
+		}, "share must be 0–1"},
+		{"contribution stage", func(b *model.ContentBundle) {
+			b.Game.Contributions = []model.Contribution{{Companion: "kei", From: "x", Income: 1, ByStage: map[string]float64{"besties": 0.5}}}
+		}, "unknown Kei stage"},
 		{"negative mission reminder", func(b *model.ContentBundle) { b.Game.MissionReminderSlots = -1 }, "mission_reminder_slots"},
 		{"bedtime reminder without lines", func(b *model.ContentBundle) {
 			b.Game.BedtimeReminder = &model.BedtimeReminder{EverySeconds: 60}

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import type { Bill, EnergyRules } from '../core/types.gen';
-import { activityCost, billsDue, crossedLow, faintOutcome, payBills, walkCost } from './economy';
+import type { Bill, Contribution, EnergyRules } from '../core/types.gen';
+import { activityCost, billsDue, crossedLow, faintOutcome, morningChipIns, payBills, walkCost } from './economy';
 
 const bills: Bill[] = [
   { name: 'Electricity', amount: 12, everyDays: 1 },
@@ -72,5 +72,23 @@ describe('faintOutcome', () => {
 
   it('has a plain fallback without rules', () => {
     expect(faintOutcome(undefined, 'encounter', 100)).toMatchObject({ fee: 0, recoverTo: 60 });
+  });
+});
+
+describe('morningChipIns', () => {
+  const contributions: Contribution[] = [
+    { companion: 'kei', from: "Kei's engineering work", income: 160, share: 0, byStage: { dating: 0.2, married: 0.5 } },
+    { companion: 'oboy', from: "O Boy's tips", income: 12, share: 0.5 },
+  ];
+
+  it.each([
+    ['nobody along', [], 'dating', []],
+    ['O Boy along', ['oboy'], 'none', [['oboy', 6]]],
+    ['Kei, just friends', ['kei'], 'friends', []],
+    ['Kei, dating', ['oboy', 'kei'], 'dating', [['kei', 32], ['oboy', 6]]],
+    ['Kei, married', ['kei'], 'married', [['kei', 80]]],
+  ] as const)('%s', (_, party, keiStage, want) => {
+    const got = morningChipIns(contributions, { party: [...party], keiStage });
+    expect(got.map((c) => [c.companion, c.amount])).toEqual(want.map((w) => [...w]));
   });
 });

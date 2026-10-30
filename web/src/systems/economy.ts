@@ -1,11 +1,34 @@
 // Everyday Energy costs and the morning bills (SPEC.md §3.2, §4.12). Pure:
 // the map scene and the session apply them.
-import type { Area, Bill, EnergyRules } from '../core/types.gen';
+import type { Area, Bill, Contribution, EnergyRules } from '../core/types.gen';
 import type { GameState } from './state';
 
 /** Bills due on the morning of `day` (day 1 is the first morning). */
 export function billsDue(bills: readonly Bill[] | undefined, day: number): Bill[] {
   return (bills ?? []).filter((b) => day % Math.max(1, b.everyDays) === 0);
+}
+
+/** One companion's share of his earnings for the morning. */
+export interface ChipIn {
+  companion: string;
+  from: string;
+  amount: number;
+}
+
+/**
+ * What the companions in Angie's party chip in this morning (SPEC.md §3.2):
+ * each one's income × his share (Kei's by relationship stage), rounded;
+ * companions away from the party, or with nothing to give, are left out.
+ */
+export function morningChipIns(contributions: readonly Contribution[] | undefined, state: Pick<GameState, 'party' | 'keiStage'>): ChipIn[] {
+  const out: ChipIn[] = [];
+  for (const c of contributions ?? []) {
+    if (!state.party.includes(c.companion)) continue;
+    const share = c.byStage?.[state.keiStage] ?? c.share;
+    const amount = Math.round(c.income * share);
+    if (amount > 0) out.push({ companion: c.companion, from: c.from, amount });
+  }
+  return out;
 }
 
 /**

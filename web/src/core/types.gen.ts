@@ -98,6 +98,10 @@ export interface GameInfo {
    */
   bagCapacity?: number /* int */;
   /**
+   * Contributions are companions' earnings shared with Angie each morning.
+   */
+  contributions?: Contribution[];
+  /**
    * ClockRate is how many in-game minutes pass per real second on the map
    * and while riding (SPEC.md §4.11); 0 means 1. Energy and hazard rates
    * and transit speeds are per in-game minute, so they scale with it.
@@ -164,6 +168,19 @@ export interface FaintRules {
 export interface FaintText {
   title: string;
   lines: string[];
+}
+/**
+ * Contribution is part of a companion's earnings that he chips in each
+ * morning while he's in Angie's party (SPEC.md §3.2): Income × the share,
+ * rounded. ByStage, for Kei, sets the share by relationship stage (stages
+ * not listed use Share).
+ */
+export interface Contribution {
+  companion: string;
+  from: string;
+  income: number /* int */;
+  share: number /* float64 */;
+  byStage?: { [key: string]: number /* float64 */};
 }
 /**
  * Bill is a regular cost paid in the morning of every EveryDays-th day

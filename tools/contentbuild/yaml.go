@@ -51,8 +51,15 @@ type gameYAML struct {
 		StartBalance int    `yaml:"start_balance"`
 		TopUp        int    `yaml:"top_up"`
 	} `yaml:"transit_card"`
-	BagCapacity int     `yaml:"bag_capacity"`
-	ClockRate   float64 `yaml:"clock_rate"`
+	BagCapacity   int     `yaml:"bag_capacity"`
+	ClockRate     float64 `yaml:"clock_rate"`
+	Contributions []struct {
+		Companion string             `yaml:"companion"`
+		From      string             `yaml:"from"`
+		Income    int                `yaml:"income"`
+		Share     float64            `yaml:"share"`
+		ByStage   map[string]float64 `yaml:"by_stage"`
+	} `yaml:"contributions"`
 }
 
 // faintText is a titled notice (energy.faint in game.yaml).
@@ -355,6 +362,9 @@ func load(dir string) (*model.ContentBundle, error) {
 	}
 	if c := g.TransitCard; c != nil {
 		b.Game.TransitCard = &model.TransitCard{Name: c.Name, StartBalance: c.StartBalance, TopUp: c.TopUp}
+	}
+	for _, c := range g.Contributions {
+		b.Game.Contributions = append(b.Game.Contributions, model.Contribution(c))
 	}
 	for _, bill := range g.Bills {
 		every := bill.EveryDays

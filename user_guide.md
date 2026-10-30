@@ -215,6 +215,7 @@ Companions give **hints**. You still take the photo and catch the mistakes yours
 
 - Earn money from lessons, missions, and photo contests.
 - Bills arrive in the morning: electricity and phone every day, water and gas every other day, and rent once a week. A panel shows what was paid.
+- Companions who are with Angie in the morning chip in. O Boy shares the tips passers-by give him for his singing, and once Angie and Kei are dating, Kei puts in part of his engineering pay, more as they grow closer.
 - Spend it at the shop on lenses, faster shutters, bigger memory cards, parts, and transit card top-ups.
 - Once Kei is around, bring him parts and he'll build upgrades.
 

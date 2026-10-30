@@ -261,6 +261,15 @@ func (v *validator) require(ok bool, format string, args ...any) {
 }
 
 func (v *validator) game(g model.GameInfo) {
+	for _, c := range g.Contributions {
+		v.require(slices.Contains(Companions, c.Companion), "game: contribution from unknown companion %q", c.Companion)
+		v.require(c.From != "" && c.Income >= 0, "game: contribution from %s needs `from` and an income ≥ 0", c.Companion)
+		v.require(c.Share >= 0 && c.Share <= 1, "game: contribution from %s: share must be 0–1", c.Companion)
+		for stage, share := range c.ByStage {
+			v.require(slices.Contains(KeiStages, stage), "game: contribution from %s: unknown Kei stage %q", c.Companion, stage)
+			v.require(share >= 0 && share <= 1, "game: contribution from %s: share for %s must be 0–1", c.Companion, stage)
+		}
+	}
 	v.require(g.ClockRate >= 0 && g.ClockRate <= 10, "game: clock_rate must be 0–10 in-game minutes per real second")
 	if g.Title == "" {
 		v.errs = append(v.errs, errors.New("game: title is required"))

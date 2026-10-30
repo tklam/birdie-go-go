@@ -23,7 +23,7 @@ import {
 } from './missions';
 import { showPanel } from '../ui/panel';
 import { advanceSlot } from './time';
-import { billsDue, payBills } from './economy';
+import { billsDue, morningChipIns, payBills } from './economy';
 import { albumMilestones } from './milestones';
 import { clockMinutes } from './transit';
 
@@ -197,14 +197,20 @@ export class Session {
     }
   }
 
-  /** Deducts the bills due this morning and shows what was paid (SPEC.md §3.2). */
+  /**
+   * The morning's money (SPEC.md §3.2): companions in the party chip in part
+   * of their earnings, then the bills due are paid; one panel shows both.
+   */
   private async payMorningBills(): Promise<void> {
+    const chipIns = morningChipIns(this.content.game.contributions, this.state);
     const due = billsDue(this.content.game.bills, this.state.day);
-    if (due.length === 0) return;
+    if (chipIns.length === 0 && due.length === 0) return;
+    for (const c of chipIns) this.state.money += c.amount;
     const { total, unpaid } = payBills(this.state, due);
-    await showPanel('Morning bills', [
+    await showPanel(due.length ? 'Morning bills' : 'This morning', [
+      ...chipIns.map((c) => `${c.from}: +$${c.amount}`),
       ...due.map((b) => `${b.name}: -$${b.amount}`),
-      `Total: -$${total}. Money left: $${this.state.money}`,
+      due.length ? `Bills: -$${total}. Money left: $${this.state.money}` : `Money: $${this.state.money}`,
       ...(unpaid > 0 ? [`Angie couldn't cover $${unpaid}. Time to earn some money!`] : []),
     ]);
   }

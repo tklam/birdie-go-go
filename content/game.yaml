@@ -44,6 +44,19 @@ energy:
         - "Angie is worn out from the chase."
         - "A kind neighbour helped her home. (-${fee})"
         - "Sneak past, or rest before the next one!"
+# Companions in Angie's party each morning chip in part of what they earn
+# (income × share, rounded), shown with the bills. Kei's share grows with
+# the relationship (by_stage; stages not listed use `share`).
+contributions:
+  - companion: kei
+    from: "Kei chips in from his engineering work"
+    income: 160
+    share: 0
+    by_stage: { dating: 0.2, engaged: 0.35, married: 0.5 }
+  - companion: oboy
+    from: "O Boy shares tips from passers-by who loved his singing"
+    income: 12
+    share: 0.5
 # Paid each morning they're due (every_days: 1 = daily). Money never goes below 0.
 bills:
   - { name: Electricity, amount: 12 }
