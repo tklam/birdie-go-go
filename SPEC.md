@@ -557,6 +557,7 @@ Events live in `content/events/*.yaml`:
 - Dialogue lines may carry conditions (e.g. alternate lines when `party_has: kei`).
 - *As built:* `photo_session_end` carries `spot` and `best`, the session's best rating (`perfect`, `great`, `good`, `blurry`, or `none` without photos), so a reaction can match the photo (e.g. the prologue's first photo).
 - Events are evaluated in TypeScript on the main thread (instant reactions to game state).
+- An event whose `start_mission` actions would exceed the mission cap (§9.5) is held back like one whose conditions fail: not run, not marked fired.
 
 ### 9.5 Missions
 `content/missions.yaml` defines tasks beyond the story:
@@ -572,6 +573,8 @@ Events live in `content/events/*.yaml`:
 Objective types: `photograph`, `lesson` (student, min score), `visit`, `ride` (line or stop), `collect`, `talk`.
 
 *As built:* `photograph`, `lesson`, `ride` (`line` and/or `stop`: completed on arriving by that line or at that stop) and `visit` (`area`: completed on entering it). A mission with `available` (event conditions as a map) and/or `window` (`from`/`to`, real local dates) is offered on its own at the start of a day while its conditions hold and today is in the window; a live mission still active after its window ends is withdrawn (flag `mission_expired:<id>`) and isn't offered again. Contests are seasonal photograph missions (the winter spoonbill contest, the autumn wader watch).
+
+**Mission cap.** At most `max_active_missions` (`content/game.yaml`, 3; 0 = no limit) missions are active at once. An event whose `start_mission` actions would push past the cap doesn't run and isn't marked fired, so its story (e.g. a district's history and favour on first entering it, or a chapter opener) plays the next time its trigger comes round with room; with no missions active it always runs. Self-offered missions aren't offered while the cap is reached. Finishing (or a live mission expiring) frees a spot. Saves already over the cap keep their missions.
 
 **Reminders.** Every `mission_reminder_slots` time slots (set in `content/game.yaml`; 0 turns them off), a toast names one active mission when Angie is back on the map; active missions take turns. Loading a save with active missions shows one reminder right away.
 

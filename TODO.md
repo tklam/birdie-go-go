@@ -131,6 +131,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 - [x] Contests, transit missions, live missions (`ride`/`visit` objectives, `available` and real-date `window`)
 - [x] Trail cameras
 - [x] Mission reminders every few time slots (`mission_reminder_slots`)
+- [x] Mission cap (`max_active_missions`): stories and offers that would start more wait until one is finished
 - [x] Bedtime reminders in the evening away from home (`bedtime_reminder`)
 - [x] Townspeople at stops who explain the minibus, ferry and gateways
 - [x] Morning bills (electricity, phone, water and gas, rent) from `game.yaml`

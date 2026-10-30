@@ -76,6 +76,12 @@ export interface GameInfo {
    */
   missionReminderSlots?: number /* int */;
   /**
+   * MaxActiveMissions caps how many missions are active at once
+   * (SPEC.md §9.5): events that would start more wait (unfired) and
+   * self-offered ones aren't offered until there's room. 0 means no limit.
+   */
+  maxActiveMissions?: number /* int */;
+  /**
    * BedtimeReminder nudges Angie home in the evening (SPEC.md §3.1).
    */
   bedtimeReminder?: BedtimeReminder;

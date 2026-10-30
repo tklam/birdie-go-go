@@ -37,6 +37,11 @@ export interface ConditionContext {
    * mission_state …). They take precedence over the built-in ones.
    */
   custom?: Record<string, ConditionEvaluator>;
+  /**
+   * A last gate before an event runs (after its conditions hold), e.g. the
+   * mission cap. An event it holds back isn't marked fired, so it can run later.
+   */
+  canRun?: (event: Event, state: GameState) => boolean;
 }
 
 /**
@@ -262,6 +267,7 @@ export async function fire(
     if (!matchesTrigger(event, trigger)) continue;
     if (event.once && state.firedEvents[event.id]) continue;
     if (!checkAll(event.conditions, state, ctx)) continue;
+    if (ctx.canRun && !ctx.canRun(event, state)) continue;
     if (event.once) state.firedEvents[event.id] = true;
     fired.push(event.id);
     for (const action of event.actions) await runAction(action, state, host, ctx);

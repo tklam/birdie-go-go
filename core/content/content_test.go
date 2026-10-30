@@ -105,6 +105,7 @@ func TestValidateErrors(t *testing.T) {
 			b.Game.Contributions = []model.Contribution{{Companion: "kei", From: "x", Income: 1, ByStage: map[string]float64{"besties": 0.5}}}
 		}, "unknown Kei stage"},
 		{"negative mission reminder", func(b *model.ContentBundle) { b.Game.MissionReminderSlots = -1 }, "mission_reminder_slots"},
+		{"negative mission cap", func(b *model.ContentBundle) { b.Game.MaxActiveMissions = -1 }, "max_active_missions"},
 		{"bedtime reminder without lines", func(b *model.ContentBundle) {
 			b.Game.BedtimeReminder = &model.BedtimeReminder{EverySeconds: 60}
 		}, "needs lines"},

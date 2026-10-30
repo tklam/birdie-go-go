@@ -1,6 +1,6 @@
 // Missions (SPEC.md §9.5). Progress lives in story flags so saves need no
 // new fields: "mission:<id>" while active, "mission_done:<id>" when done.
-import type { ContentBundle, Mission } from '../core/types.gen';
+import type { ContentBundle, Event, Mission } from '../core/types.gen';
 import { checkAll } from './events';
 import type { GameState, PhotoRating } from './state';
 
@@ -23,6 +23,33 @@ export function startMission(state: GameState, id: string): boolean {
   if (state.flags[activeFlag(id)] || state.flags[doneFlag(id)]) return false;
   state.flags[activeFlag(id)] = true;
   return true;
+}
+
+/** Whether `max` missions are already active; 0 means no limit. */
+export function missionsFull(state: GameState, content: Pick<ContentBundle, 'missions'>, max: number): boolean {
+  return max > 0 && activeMissions(state, content).length >= max;
+}
+
+/**
+ * Whether an event may run under the mission cap (SPEC.md §9.5): one that
+ * starts new missions waits while they wouldn't fit beside the active ones,
+ * so its story plays later instead. With no missions active it always may.
+ */
+export function eventFitsMissions(
+  event: Pick<Event, 'actions'>,
+  state: GameState,
+  content: Pick<ContentBundle, 'missions'>,
+  max: number,
+): boolean {
+  if (max <= 0) return true;
+  const starts = new Set<string>();
+  for (const a of event.actions) {
+    if (a.type !== 'start_mission' || typeof a.value !== 'string') continue;
+    if (!state.flags[activeFlag(a.value)] && !state.flags[doneFlag(a.value)]) starts.add(a.value);
+  }
+  if (starts.size === 0) return true;
+  const active = activeMissions(state, content).length;
+  return active === 0 || active + starts.size <= max;
 }
 
 export function activeMissions(state: GameState, content: Pick<ContentBundle, 'missions'>): Mission[] {
@@ -90,12 +117,13 @@ const expiredFlag = (id: string) => `mission_expired:${id}`;
 
 /**
  * Starts the self-offered missions (with `available` or a `window`) whose
- * conditions hold today and whose window includes `today`. Returns them.
- * Mutates state.
+ * conditions hold today and whose window includes `today`, while fewer than
+ * `max` missions are active (0 = no limit). Returns them. Mutates state.
  */
-export function offerMissions(state: GameState, content: Pick<ContentBundle, 'missions'>, today: string): Mission[] {
+export function offerMissions(state: GameState, content: Pick<ContentBundle, 'missions'>, today: string, max = 0): Mission[] {
   return content.missions.filter((m) => {
     if (!m.available?.length && !m.window) return false;
+    if (missionsFull(state, content, max)) return false;
     if (state.flags[expiredFlag(m.id)]) return false;
     if (m.window && (today < m.window.from || today > m.window.to)) return false;
     if (!checkAll(m.available, state)) return false;

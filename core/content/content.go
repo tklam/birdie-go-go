@@ -295,6 +295,7 @@ func (v *validator) game(g model.GameInfo) {
 	v.require(g.StartSpawn != "", "game: start_spawn is required")
 	v.require(g.BagCapacity >= 0, "game: bag_capacity %d must not be negative", g.BagCapacity)
 	v.require(g.MissionReminderSlots >= 0, "game: mission_reminder_slots %d must not be negative", g.MissionReminderSlots)
+	v.require(g.MaxActiveMissions >= 0, "game: max_active_missions %d must not be negative", g.MaxActiveMissions)
 	if br := g.BedtimeReminder; br != nil {
 		v.require(br.EverySeconds >= 0, "game: bedtime_reminder.every_seconds %d must not be negative", br.EverySeconds)
 		v.require(br.EverySeconds == 0 || len(br.Lines) > 0, "game: bedtime_reminder needs lines when every_seconds is set")

@@ -4,6 +4,7 @@ import {
   activeMissions,
   completeMission,
   doneFlag,
+  eventFitsMissions,
   expireMissions,
   isoDate,
   lessonMissionsMet,
@@ -108,6 +109,25 @@ describe('ride, visit and live missions', () => {
     expect(expireMissions(s, all, '2027-01-01').map((m) => m.id)).toEqual(['live']);
     expect(activeMissions(s, all).map((m) => m.id)).toEqual(['winter']);
     expect(offerMissions(s, all, '2026-12-10')).toEqual([]);
+  });
+
+  it('caps missions: stories that start them wait for room, offers too', () => {
+    const s = fresh();
+    const story = (...ids: string[]) => ({
+      actions: [{ type: 'dialogue', value: 'x' }, ...ids.map((value) => ({ type: 'start_mission', value }))],
+    });
+    expect(eventFitsMissions(story('winter', 'live'), s, all, 1)).toBe(true); // nothing active: always room
+    startMission(s, 'ferry');
+    startMission(s, 'hike');
+    expect(eventFitsMissions(story('winter'), s, all, 3)).toBe(true);
+    expect(eventFitsMissions(story('winter', 'live'), s, all, 3)).toBe(false);
+    expect(eventFitsMissions(story('hike', 'winter'), s, all, 3)).toBe(true); // hike is already active
+    expect(eventFitsMissions({ actions: [{ type: 'dialogue', value: 'x' }] }, s, all, 2)).toBe(true);
+    expect(eventFitsMissions(story('winter'), s, all, 2)).toBe(false);
+    expect(eventFitsMissions(story('winter', 'live'), s, all, 0)).toBe(true); // no limit
+    s.day = 43; // winter
+    expect(offerMissions(s, all, '2026-12-05', 3).map((m) => m.id)).toEqual(['winter']);
+    expect(offerMissions(s, all, '2026-12-05', 3)).toEqual([]);
   });
 
   it('formats local dates', () => {

@@ -22,7 +22,9 @@ type gameYAML struct {
 	StartSpawn     string `yaml:"start_spawn"`
 	// Slots between active-mission reminders; 0 turns them off.
 	MissionReminderSlots int `yaml:"mission_reminder_slots"`
-	BedtimeReminder      struct {
+	// Most missions active at once; 0 means no limit.
+	MaxActiveMissions int `yaml:"max_active_missions"`
+	BedtimeReminder   struct {
 		EverySeconds int      `yaml:"every_seconds"`
 		Lines        []string `yaml:"lines"`
 	} `yaml:"bedtime_reminder"`
@@ -361,7 +363,7 @@ func load(dir string) (*model.ContentBundle, error) {
 	}
 	b.Game = model.GameInfo{
 		Title: g.Title, ContentVersion: g.ContentVersion, StartMap: g.StartMap, StartSpawn: g.StartSpawn,
-		MissionReminderSlots: g.MissionReminderSlots, BagCapacity: g.BagCapacity, ClockRate: g.ClockRate,
+		MissionReminderSlots: g.MissionReminderSlots, MaxActiveMissions: g.MaxActiveMissions, BagCapacity: g.BagCapacity, ClockRate: g.ClockRate,
 	}
 	if br := g.BedtimeReminder; br.EverySeconds != 0 || len(br.Lines) > 0 {
 		b.Game.BedtimeReminder = &model.BedtimeReminder{EverySeconds: br.EverySeconds, Lines: append([]string{}, br.Lines...)}

@@ -178,7 +178,7 @@ If your taps feel consistently early or late, recalibrate in **Settings**.
 
 ## Missions
 
-People around the city will ask for help. A magazine might want a photo of a particular winter visitor, a parent might want extra lessons before a recital, or someone might ask you to take a ferry somewhere. Check active missions in the Menu. Some missions only appear in certain seasons (like the winter spoonbill contest), some ask you to ride a ferry or explore somewhere new, and special ones run only for a few real-world days around holidays or arrive in game updates.
+People around the city will ask for help. A magazine might want a photo of a particular winter visitor, a parent might want extra lessons before a recital, or someone might ask you to take a ferry somewhere. Check active missions in the Menu. Angie takes on at most three at a time: while three are open, nobody new asks for help (a district's story waits for your next visit), so finish one to hear more. Some missions only appear in certain seasons (like the winter spoonbill contest), some ask you to ride a ferry or explore somewhere new, and special ones run only for a few real-world days around holidays or arrive in game updates.
 
 ## Stories and favours
 

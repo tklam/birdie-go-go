@@ -305,6 +305,18 @@ describe('fire', () => {
     expect(s.flags).toEqual({ a: true, c: true });
   });
 
+  it('holds back events canRun rejects without marking them fired', async () => {
+    const s = state();
+    const events = [ev({ id: 'story', actions: [a('set_flag', 'told')] })];
+    let room = false;
+    const ctx = { canRun: () => room };
+    expect(await fire({ type: 'talk' }, s, { events }, new RecordingHost(), ctx)).toEqual([]);
+    expect(s.firedEvents).toEqual({});
+    room = true;
+    expect(await fire({ type: 'talk' }, s, { events }, new RecordingHost(), ctx)).toEqual(['story']);
+    expect(s.flags.told).toBe(true);
+  });
+
   it('repeats events with once: false', async () => {
     const s = state();
     const events = [ev({ id: 'tip', once: false, actions: [a('give_money', 10)] })];

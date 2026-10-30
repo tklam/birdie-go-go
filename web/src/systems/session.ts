@@ -9,6 +9,7 @@ import { tickConsumables } from './hazards';
 import { runTrailCameras } from './gadgets';
 import {
   completeMission,
+  eventFitsMissions,
   expireMissions,
   isoDate,
   lessonMissionsMet,
@@ -88,6 +89,9 @@ export class Session {
         }
         console.info('event action not handled yet', action.type, action.value);
       },
+    }, {
+      // The mission cap (SPEC.md §9.5): a story that starts missions waits until there's room.
+      canRun: (event, state) => eventFitsMissions(event, state, this.content, this.maxMissions),
     });
   }
 
@@ -128,6 +132,11 @@ export class Session {
     this.slotsSinceReminder = 0;
     this.reminderTurn++;
     return m.title;
+  }
+
+  /** The most missions active at once (game.yaml `max_active_missions`); 0 means no limit. */
+  get maxMissions(): number {
+    return this.content.game.maxActiveMissions ?? 0;
   }
 
   /** Now, in absolute in-game minutes (SPEC.md §4.11). */
@@ -192,7 +201,7 @@ export class Session {
     for (const m of expireMissions(this.state, this.content, today)) {
       await showPanel(`Mission ended: ${m.title}`, ['Its time is up. Maybe next time!']);
     }
-    for (const m of offerMissions(this.state, this.content, today)) {
+    for (const m of offerMissions(this.state, this.content, today, this.maxMissions)) {
       await showPanel(`New mission: ${m.title}`, [m.description]);
     }
   }

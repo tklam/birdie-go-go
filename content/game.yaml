@@ -4,6 +4,9 @@ start_map: world
 start_spawn: estate_plaza
 # Every this many time slots, a toast reminds you of an active mission (0 = never).
 mission_reminder_slots: 3
+# At most this many missions are active at once (0 = no limit). Stories and
+# daily offers that would start more wait until Angie finishes one.
+max_active_missions: 3
 # In the evening, away from home, a toast every this many seconds of play
 # suggests heading home to sleep (0 = never). The lines take turns.
 bedtime_reminder:

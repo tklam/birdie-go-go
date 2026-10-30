@@ -33,6 +33,10 @@ type GameInfo struct {
 	// MissionReminderSlots is how many time slots pass between reminders
 	// about an active mission (SPEC.md §9.5); 0 turns reminders off.
 	MissionReminderSlots int `json:"missionReminderSlots,omitempty"`
+	// MaxActiveMissions caps how many missions are active at once
+	// (SPEC.md §9.5): events that would start more wait (unfired) and
+	// self-offered ones aren't offered until there's room. 0 means no limit.
+	MaxActiveMissions int `json:"maxActiveMissions,omitempty"`
 	// BedtimeReminder nudges Angie home in the evening (SPEC.md §3.1).
 	BedtimeReminder *BedtimeReminder `json:"bedtimeReminder,omitempty"`
 	// Energy sets everyday Energy costs (SPEC.md §4.12); nil keeps only
