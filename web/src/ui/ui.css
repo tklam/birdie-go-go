@@ -196,6 +196,13 @@
   min-height: 44px;
   border-radius: 8px;
 }
+.btn.skip {
+  right: max(16px, env(safe-area-inset-right));
+  top: 16px;
+  min-width: 56px;
+  min-height: 44px;
+  border-radius: 8px;
+}
 .btn.deck {
   left: max(16px, env(safe-area-inset-left));
   top: 72px;

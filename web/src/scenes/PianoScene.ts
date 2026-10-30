@@ -273,7 +273,8 @@ export class PianoScene extends Phaser.Scene {
   private begin(): void {
     if (!isLatencyCalibrated(this.state) && hasScene(this, 'Calibration')) {
       void this.audio.unlock();
-      this.scene.start('Calibration', { returnTo: 'Piano', returnData: this.params });
+      // Back from the timing check skips the lesson, as leaving it would.
+      this.scene.start('Calibration', { returnTo: 'Piano', returnData: this.params, backTo: this.params.returnTo ?? 'Map', backData: {} });
       return;
     }
     this.phase = 'starting';

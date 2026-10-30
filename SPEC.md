@@ -413,7 +413,7 @@ Difficulty controls mistake count, spacing (min 1.5 s apart), and subtlety. Stud
 - Grading is done by the Go core against the answer key, which the UI never sees before the lesson ends. (It's single-player, so this keeps the code honest rather than preventing cheating. A future leaderboard can re-verify, since lessons are deterministic from their seed.)
 
 ### 6.4 Calibration
-- First lesson (and in Settings): tap along to 8 metronome clicks; the median offset becomes the latency offset.
+- First lesson (and in Settings): tap along to 8 metronome clicks; the median offset becomes the latency offset. **Skip** keeps the current (default) offset and counts as calibrated; **Back** (or Esc) leaves without a lesson, or back to the map from Settings.
 
 ### 6.5 Students
 - Each student has a name, level, repertoire, mistake tendencies (e.g. "rushes fast passages"), and a small story arc.

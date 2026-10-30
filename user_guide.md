@@ -14,7 +14,7 @@ The city has its rough edges, like stray dogs, the odd strange creature, and fie
 - After your first visit you can **install** the game (Add to Home Screen) and play **offline**.
 - Play in **landscape**. If you hold your phone upright, the game will ask you to rotate it.
 - Tap or click **Start**. This also turns on the sound. Headphones help a lot during piano lessons.
-- On your first lesson, the game asks you to **calibrate**: tap along with 8 clicks so it can account for your device's audio delay.
+- On your first lesson, the game asks you to **calibrate**: tap along with 8 clicks so it can account for your device's audio delay. If you can't tap in time, **Skip** uses the default timing (you can try again later in Settings), and **Back** leaves without the lesson.
 
 ## Controls
 
