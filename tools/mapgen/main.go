@@ -616,9 +616,10 @@ func room(floor string) *tmap {
 	return m
 }
 
-// exit adds the door object that leads back outside.
-func (m *tmap) exit(toSpawn string) {
-	m.obj("exit", "door", 10, 11, map[string]string{"to_map": "world", "to_spawn": toSpawn, "title": "Tseung Kwan O"})
+// exit adds the door object that leads back outside, to toSpawn; title
+// names the place shown on arrival.
+func (m *tmap) exit(toSpawn, title string) {
+	m.obj("exit", "door", 10, 11, map[string]string{"to_map": "world", "to_spawn": toSpawn, "title": title})
 }
 
 func angieFlat() *tmap {
@@ -637,7 +638,7 @@ func angieFlat() *tmap {
 	m.fill(7, 7, 6, 2, "rug")
 	m.put(18, 9, "plant")
 	m.put(1, 9, "plant")
-	m.exit("angie_home_out")
+	m.exit("angie_home_out", "Tseung Kwan O")
 	return m
 }
 
@@ -655,7 +656,7 @@ func meiFlat() *tmap {
 	m.put(14, 6, "table")
 	m.put(18, 2, "plant")
 	m.put(1, 2, "bookshelf")
-	m.exit("mei_home_out")
+	m.exit("mei_home_out", "Tseung Kwan O")
 	return m
 }
 
@@ -681,7 +682,7 @@ func sharedHome() *tmap {
 	m.fill(6, 7, 6, 2, "rug")
 	m.put(18, 9, "plant")
 	m.put(1, 9, "plant")
-	m.exit("angie_home_out")
+	m.exit("angie_home_out", "Tseung Kwan O")
 	return m
 }
 
@@ -698,7 +699,7 @@ func hoFlat() *tmap {
 	m.fill(13, 8, 5, 2, "rug")
 	m.put(18, 2, "plant")
 	m.put(1, 9, "plant")
-	m.exit("ho_home_out")
+	m.exit("ho_home_out", "Tseung Kwan O")
 	return m
 }
 
@@ -713,7 +714,7 @@ func faiHouse() *tmap {
 	m.put(8, 6, "table")
 	m.fill(6, 8, 6, 2, "rug")
 	m.put(18, 9, "plant")
-	m.exit("fai_home_out")
+	m.exit("fai_home_out", "Po Toi O")
 	return m
 }
 
