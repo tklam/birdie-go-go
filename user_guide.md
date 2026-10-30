@@ -63,6 +63,7 @@ The world is big and seamless. You can walk from downtown streets into a hillsid
 - Watch for little **twinkles** on the ground. They're hidden collectibles: feathers for your album, camera parts for Kei, and sheet music your students can learn once they've finished their pieces. Walk up and press **Pick up**.
 - The city is busy: joggers, office workers, aunties, students, and fellow **birders** who stop to photograph birds. Say hello; some have useful tips. Birders may also be shooting next to you during a photo session, and their clicking shutters can make birds a little nervous.
 - Look around for hidden **feathers**, **camera parts**, and **sheet music**.
+- Every place has its own sounds: traffic and crossing signals in town, mahjong tiles in the old market, waves and gulls at the piers, cicadas and songbirds on the trails, frogs in the wetlands. Birds near you call, so listen for them before you see them. Turn **Sound** down in Settings if you'd rather have quiet.
 - Open the **World Map** from the Menu to see where you've been, your birding spots, and the transit lines. Places you haven't explored yet are dark. Tap **+** and **−** to zoom (drag to look around), and **Close** when you're done.
 
 ## Getting around
@@ -70,14 +71,14 @@ The world is big and seamless. You can walk from downtown streets into a hillsid
 | | How it works |
 |---|---|
 | **Bus** | Green Minibus 16 runs to Po Toi O and Green Minibus 1A to Sai Kung. Wait at a stop and press **Board**. Ride along and watch the city go by. Tap **Get off at next stop**, or **Skip** to jump to your stop. |
-| **Tram** | Slow, cheap, and charming. The Harbourfront Tram runs along the waterfront of Harbour Island, with three stops. |
+| **Tram** | Slow, cheap, and charming. The Harbourfront Tram runs along the waterfront road of Harbour Island, with three stops; listen for its *ding-ding* as it comes along. |
 | **Metro** | Go down into a station, pick your destination, and you're there in moments. The Ridge Line runs from the Old Town under Lion Ridge to the Border Fields. The Harbour Line runs under the harbour from Tseung Kwan O Station (east of the plaza) to Harbour Island, and from chapter 2 the Wetland Line runs to the Fishpond Wetlands, where ducks and spoonbills winter. Rain doesn't affect it. |
 | **Ferry** | Cross the harbour or sail to the outlying islands: the Island Ferry runs from Po Toi O pier to Pebble Island. Stand on the deck, because seabirds follow the boat and make great photos. Long island trips take up part of the day. |
 | **Teleport** | Later in the game, Kei's gateways link the real world with his digital realm. Use them to jump between places you've unlocked. |
 
 - Not sure how to get somewhere? The minibus driver by the plaza stop, the ferry deckhand on the Junk Bay pier, and the hiker at the Po Toi O village stop are happy to explain.
 - Walk up to a stop or pier sign and press **Board**. The board is a **route planner**: it lists every place you can reach from here with its fare. Highlight one to see which buses or ferries you'd take, when they leave, where you'd change, and when you'd arrive; choose it again to go. Right now the **Green Minibus 16** links Tseung Kwan O Plaza with Po Toi O village via the Country Park Gate (every 10 minutes), and a **ferry** crosses from the Junk Bay pier to Po Toi O (every 30 minutes). Tap **Skip** to arrive straight away. On the ferry, tap **Deck** to photograph the gulls and terns following the boat; you'll be at the pier when you're done.
-- Buses and ferries run to timetables, and you can see them out on the roads and on the water. Each part of the day starts at a set time (morning 07:00, afternoon 12:00, evening 17:00), and the clock runs while you explore, so waiting for a ferry takes time.
+- Buses, trams and ferries run to timetables, and you can see (and hear) them out on the roads and on the water. Each part of the day starts at a set time (morning 07:00, afternoon 12:00, evening 17:00), and the clock runs while you explore, so waiting for a ferry takes time.
 - Fares come off your **Harbour Pass** card, which starts with $50. Top it up from cash at any shop, or at the kiosk on any stop's board.
 - New lines and stops open as the story goes on. A stop shows up on your map after your first visit.
 - Your companions ride with you. O Boy travels in a little carrier and has opinions about it.
@@ -230,7 +231,7 @@ Companions give **hints**. You still take the photo and catch the mistakes yours
 - Recalibrate audio delay
 - Text speed: slow, normal, fast or instant
 - Less motion: fades instead of wipes and glitches, no screen shake or camera flash, and gentler rain
-- Captions: a short subtitle whenever O Boy chirps, calls or squawks
+- Captions: a short subtitle whenever O Boy chirps, calls or squawks, a nearby bird calls, or a tram, ferry or minibus sounds its bell or horn
 - Colour-blind safe: blue and orange instead of green and red, and different shapes for map markers
 - Encounters: hold instead of mash, slower prompts, skip encounters
 - Export / import save

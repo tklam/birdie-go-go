@@ -1,7 +1,8 @@
 // The game's one AudioContext: master/music/sfx/piano buses, a synthesized
 // piano voice, a metronome click and a few 16-bit-flavoured SFX generated with
 // oscillators, plus short recorded samples (O Boy's calls) from the asset
-// manifest, decoded once and cached for offline play.
+// manifest, decoded once and cached for offline play. Content sound cues
+// (bird calls, the tram bell; ./cues.ts) are synthesized by playCue.
 // All timing is against AudioContext.currentTime (AGENTS.md rule 10).
 import {
   ATTACK_S,
@@ -19,6 +20,7 @@ import {
   voiceLength,
   type ScheduleNote,
 } from './voice';
+import type { CueEvent } from './cues';
 
 export type Bus = 'master' | 'music' | 'sfx' | 'piano';
 
@@ -39,6 +41,8 @@ export class AudioEngine {
   private noise: AudioBuffer | null = null;
   /** Weather ambience: rain hiss and wind rumble from looping noise. */
   private ambience: { rain: GainNode; wind: GainNode; filter: BiquadFilterNode; out: GainNode } | null = null;
+  /** Two seconds of looping noise for the ambience, soundscape beds and noise notes. */
+  private loopNoise: AudioBuffer | null = null;
   private readonly volumes: Record<Bus, number> = { master: 1, music: 0.8, sfx: 0.8, piano: 1 };
   /** Sample id → URL (registered from the manifest), and decoded buffers. */
   private readonly sampleUrls = new Map<string, string>();
@@ -189,17 +193,13 @@ export class AudioEngine {
   }
 
   /**
-   * Plays a recorded sample on the SFX bus as soon as it's decoded. `rate`
-   * shifts pitch and speed slightly so repeats don't sound identical.
-   */
-  /**
    * Weather ambience (SPEC.md §4.9): rain and wind levels 0–1, eased; muffled
    * (low-passed and quieter) indoors. Built on first use.
    */
   setAmbience(rain: number, wind: number, muffled: boolean): void {
     const ctx = this.ctx;
     if (!ctx || !this.buses) return;
-    if (!this.ambience) this.ambience = this.buildAmbience(ctx, this.buses.sfx);
+    this.ambience ??= this.buildAmbience(ctx, this.buses.sfx);
     const a = this.ambience;
     const t = ctx.currentTime;
     a.rain.gain.setTargetAtTime(Math.max(0, Math.min(1, rain)) * 0.12, t, 0.6);
@@ -208,16 +208,102 @@ export class AudioEngine {
     a.out.gain.setTargetAtTime(muffled ? 0.5 : 1, t, 0.3);
   }
 
-  private buildAmbience(ctx: AudioContext, bus: AudioNode) {
-    // Two seconds of noise from a fixed LCG (no global random state).
-    const len = ctx.sampleRate * 2;
-    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
-    const data = buf.getChannelData(0);
-    let x = 12345;
-    for (let i = 0; i < len; i++) {
-      x = (x * 1103515245 + 12345) >>> 0;
-      data[i] = (x / 2 ** 32) * 2 - 1;
+  /**
+   * The outdoor sound chain (null before unlock): weather, soundscapes and
+   * sounds placed in the world go through it, so indoors muffles them all.
+   */
+  outdoor(): AudioNode | null {
+    const ctx = this.ctx;
+    if (!ctx || !this.buses) return null;
+    this.ambience ??= this.buildAmbience(ctx, this.buses.sfx);
+    return this.ambience.filter;
+  }
+
+  /** Two seconds of white noise, meant to be looped (null before unlock). */
+  noise2s(): AudioBuffer | null {
+    const ctx = this.ctx;
+    if (!ctx) return null;
+    if (!this.loopNoise) {
+      // From a fixed LCG (no global random state).
+      const len = ctx.sampleRate * 2;
+      this.loopNoise = ctx.createBuffer(1, len, ctx.sampleRate);
+      const data = this.loopNoise.getChannelData(0);
+      let x = 12345;
+      for (let i = 0; i < len; i++) {
+        x = (x * 1103515245 + 12345) >>> 0;
+        data[i] = (x / 2 ** 32) * 2 - 1;
+      }
     }
+    return this.loopNoise;
+  }
+
+  /**
+   * Plays a synthesized cue (expandCue's events) at `at` (an AudioContext
+   * time; now by default), scaled by `gain` and panned −1…1. `outdoor`
+   * sounds go through the outdoor chain and are muffled indoors.
+   */
+  playCue(events: readonly CueEvent[], opts: { at?: number; gain?: number; pan?: number; outdoor?: boolean } = {}): void {
+    const ctx = this.ctx;
+    if (!ctx || !this.buses || events.length === 0) return;
+    const t0 = Math.max(opts.at ?? 0, ctx.currentTime) + 0.01;
+    const out = ctx.createGain();
+    out.gain.value = opts.gain ?? 1;
+    const pan = ctx.createStereoPanner?.();
+    if (pan) {
+      pan.pan.value = Math.max(-1, Math.min(1, opts.pan ?? 0));
+      out.connect(pan).connect((opts.outdoor && this.outdoor()) || this.buses.sfx);
+    } else {
+      out.connect((opts.outdoor && this.outdoor()) || this.buses.sfx);
+    }
+    let end = t0;
+    for (const e of events) {
+      const t = t0 + e.start;
+      // Band-passed noise keeps little of the noise's power; make up for it
+      // so a noise note sounds about as loud as a tone of the same gain.
+      const level = e.wave === 'noise' ? e.gain * 2 * Math.sqrt(e.q) : e.gain;
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0, t);
+      if (e.env === 'swell') {
+        const rise = Math.min(0.4, e.dur * 0.35);
+        g.gain.linearRampToValueAtTime(level, t + rise);
+        g.gain.setValueAtTime(level, t + e.dur - rise);
+        g.gain.linearRampToValueAtTime(0, t + e.dur);
+      } else {
+        g.gain.linearRampToValueAtTime(level, t + 0.004);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + e.dur);
+      }
+      g.connect(out);
+      let src: AudioScheduledSourceNode;
+      if (e.wave === 'noise') {
+        const n = ctx.createBufferSource();
+        n.buffer = this.noise2s();
+        n.loop = true;
+        const bp = ctx.createBiquadFilter();
+        bp.type = 'bandpass';
+        bp.Q.value = e.q;
+        bp.frequency.setValueAtTime(e.freq, t);
+        if (e.to !== e.freq) bp.frequency.exponentialRampToValueAtTime(e.to, t + e.dur);
+        n.connect(bp).connect(g);
+        // A different stretch of the loop each time.
+        n.start(t, (e.freq * 7.3 + e.start * 131) % 1.9);
+        src = n;
+      } else {
+        const osc = ctx.createOscillator();
+        osc.type = e.wave as OscillatorType;
+        osc.frequency.setValueAtTime(e.freq, t);
+        if (e.to !== e.freq) osc.frequency.exponentialRampToValueAtTime(e.to, t + e.dur);
+        osc.connect(g);
+        osc.start(t);
+        src = osc;
+      }
+      src.stop(t + e.dur + 0.02);
+      end = Math.max(end, t + e.dur + 0.02);
+    }
+    setTimeout(() => out.disconnect(), (end - ctx.currentTime) * 1000 + 300);
+  }
+
+  private buildAmbience(ctx: AudioContext, bus: AudioNode) {
+    const buf = this.noise2s()!;
     const source = (offset: number) => {
       const s = ctx.createBufferSource();
       s.buffer = buf;
@@ -246,6 +332,10 @@ export class AudioEngine {
     return { rain, wind, filter, out };
   }
 
+  /**
+   * Plays a recorded sample on the SFX bus as soon as it's decoded. `rate`
+   * shifts pitch and speed slightly so repeats don't sound identical.
+   */
   playSample(id: string, opts: { rate?: number; gain?: number } = {}): void {
     const ctx = this.ctx;
     if (!ctx || !this.buses) return;

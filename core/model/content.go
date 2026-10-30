@@ -20,6 +20,7 @@ type ContentBundle struct {
 	Minigames []Minigame   `json:"minigames"`
 	Ambient   []AmbientNPC `json:"ambient"`
 	Transit   Transit      `json:"transit"`
+	Sounds    Sounds       `json:"sounds"`
 }
 
 // GameInfo is the top-level game metadata from content/game.yaml.
@@ -99,6 +100,8 @@ type Area struct {
 	// WalkEffort multiplies the Energy walking costs here (SPEC.md §4.12):
 	// above 1 on hills, sand and other hard going. 0 means 1.
 	WalkEffort float64 `json:"walkEffort,omitempty"`
+	// Soundscape is the ambience heard here (SPEC.md §1.3); empty is quiet.
+	Soundscape string `json:"soundscape,omitempty"`
 }
 
 // Bird is a species that can appear on the overworld and in photo scenes.
@@ -113,6 +116,10 @@ type Bird struct {
 	Seasons         []string           `json:"seasons"`
 	Poses           map[string]float64 `json:"poses"`
 	Behaviors       []string           `json:"behaviors"`
+	// Call is the sound cue of its call (SPEC.md §1.3), played at CallPitch
+	// times the cue's pitch (0 means 1); empty is silent.
+	Call      string  `json:"call,omitempty"`
+	CallPitch float64 `json:"callPitch,omitempty"`
 }
 
 // Spot is a birding spot that opens the photo scene (SPEC.md §5).

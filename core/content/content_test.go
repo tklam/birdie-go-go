@@ -12,8 +12,9 @@ import (
 func validBundle() *model.ContentBundle {
 	return &model.ContentBundle{
 		Game:  model.GameInfo{Title: "Birdie Go Go", ContentVersion: "0.1.0", StartMap: "tko", StartSpawn: "home"},
-		Areas: []model.Area{{ID: "tko_town", Name: "Tseung Kwan O", Climate: climate()}},
+		Areas: []model.Area{{ID: "tko_town", Name: "Tseung Kwan O", Climate: climate(), Soundscape: "park"}},
 		Birds: []model.Bird{{
+			Call: "chirp", CallPitch: 1.2,
 			ID: "bulbul", Name: "Red-whiskered Bulbul", Sprite: "bird_bulbul", OverworldSprite: "owbird_bulbul",
 			Skittishness: 0.3, SizeBand: [2]float64{0.08, 0.3}, Speed: 120,
 			Seasons: []string{"spring"}, Poses: map[string]float64{"perched": 0.8}, Behaviors: []string{"perch"},
@@ -38,6 +39,14 @@ func validBundle() *model.ContentBundle {
 			Once:       true,
 		}},
 		Dialogue: []model.Dialogue{{ID: "intro_lines", Lines: []model.DialogueLine{{Speaker: "angie", Text: "Hi!"}}}},
+		Sounds: model.Sounds{
+			Cues: []model.SoundCue{{ID: "chirp", Notes: []model.SoundNote{{Wave: "sine", Freq: 3000, To: 3600, Dur: 0.1, Repeat: 1, Every: 0.2}}}},
+			Soundscapes: []model.Soundscape{{
+				ID:   "park",
+				Beds: []model.SoundBed{{Filter: "lowpass", Freq: 300, Gain: 0.1, Wobble: 0.5, Rate: 0.1}},
+				Cues: []model.SoundscapeCue{{Cue: "chirp", Every: [2]float64{4, 9}, Slots: []string{"morning"}, Dry: true}},
+			}},
+		},
 	}
 }
 
@@ -110,6 +119,23 @@ func TestValidateErrors(t *testing.T) {
 		}, "unknown Kei stage"},
 		{"empty dialogue", func(b *model.ContentBundle) { b.Dialogue[0].Lines = nil }, "no lines"},
 		{"area music", func(b *model.ContentBundle) { b.Areas[0].Music = "bgm_missing" }, "unknown music"},
+		{"area soundscape", func(b *model.ContentBundle) { b.Areas[0].Soundscape = "jungle" }, "unknown soundscape"},
+		{"bird call", func(b *model.ContentBundle) { b.Birds[0].Call = "call_roar" }, "unknown call cue"},
+		{"bird call pitch", func(b *model.ContentBundle) { b.Birds[0].CallPitch = 9 }, "call_pitch"},
+		{"line bell", func(b *model.ContentBundle) {
+			b.Transit = transitWith(func(l *model.TransitLine) { l.Bell = "gong" })
+		}, "unknown bell cue"},
+		{"cue without notes", func(b *model.ContentBundle) { b.Sounds.Cues = []model.SoundCue{{ID: "c"}} }, "at least one note"},
+		{"cue wave", func(b *model.ContentBundle) { b.Sounds.Cues[0].Notes[0].Wave = "kazoo" }, "unknown wave"},
+		{"cue env", func(b *model.ContentBundle) { b.Sounds.Cues[0].Notes[0].Env = "boing" }, "env must be"},
+		{"cue freq", func(b *model.ContentBundle) { b.Sounds.Cues[0].Notes[0].To = 30000 }, "20–16000 Hz"},
+		{"cue dur", func(b *model.ContentBundle) { b.Sounds.Cues[0].Notes[0].Dur = 0 }, "dur must be"},
+		{"cue repeat without every", func(b *model.ContentBundle) { b.Sounds.Cues[0].Notes[0].Every = 0 }, "repeat must be"},
+		{"bed filter", func(b *model.ContentBundle) { b.Sounds.Soundscapes[0].Beds[0].Filter = "comb" }, "unknown filter"},
+		{"bed wobble", func(b *model.ContentBundle) { b.Sounds.Soundscapes[0].Beds[0].Wobble = 2 }, "wobble"},
+		{"soundscape cue", func(b *model.ContentBundle) { b.Sounds.Soundscapes[0].Cues[0].Cue = "nope" }, "unknown cue"},
+		{"soundscape every", func(b *model.ContentBundle) { b.Sounds.Soundscapes[0].Cues[0].Every = [2]float64{5, 2} }, "every must be"},
+		{"soundscape slot", func(b *model.ContentBundle) { b.Sounds.Soundscapes[0].Cues[0].Slots = []string{"night"} }, "unknown time slot"},
 		{"item kind", func(b *model.ContentBundle) { b.Items = []model.Item{{ID: "x", Name: "X", Kind: "food"}} }, "kind must be"},
 		{"gear slot", func(b *model.ContentBundle) { b.Items = []model.Item{{ID: "x", Name: "X", Kind: "gear", Slot: "feet"}} }, "gear slot"},
 		{"item counters unknown hazard", func(b *model.ContentBundle) {

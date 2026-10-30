@@ -30,6 +30,9 @@ type TransitLine struct {
 	// Locked lines can't be ridden until an unlock_line event opens them
 	// (SPEC.md §4.11).
 	Locked bool `json:"locked,omitempty"`
+	// Bell is the sound cue its vehicles make leaving a stop and passing
+	// Angie (SPEC.md §4.11), e.g. the tram's ding-ding; empty is silent.
+	Bell string `json:"bell,omitempty"`
 }
 
 // TransitStop is a named stop; its position comes from the world index.

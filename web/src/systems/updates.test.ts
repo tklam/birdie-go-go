@@ -15,6 +15,7 @@ describe('mergeContent', () => {
     const base = emptyContent({
       missions: [{ id: 'a', giver: 'x', title: 'Old', description: 'd', objective: { type: 'lesson', student: 's', minScore: 1 }, reward: { money: 1, items: [] } }],
       transit: { lines: [], stops: [{ id: 'p', name: 'Plaza' }] },
+      sounds: { cues: [{ id: 'bell', notes: [] }], soundscapes: [] },
     });
     const merged = mergeContent(base, {
       missions: [
@@ -22,10 +23,13 @@ describe('mergeContent', () => {
         { id: 'b', giver: 'y', title: 'Live', description: 'd', objective: { type: 'lesson', student: 's', minScore: 1 }, reward: { money: 3, items: [] } },
       ],
       transit: { lines: [], stops: [{ id: 'q', name: 'Pier' }] },
+      sounds: { cues: [{ id: 'bell', caption: 'Ding', notes: [] }], soundscapes: [{ id: 'city', beds: [], cues: [] }] },
       game: { title: 'ignored', contentVersion: '1.1.0', startMap: 'x', startSpawn: 'y' },
     });
     expect(merged.missions.map((m) => `${m.id}:${m.title}`)).toEqual(['a:New', 'b:Live']);
     expect(merged.transit.stops.map((s) => s.id)).toEqual(['p', 'q']);
+    expect(merged.sounds.cues.map((c) => c.caption)).toEqual(['Ding']);
+    expect(merged.sounds.soundscapes.map((x) => x.id)).toEqual(['city']);
     expect(merged.game.contentVersion).toBe('1.1.0');
     expect(merged.game.title).toBe('Test');
     expect(base.missions[0].title).toBe('Old'); // base untouched

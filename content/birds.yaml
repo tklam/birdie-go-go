@@ -1,4 +1,5 @@
 # Real species of the region, drawn as original art (developer_guide.md §5.1).
+# call: the sound cue of its call (sounds.yaml), played call_pitch × higher.
 - id: red_whiskered_bulbul
   name: Red-whiskered Bulbul
   sprite: bird_red_whiskered_bulbul
@@ -9,6 +10,7 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, fly]
+  call: call_bulbul
 - id: oriental_magpie_robin
   name: Oriental Magpie-Robin
   sprite: bird_oriental_magpie_robin
@@ -19,6 +21,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.95, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, forage, fly]
+  call: call_whistle
+  call_pitch: 1.1
 - id: little_egret
   name: Little Egret
   sprite: bird_little_egret
@@ -29,6 +33,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage, fly]
+  call: call_croak
+  call_pitch: 1.2
 # O Boy looks like this species. In the story he's a traveller from the Bird Paradise
 # journeying around the universe (SPEC.md §2.2).
 - id: pacific_parrotlet
@@ -41,6 +47,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.95, perched: 0.85, flying: 0.75, flapping: 0.5, back_turned: 0.4 }
   behaviors: [perch, hop, fly]
+  call: call_tsip
+  call_pitch: 0.6
 
 # More resident and visiting birds of Hong Kong (sprites from freely licensed photos, art/birds/CREDITS.md).
 - id: eurasian_tree_sparrow
@@ -53,6 +61,7 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, forage, fly]
+  call: call_chirp
 - id: spotted_dove
   name: "Spotted Dove"
   sprite: bird_spotted_dove
@@ -63,6 +72,7 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, forage, fly]
+  call: call_coo
 - id: swinhoes_white_eye
   name: "Swinhoe's White-eye"
   sprite: bird_swinhoes_white_eye
@@ -73,6 +83,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, fly]
+  call: call_trill
+  call_pitch: 1.1
 - id: black_collared_starling
   name: "Black-collared Starling"
   sprite: bird_black_collared_starling
@@ -83,6 +95,7 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, forage, fly]
+  call: call_squawk
 - id: crested_myna
   name: "Crested Myna"
   sprite: bird_crested_myna
@@ -93,6 +106,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, forage, fly]
+  call: call_squawk
+  call_pitch: 0.9
 - id: light_vented_bulbul
   name: "Light-vented Bulbul"
   sprite: bird_light_vented_bulbul
@@ -103,6 +118,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, fly]
+  call: call_bulbul
+  call_pitch: 1.1
 - id: masked_laughingthrush
   name: "Masked Laughingthrush"
   sprite: bird_masked_laughingthrush
@@ -113,6 +130,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, forage]
+  call: call_chatter
+  call_pitch: 0.8
 # Heard far more than seen: the loud ko-EL of spring and summer.
 - id: asian_koel
   name: "Asian Koel"
@@ -124,6 +143,7 @@
   seasons: [spring, summer]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_koel
 - id: long_tailed_shrike
   name: "Long-tailed Shrike"
   sprite: bird_long_tailed_shrike
@@ -134,6 +154,7 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_chatter
 # A scarce winter visitor.
 - id: bull_headed_shrike
   name: "Bull-headed Shrike"
@@ -145,6 +166,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_chatter
+  call_pitch: 1.1
 - id: fork_tailed_sunbird
   name: "Fork-tailed Sunbird"
   sprite: bird_fork_tailed_sunbird
@@ -155,6 +178,7 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, fly]
+  call: call_tsip
 - id: common_tailorbird
   name: "Common Tailorbird"
   sprite: bird_common_tailorbird
@@ -165,6 +189,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, fly]
+  call: call_trill
+  call_pitch: 0.8
 # Noisy flocks of escaped cage birds live wild in the city's parks.
 - id: yellow_crested_cockatoo
   name: "Yellow-crested Cockatoo"
@@ -176,6 +202,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_squawk
+  call_pitch: 0.7
 - id: common_kingfisher
   name: "Common Kingfisher"
   sprite: bird_common_kingfisher
@@ -186,6 +214,8 @@
   seasons: [autumn, winter, spring]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_piping
+  call_pitch: 1.3
 - id: white_throated_kingfisher
   name: "White-throated Kingfisher"
   sprite: bird_white_throated_kingfisher
@@ -196,6 +226,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_chatter
+  call_pitch: 0.9
 - id: chinese_pond_heron
   name: "Chinese Pond Heron"
   sprite: bird_chinese_pond_heron
@@ -206,6 +238,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage, fly]
+  call: call_croak
+  call_pitch: 1.1
 - id: great_egret
   name: "Great Egret"
   sprite: bird_great_egret
@@ -216,6 +250,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage, fly]
+  call: call_croak
+  call_pitch: 0.9
 - id: pacific_reef_heron
   name: "Pacific Reef Heron"
   sprite: bird_pacific_reef_heron
@@ -226,6 +262,7 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage, fly]
+  call: call_croak
 - id: blue_rock_thrush
   name: "Blue Rock Thrush"
   sprite: bird_blue_rock_thrush
@@ -236,6 +273,8 @@
   seasons: [autumn, winter, spring]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, fly]
+  call: call_whistle
+  call_pitch: 0.9
 - id: black_kite
   name: "Black Kite"
   sprite: bird_black_kite
@@ -246,6 +285,7 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, flying: 0.9, flapping: 0.7, perched_alert: 0.8, perched: 0.7, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_raptor
 
 - id: black_crowned_night_heron
   name: "Black-crowned Night Heron"
@@ -257,6 +297,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, perch, fly]
+  call: call_croak
+  call_pitch: 0.9
 - id: black_faced_spoonbill
   name: "Black-faced Spoonbill"
   sprite: bird_black_faced_spoonbill
@@ -267,6 +309,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage, fly]
+  call: call_croak
+  call_pitch: 0.8
 - id: common_moorhen
   name: "Common Moorhen"
   sprite: bird_common_moorhen
@@ -277,6 +321,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage]
+  call: call_quack
+  call_pitch: 1.4
 - id: grey_heron
   name: "Grey Heron"
   sprite: bird_grey_heron
@@ -287,6 +333,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage, fly]
+  call: call_croak
+  call_pitch: 0.8
 - id: cattle_egret
   name: "Eastern Cattle Egret"
   sprite: bird_cattle_egret
@@ -297,6 +345,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage, fly]
+  call: call_croak
+  call_pitch: 1.1
 - id: striated_heron
   name: "Striated Heron"
   sprite: bird_striated_heron
@@ -307,6 +357,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, perch, fly]
+  call: call_croak
+  call_pitch: 1.3
 - id: great_cormorant
   name: "Great Cormorant"
   sprite: bird_great_cormorant
@@ -317,6 +369,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_croak
+  call_pitch: 0.7
 - id: common_greenshank
   name: "Common Greenshank"
   sprite: bird_common_greenshank
@@ -327,6 +381,8 @@
   seasons: [autumn, winter, spring]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage, fly]
+  call: call_piping
+  call_pitch: 0.9
 - id: common_sandpiper
   name: "Common Sandpiper"
   sprite: bird_common_sandpiper
@@ -337,6 +393,8 @@
   seasons: [autumn, winter, spring]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage, fly]
+  call: call_piping
+  call_pitch: 1.2
 - id: eurasian_curlew
   name: "Eurasian Curlew"
   sprite: bird_eurasian_curlew
@@ -347,6 +405,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage, fly]
+  call: call_raptor
+  call_pitch: 0.6
 - id: kentish_plover
   name: "Kentish Plover"
   sprite: bird_kentish_plover
@@ -357,6 +417,8 @@
   seasons: [autumn, winter, spring]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage, fly]
+  call: call_piping
+  call_pitch: 1.1
 - id: little_grebe
   name: "Little Grebe"
   sprite: bird_little_grebe
@@ -367,6 +429,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, fly]
+  call: call_trill
+  call_pitch: 0.5
 - id: northern_pintail
   name: "Northern Pintail"
   sprite: bird_northern_pintail
@@ -377,6 +441,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, fly]
+  call: call_quack
+  call_pitch: 1.2
 - id: pied_kingfisher
   name: "Pied Kingfisher"
   sprite: bird_pied_kingfisher
@@ -387,6 +453,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_piping
+  call_pitch: 1.4
 - id: tufted_duck
   name: "Tufted Duck"
   sprite: bird_tufted_duck
@@ -397,6 +465,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, fly]
+  call: call_quack
+  call_pitch: 0.9
 - id: white_bellied_sea_eagle
   name: "White-bellied Sea Eagle"
   sprite: bird_white_bellied_sea_eagle
@@ -407,6 +477,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, flying: 0.9, flapping: 0.7, perched_alert: 0.8, perched: 0.7, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_raptor
+  call_pitch: 0.7
 - id: peregrine_falcon
   name: "Peregrine Falcon"
   sprite: bird_peregrine_falcon
@@ -417,6 +489,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, flying: 0.9, flapping: 0.7, perched_alert: 0.8, perched: 0.7, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_chatter
+  call_pitch: 0.7
 - id: rock_dove
   name: "Feral Pigeon"
   sprite: bird_rock_dove
@@ -427,6 +501,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, forage, fly]
+  call: call_coo
+  call_pitch: 0.85
 - id: collared_scops_owl
   name: "Collared Scops Owl"
   sprite: bird_collared_scops_owl
@@ -437,6 +513,7 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch]
+  call: call_hoot
 - id: red_rumped_swallow
   name: "Red-rumped Swallow"
   sprite: bird_red_rumped_swallow
@@ -447,6 +524,8 @@
   seasons: [spring, summer]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_chirp
+  call_pitch: 1.2
 - id: olive_backed_pipit
   name: "Olive-backed Pipit"
   sprite: bird_olive_backed_pipit
@@ -457,6 +536,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [forage, hop, perch]
+  call: call_tsip
+  call_pitch: 0.9
 - id: large_billed_crow
   name: "Large-billed Crow"
   sprite: bird_large_billed_crow
@@ -467,6 +548,7 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, forage, fly]
+  call: call_caw
 - id: grey_treepie
   name: "Grey Treepie"
   sprite: bird_grey_treepie
@@ -477,6 +559,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_chatter
+  call_pitch: 0.9
 - id: daurian_redstart
   name: "Daurian Redstart"
   sprite: bird_daurian_redstart
@@ -487,6 +571,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, fly]
+  call: call_tsip
+  call_pitch: 0.85
 - id: hwamei
   name: "Chinese Hwamei"
   sprite: bird_hwamei
@@ -497,6 +583,7 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, forage]
+  call: call_whistle
 - id: red_billed_starling
   name: "Red-billed Starling"
   sprite: bird_red_billed_starling
@@ -507,6 +594,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, forage, fly]
+  call: call_squawk
+  call_pitch: 1.1
 - id: scarlet_backed_flowerpecker
   name: "Scarlet-backed Flowerpecker"
   sprite: bird_scarlet_backed_flowerpecker
@@ -517,6 +606,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, fly]
+  call: call_tsip
+  call_pitch: 1.1
 - id: sooty_headed_bulbul
   name: "Sooty-headed Bulbul"
   sprite: bird_sooty_headed_bulbul
@@ -527,6 +618,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, fly]
+  call: call_bulbul
+  call_pitch: 0.95
 - id: asian_brown_flycatcher
   name: "Asian Brown Flycatcher"
   sprite: bird_asian_brown_flycatcher
@@ -537,6 +630,8 @@
   seasons: [autumn, winter, spring]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_tsip
+  call_pitch: 0.95
 - id: rose_ringed_parakeet
   name: "Rose-ringed Parakeet"
   sprite: bird_rose_ringed_parakeet
@@ -547,6 +642,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_squawk
+  call_pitch: 1.4
 - id: yellow_bellied_prinia
   name: "Yellow-bellied Prinia"
   sprite: bird_yellow_bellied_prinia
@@ -557,6 +654,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, fly]
+  call: call_trill
+  call_pitch: 0.9
 - id: chinese_grosbeak
   name: "Chinese Grosbeak"
   sprite: bird_chinese_grosbeak
@@ -567,6 +666,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_whistle
+  call_pitch: 1.2
 - id: white_rumped_munia
   name: "White-rumped Munia"
   sprite: bird_white_rumped_munia
@@ -577,6 +678,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, forage]
+  call: call_chirp
+  call_pitch: 1.1
 - id: black_winged_stilt
   name: "Black-winged Stilt"
   sprite: bird_black_winged_stilt
@@ -587,6 +690,8 @@
   seasons: [autumn, winter, spring]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage, fly]
+  call: call_piping
+  call_pitch: 0.8
 - id: common_redshank
   name: "Common Redshank"
   sprite: bird_common_redshank
@@ -597,6 +702,7 @@
   seasons: [autumn, winter, spring]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage, fly]
+  call: call_piping
 - id: whimbrel
   name: "Whimbrel"
   sprite: bird_whimbrel
@@ -607,6 +713,8 @@
   seasons: [autumn, winter, spring]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage, fly]
+  call: call_trill
+  call_pitch: 0.4
 - id: black_capped_kingfisher
   name: "Black-capped Kingfisher"
   sprite: bird_black_capped_kingfisher
@@ -617,6 +725,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_chatter
+  call_pitch: 0.95
 - id: northern_shoveler
   name: "Northern Shoveler"
   sprite: bird_northern_shoveler
@@ -627,6 +737,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, fly]
+  call: call_quack
+  call_pitch: 0.8
 - id: black_headed_gull
   name: "Black-headed Gull"
   sprite: bird_black_headed_gull
@@ -637,6 +749,7 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, perch, fly]
+  call: call_gull
 - id: osprey
   name: "Osprey"
   sprite: bird_osprey
@@ -647,6 +760,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, flying: 0.9, flapping: 0.7, perched_alert: 0.8, perched: 0.7, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_raptor
+  call_pitch: 1.2
 - id: common_kestrel
   name: "Common Kestrel"
   sprite: bird_common_kestrel
@@ -657,6 +772,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, flying: 0.9, flapping: 0.7, perched_alert: 0.8, perched: 0.7, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_piping
+  call_pitch: 1.05
 - id: oriental_turtle_dove
   name: "Oriental Turtle Dove"
   sprite: bird_oriental_turtle_dove
@@ -667,6 +784,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, forage, fly]
+  call: call_coo
+  call_pitch: 0.9
 - id: asian_barred_owlet
   name: "Asian Barred Owlet"
   sprite: bird_asian_barred_owlet
@@ -677,6 +796,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_hoot
+  call_pitch: 1.3
 - id: white_wagtail
   name: "White Wagtail"
   sprite: bird_white_wagtail
@@ -687,6 +808,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [forage, hop, fly]
+  call: call_chirp
+  call_pitch: 0.9
 - id: collared_crow
   name: "Collared Crow"
   sprite: bird_collared_crow
@@ -697,6 +820,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, forage, fly]
+  call: call_caw
+  call_pitch: 0.9
 - id: common_myna
   name: "Common Myna"
   sprite: bird_common_myna
@@ -707,6 +832,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, forage, fly]
+  call: call_squawk
+  call_pitch: 0.95
 - id: japanese_tit
   name: "Japanese Tit"
   sprite: bird_japanese_tit
@@ -717,6 +844,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, fly]
+  call: call_tsip
+  call_pitch: 0.75
 - id: red_flanked_bluetail
   name: "Red-flanked Bluetail"
   sprite: bird_red_flanked_bluetail
@@ -727,6 +856,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, fly]
+  call: call_tsip
+  call_pitch: 0.8
 - id: blue_whistling_thrush
   name: "Blue Whistling Thrush"
   sprite: bird_blue_whistling_thrush
@@ -737,6 +868,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, forage]
+  call: call_whistle
+  call_pitch: 1.3
 - id: red_billed_leiothrix
   name: "Red-billed Leiothrix"
   sprite: bird_red_billed_leiothrix
@@ -747,6 +880,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, fly]
+  call: call_whistle
+  call_pitch: 1.15
 - id: black_naped_monarch
   name: "Black-naped Monarch"
   sprite: bird_black_naped_monarch
@@ -757,6 +892,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_tsip
+  call_pitch: 0.7
 - id: great_barbet
   name: "Great Barbet"
   sprite: bird_great_barbet
@@ -767,6 +904,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_boom
+  call_pitch: 1.2
 - id: scaly_breasted_munia
   name: "Scaly-breasted Munia"
   sprite: bird_scaly_breasted_munia
@@ -777,6 +916,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, forage]
+  call: call_chirp
+  call_pitch: 1.15
 - id: velvet_fronted_nuthatch
   name: "Velvet-fronted Nuthatch"
   sprite: bird_velvet_fronted_nuthatch
@@ -787,6 +928,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop]
+  call: call_chirp
+  call_pitch: 1.3
 - id: white_breasted_waterhen
   name: "White-breasted Waterhen"
   sprite: bird_white_breasted_waterhen
@@ -797,6 +940,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage, hop]
+  call: call_quack
+  call_pitch: 1.6
 - id: pied_avocet
   name: "Pied Avocet"
   sprite: bird_pied_avocet
@@ -807,6 +952,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage, fly]
+  call: call_piping
+  call_pitch: 0.95
 - id: wood_sandpiper
   name: "Wood Sandpiper"
   sprite: bird_wood_sandpiper
@@ -817,6 +964,8 @@
   seasons: [autumn, winter, spring]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage, fly]
+  call: call_piping
+  call_pitch: 1.15
 - id: black_tailed_godwit
   name: "Black-tailed Godwit"
   sprite: bird_black_tailed_godwit
@@ -827,6 +976,8 @@
   seasons: [autumn, winter, spring]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage, fly]
+  call: call_piping
+  call_pitch: 0.85
 - id: eurasian_wigeon
   name: "Eurasian Wigeon"
   sprite: bird_eurasian_wigeon
@@ -837,6 +988,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, fly]
+  call: call_whistle
+  call_pitch: 0.6
 - id: eastern_spot_billed_duck
   name: "Eastern Spot-billed Duck"
   sprite: bird_eastern_spot_billed_duck
@@ -847,6 +1000,7 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, fly]
+  call: call_quack
 - id: whiskered_tern
   name: "Whiskered Tern"
   sprite: bird_whiskered_tern
@@ -857,6 +1011,8 @@
   seasons: [autumn, winter, spring]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_gull
+  call_pitch: 1.4
 - id: crested_serpent_eagle
   name: "Crested Serpent Eagle"
   sprite: bird_crested_serpent_eagle
@@ -867,6 +1023,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, flying: 0.9, flapping: 0.7, perched_alert: 0.8, perched: 0.7, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_raptor
+  call_pitch: 0.9
 - id: crested_goshawk
   name: "Crested Goshawk"
   sprite: bird_crested_goshawk
@@ -877,6 +1035,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, flying: 0.9, flapping: 0.7, perched_alert: 0.8, perched: 0.7, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_chatter
+  call_pitch: 0.75
 - id: greater_coucal
   name: "Greater Coucal"
   sprite: bird_greater_coucal
@@ -887,6 +1047,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, forage]
+  call: call_boom
+  call_pitch: 0.9
 - id: barn_swallow
   name: "Barn Swallow"
   sprite: bird_barn_swallow
@@ -897,6 +1059,8 @@
   seasons: [spring, summer]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_chirp
+  call_pitch: 1.25
 - id: grey_wagtail
   name: "Grey Wagtail"
   sprite: bird_grey_wagtail
@@ -907,6 +1071,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [forage, hop, fly]
+  call: call_chirp
+  call_pitch: 1.05
 - id: hair_crested_drongo
   name: "Hair-crested Drongo"
   sprite: bird_hair_crested_drongo
@@ -917,6 +1083,8 @@
   seasons: [autumn, winter, spring]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_whistle
+  call_pitch: 1.25
 - id: oriental_magpie
   name: "Oriental Magpie"
   sprite: bird_oriental_magpie
@@ -927,6 +1095,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, forage, fly]
+  call: call_chatter
+  call_pitch: 0.85
 - id: white_cheeked_starling
   name: "White-cheeked Starling"
   sprite: bird_white_cheeked_starling
@@ -937,6 +1107,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, forage, fly]
+  call: call_squawk
+  call_pitch: 1.05
 - id: chestnut_bulbul
   name: "Chestnut Bulbul"
   sprite: bird_chestnut_bulbul
@@ -947,6 +1119,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, fly]
+  call: call_bulbul
+  call_pitch: 1.05
 - id: yellow_browed_warbler
   name: "Yellow-browed Warbler"
   sprite: bird_yellow_browed_warbler
@@ -957,6 +1131,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, fly]
+  call: call_tsip
+  call_pitch: 1.05
 - id: siberian_rubythroat
   name: "Siberian Rubythroat"
   sprite: bird_siberian_rubythroat
@@ -967,6 +1143,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, forage]
+  call: call_whistle
+  call_pitch: 1.4
 - id: plain_prinia
   name: "Plain Prinia"
   sprite: bird_plain_prinia
@@ -977,6 +1155,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, fly]
+  call: call_trill
+  call_pitch: 0.95
 - id: pale_thrush
   name: "Pale Thrush"
   sprite: bird_pale_thrush
@@ -987,6 +1167,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, forage]
+  call: call_tsip
+  call_pitch: 0.8
 - id: scarlet_minivet
   name: "Scarlet Minivet"
   sprite: bird_scarlet_minivet
@@ -997,6 +1179,8 @@
   seasons: [spring, summer, autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, fly]
+  call: call_tsip
+  call_pitch: 0.9
 - id: black_faced_bunting
   name: "Black-faced Bunting"
   sprite: bird_black_faced_bunting
@@ -1007,6 +1191,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, forage]
+  call: call_tsip
+  call_pitch: 1.15
 - id: chinese_blackbird
   name: "Chinese Blackbird"
   sprite: bird_chinese_blackbird
@@ -1017,6 +1203,8 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [perch, hop, forage, fly]
+  call: call_whistle
+  call_pitch: 0.85
 - id: little_ringed_plover
   name: "Little Ringed Plover"
   sprite: bird_little_ringed_plover
@@ -1027,6 +1215,8 @@
   seasons: [autumn, winter, spring]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage, fly]
+  call: call_piping
+  call_pitch: 1.25
 - id: pacific_golden_plover
   name: "Pacific Golden Plover"
   sprite: bird_pacific_golden_plover
@@ -1037,6 +1227,8 @@
   seasons: [autumn, winter, spring]
   poses: { wings_spread: 1.0, perched_alert: 0.85, perched: 0.75, flying: 0.8, flapping: 0.6, back_turned: 0.3 }
   behaviors: [wade, forage, fly]
+  call: call_piping
+  call_pitch: 0.95
 - id: eurasian_hoopoe
   name: "Eurasian Hoopoe"
   sprite: bird_eurasian_hoopoe
@@ -1047,3 +1239,5 @@
   seasons: [autumn, winter]
   poses: { wings_spread: 1.0, perched_alert: 0.9, perched: 0.8, flying: 0.7, flapping: 0.5, back_turned: 0.3 }
   behaviors: [forage, hop, fly]
+  call: call_boom
+  call_pitch: 1.5

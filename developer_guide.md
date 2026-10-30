@@ -100,7 +100,8 @@ web/src/
     ChunkRenderer.ts   bakes chunks into pooled render textures (one per frame)
   photo/birds.ts       bird tables, landing spots, idle poses (pure)
   piano/               song timing, roll layout, results, calibration math, lesson bookkeeping (pure)
-  audio/               AudioEngine (offline additive piano, metronome, SFX) + voice math (pure)
+  audio/               AudioEngine (offline additive piano, metronome, SFX, synthesized cues) + voice math (pure),
+                       cues.ts (cue expansion, pure), soundscape.ts (area ambience and one-off cues)
   core/                worker bridge (client.ts, core.worker.ts) + types.gen.ts (generated)
   ui/                  DOM overlay: 16-bit windows, dialogue, menu, panel, HUD, album, toast, touch controls, pixel font
 ```
@@ -261,6 +262,8 @@ notes:            # pitch (MIDI), start/dur in beats, velocity
   - { pitch: 67, start: 2, dur: 1, vel: 85 }
 ```
 Background music lives in `content/music/<id>.yaml`: `tempo`, `loop_beats`, and `tracks`, each with an `instrument` (`square`, `pulse` (25% duty), `triangle`, `noise`; for noise, pitch < 50 is a snare and higher is a hi-hat), a `volume` (0–1) and notes in the song format. Areas pick their tune with `music:`. `web/src/audio/music.ts` loops it on the music bus and crossfades between areas; interiors, photo sessions and lessons are quiet. Use original or public-domain music only.
+
+Sound effects and ambience live in `content/sounds.yaml` (SPEC.md §1.3). `cues` are short sounds made of notes (`wave`: sine/triangle/square/sawtooth/noise, `freq` with an optional glide `to`, `at`, `dur`, `gain`, `env`: pluck or swell, `q` for noise, `repeat` and `every`); `soundscapes` loop noise `beds` (`filter`, `freq`, `gain`, a slow `wobble` at `rate` Hz) and scatter `cues` every `[min, max]` seconds, optionally limited by `slots`/`seasons`, with `dry` ones silent in rain. Areas pick one with `soundscape:`, birds a `call:` (and `call_pitch:`), transit lines a `bell:`. The file is decoded strictly, so a misspelt field is an error. To audition a cue, render it with an `OfflineAudioContext` through `AudioEngine.playCue(expandCue(cue))`.
 
 ### 5.7 Hazards, gear and enemies
 ```yaml

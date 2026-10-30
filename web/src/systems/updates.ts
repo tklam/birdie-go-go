@@ -51,6 +51,10 @@ export function mergeContent(base: ContentBundle, pack: Partial<ContentBundle>):
     lines: byId(base.transit.lines, pack.transit?.lines),
     stops: byId(base.transit.stops, pack.transit?.stops),
   };
+  out.sounds = {
+    cues: byId(base.sounds.cues, pack.sounds?.cues),
+    soundscapes: byId(base.sounds.soundscapes, pack.sounds?.soundscapes),
+  };
   if (pack.game?.contentVersion) out.game = { ...base.game, contentVersion: pack.game.contentVersion };
   return out;
 }

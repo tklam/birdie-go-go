@@ -1,7 +1,8 @@
 # Transit (SPEC.md §4.11). Paths are world-pixel waypoints from the first stop
 # to the last; rides run them either way. Timetables: each terminus sends a
 # vehicle every `headway` in-game minutes from `first` to `last` ("HH:MM";
-# defaults 15, "06:00", "23:30").
+# defaults 15, "06:00", "23:30"). `bell` is the sound cue (sounds.yaml) a
+# vehicle makes leaving a stop and passing Angie.
 stops:
   - { id: tko_plaza, name: Tseung Kwan O Plaza }
   - { id: po_toi_o_village, name: Po Toi O Village }
@@ -26,6 +27,7 @@ lines:
   - id: minibus_16
     name: Green Minibus 16
     mode: bus
+    bell: bus_horn
     fare: 8
     stops: [tko_plaza, cwb_park_gate, po_toi_o_village]
     path: [[1000, 472], [1000, 504], [2168, 504], [2168, 712], [2136, 712]]
@@ -36,6 +38,7 @@ lines:
   - id: ferry_junk_bay
     name: Junk Bay Ferry
     mode: ferry
+    bell: ferry_horn
     fare: 15
     stops: [tko_pier, po_toi_o_pier]
     path: [[1144, 888], [1144, 968], [2040, 968], [2040, 904]]
@@ -46,6 +49,7 @@ lines:
   - id: harbour_ferry
     name: Harbour Ferry
     mode: ferry
+    bell: ferry_horn
     fare: 12
     stops: [tko_pier, island_pier]
     path: [[1144, 888], [1144, 1176]]
@@ -56,6 +60,7 @@ lines:
   - id: island_tram
     name: Harbourfront Tram
     mode: tram
+    bell: tram_bell
     fare: 3
     stops: [tram_western, tram_central, tram_eastern]
     path: [[200, 1224], [1352, 1224]]
@@ -81,6 +86,7 @@ lines:
   - id: island_ferry
     name: Island Ferry
     mode: ferry
+    bell: ferry_horn
     fare: 18
     stops: [po_toi_o_pier, pebble_pier]
     path: [[2040, 904], [2040, 1016], [2744, 1016], [2744, 1080]]
@@ -91,6 +97,7 @@ lines:
   - id: minibus_1a
     name: Green Minibus 1A
     mode: bus
+    bell: bus_horn
     fare: 9
     stops: [tko_plaza, sai_kung_town]
     path: [[1000, 472], [1000, 504], [2168, 504], [2168, 104], [2664, 104]]
@@ -107,6 +114,7 @@ lines:
   - id: lantern_ferry
     name: Lantern Ferry
     mode: ferry
+    bell: ferry_horn
     fare: 20
     stops: [sai_kung_pier, lantern_pier]
     path: [[3064, 328], [3064, 360], [3700, 360], [3700, 880], [4344, 880], [4344, 696]]

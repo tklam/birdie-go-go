@@ -42,6 +42,9 @@ var (
 	WeatherKeys   = []string{"cloud", "precip", "temp", "fog", "wind", "uv", "signal"}
 	KeiStages     = []string{"met", "friends", "dating", "engaged", "married"}
 	MinigameTypes = []string{"quiz", "memory", "rhythm", "catch", "find", "slide"}
+	SoundWaves    = []string{"sine", "triangle", "square", "sawtooth", "noise"}
+	SoundEnvs     = []string{"pluck", "swell"}
+	SoundFilters  = []string{"lowpass", "bandpass", "highpass"}
 	NamedWeather  = []string{"typhoon", "thunderstorm", "rainstorm", "rain", "drizzle", "foggy", "windy", "hazy", "cloudy", "clear"}
 
 	TriggerTypes = []string{
@@ -83,6 +86,14 @@ func Validate(b *model.ContentBundle) []error {
 	v.ids("ambient", len(b.Ambient), func(i int) string { return b.Ambient[i].ID })
 	v.ids("shop", len(b.Shops), func(i int) string { return b.Shops[i].ID })
 	games := v.ids("minigame", len(b.Minigames), func(i int) string { return b.Minigames[i].ID })
+	cues := v.ids("sound cue", len(b.Sounds.Cues), func(i int) string { return b.Sounds.Cues[i].ID })
+	scapes := v.ids("soundscape", len(b.Sounds.Soundscapes), func(i int) string { return b.Sounds.Soundscapes[i].ID })
+	for _, c := range b.Sounds.Cues {
+		v.cue(c)
+	}
+	for _, sc := range b.Sounds.Soundscapes {
+		v.soundscape(sc, cues)
+	}
 	for _, g := range b.Minigames {
 		v.minigame(g, birds)
 	}
@@ -92,6 +103,7 @@ func Validate(b *model.ContentBundle) []error {
 		v.require(a.Music == "" || music[a.Music], "area %s: unknown music %q", a.ID, a.Music)
 		v.require(a.Altitude >= 0 && a.Altitude <= 1, "area %s: altitude must be 0–1", a.ID)
 		v.require(a.WalkEffort >= 0, "area %s: walk_effort must not be negative", a.ID)
+		v.require(a.Soundscape == "" || scapes[a.Soundscape], "area %s: unknown soundscape %q", a.ID, a.Soundscape)
 		for _, season := range Seasons {
 			c, ok := a.Climate[season]
 			if !ok {
@@ -142,6 +154,7 @@ func Validate(b *model.ContentBundle) []error {
 			v.require(stops[st], "line %s: unknown stop %q", l.ID, st)
 		}
 		v.require(len(l.Path) >= 2, "line %s: path needs at least two points", l.ID)
+		v.require(l.Bell == "" || cues[l.Bell], "line %s: unknown bell cue %q", l.ID, l.Bell)
 		v.service(l)
 	}
 	for _, st := range b.Transit.Stops {
@@ -152,6 +165,8 @@ func Validate(b *model.ContentBundle) []error {
 	}
 	for _, bird := range b.Birds {
 		v.bird(bird)
+		v.require(bird.Call == "" || cues[bird.Call], "bird %s: unknown call cue %q", bird.ID, bird.Call)
+		v.require(bird.CallPitch >= 0 && bird.CallPitch <= 4, "bird %s: call_pitch must be 0–4", bird.ID)
 	}
 	for _, sh := range b.Shops {
 		v.require(sh.Title != "" && len(sh.Stock) > 0, "shop %s: title and stock are required", sh.ID)
@@ -197,6 +212,38 @@ func Validate(b *model.ContentBundle) []error {
 		}
 	}
 	return v.errs
+}
+
+func (v *validator) cue(c model.SoundCue) {
+	v.require(len(c.Notes) > 0, "sound cue %s: needs at least one note", c.ID)
+	for i, n := range c.Notes {
+		v.require(slices.Contains(SoundWaves, n.Wave), "sound cue %s note %d: unknown wave %q", c.ID, i+1, n.Wave)
+		v.require(n.Env == "" || slices.Contains(SoundEnvs, n.Env), "sound cue %s note %d: env must be pluck or swell", c.ID, i+1)
+		v.require(n.Freq >= 20 && n.Freq <= 16000 && (n.To == 0 || (n.To >= 20 && n.To <= 16000)), "sound cue %s note %d: freq and to must be 20–16000 Hz", c.ID, i+1)
+		v.require(n.Dur > 0 && n.Dur <= 10 && n.At >= 0, "sound cue %s note %d: dur must be 0–10 s and at ≥ 0", c.ID, i+1)
+		v.require(n.Gain >= 0 && n.Gain <= 1 && n.Q >= 0, "sound cue %s note %d: gain must be 0–1 and q ≥ 0", c.ID, i+1)
+		v.require(n.Repeat >= 0 && n.Repeat <= 64 && (n.Repeat == 0 || n.Every > 0), "sound cue %s note %d: repeat must be 0–64, with every > 0", c.ID, i+1)
+	}
+}
+
+func (v *validator) soundscape(sc model.Soundscape, cues map[string]bool) {
+	for i, b := range sc.Beds {
+		v.require(slices.Contains(SoundFilters, b.Filter), "soundscape %s bed %d: unknown filter %q", sc.ID, i+1, b.Filter)
+		v.require(b.Freq >= 20 && b.Freq <= 16000, "soundscape %s bed %d: freq must be 20–16000 Hz", sc.ID, i+1)
+		v.require(b.Gain > 0 && b.Gain <= 1 && b.Q >= 0, "soundscape %s bed %d: gain must be 0–1 and q ≥ 0", sc.ID, i+1)
+		v.require(b.Wobble >= 0 && b.Wobble <= 1 && b.Rate >= 0, "soundscape %s bed %d: wobble must be 0–1 and rate ≥ 0", sc.ID, i+1)
+	}
+	for _, c := range sc.Cues {
+		v.require(cues[c.Cue], "soundscape %s: unknown cue %q", sc.ID, c.Cue)
+		v.require(c.Every[0] > 0 && c.Every[1] >= c.Every[0], "soundscape %s cue %s: every must be [min, max] seconds, 0 < min ≤ max", sc.ID, c.Cue)
+		v.require(c.Gain >= 0 && c.Gain <= 2 && c.Pitch >= 0 && c.Pitch < 1, "soundscape %s cue %s: gain must be 0–2 and pitch 0–1", sc.ID, c.Cue)
+		for _, sl := range c.Slots {
+			v.require(slices.Contains(TimeSlots, sl), "soundscape %s cue %s: unknown time slot %q", sc.ID, c.Cue, sl)
+		}
+		for _, se := range c.Seasons {
+			v.require(slices.Contains(Seasons, se), "soundscape %s cue %s: unknown season %q", sc.ID, c.Cue, se)
+		}
+	}
 }
 
 type refs struct {

@@ -23,6 +23,7 @@ export function emptyContent(overrides: Partial<ContentBundle> = {}): ContentBun
     shops: [],
     minigames: [],
     transit: { lines: [], stops: [] },
+    sounds: { cues: [], soundscapes: [] },
     ...overrides,
   };
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -54,6 +55,7 @@ type areaYAML struct {
 	Climate    map[string]climateYAML `yaml:"climate"`
 	Altitude   float64                `yaml:"altitude"`
 	WalkEffort float64                `yaml:"walk_effort"`
+	Soundscape string                 `yaml:"soundscape"`
 }
 
 type climateYAML struct {
@@ -75,6 +77,8 @@ type birdYAML struct {
 	Seasons         []string           `yaml:"seasons"`
 	Poses           map[string]float64 `yaml:"poses"`
 	Behaviors       []string           `yaml:"behaviors"`
+	Call            string             `yaml:"call"`
+	CallPitch       float64            `yaml:"call_pitch"`
 }
 
 type spotYAML struct {
@@ -245,6 +249,7 @@ type transitYAML struct {
 		First   string       `yaml:"first"`
 		Last    string       `yaml:"last"`
 		Locked  bool         `yaml:"locked"`
+		Bell    string       `yaml:"bell"`
 	} `yaml:"lines"`
 	Stops []struct {
 		ID   string `yaml:"id"`
@@ -344,7 +349,7 @@ func load(dir string) (*model.ContentBundle, error) {
 		return nil, err
 	}
 	for _, a := range areas {
-		area := model.Area{ID: a.ID, Name: a.Name, Music: a.Music, Altitude: a.Altitude, WalkEffort: a.WalkEffort, Climate: map[string]model.Climate{}}
+		area := model.Area{ID: a.ID, Name: a.Name, Music: a.Music, Altitude: a.Altitude, WalkEffort: a.WalkEffort, Soundscape: a.Soundscape, Climate: map[string]model.Climate{}}
 		for season, c := range a.Climate {
 			area.Climate[season] = model.Climate(c)
 		}
@@ -398,12 +403,18 @@ func load(dir string) (*model.ContentBundle, error) {
 	for _, l := range transit.Lines {
 		b.Transit.Lines = append(b.Transit.Lines, model.TransitLine{
 			ID: l.ID, Name: l.Name, Mode: l.Mode, Fare: l.Fare, Stops: orEmpty(l.Stops), Path: l.Path, Speed: l.Speed,
-			Headway: l.Headway, First: l.First, Last: l.Last, Locked: l.Locked,
+			Headway: l.Headway, First: l.First, Last: l.Last, Locked: l.Locked, Bell: l.Bell,
 		})
 	}
 	for _, st := range transit.Stops {
 		b.Transit.Stops = append(b.Transit.Stops, model.TransitStop{ID: st.ID, Name: st.Name})
 	}
+
+	sounds := model.Sounds{Cues: []model.SoundCue{}, Soundscapes: []model.Soundscape{}}
+	if err := readOptional(filepath.Join(dir, "sounds.yaml"), &soundsYAML{&sounds}); err != nil {
+		return nil, err
+	}
+	b.Sounds = sounds
 
 	var ambient []ambientYAML
 	if err := readOptional(filepath.Join(dir, "ambient.yaml"), &ambient); err != nil {
@@ -502,6 +513,7 @@ func load(dir string) (*model.ContentBundle, error) {
 			ID: x.ID, Name: x.Name, Sprite: x.Sprite, OverworldSprite: x.OverworldSprite,
 			Skittishness: x.Skittishness, SizeBand: x.SizeBand, Speed: x.Speed,
 			Seasons: orEmpty(x.Seasons), Poses: x.Poses, Behaviors: orEmpty(x.Behaviors),
+			Call: x.Call, CallPitch: x.CallPitch,
 		})
 	}
 
@@ -669,9 +681,9 @@ func conditionsFromMap(m map[string]any) []model.Condition {
 	return out
 }
 
-func orEmpty(s []string) []string {
+func orEmpty[T any](s []T) []T {
 	if s == nil {
-		return []string{}
+		return []T{}
 	}
 	return s
 }
@@ -684,4 +696,29 @@ func window(w *struct {
 		return nil
 	}
 	return &model.MissionWindow{From: w.From, To: w.To}
+}
+
+// soundsYAML decodes content/sounds.yaml straight into the model (its field
+// names are single lowercase words), rejecting unknown fields so a typo
+// doesn't silently drop part of a sound.
+type soundsYAML struct {
+	s *model.Sounds
+}
+
+func (y *soundsYAML) UnmarshalYAML(n *yaml.Node) error {
+	data, err := yaml.Marshal(n)
+	if err != nil {
+		return err
+	}
+	d := yaml.NewDecoder(bytes.NewReader(data))
+	d.KnownFields(true)
+	if err := d.Decode(y.s); err != nil {
+		return err
+	}
+	for i := range y.s.Soundscapes {
+		sc := &y.s.Soundscapes[i]
+		sc.Beds = orEmpty(sc.Beds)
+		sc.Cues = orEmpty(sc.Cues)
+	}
+	return nil
 }

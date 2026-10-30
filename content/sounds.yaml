@@ -1,0 +1,231 @@
+# Synthesized sounds (SPEC.md §1.3): 16-bit-style cues built from notes, and
+# area soundscapes. No recordings, so they stay tiny and work offline.
+#
+# A cue's notes: wave (sine, triangle, square, sawtooth, or noise: white noise
+# through a band-pass at freq), freq Hz with an optional glide `to`, `at`
+# seconds after the cue starts, `dur` seconds, gain 0–1 (default 0.3), env
+# pluck (strike and decay, default) or swell (fade in and out), q (noise band
+# narrowness, default 1), and `repeat` more times `every` seconds.
+#
+# A soundscape loops noise beds (filter lowpass/bandpass/highpass at freq,
+# gain, a slow wobble 0–1 at rate Hz) and plays cues every [min, max]
+# seconds, optionally only in some slots or seasons; `dry` cues stop in rain,
+# `pitch` varies them by up to that fraction. Areas pick one in areas.yaml,
+# birds a `call` in birds.yaml, transit lines a `bell` in transit.yaml.
+cues:
+  # --- Bird calls (birds.yaml `call`, pitched per species by `call_pitch`) ---
+  - id: call_chirp          # sparrows, munias: a few bright cheeps
+    notes:
+      - { wave: triangle, freq: 3600, to: 4400, dur: 0.06, gain: 0.25, repeat: 2, every: 0.15 }
+  - id: call_tsip           # sunbirds, flowerpeckers, warblers: thin high notes
+    notes:
+      - { wave: sine, freq: 6800, to: 6200, dur: 0.05, gain: 0.2, repeat: 1, every: 0.11 }
+  - id: call_bulbul         # bulbuls: a bubbly "pip-pip-pee-oo"
+    notes:
+      - { wave: sine, freq: 1900, to: 2500, dur: 0.08, gain: 0.3 }
+      - { wave: sine, freq: 2500, to: 2100, dur: 0.09, at: 0.12, gain: 0.3 }
+      - { wave: sine, freq: 1800, to: 2600, dur: 0.16, at: 0.27, gain: 0.3 }
+      - { wave: sine, freq: 2600, to: 1900, dur: 0.18, at: 0.45, gain: 0.25 }
+  - id: call_whistle        # robins, thrushes, laughingthrushes: a sweet phrase
+    notes:
+      - { wave: sine, freq: 2200, to: 2900, dur: 0.16, gain: 0.3, env: swell }
+      - { wave: sine, freq: 3300, to: 2700, dur: 0.12, at: 0.2, gain: 0.28 }
+      - { wave: sine, freq: 2500, dur: 0.1, at: 0.36, gain: 0.25 }
+      - { wave: sine, freq: 2900, to: 3400, dur: 0.2, at: 0.5, gain: 0.25, env: swell }
+  - id: call_trill          # white-eyes, tailorbirds, prinias, grebes: a quick trill
+    notes:
+      - { wave: sine, freq: 4200, to: 4700, dur: 0.035, gain: 0.22, repeat: 8, every: 0.05 }
+  - id: call_coo            # doves: a soft "coo-croo, croo"
+    notes:
+      - { wave: sine, freq: 520, to: 480, dur: 0.3, gain: 0.35, env: swell }
+      - { wave: sine, freq: 600, to: 520, dur: 0.28, at: 0.38, gain: 0.35, env: swell }
+      - { wave: sine, freq: 480, to: 430, dur: 0.5, at: 0.8, gain: 0.3, env: swell }
+  - id: call_koel           # koels: a rising "ko-el", again and again
+    notes:
+      - { wave: sine, freq: 700, to: 880, dur: 0.22, gain: 0.32, env: swell, repeat: 2, every: 0.75 }
+      - { wave: sine, freq: 880, to: 1250, dur: 0.32, at: 0.28, gain: 0.32, env: swell, repeat: 2, every: 0.75 }
+  - id: call_squawk         # mynas, starlings, parakeets: a harsh squawk
+    notes:
+      - { wave: sawtooth, freq: 1500, to: 1050, dur: 0.12, gain: 0.12, repeat: 1, every: 0.2 }
+      - { wave: noise, freq: 2600, to: 1800, dur: 0.12, gain: 0.25, q: 2, repeat: 1, every: 0.2 }
+  - id: call_chatter        # shrikes, magpies, treepies: a dry rattle
+    notes:
+      - { wave: noise, freq: 3000, dur: 0.04, gain: 0.3, q: 3, repeat: 6, every: 0.07 }
+      - { wave: square, freq: 1700, to: 1400, dur: 0.04, gain: 0.05, repeat: 6, every: 0.07 }
+  - id: call_caw            # crows: a rough "kaah, kaah"
+    notes:
+      - { wave: sawtooth, freq: 620, to: 470, dur: 0.26, gain: 0.14, repeat: 1, every: 0.42 }
+      - { wave: noise, freq: 1200, to: 900, dur: 0.26, gain: 0.25, q: 2, repeat: 1, every: 0.42 }
+  - id: call_croak          # herons and egrets: a low, gruff "kraak"
+    notes:
+      - { wave: sawtooth, freq: 310, to: 220, dur: 0.2, gain: 0.22 }
+      - { wave: noise, freq: 700, to: 500, dur: 0.2, gain: 0.45, q: 2 }
+  - id: call_piping         # sandpipers, plovers, kingfishers, stilts: clear piping
+    notes:
+      - { wave: sine, freq: 3300, to: 3000, dur: 0.07, gain: 0.28, repeat: 2, every: 0.11 }
+  - id: call_quack          # ducks, moorhens: a nasal "quack-quack"
+    notes:
+      - { wave: sawtooth, freq: 520, to: 430, dur: 0.14, gain: 0.12, repeat: 1, every: 0.22 }
+      - { wave: noise, freq: 950, dur: 0.14, gain: 0.25, q: 3, repeat: 1, every: 0.22 }
+  - id: call_raptor         # kites, eagles, falcons: a falling "pee-errr"
+    notes:
+      - { wave: sine, freq: 3100, to: 2300, dur: 0.5, gain: 0.25, env: swell }
+      - { wave: sine, freq: 2700, to: 2000, dur: 0.3, at: 0.55, gain: 0.2, env: swell }
+  - id: call_gull           # gulls and terns: "kyow"
+    notes:
+      - { wave: triangle, freq: 1400, to: 2100, dur: 0.1, gain: 0.25 }
+      - { wave: triangle, freq: 2100, to: 1300, dur: 0.3, at: 0.1, gain: 0.25, env: swell }
+  - id: call_hoot           # owls: soft hoots
+    notes:
+      - { wave: sine, freq: 440, to: 410, dur: 0.22, gain: 0.35, env: swell, repeat: 1, every: 0.55 }
+  - id: call_boom           # coucals, barbets, hoopoes: deep "boop-boop-boop"
+    notes:
+      - { wave: sine, freq: 340, to: 300, dur: 0.18, gain: 0.4, env: swell, repeat: 4, every: 0.3 }
+
+  # --- City, shore and countryside ---
+  - id: car_pass            # a car going by: a rising and falling whoosh
+    notes:
+      - { wave: noise, freq: 380, to: 650, dur: 1.0, gain: 0.35, q: 0.6, env: swell }
+      - { wave: noise, freq: 650, to: 300, dur: 0.9, at: 0.9, gain: 0.3, q: 0.6, env: swell }
+  - id: car_horn            # a distant, polite toot
+    notes:
+      - { wave: square, freq: 415, dur: 0.18, gain: 0.06, env: swell }
+      - { wave: square, freq: 523, dur: 0.18, gain: 0.05, env: swell }
+  - id: crossing_tick       # a pedestrian crossing's "tick-tick-tick"
+    notes:
+      - { wave: square, freq: 1150, dur: 0.015, gain: 0.08, repeat: 15, every: 0.11 }
+  - id: mahjong             # tiles clacking in a back room
+    notes:
+      - { wave: noise, freq: 2600, dur: 0.025, gain: 0.25, q: 4, repeat: 3, every: 0.07 }
+      - { wave: noise, freq: 3100, dur: 0.02, at: 0.5, gain: 0.25, q: 4, repeat: 5, every: 0.06 }
+  - id: dog_bark            # a dog somewhere down the lane
+    notes:
+      - { wave: sawtooth, freq: 520, to: 340, dur: 0.09, gain: 0.1, repeat: 1, every: 0.26 }
+      - { wave: noise, freq: 1100, dur: 0.09, gain: 0.2, q: 2, repeat: 1, every: 0.26 }
+  - id: wind_chime          # a chime by a doorway
+    notes:
+      - { wave: sine, freq: 2093, dur: 1.2, gain: 0.12 }
+      - { wave: sine, freq: 2637, dur: 1.0, at: 0.22, gain: 0.1 }
+      - { wave: sine, freq: 3136, dur: 1.1, at: 0.5, gain: 0.08 }
+  - id: wave_wash           # a wave running up the shore and back
+    notes:
+      - { wave: noise, freq: 900, to: 450, dur: 2.2, gain: 0.4, q: 0.5, env: swell }
+  - id: rope_creak          # moored boats creaking against the pier
+    notes:
+      - { wave: square, freq: 95, to: 120, dur: 0.35, gain: 0.08, env: swell }
+      - { wave: square, freq: 120, to: 100, dur: 0.3, at: 0.45, gain: 0.06, env: swell }
+  - id: boat_putt           # a small boat's engine puttering past
+    notes:
+      - { wave: noise, freq: 180, dur: 0.06, gain: 0.35, q: 2, repeat: 20, every: 0.12 }
+  - id: leaves_rustle       # a breath of wind through the leaves
+    notes:
+      - { wave: noise, freq: 3600, to: 2800, dur: 1.4, gain: 0.15, q: 0.5, env: swell }
+  - id: cicada              # summer cicadas: a long pulsing buzz
+    notes:
+      - { wave: noise, freq: 5200, dur: 0.03, gain: 0.18, q: 8, repeat: 60, every: 0.045 }
+  - id: cricket             # evening crickets
+    notes:
+      - { wave: sine, freq: 4400, dur: 0.025, gain: 0.12, repeat: 3, every: 0.04 }
+      - { wave: sine, freq: 4400, dur: 0.025, at: 0.6, gain: 0.12, repeat: 3, every: 0.04 }
+      - { wave: sine, freq: 4400, dur: 0.025, at: 1.2, gain: 0.12, repeat: 3, every: 0.04 }
+  - id: frog                # a frog in the reeds
+    notes:
+      - { wave: square, freq: 230, to: 180, dur: 0.05, gain: 0.1, repeat: 2, every: 0.11 }
+
+  # --- Transit (transit.yaml `bell`) ---
+  - id: tram_bell           # the tram's foot-pedal bell: ding-ding!
+    caption: "Tram bell: ding-ding!"
+    notes:
+      - { wave: triangle, freq: 1318, dur: 0.9, gain: 0.35, repeat: 1, every: 0.28 }
+      - { wave: sine, freq: 3637, dur: 0.35, gain: 0.12, repeat: 1, every: 0.28 }
+      - { wave: sine, freq: 7117, dur: 0.12, gain: 0.05, repeat: 1, every: 0.28 }
+  - id: ferry_horn          # a deep two-tone ferry horn
+    caption: A ferry horn sounds
+    notes:
+      - { wave: triangle, freq: 110, dur: 1.6, gain: 0.5, env: swell }
+      - { wave: square, freq: 220, dur: 1.6, gain: 0.06, env: swell }
+      - { wave: square, freq: 277, dur: 1.6, gain: 0.05, env: swell }
+  - id: bus_horn            # a minibus's cheerful double beep
+    caption: The minibus beeps
+    notes:
+      - { wave: square, freq: 440, dur: 0.12, gain: 0.1, env: swell, repeat: 1, every: 0.18 }
+      - { wave: square, freq: 554, dur: 0.12, gain: 0.08, env: swell, repeat: 1, every: 0.18 }
+
+soundscapes:
+  - id: city                # busy streets: traffic, crossings, sparrows and pigeons
+    beds:
+      - { filter: lowpass, freq: 170, gain: 0.14, wobble: 0.4, rate: 0.07 }
+      - { filter: bandpass, freq: 650, q: 0.7, gain: 0.03, wobble: 0.3, rate: 0.05 }
+    cues:
+      - { cue: car_pass, every: [3, 9], gain: 0.8, pitch: 0.2 }
+      - { cue: car_horn, every: [14, 35], pitch: 0.1 }
+      - { cue: crossing_tick, every: [18, 40] }
+      - { cue: call_chirp, every: [6, 16], gain: 0.5, pitch: 0.12, dry: true }
+      - { cue: call_coo, every: [20, 45], gain: 0.4, pitch: 0.05, dry: true }
+      - { cue: call_squawk, every: [18, 40], gain: 0.35, pitch: 0.1, dry: true }
+  - id: market              # old streets: chatter, mahjong, a pigeon or two
+    beds:
+      - { filter: lowpass, freq: 160, gain: 0.08, wobble: 0.3, rate: 0.06 }
+      - { filter: bandpass, freq: 900, q: 1.2, gain: 0.05, wobble: 0.7, rate: 0.35 }
+    cues:
+      - { cue: mahjong, every: [10, 25], gain: 0.7 }
+      - { cue: car_pass, every: [8, 20], gain: 0.5, pitch: 0.2 }
+      - { cue: crossing_tick, every: [25, 50] }
+      - { cue: call_coo, every: [15, 35], gain: 0.4, dry: true }
+      - { cue: call_chirp, every: [8, 20], gain: 0.4, pitch: 0.12, dry: true }
+  - id: harbour             # waterfront: lapping water, boats, gulls, the odd ferry horn
+    beds:
+      - { filter: lowpass, freq: 420, gain: 0.09, wobble: 0.7, rate: 0.14 }
+      - { filter: lowpass, freq: 140, gain: 0.05, wobble: 0.3, rate: 0.05 }
+    cues:
+      - { cue: wave_wash, every: [5, 11], gain: 0.6, pitch: 0.15 }
+      - { cue: rope_creak, every: [8, 20], pitch: 0.15 }
+      - { cue: boat_putt, every: [25, 60], gain: 0.5, pitch: 0.15 }
+      - { cue: ferry_horn, every: [45, 100], gain: 0.35, pitch: 0.05 }
+      - { cue: call_gull, every: [10, 25], gain: 0.5, pitch: 0.12, dry: true }
+      - { cue: call_squawk, every: [25, 50], gain: 0.3, dry: true }
+  - id: forest              # hills and country parks: leaves, songbirds, cicadas by day
+    beds:
+      - { filter: bandpass, freq: 2600, q: 0.5, gain: 0.025, wobble: 0.8, rate: 0.09 }
+      - { filter: lowpass, freq: 250, gain: 0.03, wobble: 0.5, rate: 0.04 }
+    cues:
+      - { cue: leaves_rustle, every: [6, 14], pitch: 0.2 }
+      - { cue: call_bulbul, every: [5, 14], gain: 0.5, pitch: 0.1, dry: true, slots: [morning, afternoon] }
+      - { cue: call_whistle, every: [8, 20], gain: 0.45, pitch: 0.1, dry: true, slots: [morning, afternoon] }
+      - { cue: call_trill, every: [7, 18], gain: 0.4, pitch: 0.1, dry: true, slots: [morning, afternoon] }
+      - { cue: call_boom, every: [25, 55], gain: 0.5, pitch: 0.05, dry: true }
+      - { cue: call_koel, every: [30, 70], gain: 0.4, dry: true, seasons: [spring, summer], slots: [morning] }
+      - { cue: cicada, every: [10, 25], gain: 0.6, pitch: 0.08, dry: true, seasons: [summer, autumn], slots: [morning, afternoon] }
+      - { cue: cricket, every: [4, 10], gain: 0.6, pitch: 0.05, dry: true, slots: [evening] }
+      - { cue: call_hoot, every: [15, 35], gain: 0.6, pitch: 0.05, dry: true, slots: [evening] }
+  - id: wetland             # reed beds and fishponds: frogs, herons, waders, ducks in winter
+    beds:
+      - { filter: bandpass, freq: 1800, q: 0.6, gain: 0.03, wobble: 0.6, rate: 0.12 }
+      - { filter: lowpass, freq: 300, gain: 0.03, wobble: 0.5, rate: 0.08 }
+    cues:
+      - { cue: frog, every: [4, 12], gain: 0.6, pitch: 0.15, dry: true, seasons: [spring, summer, autumn] }
+      - { cue: call_croak, every: [15, 35], gain: 0.5, pitch: 0.1 }
+      - { cue: call_piping, every: [10, 25], gain: 0.4, pitch: 0.12, dry: true }
+      - { cue: call_quack, every: [10, 30], gain: 0.4, pitch: 0.1, seasons: [autumn, winter] }
+      - { cue: call_trill, every: [12, 30], gain: 0.35, pitch: 0.1, dry: true, slots: [morning, afternoon] }
+      - { cue: call_boom, every: [30, 70], gain: 0.4, dry: true }
+      - { cue: cricket, every: [4, 10], gain: 0.6, dry: true, slots: [evening] }
+  - id: beach               # sandy shores: surf, gulls and plovers
+    beds:
+      - { filter: lowpass, freq: 600, gain: 0.14, wobble: 0.8, rate: 0.09 }
+      - { filter: bandpass, freq: 3000, q: 0.5, gain: 0.02, wobble: 0.8, rate: 0.09 }
+    cues:
+      - { cue: wave_wash, every: [3, 7], gain: 0.9, pitch: 0.2 }
+      - { cue: call_gull, every: [12, 30], gain: 0.45, pitch: 0.12, dry: true }
+      - { cue: call_piping, every: [10, 25], gain: 0.35, pitch: 0.15, dry: true }
+  - id: village             # quiet villages: a dog, a chime, mahjong, birds in the trees
+    beds:
+      - { filter: lowpass, freq: 300, gain: 0.025, wobble: 0.5, rate: 0.06 }
+    cues:
+      - { cue: call_bulbul, every: [8, 18], gain: 0.45, pitch: 0.1, dry: true, slots: [morning, afternoon] }
+      - { cue: call_chirp, every: [8, 18], gain: 0.4, pitch: 0.12, dry: true }
+      - { cue: call_coo, every: [15, 35], gain: 0.4, dry: true }
+      - { cue: dog_bark, every: [25, 60], gain: 0.6, pitch: 0.15 }
+      - { cue: wind_chime, every: [20, 45], gain: 0.6, pitch: 0.05 }
+      - { cue: mahjong, every: [30, 70], gain: 0.4, slots: [afternoon, evening] }
+      - { cue: cricket, every: [5, 12], gain: 0.5, dry: true, slots: [evening] }

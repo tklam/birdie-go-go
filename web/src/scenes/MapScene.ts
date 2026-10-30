@@ -40,6 +40,8 @@ import { applyUiPrefs } from '../ui/prefs';
 import { TouchControls } from '../ui/touchControls';
 import type { AudioEngine } from '../audio/AudioEngine';
 import { oboyChirp } from '../audio/oboy';
+import { DRY_RAIN, placeSound } from '../audio/cues';
+import { soundscapes, type SoundscapePlayer } from '../audio/soundscape';
 import type { MusicPlayer } from '../audio/music';
 import type { ChunkData } from '../world/chunk';
 import { ChunkRenderer, DEPTH } from '../world/ChunkRenderer';
@@ -110,6 +112,9 @@ const settled = { day: 0, ids: new Set<string>(), pending: '', calmUntil: 0 };
 
 /** The last outdoor rain and wind levels, heard muffled from indoors (SPEC.md §4.9). */
 const ambience = { rain: 0, wind: 0, next: 0 };
+/** How far (px) bird calls and vehicle bells carry, and the least time (ms) between bird calls. */
+const HEAR_RANGE = 160;
+const CALL_GAP_MS = 900;
 
 interface OverworldBird {
   sprite: Phaser.GameObjects.Sprite;
@@ -119,6 +124,8 @@ interface OverworldBird {
   homeY: number;
   flushed: boolean;
   nextHop: number;
+  /** When it may next call (performance time, ms). */
+  nextCall: number;
 }
 
 export interface MapSceneData {
@@ -159,6 +166,9 @@ export class MapScene extends Phaser.Scene {
   private facing: Facing = 'down';
   private area: string | null = null;
   private birds: OverworldBird[] = [];
+  private nextBirdCall = 0;
+  /** Vehicles on the map that have rung their bell near Angie. */
+  private rung = new Set<string>();
   private enemies: OverworldEnemy[] = [];
   private npcs: OverworldNpc[] = [];
   private gateways: { object: WorldObject; sprite: Phaser.GameObjects.Sprite; chunk: string }[] = [];
@@ -238,6 +248,7 @@ export class MapScene extends Phaser.Scene {
   create(data: MapSceneData): void {
     this.session = this.registry.get('session') as Session;
     this.birds = [];
+    this.rung.clear();
     this.enemies = [];
     this.npcs = [];
     this.gateways = [];
@@ -471,6 +482,30 @@ export class MapScene extends Phaser.Scene {
       ambience.wind = Math.max(0, (w.wind - 0.3) / 0.7);
     }
     (this.registry.get('audio') as AudioEngine | undefined)?.setAmbience(ambience.rain, ambience.wind, !this.weatherRenderer);
+    // The area's soundscape; indoors the last one carries on, muffled.
+    const sounds = this.sounds();
+    if (!sounds) return;
+    const area = this.weatherRenderer ? this.session.content.areas.find((a) => a.id === this.area) : undefined;
+    if (area) sounds.set(this.session.content.sounds.soundscapes.find((x) => x.id === area.soundscape) ?? null);
+    sounds.update(this.session.state.slot, season(this.session.state.day), ambience.rain);
+  }
+
+  /** The soundscape and cue player (null until audio is unlocked). */
+  private sounds(): SoundscapePlayer | null {
+    const audio = this.registry.get('audio') as AudioEngine | undefined;
+    return audio?.ready ? soundscapes(audio, this.session.content.sounds.cues) : null;
+  }
+
+  /** A line's bell (the tram's ding-ding) from a vehicle at (x, y), or aboard when no position is given. */
+  private ringBell(lineId: string, x?: number, y?: number): void {
+    const bell = this.session.content.transit.lines.find((l) => l.id === lineId)?.bell;
+    if (!bell) return;
+    if (x === undefined || y === undefined) {
+      this.sounds()?.cue(bell, { outdoor: true });
+      return;
+    }
+    const { gain, pan } = placeSound(x, y, this.pos.x, this.pos.y, HEAR_RANGE * 1.5);
+    if (gain > 0.02) this.sounds()?.cue(bell, { gain, pan, outdoor: true, silent: gain < 0.3 });
   }
 
   /** Now and then, a toast about an active mission (SPEC.md §9.5). */
@@ -1394,7 +1429,10 @@ export class MapScene extends Phaser.Scene {
     }
     await this.session.save();
     // Lessons need quiet to hear the student's mistakes.
-    if (scene === 'Piano') (this.registry.get('audio') as AudioEngine | undefined)?.setAmbience(0, 0, true);
+    if (scene === 'Piano') {
+      (this.registry.get('audio') as AudioEngine | undefined)?.setAmbience(0, 0, true);
+      this.sounds()?.set(null);
+    }
     // Iris onto Angie, the classic way into a minigame.
     await iris(this, 'out', this.pos.x, this.pos.y - 12);
     this.scene.start(scene, data);
@@ -1683,6 +1721,7 @@ export class MapScene extends Phaser.Scene {
     this.umbrellas.kei?.setVisible(false);
     for (const v of this.vehicles.sprites.values()) v.destroy();
     this.vehicles.sprites.clear();
+    this.rung.clear();
     this.cameras.main.startFollow(vehicle, true, 1, 1);
     const removeSkip = floatingButton('Skip', 'back', () => {
       const r = this.ride;
@@ -1692,6 +1731,7 @@ export class MapScene extends Phaser.Scene {
     });
     const removeDeck = leg.mode === 'ferry' && s.content.spots.some((x) => x.id === FERRY_DECK) ? floatingButton('Deck', 'deck', () => void this.toDeck()) : undefined;
     this.ride = { vehicle, path, length: pathLength(path), distance: 0, speed: line.speed, to: leg.to, line: line.id, next, removeSkip, removeDeck };
+    this.ringBell(line.id);
     const name = s.content.transit.stops.find((x) => x.id === leg.to)?.name ?? leg.to;
     toast(`${line.name} to ${name}`);
   }
@@ -1757,6 +1797,7 @@ export class MapScene extends Phaser.Scene {
     const name = s.content.transit.stops.find((x) => x.id === r.to)?.name ?? r.to;
     discoverStop(s.state, r.to);
     r.vehicle.destroy();
+    this.ringBell(r.line);
     await s.fire({ type: 'ride_complete', params: { line: r.line } });
     await s.checkMissions({ ride: { line: r.line, stop: r.to } });
     const [leg, ...rest] = r.next;
@@ -1852,12 +1893,18 @@ export class MapScene extends Phaser.Scene {
         v.sprites.set(key, sprite);
       }
       if (Math.abs(veh.dx) > 0.1) sprite.setFlipX(veh.dx < 0);
+      // Once per vehicle, ring as it nears Angie.
+      if (!this.rung.has(key) && Math.hypot(x - this.pos.x, y - this.pos.y) < HEAR_RANGE) {
+        this.rung.add(key);
+        this.ringBell(veh.line, x, y);
+      }
       sprite.setPosition(x, y).setDepth(DEPTH.entities + y).setFrame(Math.floor(time / 150) % 2);
     }
     for (const [key, sprite] of v.sprites) {
       if (!seen.has(key)) {
         sprite.destroy();
         v.sprites.delete(key);
+        this.rung.delete(key);
       }
     }
   }
@@ -2244,7 +2291,7 @@ export class MapScene extends Phaser.Scene {
         const x = o.x + (i - (count - 1) / 2) * 10;
         const y = o.y + ((i * 7) % 9) - 4;
         const sprite = this.add.sprite(x, y, textureKey, 0).setOrigin(0.5, 1).setDepth(DEPTH.entities + y);
-        this.birds.push({ sprite, species, chunk: key, homeX: x, homeY: y, flushed: false, nextHop: 0 });
+        this.birds.push({ sprite, species, chunk: key, homeX: x, homeY: y, flushed: false, nextHop: 0, nextCall: 0 });
       }
     }
   }
@@ -2285,6 +2332,14 @@ export class MapScene extends Phaser.Scene {
         this.flush(b);
         continue;
       }
+      if (d < HEAR_RANGE && time >= b.nextCall && time >= this.nextBirdCall) {
+        b.nextCall = time + 4000 + Math.random() * 9000;
+        // Not every bird calls the moment it may; and none in the rain.
+        if (Math.random() < 0.5 && ambience.rain <= DRY_RAIN) {
+          this.birdCall(b);
+          this.nextBirdCall = time + CALL_GAP_MS;
+        }
+      }
       if (time >= b.nextHop) {
         b.nextHop = time + 600 + Math.random() * 1800;
         b.sprite.setFrame(1);
@@ -2295,7 +2350,19 @@ export class MapScene extends Phaser.Scene {
     }
   }
 
+  /** A bird's call (birds.yaml `call`), placed where it sits; louder when it's alarmed. */
+  private birdCall(b: OverworldBird, alarm = false): void {
+    const def = this.session.content.birds.find((x) => x.id === b.species);
+    if (!def?.call) return;
+    const { gain, pan } = placeSound(b.sprite.x, b.sprite.y, this.pos.x, this.pos.y, HEAR_RANGE);
+    const loud = alarm ? Math.max(gain, 0.6) : gain;
+    if (loud < 0.02) return;
+    const vary = 0.95 + Math.random() * 0.1;
+    this.sounds()?.cue(def.call, { pitch: (def.callPitch || 1) * vary, gain: loud, pan, outdoor: true, silent: loud < 0.35, caption: `${def.name} calls` });
+  }
+
   private flush(b: OverworldBird): void {
+    if (Math.random() < 0.6) this.birdCall(b, true);
     b.flushed = true;
     this.flushedChunks.add(b.chunk);
     const away = b.sprite.x >= this.pos.x ? 1 : -1;

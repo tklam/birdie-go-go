@@ -57,6 +57,7 @@ export interface ContentBundle {
   minigames: Minigame[];
   ambient: AmbientNPC[];
   transit: Transit;
+  sounds: Sounds;
 }
 /**
  * GameInfo is the top-level game metadata from content/game.yaml.
@@ -172,6 +173,10 @@ export interface Area {
    * above 1 on hills, sand and other hard going. 0 means 1.
    */
   walkEffort?: number /* float64 */;
+  /**
+   * Soundscape is the ambience heard here (SPEC.md §1.3); empty is quiet.
+   */
+  soundscape?: string;
 }
 /**
  * Bird is a species that can appear on the overworld and in photo scenes.
@@ -187,6 +192,12 @@ export interface Bird {
   seasons: string[];
   poses: { [key: string]: number /* float64 */};
   behaviors: string[];
+  /**
+   * Call is the sound cue of its call (SPEC.md §1.3), played at CallPitch
+   * times the cue's pitch (0 means 1); empty is silent.
+   */
+  call?: string;
+  callPitch?: number /* float64 */;
 }
 /**
  * Spot is a birding spot that opens the photo scene (SPEC.md §5).
@@ -886,6 +897,119 @@ export interface PackInfo {
 }
 
 //////////
+// source: sound.go
+
+/**
+ * Sounds are the synthesized sound effects and ambiences of SPEC.md §1.3:
+ * short cues (bird calls, a tram bell, a ferry horn) built from oscillator
+ * and filtered-noise notes, and soundscapes that loop noise beds and scatter
+ * cues for each area.
+ */
+export interface Sounds {
+  cues: SoundCue[];
+  soundscapes: Soundscape[];
+}
+/**
+ * SoundCue is a short sound made of notes.
+ */
+export interface SoundCue {
+  id: string;
+  /**
+   * Caption is shown for the sound while Captions is on; empty shows none.
+   */
+  caption?: string;
+  notes: SoundNote[];
+}
+/**
+ * SoundNote is one oscillator or noise burst of a cue.
+ */
+export interface SoundNote {
+  /**
+   * Wave is sine, triangle, square, sawtooth or noise (white noise through
+   * a band-pass filter at Freq).
+   */
+  wave: string;
+  /**
+   * Freq is the pitch in Hz (the band centre for noise); To, if set,
+   * glides to that pitch over the note.
+   */
+  freq: number /* float64 */;
+  to?: number /* float64 */;
+  /**
+   * At is the start in seconds after the cue starts; Dur the length.
+   */
+  at?: number /* float64 */;
+  dur: number /* float64 */;
+  /**
+   * Gain 0–1 (default 0.3).
+   */
+  gain?: number /* float64 */;
+  /**
+   * Env is pluck (instant attack, decay; the default) or swell (fade in
+   * and out).
+   */
+  env?: string;
+  /**
+   * Q is the noise band's width (default 1); higher is narrower.
+   */
+  q?: number /* float64 */;
+  /**
+   * Repeat plays the note this many more times (up to 64), Every seconds
+   * apart.
+   */
+  repeat?: number /* int */;
+  every?: number /* float64 */;
+}
+/**
+ * Soundscape is an area's ambience: looping beds and scattered cues.
+ */
+export interface Soundscape {
+  id: string;
+  beds: SoundBed[];
+  cues: SoundscapeCue[];
+}
+/**
+ * SoundBed is a loop of filtered noise whose level wobbles slowly.
+ */
+export interface SoundBed {
+  /**
+   * Filter is lowpass, bandpass or highpass at Freq Hz.
+   */
+  filter: string;
+  freq: number /* float64 */;
+  q?: number /* float64 */;
+  gain: number /* float64 */;
+  /**
+   * Wobble 0–1 is how much the level swells and fades, Rate how often
+   * (Hz).
+   */
+  wobble?: number /* float64 */;
+  rate?: number /* float64 */;
+}
+/**
+ * SoundscapeCue plays a cue at random, every Every[0]–Every[1] seconds.
+ */
+export interface SoundscapeCue {
+  cue: string;
+  every: number /* float64 */[];
+  /**
+   * Gain scales the cue (default 1); Pitch varies it by up to this
+   * fraction each time.
+   */
+  gain?: number /* float64 */;
+  pitch?: number /* float64 */;
+  /**
+   * Slots and Seasons limit when it plays; empty means always.
+   */
+  slots?: string[];
+  seasons?: string[];
+  /**
+   * Dry cues (birds, insects) fall silent in rain.
+   */
+  dry?: boolean;
+}
+
+//////////
 // source: transit.go
 
 /**
@@ -929,6 +1053,11 @@ export interface TransitLine {
    * (SPEC.md §4.11).
    */
   locked?: boolean;
+  /**
+   * Bell is the sound cue its vehicles make leaving a stop and passing
+   * Angie (SPEC.md §4.11), e.g. the tram's ding-ding; empty is silent.
+   */
+  bell?: string;
 }
 /**
  * TransitStop is a named stop; its position comes from the world index.

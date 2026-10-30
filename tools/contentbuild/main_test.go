@@ -43,6 +43,40 @@ func TestRunRejectsInvalidContent(t *testing.T) {
 	}
 }
 
+func TestSounds(t *testing.T) {
+	game := "title: Birdie Go Go\ncontent_version: 0.1.0\nstart_map: tko\nstart_spawn: home\n"
+	tests := []struct {
+		name, sounds string
+		wantErr      bool
+	}{
+		{"ok", "cues:\n  - { id: ding, notes: [ { wave: triangle, freq: 1318, dur: 0.9, repeat: 1, every: 0.28 } ] }\nsoundscapes:\n  - { id: quiet }\n", false},
+		{"typo", "cues:\n  - { id: ding, notes: [ { wave: triangle, frq: 1318, dur: 0.9 } ] }\n", true},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			dir := t.TempDir()
+			writeFile(t, filepath.Join(dir, "game.yaml"), game)
+			writeFile(t, filepath.Join(dir, "sounds.yaml"), tt.sounds)
+			b, err := load(dir)
+			if tt.wantErr {
+				if err == nil {
+					t.Fatal("expected an error for an unknown field")
+				}
+				return
+			}
+			if err != nil {
+				t.Fatal(err)
+			}
+			if n := b.Sounds.Cues[0].Notes[0]; n.Freq != 1318 || n.Repeat != 1 || n.Every != 0.28 {
+				t.Errorf("note = %+v", n)
+			}
+			if sc := b.Sounds.Soundscapes[0]; sc.Beds == nil || sc.Cues == nil {
+				t.Error("soundscape lists must be non-nil")
+			}
+		})
+	}
+}
+
 func TestRepoContentIsValid(t *testing.T) {
 	if err := run(filepath.Join("..", "..", "content"), ""); err != nil {
 		t.Fatal(err)

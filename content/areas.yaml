@@ -3,8 +3,10 @@
 # loosely after Hong Kong: humid foggy springs, hot showery summers with
 # typhoons, clear dry autumns, cool dry winters.
 # walk_effort (optional, default 1) multiplies the Energy that walking costs.
+# soundscape: the ambience heard here (sounds.yaml).
 - id: tko_town
   name: Tseung Kwan O Town Centre
+  soundscape: city
   music: bgm_town
   altitude: 0.05
   climate:
@@ -14,6 +16,7 @@
     winter: { cloud: [0.45, 0.2], precip: [0.0, 0.1], temp: [16, 2.5], fog: [0.1, 0.1], wind: [0.4, 0.2] }
 - id: tko_waterfront
   name: Junk Bay Waterfront
+  soundscape: harbour
   music: bgm_waterfront
   altitude: 0
   climate:
@@ -23,6 +26,7 @@
     winter: { cloud: [0.45, 0.2], precip: [0.0, 0.1], temp: [16, 2.5], fog: [0.15, 0.1], wind: [0.5, 0.2] }
 - id: tko_hillside
   name: Hillside Trail
+  soundscape: forest
   music: bgm_trail
   altitude: 0.35
   walk_effort: 2.5   # steep trail: walking here tires Angie out fast
@@ -33,6 +37,7 @@
     winter: { cloud: [0.5, 0.2], precip: [0.0, 0.1], temp: [13, 2.5], fog: [0.25, 0.15], wind: [0.55, 0.2] }
 - id: cwb_country_park
   name: Clear Water Bay Country Park
+  soundscape: forest
   music: bgm_trail
   altitude: 0.25
   walk_effort: 1.8   # hilly paths
@@ -43,6 +48,7 @@
     winter: { cloud: [0.45, 0.2], precip: [0.0, 0.1], temp: [14, 2.5], fog: [0.2, 0.15], wind: [0.45, 0.2] }
 - id: po_toi_o
   name: Po Toi O
+  soundscape: village
   music: bgm_waterfront
   altitude: 0
   climate:
@@ -53,6 +59,7 @@
 # Harbour Island, across the harbour (Hong Kong Island inspired).
 - id: island_harbourfront
   name: Harbour Island Waterfront
+  soundscape: harbour
   music: bgm_town
   altitude: 0.02
   climate:
@@ -62,6 +69,7 @@
     winter: { cloud: [0.45, 0.2], precip: [0.0, 0.1], temp: [16, 2.5], fog: [0.1, 0.1], wind: [0.45, 0.2] }
 - id: island_peak
   name: Harbour Peak Trail
+  soundscape: forest
   music: bgm_trail
   altitude: 0.6
   walk_effort: 2.8   # the steepest climb in the city
@@ -73,6 +81,7 @@
 # The fishpond wetlands (Wetland Line).
 - id: wetlands
   name: Fishpond Wetlands
+  soundscape: wetland
   music: bgm_waterfront
   altitude: 0
   climate:
@@ -83,6 +92,7 @@
 # Pebble Island, an outlying island (Island Ferry from Po Toi O).
 - id: pebble_village
   name: Pebble Island Village
+  soundscape: village
   music: bgm_waterfront
   altitude: 0.05
   walk_effort: 1.3   # hilly lanes
@@ -93,6 +103,7 @@
     winter: { cloud: [0.45, 0.2], precip: [0.0, 0.1], temp: [16, 2.5], fog: [0.15, 0.1], wind: [0.55, 0.2] }
 - id: pebble_beach
   name: Pebble Beach
+  soundscape: beach
   music: bgm_waterfront
   altitude: 0
   walk_effort: 1.5   # soft sand
@@ -104,6 +115,7 @@
 # Ten more districts in five regions (SPEC.md §4.3).
 - id: sai_kung_town
   name: Sai Kung Seafront
+  soundscape: harbour
   music: bgm_waterfront
   altitude: 0.02
   climate:
@@ -113,6 +125,7 @@
     winter: { cloud: [0.45, 0.2], precip: [0.0, 0.1], temp: [16, 2.5], fog: [0.15, 0.1], wind: [0.50, 0.2] }
 - id: geopark
   name: Volcano Geopark
+  soundscape: beach
   music: bgm_trail
   altitude: 0.2
   walk_effort: 1.8
@@ -123,6 +136,7 @@
     winter: { cloud: [0.45, 0.2], precip: [0.0, 0.1], temp: [15, 2.5], fog: [0.15, 0.1], wind: [0.60, 0.2] }
 - id: old_town_harbour
   name: Old Town Typhoon Shelter
+  soundscape: harbour
   music: bgm_waterfront
   altitude: 0
   climate:
@@ -132,6 +146,7 @@
     winter: { cloud: [0.45, 0.2], precip: [0.0, 0.1], temp: [16, 2.5], fog: [0.15, 0.1], wind: [0.45, 0.2] }
 - id: old_town_market
   name: Old Town Market
+  soundscape: market
   music: bgm_town
   altitude: 0.03
   climate:
@@ -141,6 +156,7 @@
     winter: { cloud: [0.45, 0.2], precip: [0.0, 0.1], temp: [17, 2.5], fog: [0.1, 0.1], wind: [0.30, 0.2] }
 - id: lion_ridge
   name: Lion Ridge
+  soundscape: forest
   music: bgm_trail
   altitude: 0.5
   walk_effort: 2.6
@@ -151,6 +167,7 @@
     winter: { cloud: [0.45, 0.2], precip: [0.0, 0.1], temp: [13, 2.5], fog: [0.3, 0.1], wind: [0.55, 0.2] }
 - id: lion_estate
   name: Lion Ridge Estate
+  soundscape: city
   music: bgm_town
   altitude: 0.1
   climate:
@@ -160,6 +177,7 @@
     winter: { cloud: [0.45, 0.2], precip: [0.0, 0.1], temp: [16, 2.5], fog: [0.15, 0.1], wind: [0.35, 0.2] }
 - id: long_valley
   name: Long Valley Fields
+  soundscape: wetland
   music: bgm_waterfront
   altitude: 0
   walk_effort: 1.2
@@ -170,6 +188,7 @@
     winter: { cloud: [0.45, 0.2], precip: [0.0, 0.1], temp: [16, 2.5], fog: [0.35, 0.1], wind: [0.40, 0.2] }
 - id: walled_village
   name: Walled Village
+  soundscape: village
   music: bgm_town
   altitude: 0.05
   climate:
@@ -179,6 +198,7 @@
     winter: { cloud: [0.45, 0.2], precip: [0.0, 0.1], temp: [16, 2.5], fog: [0.15, 0.1], wind: [0.35, 0.2] }
 - id: tea_plateau
   name: Tea Plateau
+  soundscape: forest
   music: bgm_trail
   altitude: 0.6
   walk_effort: 2.2
@@ -189,6 +209,7 @@
     winter: { cloud: [0.45, 0.2], precip: [0.0, 0.1], temp: [12, 2.5], fog: [0.4, 0.1], wind: [0.60, 0.2] }
 - id: stilt_village
   name: Stilt Village
+  soundscape: harbour
   music: bgm_waterfront
   altitude: 0
   climate:
