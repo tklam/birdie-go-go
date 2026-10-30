@@ -233,6 +233,17 @@
   min-height: 44px;
   border-radius: 8px;
 }
+.btn.alight {
+  left: max(16px, env(safe-area-inset-left));
+  top: 72px;
+  min-width: 56px;
+  min-height: 44px;
+  border-radius: 8px;
+}
+/* On ferries it sits under Deck. */
+.btn.deck ~ .btn.alight {
+  top: 128px;
+}
 
 /* Menus. */
 .menu-window {

@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import type { AmbientNPC, Enemy, TransitItinerary, TransitLeg, TransitVehicle, WeatherDay, WeatherParams, WorldIndex, WorldObject } from '../core/types.gen';
 import { rng } from '../photo/birds';
-import { pathLength, pointAt, type Pt } from '../world/path';
+import { nextStopAhead, pathLength, pointAt, stopsAlong, type Pt, type StopOnPath } from '../world/path';
 import { arrowToward, edgePoint, nearby } from '../world/nearby';
 import { build, buildStatus, CAMERA_PART, placeTrailCamera, TRAIL_CAMERA, trailCamFlag } from '../systems/gadgets';
 import { floatingButton } from '../ui/panel';
@@ -198,6 +198,10 @@ export class MapScene extends Phaser.Scene {
     removeSkip: () => void;
     /** On ferries: the Deck button for photos from the deck. */
     removeDeck?: () => void;
+    /** Stops the ride passes before `to`, for getting off early. */
+    stops: StopOnPath[];
+    /** The Next stop button, while there is a stop ahead to get off at. */
+    removeAlight?: () => void;
   } | null = null;
   /** Timetabled vehicles drawn on the map (SPEC.md §4.11): the last poll and its sprites. */
   private vehicles = { list: [] as TransitVehicle[], clock: 0, pending: false, nextPoll: 0, sprites: new Map<string, Phaser.GameObjects.Sprite>() };
@@ -1748,7 +1752,16 @@ export class MapScene extends Phaser.Scene {
       r.distance = r.length;
     });
     const removeDeck = leg.mode === 'ferry' && s.content.spots.some((x) => x.id === FERRY_DECK) ? floatingButton('Deck', 'deck', () => void this.toDeck()) : undefined;
-    this.ride = { vehicle, path, length: pathLength(path), distance: 0, speed: line.speed, to: leg.to, line: line.id, next, removeSkip, removeDeck };
+    // The stops between boarding and alighting, in riding order (SPEC.md §4.11).
+    const a = line.stops.indexOf(leg.from);
+    const b = line.stops.indexOf(leg.to);
+    const between = a >= 0 && b >= 0 ? line.stops.slice(Math.min(a, b) + 1, Math.max(a, b)) : [];
+    const stops = stopsAlong(
+      path,
+      between.flatMap((id) => (this.index.stops[id] ? [{ id, ...this.index.stops[id] }] : [])),
+    );
+    const removeAlight = stops.length ? floatingButton('Next stop', 'alight', () => this.alightNext()) : undefined;
+    this.ride = { vehicle, path, length: pathLength(path), distance: 0, speed: line.speed, to: leg.to, line: line.id, next, removeSkip, removeDeck, stops, removeAlight };
     this.ringBell(line.id);
     const name = s.content.transit.stops.find((x) => x.id === leg.to)?.name ?? leg.to;
     toast(`${line.name} to ${name}`);
@@ -1785,9 +1798,33 @@ export class MapScene extends Phaser.Scene {
     );
   }
 
+  /**
+   * Get off at the next stop instead (SPEC.md §4.11): the ride ends there and
+   * any later legs are dropped; the fare stays paid.
+   */
+  private alightNext(): void {
+    const r = this.ride;
+    if (!r) return;
+    const stop = nextStopAhead(r.stops, r.distance);
+    r.removeAlight?.();
+    r.removeAlight = undefined;
+    if (!stop) return;
+    r.to = stop.id;
+    r.length = stop.at;
+    r.next = [];
+    r.stops = [];
+    const name = this.session.content.transit.stops.find((x) => x.id === stop.id)?.name ?? stop.id;
+    toast(`Getting off at ${name}.`);
+  }
+
   private updateRide(time: number, dt: number): void {
     const r = this.ride;
     if (!r) return;
+    // No stop left to get off at: the button goes.
+    if (r.removeAlight && !nextStopAhead(r.stops, r.distance)) {
+      r.removeAlight();
+      r.removeAlight = undefined;
+    }
     const view = this.cameras.main.worldView;
     const here = pointAt(r.path, r.distance);
     // Stream ahead along the route.
@@ -1811,6 +1848,7 @@ export class MapScene extends Phaser.Scene {
     this.ride = null;
     r.removeSkip();
     r.removeDeck?.();
+    r.removeAlight?.();
     const s = this.session;
     const name = s.content.transit.stops.find((x) => x.id === r.to)?.name ?? r.to;
     discoverStop(s.state, r.to);
@@ -1846,6 +1884,7 @@ export class MapScene extends Phaser.Scene {
     this.ride = null;
     r.removeSkip();
     r.removeDeck?.();
+    r.removeAlight?.();
     s.slotMinutes += (r.length - r.distance) / r.speed;
     const dest = r.next.length ? r.next[r.next.length - 1].to : r.to;
     discoverStop(s.state, r.to);

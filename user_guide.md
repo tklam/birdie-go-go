@@ -71,7 +71,7 @@ The world is big and seamless. You can walk from downtown streets into a hillsid
 
 | | How it works |
 |---|---|
-| **Bus** | Green Minibus 16 runs to Po Toi O and Green Minibus 1A to Sai Kung. Wait at a stop and press **Board**. Ride along and watch the city go by, or tap **Skip** to jump to your stop. |
+| **Bus** | Green Minibus 16 runs to Po Toi O and Green Minibus 1A to Sai Kung. Wait at a stop and press **Board**. Ride along and watch the city go by. Tap **Next stop** to get off at the next stop on the way (handy if you spot a bird from the window), or **Skip** to jump to your stop. |
 | **Tram** | Slow, cheap, and charming. The Harbourfront Tram runs along the waterfront road of Harbour Island, with three stops; listen for its *ding-ding* as it comes along. |
 | **Metro** | Go down into a station, pick your destination, and you're there in moments. The Ridge Line runs from the Old Town under Lion Ridge to the Border Fields. The Harbour Line runs under the harbour from Tseung Kwan O Station (east of the plaza) to Harbour Island, and from chapter 2 the Wetland Line runs to the Fishpond Wetlands, where ducks and spoonbills winter. Rain doesn't affect it. |
 | **Ferry** | Cross the harbour or sail to the outlying islands: the Island Ferry runs from Po Toi O pier to Pebble Island. Stand on the deck, because seabirds follow the boat and make great photos. Long island trips take up part of the day. |

@@ -26,3 +26,48 @@ export function pointAt(path: readonly Pt[], distance: number): { x: number; y: 
   const [x, y] = path[path.length - 1];
   return { x, y, dx: 0, dy: 0 };
 }
+
+/** How far (px) along the path the point nearest (x, y) lies. */
+export function projectOnPath(path: readonly Pt[], x: number, y: number): number {
+  let best = 0;
+  let bestD = Infinity;
+  let walked = 0;
+  for (let i = 1; i < path.length; i++) {
+    const [ax, ay] = path[i - 1];
+    const [bx, by] = path[i];
+    const seg = Math.hypot(bx - ax, by - ay);
+    if (seg === 0) continue;
+    const t = Math.max(0, Math.min(1, ((x - ax) * (bx - ax) + (y - ay) * (by - ay)) / (seg * seg)));
+    const d = Math.hypot(ax + (bx - ax) * t - x, ay + (by - ay) * t - y);
+    if (d < bestD) {
+      bestD = d;
+      best = walked + seg * t;
+    }
+    walked += seg;
+  }
+  return best;
+}
+
+/** A stop part-way along a ride and its distance along the ride's path. */
+export interface StopOnPath {
+  id: string;
+  at: number;
+}
+
+/**
+ * The stops a ride passes before its last one, in order along the path: each
+ * placed where the path comes nearest it, keeping only those strictly inside
+ * the ride (not at its ends).
+ */
+export function stopsAlong(path: readonly Pt[], stops: readonly { id: string; x: number; y: number }[], margin = 8): StopOnPath[] {
+  const length = pathLength(path);
+  return stops
+    .map((s) => ({ id: s.id, at: projectOnPath(path, s.x, s.y) }))
+    .filter((s) => s.at > margin && s.at < length - margin)
+    .sort((a, b) => a.at - b.at);
+}
+
+/** The first stop still ahead of `distance` (with room to stop), if any. */
+export function nextStopAhead(stops: readonly StopOnPath[], distance: number, room = 24): StopOnPath | undefined {
+  return stops.find((s) => s.at > distance + room);
+}

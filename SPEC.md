@@ -233,7 +233,7 @@ A Hong Kong-style public transport network connects the world. Walking is always
 
 | Mode | Presentation | Network role | Notes |
 |---|---|---|---|
-| **Bus** | Rides **on the map**: Angie boards, the camera follows the bus along its route; tap **Get off at next stop** or **Skip** to arrive | Many routes across districts, incl. into the countryside | Less frequent at night; rainstorms slow it |
+| **Bus** | Rides **on the map**: Angie boards, the camera follows the bus along its route; tap **Next stop** to get off at the next stop on the way, or **Skip** to arrive | Many routes across districts, incl. into the countryside | Less frequent at night; rainstorms slow it |
 | **Tram** | Rides on the map along the tram tracks on the island's north shore; slow and cheap | Short hops along the busiest waterfront strip | Top deck: occasional "window shot" photo opportunities (later) |
 | **Metro** (MTR-style) | Underground: enter a station (interior), pick a destination, short skippable in-car scene with announcements, exit at the destination station | Fast backbone linking most districts | Weather-proof |
 | **Ferry** | Board at a pier; a short **deck scene** on the water | Harbour crossings and outlying islands | The deck is a **photo spot** — gulls, terns, and other seabirds follow the boat. Suspended at typhoon signal 8+ |
@@ -261,6 +261,7 @@ Rules:
 - **Vehicles on the map** come from `transit.vehicles` (polled twice a second, moved along their heading in between); only those near the camera get sprites.
 - **World map**: transit lines (open, with a discovered stop) are drawn over the overview; areas Angie hasn't entered (flag `area:<id>`) are darkened using `overview_areas.png` (worldbuild: one grey pixel per tile = area index), and their spots, shops and doors stay hidden until she does (worldbuild records each landmark's `area`); − and + zoom ×1–×3 around Angie, and the view scrolls.
 - **Modes on the map**: buses, trams and ferries are drawn from the timetables; the metro runs underground: the Metro scene shows the platform as the train pulls in, then the car (tunnel lights, riders, a route strip of the stops passed) and a chime on arrival; the clock advances by the wait and ride, Angie comes up at the destination station and any further legs continue from there.
+- **Getting off early**: on any on-map ride (bus, tram, ferry) that passes stops before its destination, a **Next stop** button ends the ride at the next stop still ahead (one it can pull in to, at least 24 px away). Later legs of the trip are dropped and the fare isn't refunded; the stop counts as visited. The button goes once no stop is left before the destination.
 - **Bells**: a line's `bell` cue (the tram's ding-ding, a ferry horn, a minibus beep) sounds when Angie's vehicle leaves and when it arrives, and once from each timetabled vehicle that passes within 160 px of her.
 - **Discovery and unlocks**: walking near a stop (or arriving at one) discovers it (flag `stop:<id>`), and only discovered stops show on the world map. Lines with `locked: true` need an `unlock_line` event (flag `line:<id>`); `unlock_teleport` opens a gateway; `stop_discovered` is a condition.
 
