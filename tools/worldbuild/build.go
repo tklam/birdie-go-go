@@ -155,12 +155,27 @@ func run(worldPath, outDir string, opts options) error {
 	if err := b.checkEnemies(); err != nil {
 		return fmt.Errorf("%s: %w", worldPath, err)
 	}
+	b.landmarkAreas()
 	b.sealUncovered()
 	b.blendField(index.WidthChunks, index.HeightChunks, opts.blendTiles)
 	if len(w.Maps) > 0 && b.fill == 0 {
 		return fmt.Errorf("fill tile %q not found in tileset %q", opts.fillTile, opts.atlas)
 	}
 	return b.write(index, outDir)
+}
+
+// landmarkAreas sets each landmark's area from the areas layer under it.
+func (b *builder) landmarkAreas() {
+	names := make(map[int]string, len(b.areas))
+	for id, n := range b.areas {
+		names[n] = id
+	}
+	for i, m := range b.marks {
+		tx, ty := int(m.X)/tileSize, int(m.Y)/tileSize
+		if c, ok := b.chunks[[2]int{tx / chunkTiles, ty / chunkTiles}]; ok {
+			b.marks[i].Area = names[int(c.area[(ty%chunkTiles)*chunkTiles+tx%chunkTiles])]
+		}
+	}
 }
 
 // minEnemyDistance keeps enemies' homes this far (px) from where Angie

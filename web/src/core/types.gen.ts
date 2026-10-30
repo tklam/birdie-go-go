@@ -1260,12 +1260,14 @@ export interface WorldIndex {
 }
 /**
  * Landmark is a place marked on the in-game map. ID is the spot, stop or
- * gateway id (or the object's name).
+ * gateway id (or the object's name). Area is the area it stands in, if any:
+ * the map shows it once Angie has been there.
  */
 export interface Landmark {
   type: string;
   id: string;
   title?: string;
+  area?: string;
   x: number /* float64 */;
   y: number /* float64 */;
 }

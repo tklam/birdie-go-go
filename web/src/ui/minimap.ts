@@ -1,3 +1,5 @@
+import type { Landmark } from '../core/types.gen';
+import { stopFlag } from '../systems/transit';
 import { closeModal, modal, overlay } from './overlay';
 
 export interface MapMarker {
@@ -26,6 +28,17 @@ const KIND_CLASS: Record<MapMarker['kind'], string> = {
 };
 
 const ZOOMS = [1, 2, 3];
+
+/**
+ * Whether the world map shows a landmark (pure): places in areas Angie
+ * hasn't entered stay hidden under the fog (SPEC.md §4.10); stops show once
+ * discovered and gateways once open, wherever they are.
+ */
+export function landmarkShown(l: Pick<Landmark, 'type' | 'id' | 'area'>, flags: Readonly<Record<string, boolean>>): boolean {
+  if (l.type === 'gateway') return flags[`gateway:${l.id}`] === true;
+  if (l.type === 'stop') return flags[stopFlag(l.id)] === true;
+  return !l.area || flags[`area:${l.area}`] === true;
+}
 
 /**
  * Darkens the overview where the area isn't discovered yet (pure, on RGBA

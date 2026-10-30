@@ -20,7 +20,7 @@ import { showAlbum } from '../ui/album';
 import { Hud } from '../ui/hud';
 import { showMenu } from '../ui/menu';
 import { showDialogue } from '../ui/dialogue';
-import { showMinimap, type MapMarker } from '../ui/minimap';
+import { landmarkShown, showMinimap, type MapMarker } from '../ui/minimap';
 import { iris } from '../fx/iris';
 import { glitch } from '../fx/glitch';
 import { activityCost, crossedLow, type FaintCause, faintOutcome, walkCost } from '../systems/economy';
@@ -1019,10 +1019,10 @@ export class MapScene extends Phaser.Scene {
     }
     const s = this.session;
     const indoors = this.mapId !== 'world';
-    const markers: MapMarker[] = world.landmarks
-      .filter((l) => l.type !== 'gateway' || s.state.flags[`gateway:${l.id}`])
-      // A stop shows up after the first visit (SPEC.md §4.11).
-      .filter((l) => l.type !== 'stop' || s.state.flags[stopFlag(l.id)])
+    // Only what Angie has found: places in areas she's been to, discovered
+    // stops (SPEC.md §4.11) and open gateways.
+    const shown = world.landmarks.filter((l) => landmarkShown(l, s.state.flags));
+    const markers: MapMarker[] = shown
       .map((l) => ({
         x: l.x,
         y: l.y,
@@ -1034,7 +1034,7 @@ export class MapScene extends Phaser.Scene {
     if (here) markers.push({ x: here.x, y: here.y, kind: 'angie' });
     const area = indoors ? 'Indoors' : (s.content.areas.find((a) => a.id === this.area)?.name ?? 'Map');
     const spotName = (id: string) => s.content.spots.find((x) => x.id === id)?.name ?? id;
-    const close = here ? nearby(world.landmarks.filter((l) => l.type === 'spot'), here.x, here.y, MapScene.SPOT_RADIUS) : [];
+    const close = here ? nearby(shown.filter((l) => l.type === 'spot'), here.x, here.y, MapScene.SPOT_RADIUS) : [];
     for (const m of markers) if (m.kind === 'spot' && close.some((c) => c.x === m.x && c.y === m.y)) m.near = true;
     const note = close.length
       ? `Nearby: ${close.map((c) => `${spotName(c.id)} ${arrowToward(here?.x ?? 0, here?.y ?? 0, c.x, c.y)}`).join(', ')}`

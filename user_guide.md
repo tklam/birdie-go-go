@@ -63,7 +63,7 @@ The world is big and seamless. You can walk from downtown streets into a hillsid
 - Watch for little **twinkles** on the ground. They're hidden collectibles: feathers for your album, camera parts for Kei, and sheet music your students can learn once they've finished their pieces. Walk up and press **Pick up**.
 - The city is busy: joggers, office workers, aunties, students, and fellow **birders** who stop to photograph birds. Say hello; some have useful tips. Birders may also be shooting next to you during a photo session, and their clicking shutters can make birds a little nervous.
 - Look around for hidden **feathers**, **camera parts**, and **sheet music**.
-- Open the **World Map** from the Menu to see where you've been, your birding spots, and the transit lines. Places you haven't explored yet are dark. Tap **+** and **−** to zoom (drag to look around), and **Close** when you're done.
+- Open the **World Map** from the Menu to see where you've been, your birding spots, and the transit lines. Places you haven't explored yet are dark, and their spots and shops appear once you've been there. Tap **+** and **−** to zoom (drag to look around), and **Close** when you're done.
 
 ## Getting around
 
