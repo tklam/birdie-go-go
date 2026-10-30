@@ -57,7 +57,7 @@ Then open http://localhost:5173. `make dev` does the following:
 | `make pack` | *(planned, M5)* builds a content update pack |
 
 One-off tools:
-- `go run ./tools/mapgen -force` regenerates the placeholder maps (Tseung Kwan O, Clear Water Bay, Harbour Island, the Wetlands, Pebble Island) and interiors. Don't run it once the maps have been edited in Tiled. To add a region or interior without touching hand-edited maps, generate into a scratch folder (`-world <dir>/world`) and copy just the new files and `city.world`. Adding a tile to the catalogue moves the meta tileset's `firstgid` up by one in every map; shift the meta gids in existing maps to match.
+- `tools/mapgen` is the **source of truth** for every region map, `city.world` and the interiors. To change a map, edit the generator and run `make maps` (then `make world`); never edit the `.tmj` files by hand or in Tiled, because the next `make maps` would overwrite them. Its output is deterministic, and `go test ./tools/mapgen` fails when the committed maps differ from it. Adding a tile to the catalogue moves the meta tileset's `firstgid` up by one in every map; regenerating takes care of that.
 - `go run ./tools/birdphoto -sources art/birds/sources.yaml -out art/birds/out` turns real bird photos into sprite sheets (see §6), then `make assets`.
 
 ## 4. Architecture

@@ -7,7 +7,7 @@ PUBLIC   := web/public
 TYGO     := github.com/gzuidhof/tygo@v0.2.21
 STATICCHECK := honnef.co/go/tools/cmd/staticcheck@v0.8.2
 
-.PHONY: dev core content world assets gen test lint bench build server pack clean
+.PHONY: dev core content maps world assets gen test lint bench build server pack clean
 
 dev: core content world web/node_modules
 	cd web && npx vite --host $(HOST)
@@ -26,6 +26,10 @@ endif
 
 content:
 	$(GO) run ./tools/contentbuild -content content -out $(PUBLIC)/content/base.json
+
+# Regenerate the Tiled maps from tools/mapgen, their source of truth.
+maps:
+	$(GO) run ./tools/mapgen -world content/world -force
 
 world:
 	$(GO) run ./tools/worldbuild -world content/world/city.world -out $(PUBLIC)/world

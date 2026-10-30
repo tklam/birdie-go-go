@@ -69,10 +69,10 @@ Before declaring a task done, run `make test` and `make lint`. If you touched st
 | Task | Location |
 |---|---|
 | Add a bird species | `content/birds.yaml`, sprites in `web/public/assets/birds/`, manifest entry |
-| Add a birding spot | `content/spots.yaml` + `spot` object in the world `.tmj` |
+| Add a birding spot | `content/spots.yaml` + a `spot` object placed in `tools/mapgen` |
 | Add or change an area | `content/areas.yaml` + paint the `areas` layer in the world |
-| Edit the world map | `content/world/*.tmj` (Tiled world `city.world`), then `make world` |
-| Edit an interior | `content/interiors/<id>.tmj`, then `make world` |
+| Edit the world map | `tools/mapgen` (the source of truth for `content/world/*.tmj` and `city.world`), then `make maps` and `make world` |
+| Edit an interior | `tools/mapgen` (generates `content/interiors/<id>.tmj`), then `make maps` and `make world` |
 | Bird art from real photos | `art/birds/sources.yaml`, `tools/birdphoto`, `art/birds/CREDITS.md` |
 | Add a transit line or stop | `content/transit.yaml` + `stop`/`route` objects in the world |
 | Add a mission | `content/missions.yaml` |

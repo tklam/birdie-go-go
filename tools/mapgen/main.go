@@ -1,9 +1,10 @@
-// Command mapgen lays out the placeholder Tseung Kwan O starter map as a Tiled
-// map (content/world/tko.tmj) and registers it in city.world. It exists only
-// to bootstrap the vertical slice; once the map is edited by hand in Tiled,
-// don't regenerate it (mapgen refuses to overwrite without -force).
+// Command mapgen lays out the world's regions and interiors as Tiled maps
+// (content/world/*.tmj, city.world and content/interiors/*.tmj). It is the
+// source of truth for them: change the maps here and regenerate (`make
+// maps`), never by editing the .tmj files. Its output is deterministic, and
+// a test fails when the committed maps differ from it.
 //
-//	go run ./tools/mapgen -world content/world
+//	go run ./tools/mapgen -world content/world -force
 package main
 
 import (
@@ -12,8 +13,10 @@ import (
 	"flag"
 	"fmt"
 	"io/fs"
+	"maps"
 	"os"
 	"path/filepath"
+	"slices"
 
 	"birdiegogo/tools/internal/tko"
 )
@@ -25,7 +28,7 @@ var metaFirst = len(tko.Tiles) + 1
 
 func main() {
 	dir := flag.String("world", "content/world", "world directory")
-	force := flag.Bool("force", false, "overwrite an existing tko.tmj")
+	force := flag.Bool("force", false, "overwrite the existing maps")
 	flag.Parse()
 	if err := run(*dir, *force); err != nil {
 		fmt.Fprintln(os.Stderr, "mapgen:", err)
@@ -36,7 +39,7 @@ func main() {
 func run(dir string, force bool) error {
 	path := filepath.Join(dir, "tko.tmj")
 	if _, err := os.Stat(path); err == nil && !force {
-		return fmt.Errorf("%s exists; it may have been edited in Tiled (use -force to overwrite)", path)
+		return fmt.Errorf("%s exists (use -force to regenerate the maps)", path)
 	} else if err != nil && !errors.Is(err, fs.ErrNotExist) {
 		return err
 	}
@@ -738,9 +741,10 @@ func (m *tmap) tiled(tilesetDir string) map[string]any {
 	}
 	var objects []map[string]any
 	for i, o := range m.objects {
+		// Sorted, so the output is the same on every run.
 		var props []map[string]any
-		for k, v := range o.props {
-			props = append(props, map[string]any{"name": k, "type": "string", "value": v})
+		for _, k := range slices.Sorted(maps.Keys(o.props)) {
+			props = append(props, map[string]any{"name": k, "type": "string", "value": o.props[k]})
 		}
 		objects = append(objects, map[string]any{
 			"id": i + 1, "name": o.name, "type": o.typ, "point": true,
