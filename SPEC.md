@@ -549,6 +549,7 @@ Events live in `content/events/*.yaml`:
 - `start_scene: { scene, dialogue? }` plays a staged scene over the paused map (HUD and touch controls hidden) and plays the dialogue over it, e.g. the **Wedding** scene; without that scene, only the dialogue plays.
 - Content is validated by `contentbuild` at build time and by the Go core when an update pack is loaded. Unknown dialogue IDs, species, items, areas, spots, songs, students, lines, stops, or missions are errors. Flags are free-form strings.
 - Dialogue lines may carry conditions (e.g. alternate lines when `party_has: kei`).
+- *As built:* `photo_session_end` carries `spot` and `best`, the session's best rating (`perfect`, `great`, `good`, `blurry`, or `none` without photos), so a reaction can match the photo (e.g. the prologue's first photo).
 - Events are evaluated in TypeScript on the main thread (instant reactions to game state).
 
 ### 9.5 Missions

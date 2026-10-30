@@ -99,6 +99,9 @@ func TestValidateErrors(t *testing.T) {
 		{"trigger spot", func(b *model.ContentBundle) {
 			b.Events[0].Trigger = model.Trigger{Type: "photo_session_end", Params: map[string]string{"spot": "nope"}}
 		}, "trigger spot"},
+		{"trigger best", func(b *model.ContentBundle) {
+			b.Events[0].Trigger = model.Trigger{Type: "photo_session_end", Params: map[string]string{"best": "fabulous"}}
+		}, "trigger best"},
 		{"condition type", func(b *model.ContentBundle) { b.Events[0].Conditions[0].Type = "is_raining" }, "unknown condition"},
 		{"action type", func(b *model.ContentBundle) { b.Events[0].Actions[0].Type = "explode" }, "unknown action"},
 		{"dialogue ref", func(b *model.ContentBundle) { b.Events[0].Actions[0].Value = "missing" }, "unknown dialogue"},

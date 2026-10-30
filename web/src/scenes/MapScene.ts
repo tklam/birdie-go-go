@@ -11,6 +11,7 @@ import { WeatherRenderer } from '../weather/renderer';
 import { CONTROL_SCHEMES, MAX_ENERGY, TEXT_SPEEDS, TIME_SLOTS, WINDOW_COLORS, season } from '../systems/state';
 import { findPath, type Tile } from '../world/pathfind';
 import { activeMissions, doneMissions, type PhotoResult } from '../systems/missions';
+import { bestRating } from '../systems/photoScore';
 import { assess, breakItem, drain, protection, toggleGear, useItem, type HazardReport } from '../systems/hazards';
 import { InputReader } from '../systems/input';
 import { FollowerTrail } from '../systems/party';
@@ -419,9 +420,10 @@ export class MapScene extends Phaser.Scene {
     const s = this.session;
     if (data.from === 'Photo' || data.from === 'Piano') s.growBond();
     if (data.from === 'Photo') {
-      await s.fire({ type: 'photo_session_end', params: data.spotId ? { spot: data.spotId } : {} });
-      const area = s.content.spots.find((x) => x.id === data.spotId)?.area ?? '';
       const shots = (this.registry.get('lastPhotos') as { species: string; result: { rating: PhotoResult['rating'] } }[] | undefined) ?? [];
+      const best = bestRating(shots.map((p) => p.result.rating));
+      await s.fire({ type: 'photo_session_end', params: data.spotId ? { spot: data.spotId, best } : { best } });
+      const area = s.content.spots.find((x) => x.id === data.spotId)?.area ?? '';
       await s.checkMissions({ photos: shots.map((p) => ({ species: p.species, rating: p.result.rating, area })) });
       await s.checkAlbum();
       await s.endSlot();

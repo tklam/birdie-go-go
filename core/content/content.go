@@ -443,6 +443,9 @@ func (v *validator) event(e model.Event, r refs) {
 	if spot, ok := t.Params["spot"]; ok {
 		v.require(r.spots[spot], "event %s: trigger spot %q is unknown", e.ID, spot)
 	}
+	if best, ok := t.Params["best"]; ok {
+		v.require(slices.Contains(Ratings, best) || best == "blurry" || best == "none", "event %s: trigger best %q is not a photo rating or none", e.ID, best)
+	}
 	if student, ok := t.Params["student"]; ok {
 		v.require(r.students[student], "event %s: trigger student %q is unknown", e.ID, student)
 	}
