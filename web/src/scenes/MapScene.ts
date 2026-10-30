@@ -274,15 +274,11 @@ export class MapScene extends Phaser.Scene {
     this.session.sceneRunner = (scene, data) =>
       this.scene.manager.keys[scene]
         ? new Promise<void>((resolve) => {
-            this.scene.pause();
-            this.hud.setVisible(false);
-            this.touch.setVisible(false);
+            const release = this.holdMap();
             this.scene.launch(scene, {
               ...data,
               done: () => {
-                this.hud.setVisible(true);
-                this.touch.setVisible(true);
-                this.scene.resume();
+                release();
                 resolve();
               },
             });
@@ -295,15 +291,11 @@ export class MapScene extends Phaser.Scene {
       const key = `MG_${game.type}`;
       if (!this.scene.manager.keys[key]) return Promise.resolve(false);
       return new Promise<boolean>((resolve) => {
-        this.scene.pause();
-        this.hud.setVisible(false);
-        this.touch.setVisible(false);
+        const release = this.holdMap();
         this.scene.launch(key, {
           game,
           done: (won: boolean) => {
-            this.hud.setVisible(true);
-            this.touch.setVisible(true);
-            this.scene.resume();
+            release();
             resolve(won);
           },
         });
@@ -332,6 +324,25 @@ export class MapScene extends Phaser.Scene {
         if (this.mapId !== 'world') this.scene.restart({ map: 'world' });
       },
     );
+  }
+
+  /**
+   * Pauses the map (HUD and touch controls hidden) under a staged scene or
+   * mini game; the returned function undoes it. Only a running map is
+   * paused, and only a map this paused is resumed: Phaser warns about
+   * pausing a scene that is still starting, already paused or shut down
+   * (e.g. a second runner while the first holds the map).
+   */
+  private holdMap(): () => void {
+    const paused = this.sys.isActive();
+    if (paused) this.scene.pause();
+    this.hud.setVisible(false);
+    this.touch.setVisible(false);
+    return () => {
+      this.hud.setVisible(true);
+      this.touch.setVisible(true);
+      if (paused && this.sys.isPaused()) this.scene.resume();
+    };
   }
 
   private setup(index: WorldIndex, data: MapSceneData): void {
