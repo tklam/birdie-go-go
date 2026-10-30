@@ -215,6 +215,8 @@ export class MapScene extends Phaser.Scene {
   private lastWarning = '';
   /** Riding the metro: the map waits while the screen is dark. */
   private underground = false;
+  /** Leaving for another scene from a ride: the map stands still (state.position is already set). */
+  private leaving = false;
   /** Tap-to-move: the tiles still to walk (SPEC.md §4.4). */
   private tapPath: Tile[] = [];
   /** Whether Angie walked this frame (walking outdoors costs Energy). */
@@ -244,6 +246,7 @@ export class MapScene extends Phaser.Scene {
     this.sparkles = [];
     this.gates = [];
     this.underground = false;
+    this.leaving = false;
     this.passersby = [];
     this.ride = null;
     this.kei = null;
@@ -498,7 +501,7 @@ export class MapScene extends Phaser.Scene {
       this.updateRide(time, dt);
       return;
     }
-    if (this.underground) return;
+    if (this.underground || this.leaving) return;
     const speed = input.sneak ? SNEAK_SPEED : WALK_SPEED;
     const moving = this.ready && !this.busy && modal.open === 0 && (input.x !== 0 || input.y !== 0);
     this.walking = moving;
@@ -1387,7 +1390,8 @@ export class MapScene extends Phaser.Scene {
     return true;
   }
 
-  private async leaveTo(scene: string, data: object): Promise<void> {
+  /** Saves and irises out (onto `focus`, by default Angie) into another scene. */
+  private async leaveTo(scene: string, data: object, focus: { x: number; y: number } = { x: this.pos.x, y: this.pos.y - 12 }): Promise<void> {
     if (!this.scene.manager.keys[scene]) {
       toast('Coming soon!');
       return;
@@ -1396,7 +1400,7 @@ export class MapScene extends Phaser.Scene {
     // Lessons need quiet to hear the student's mistakes.
     if (scene === 'Piano') (this.registry.get('audio') as AudioEngine | undefined)?.setAmbience(0, 0, true);
     // Iris onto Angie, the classic way into a minigame.
-    await iris(this, 'out', this.pos.x, this.pos.y - 12);
+    await iris(this, 'out', focus.x, focus.y);
     this.scene.start(scene, data);
   }
 
@@ -1791,12 +1795,15 @@ export class MapScene extends Phaser.Scene {
     const dest = r.next.length ? r.next[r.next.length - 1].to : r.to;
     discoverStop(s.state, r.to);
     discoverStop(s.state, dest);
+    // The map stands still from here, so update() doesn't put the saved
+    // position back on the departure pier while the iris closes.
+    this.leaving = true;
     const stop = this.index.stops[dest];
     if (stop) s.state.position = { map: 'world', x: Math.round(stop.x), y: Math.round(stop.y + 4) };
     await s.fire({ type: 'ride_complete', params: { line: r.line } });
     await s.checkMissions({ ride: { line: r.line, stop: r.to } });
     this.busy = true;
-    await this.leaveTo('Photo', { spotId: FERRY_DECK, returnTo: 'Map', weather: this.weatherNow, statuses: [] });
+    await this.leaveTo('Photo', { spotId: FERRY_DECK, returnTo: 'Map', weather: this.weatherNow, statuses: [] }, { x: r.vehicle.x, y: r.vehicle.y - 12 });
   }
 
   /** Stops Angie walks past are discovered and show on the map (SPEC.md §4.11). */
