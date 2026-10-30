@@ -48,7 +48,9 @@ import {
   type EncounterResult,
   type Outcome,
 } from '../encounter/rules';
-import { oboySquawk } from '../audio/oboy';
+import { oboyCall } from '../audio/oboy';
+import { soundscapes } from '../audio/soundscape';
+import { activate, afterSuccess, counterHit, keiAtLeast, partyAbilities, readyAbilities, startAssists, windowScale, type Ability, type AssistState } from '../encounter/assists';
 import type { AudioEngine } from '../audio/AudioEngine';
 import { iris } from '../fx/iris';
 import { reducedMotion } from '../fx/motion';
@@ -74,7 +76,7 @@ export interface EncounterReturnData {
   encounter: EncounterResult;
 }
 
-type Choice = 'escape' | 'confront' | 'item' | 'skip' | 'help';
+type Choice = 'escape' | 'confront' | 'sing' | 'guardian' | 'item' | 'skip' | 'help';
 
 const ARROW: Record<string, string> = { up: '↑', down: '↓', left: '←', right: '→' };
 
@@ -127,9 +129,12 @@ export class EncounterScene extends Phaser.Scene {
   private run = 0;
   private phase: Phase = 'idle';
   private resolve = 0;
-  /** Companion assists (SPEC.md §4.13): O Boy's squawk shortens one combo; Kei's flash widens windows. */
-  private squawkReady = false;
-  private windowBonus = 1;
+  /** Companions fighting alongside (SPEC.md §4.13): O Boy's song and Kei's guardian. */
+  private assists!: AssistState;
+  private oboySprite: Phaser.GameObjects.Sprite | null = null;
+  private guardian: Phaser.GameObjects.Container | null = null;
+  /** The guardian's silhouette mask (moved with it). */
+  private guardianMask: Phaser.GameObjects.Graphics | null = null;
   private energyLost = 0;
   private catches = 0;
   private weaknessUsed = false;
@@ -187,25 +192,23 @@ export class EncounterScene extends Phaser.Scene {
     this.enemy = enemy;
     this.resolve = startResolve(enemy.resolve, state.items, this.session.content.items);
     if (this.resolve < enemy.resolve) this.time.delayedCall(1200, () => this.setMessage('Angie blows her whistle!'));
-    const party = state.party;
-    this.squawkReady = party.includes('oboy');
-    this.windowBonus = 1;
-    const keiStages = ['friends', 'dating', 'engaged', 'married'];
-    const keiAlong = party.includes('kei') && keiStages.includes(state.keiStage);
-    if (keiAlong && enemy.kind === 'dog') {
+    const cfg = this.session.content.game.companionAbilities;
+    this.assists = startAssists(cfg, partyAbilities(cfg, state.party, state.keiStage));
+    const whistle = cfg?.dogWhistle;
+    if (whistle && isDog(enemy) && keiAtLeast(state.party, state.keiStage, whistle.minStage)) {
       // Kei's ultrasonic whistle unsettles the dogs from the start.
-      this.resolve = Math.round(this.resolve * 0.75);
+      this.resolve = Math.round(this.resolve * whistle.resolveScale);
       this.time.delayedCall(400, () => this.setMessage("Kei's whistle unsettles the dogs!"));
-    } else if (keiAlong && keiStages.indexOf(state.keiStage) >= 1) {
-      // From dating on, Kei's camera-flash gadget stuns monsters: more time per combo.
-      this.windowBonus = 1.3;
-      this.time.delayedCall(400, () => this.setMessage("Kei's flash dazzles it!"));
     }
+    this.guardian = null;
     this.random = rng(encounterSeed(state.worldSeed, state.day, enemy.id, `play:${state.slot}`));
 
     this.drawBackdrop();
     this.angie = this.add.sprite(ANGIE_X, GROUND_Y, 'char_angie', 8).setOrigin(0.5, 1).setScale(2).setDepth(5);
     if (!this.textures.exists('char_angie')) this.angie.setVisible(false);
+    // Companions in the party stand (and perch) with her.
+    if (state.party.includes('kei') && this.textures.exists('char_kei')) this.add.sprite(ANGIE_X - 34, GROUND_Y, 'char_kei', 8).setOrigin(0.5, 1).setScale(2).setDepth(5);
+    this.oboySprite = state.party.includes('oboy') && this.textures.exists('char_oboy') ? this.add.sprite(ANGIE_X + 10, GROUND_Y - 50, 'char_oboy', 0).setScale(2).setDepth(6) : null;
     this.foe = this.add.sprite(ENEMY_X, GROUND_Y + 4, this.portraitKey(), 0).setOrigin(0.5, 1).setScale(2).setDepth(5);
     // Portrait sheets face right; turn them towards Angie.
     this.foe.setFlipX(true);
@@ -216,7 +219,7 @@ export class EncounterScene extends Phaser.Scene {
     shadow(this.add.text(6, 4, 'Angie', TEXT).setDepth(21));
     this.energyText = shadow(this.add.text(92, 13, '', TEXT).setDepth(21));
     shadow(this.add.text(314, 4, enemy.name, TEXT).setOrigin(1, 0).setDepth(21));
-    this.message = shadow(this.add.text(W / 2, 76, '', { ...TEXT, color: '#f0d050' }).setOrigin(0.5).setDepth(21));
+    this.message = shadow(this.add.text(W / 2, 76, '', { ...TEXT, color: '#f0d050', align: 'center', wordWrap: { width: W - 16 } }).setOrigin(0.5).setDepth(21));
     this.hint = shadow(this.add.text(W / 2, 172, '', TEXT).setOrigin(0.5).setDepth(21));
 
     this.setupInput();
@@ -358,6 +361,10 @@ export class EncounterScene extends Phaser.Scene {
       }
       if (choice === 'escape') await this.escape(run);
       else if (choice === 'confront') await this.confront(run);
+      else if (choice === 'sing' || choice === 'guardian') {
+        await this.useAbility(choice, run);
+        if (this.alive(run)) await this.confront(run);
+      }
       else if (choice === 'item') await this.itemMenu();
       else if (choice === 'skip') this.skip();
       if (!this.alive(run)) return;
@@ -367,7 +374,7 @@ export class EncounterScene extends Phaser.Scene {
   }
 
   private choices(): Choice[] {
-    const out: Choice[] = ['escape', 'confront'];
+    const out: Choice[] = ['escape', 'confront', ...readyAbilities(this.assists)];
     const state = this.session.state;
     if (usableItems(this.enemy, state.items, this.session.content.items, this.weaknessUsed).length) out.push('item');
     if (state.settings.skipEncounters) out.push('skip');
@@ -386,6 +393,8 @@ export class EncounterScene extends Phaser.Scene {
     const labels: Record<Choice, string> = {
       escape: 'Escape',
       confront: 'Confront',
+      sing: `O Boy: Sing (${this.assists.uses.sing})`,
+      guardian: "Kei: Guardian",
       item: 'Use item',
       skip: `Skip (-${skipCost(this.enemy)} Energy)`,
       help: 'How to play',
@@ -409,18 +418,20 @@ export class EncounterScene extends Phaser.Scene {
   private async confront(run: number): Promise<void> {
     const settings = this.session.state.settings;
     while (this.resolve > 0 && this.alive(run)) {
+      const cfg = this.session.content.game.companionAbilities;
       const p = comboParams(this.enemy, this.resolve / Math.max(1, this.enemy.resolve), settings.slowerPrompts);
-      let length = p.length;
-      if (this.squawkReady && length > 1) {
-        // O Boy squawks once per encounter: one step fewer.
-        this.squawkReady = false;
-        length -= 1;
-        this.setMessage('O Boy squawks! It looks away!');
-        oboySquawk(this.registry.get('audio') as AudioEngine | undefined);
-        await this.wait(700);
+      const combo = generateCombo(p.length, this.random);
+      if (this.assists.freeSuccess) {
+        // The duet: O Boy's song guides the guardian's strike.
+        this.setMessage('Duet! The song guides the strike!');
+        this.resolve = applyResolveHit(this.resolve, comboResolveHit(this.enemy, combo.length, 0.5));
+        await this.guardianStrike(run);
         if (!this.alive(run)) return;
+        this.assists = afterSuccess(this.assists, cfg).state;
+        this.dismissGuardianIfDone();
+        await this.wait(600);
+        continue;
       }
-      const combo = generateCombo(length, this.random);
       this.setMessage('Ready…');
       this.drawCombo(combo, 0, 1, true);
       this.showButtons(true);
@@ -428,7 +439,7 @@ export class EncounterScene extends Phaser.Scene {
       await this.wait(500);
       if (!this.alive(run)) return;
       this.setMessage('');
-      const status = await this.playCombo(combo, Math.round(p.windowMs * this.windowBonus));
+      const status = await this.playCombo(combo, Math.round(p.windowMs * windowScale(this.assists, cfg)));
       if (!this.alive(run)) return;
       if (status === 'complete') {
         const left = this.attempt ? timeLeft(this.attempt, this.time.now) : 0;
@@ -436,6 +447,15 @@ export class EncounterScene extends Phaser.Scene {
         this.setMessage(successText(this.enemy, this.random));
         this.animateSuccess();
         await this.wait(800);
+        if (!this.alive(run)) return;
+        const after = afterSuccess(this.assists, cfg);
+        this.assists = after.state;
+        if (after.bonusHit > 0 && this.resolve > 0) {
+          this.setMessage("Kei's guardian strikes!");
+          this.resolve = applyResolveHit(this.resolve, after.bonusHit);
+          await this.guardianStrike(run);
+        }
+        this.dismissGuardianIfDone();
       } else {
         this.setMessage(status === 'timeout' ? 'Too slow!' : 'Oops!');
         await this.wait(500);
@@ -710,6 +730,15 @@ export class EncounterScene extends Phaser.Scene {
    */
   private async takeHit(run: number): Promise<void> {
     const state = this.session.state;
+    const hit = counterHit(this.assists, this.enemy.damage, this.session.content.game.companionAbilities);
+    this.assists = hit.state;
+    if (hit.blocked) {
+      this.setMessage("Kei's guardian blocks the blow!");
+      this.guardianBlock();
+      this.dismissGuardianIfDone();
+      return;
+    }
+    this.dismissGuardianIfDone();
     const shield = blockingItem(state.equipped, this.session.content.items);
     if (shield?.assist) {
       const name = shield.name.toLowerCase();
@@ -730,7 +759,147 @@ export class EncounterScene extends Phaser.Scene {
       breakItem(state, shield.id);
       this.setMessage(`Ouch! The ${name} broke!`);
     }
-    this.hurt(this.enemy.damage);
+    if (hit.damage < this.enemy.damage) this.setMessage("O Boy's song softens the blow.");
+    this.hurt(hit.damage);
+  }
+
+  // --- Companions (SPEC.md §4.13) ------------------------------------------
+
+  /** O Boy sings or Kei calls his guardian; both together make a duet. */
+  private async useAbility(which: Ability, run: number): Promise<void> {
+    const cfg = this.session.content.game.companionAbilities;
+    const r = activate(this.assists, which, cfg);
+    this.assists = r.state;
+    if (which === 'sing') await this.sing(run);
+    else await this.summonGuardian(run);
+    if (!this.alive(run)) return;
+    if (r.duet) {
+      this.setMessage('O Boy and Kei work together!');
+      await this.wait(900);
+    }
+  }
+
+  private cue(id: string): void {
+    const audio = this.registry.get('audio') as AudioEngine | undefined;
+    if (audio?.ready) soundscapes(audio, this.session.content.sounds.cues).cue(id);
+  }
+
+  /** O Boy flies up and sings; notes drift over to the enemy, which sways, drowsy. */
+  private async sing(run: number): Promise<void> {
+    this.setMessage('O Boy sings! It sways, drowsy…');
+    oboyCall(this.registry.get('audio') as AudioEngine | undefined);
+    this.time.delayedCall(350, () => this.cue('oboy_song'));
+    const still = reducedMotion(this);
+    const bird = this.oboySprite;
+    if (bird && !still) {
+      this.tweens.add({ targets: bird, y: GROUND_Y - 78, duration: 400, ease: 'Sine.easeOut' });
+      // Wings flap while he sings.
+      this.time.addEvent({ delay: 120, repeat: 14, callback: () => bird.setFrame(bird.frame.name === '1' ? 0 : 1) });
+    }
+    const fromX = bird?.x ?? ANGIE_X;
+    const fromY = (bird?.y ?? GROUND_Y - 60) - (still ? 0 : 20);
+    for (let i = 0; i < 6; i++) {
+      const note = this.add.graphics().setDepth(15);
+      // A pixel quaver: head, stem and flag.
+      note.fillStyle(0xfff3a0).fillRect(0, 4, 3, 2).fillRect(2, 0, 1, 5).fillRect(3, 0, 2, 1);
+      note.setPosition(fromX, fromY);
+      this.tweens.add({
+        targets: note,
+        x: ENEMY_X - 10 + (i % 3) * 8,
+        y: GROUND_Y - 60 + Math.sin(i) * 12,
+        alpha: 0,
+        delay: i * 220,
+        duration: still ? 600 : 1400,
+        ease: 'Sine.easeInOut',
+        onComplete: () => note.destroy(),
+      });
+    }
+    if (!still) this.tweens.add({ targets: this.foe, angle: { from: -6, to: 6 }, duration: 500, yoyo: true, repeat: 2, onComplete: () => this.foe.setAngle(0) });
+    await this.wait(1800);
+    if (!this.alive(run) || !bird) return;
+    this.tweens.add({ targets: bird, y: GROUND_Y - 50, duration: 400 });
+  }
+
+  /**
+   * Kei's digital guardian: a hulking, horned figure of falling green code
+   * rising behind him, out of the data of his digital kingdom.
+   */
+  private async summonGuardian(run: number): Promise<void> {
+    this.setMessage('Kei calls his guardian out of the code!');
+    this.cue('guardian_summon');
+    this.guardian?.destroy();
+    this.guardianMask?.destroy();
+    const still = reducedMotion(this);
+    // Centred behind Kei and Angie, clear of the screen edge.
+    const baseX = ANGIE_X - 14;
+    // The silhouette, in scene coordinates: horns, head, broad shoulders, clawed arms.
+    const shape: [number, number][] = [
+      [-10, -112], [-6, -98], [6, -98], [10, -112], [12, -96], [14, -86], [34, -80], [44, -66], [48, -40], [56, -24], [50, -22],
+      [44, -34], [40, -18], [30, 0], [-30, 0], [-40, -18], [-44, -34], [-50, -22], [-56, -24], [-48, -40], [-44, -66], [-34, -80],
+      [-14, -86], [-12, -96],
+    ].map(([x, y]) => [baseX + x, GROUND_Y + y]);
+    const maskShape = this.make.graphics({}, false);
+    maskShape.fillStyle(0xffffff).fillPoints(shape.map(([x, y]) => new Phaser.Geom.Point(x, y)), true);
+    const g = this.add.container(0, 0).setDepth(4);
+    const glow = this.add.graphics();
+    glow.fillStyle(0x0b2a14, 0.85).fillPoints(shape.map(([x, y]) => new Phaser.Geom.Point(x, y)), true);
+    g.add(glow);
+    // Columns of code glyphs falling through the figure.
+    const glyphs = '0123456789ABCDEF{}<>=+;:/*#';
+    const columns: Phaser.GameObjects.Text[] = [];
+    for (let x = baseX - 56; x <= baseX + 56; x += 6) {
+      let text = '';
+      for (let i = 0; i < 26; i++) text += glyphs[Math.floor(this.random() * glyphs.length)] + '\n';
+      const col = this.add.text(x, GROUND_Y - 240 + this.random() * 120, text, { ...TEXT, fontSize: '8px', color: '#5dff8a', lineSpacing: -1 }).setAlpha(0.9);
+      columns.push(col);
+      g.add(col);
+      if (!still) this.tweens.add({ targets: col, y: col.y + 120, duration: 900 + this.random() * 900, repeat: -1 });
+    }
+    g.setMask(maskShape.createGeometryMask());
+    // Outline and burning eyes, outside the mask.
+    const face = this.add.graphics().setDepth(4);
+    face.lineStyle(1, 0x9dffb4, 0.9).strokePoints(shape.map(([x, y]) => new Phaser.Geom.Point(x, y)), true);
+    face.fillStyle(0xd8ffe0).fillRect(baseX - 7, GROUND_Y - 92, 4, 2).fillRect(baseX + 3, GROUND_Y - 92, 4, 2);
+    g.add(face);
+    g.setAlpha(0);
+    this.guardian = g;
+    this.guardianMask = maskShape;
+    if (still) g.setAlpha(1);
+    else this.tweens.add({ targets: g, alpha: { from: 0, to: 1 }, duration: 90, yoyo: true, repeat: 3, onComplete: () => g.setAlpha(1) });
+    await this.wait(1100);
+    if (!this.alive(run)) return;
+  }
+
+  /** The guardian lunges at the enemy. */
+  private async guardianStrike(run: number): Promise<void> {
+    this.cue('guardian_strike');
+    const g = this.guardian;
+    if (g && !reducedMotion(this)) this.tweens.add({ targets: [g, this.guardianMask], x: 60, duration: 140, yoyo: true, ease: 'Quad.easeOut' });
+    this.time.delayedCall(140, () => {
+      this.foe.setFrame(1).setTint(0x9dffb4);
+      this.time.delayedCall(200, () => this.foe.setFrame(0).clearTint());
+    });
+    await this.wait(700);
+    if (!this.alive(run)) return;
+  }
+
+  /** The guardian takes the blow. */
+  private guardianBlock(): void {
+    this.cue('guardian_strike');
+    const g = this.guardian;
+    if (!g) return;
+    g.setAlpha(0.5);
+    this.time.delayedCall(180, () => g.setAlpha(1));
+  }
+
+  /** Fades the guardian away once its turns are over. */
+  private dismissGuardianIfDone(): void {
+    const g = this.guardian;
+    if (!g || this.assists.guardianTurns > 0) return;
+    const mask = this.guardianMask;
+    this.guardian = null;
+    this.guardianMask = null;
+    this.tweens.add({ targets: g, alpha: 0, duration: 400, onComplete: () => (g.destroy(), mask?.destroy()) });
   }
 
   // --- Animation ---------------------------------------------------------

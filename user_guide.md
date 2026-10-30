@@ -143,7 +143,11 @@ Sometimes you'll run into **wild dogs** on the edge of the city or in country pa
 Tips:
 - Dogs are hard to outrun. Standing your ground (Confront) usually works better, and Angie only shoos them away.
 - With an umbrella in hand, a quick block prompt appears whenever you would be hurt: answer it in time to block the hit. Miss it and you take the hit and the umbrella breaks. A **whistle** from the shop makes every enemy start less sure of itself. A snack can distract a dog so you can slip away.
-- O Boy squawks once per encounter to distract the enemy (one combo step fewer). Kei's whistle unsettles dogs, and later his camera flash dazzles monsters (more time per combo).
+- When O Boy and Kei are with Angie, they fight beside her. Their abilities appear in the Escape/Confront menu:
+  - **O Boy: Sing** (twice per fight): he flies up and sings a lullaby. The enemy sways, drowsy: the next two combos give you more time, and its next blow hurts half as much.
+  - **Kei: Guardian** (once per fight, once Angie and Kei are dating): Kei calls a guardian out of his digital kingdom, a towering figure of falling green code. For three combos it strikes after each one you complete, and it blocks one blow.
+  - Use both while the song is still going and they work together: your next combo succeeds on its own.
+  - Kei's whistle still unsettles dogs from the start.
 - If mashing is hard for you, turn on **Hold instead of mash**, **Slower prompts**, or **Skip encounters** in Settings.
 
 ## Bird photography

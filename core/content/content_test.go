@@ -92,6 +92,15 @@ func TestValidateErrors(t *testing.T) {
 		{"contribution share", func(b *model.ContentBundle) {
 			b.Game.Contributions = []model.Contribution{{Companion: "kei", From: "x", Income: 1, Share: 2}}
 		}, "share must be 0–1"},
+		{"guardian stage", func(b *model.ContentBundle) {
+			b.Game.CompanionAbilities = &model.CompanionAbilities{Guardian: &model.GuardianAbility{MinStage: "besties"}}
+		}, "not a Kei stage"},
+		{"guardian too strong", func(b *model.ContentBundle) {
+			b.Game.CompanionAbilities = &model.CompanionAbilities{Guardian: &model.GuardianAbility{MinStage: "dating", BonusHit: 90}}
+		}, "bonus_hit"},
+		{"sing window", func(b *model.ContentBundle) {
+			b.Game.CompanionAbilities = &model.CompanionAbilities{Sing: &model.SingAbility{WindowScale: 0.5}}
+		}, "window_scale"},
 		{"contribution stage", func(b *model.ContentBundle) {
 			b.Game.Contributions = []model.Contribution{{Companion: "kei", From: "x", Income: 1, ByStage: map[string]float64{"besties": 0.5}}}
 		}, "unknown Kei stage"},

@@ -151,6 +151,29 @@ cues:
       - { wave: square, freq: 440, dur: 0.12, gain: 0.1, env: swell, repeat: 1, every: 0.18 }
       - { wave: square, freq: 554, dur: 0.12, gain: 0.08, env: swell, repeat: 1, every: 0.18 }
 
+  # --- Companions in encounters ---
+  - id: oboy_song           # O Boy's lullaby: a gentle, swaying tune (original)
+    caption: "O Boy sings a lullaby"
+    notes:
+      - { wave: triangle, freq: 1175, dur: 0.32, gain: 0.3, env: swell }
+      - { wave: triangle, freq: 1397, dur: 0.32, at: 0.34, gain: 0.3, env: swell }
+      - { wave: triangle, freq: 1568, dur: 0.5, at: 0.68, gain: 0.3, env: swell }
+      - { wave: triangle, freq: 1397, dur: 0.3, at: 1.2, gain: 0.28, env: swell }
+      - { wave: triangle, freq: 1319, dur: 0.3, at: 1.52, gain: 0.28, env: swell }
+      - { wave: triangle, freq: 1175, dur: 0.8, at: 1.84, gain: 0.3, env: swell }
+      - { wave: sine, freq: 2350, to: 2500, dur: 0.06, at: 2.7, gain: 0.15, repeat: 1, every: 0.12 }
+  - id: guardian_summon     # Kei's guardian rising out of the data: a glitchy sweep
+    caption: "Kei's guardian rises in a rush of code"
+    notes:
+      - { wave: square, freq: 110, to: 880, dur: 0.6, gain: 0.1, env: swell }
+      - { wave: noise, freq: 2000, to: 6000, dur: 0.6, gain: 0.12, q: 2 }
+      - { wave: square, freq: 1760, dur: 0.03, at: 0.62, gain: 0.08, repeat: 9, every: 0.05 }
+      - { wave: sawtooth, freq: 82, dur: 0.9, at: 0.6, gain: 0.12, env: swell }
+  - id: guardian_strike     # the guardian's blow
+    notes:
+      - { wave: noise, freq: 900, to: 300, dur: 0.18, gain: 0.35, q: 1 }
+      - { wave: square, freq: 220, to: 110, dur: 0.15, gain: 0.1 }
+
 soundscapes:
   - id: city                # busy streets: traffic, crossings, sparrows and pigeons
     beds:

@@ -51,8 +51,28 @@ type gameYAML struct {
 		StartBalance int    `yaml:"start_balance"`
 		TopUp        int    `yaml:"top_up"`
 	} `yaml:"transit_card"`
-	BagCapacity   int     `yaml:"bag_capacity"`
-	ClockRate     float64 `yaml:"clock_rate"`
+	BagCapacity        int     `yaml:"bag_capacity"`
+	ClockRate          float64 `yaml:"clock_rate"`
+	CompanionAbilities *struct {
+		Sing *struct {
+			Uses        int     `yaml:"uses"`
+			Turns       int     `yaml:"turns"`
+			WindowScale float64 `yaml:"window_scale"`
+			DamageScale float64 `yaml:"damage_scale"`
+		} `yaml:"sing"`
+		Guardian *struct {
+			MinStage string `yaml:"min_stage"`
+			Uses     int    `yaml:"uses"`
+			Turns    int    `yaml:"turns"`
+			BonusHit int    `yaml:"bonus_hit"`
+			Guards   int    `yaml:"guards"`
+		} `yaml:"guardian"`
+		Duet       bool `yaml:"duet"`
+		DogWhistle *struct {
+			MinStage     string  `yaml:"min_stage"`
+			ResolveScale float64 `yaml:"resolve_scale"`
+		} `yaml:"dog_whistle"`
+	} `yaml:"companion_abilities"`
 	Contributions []struct {
 		Companion string             `yaml:"companion"`
 		From      string             `yaml:"from"`
@@ -362,6 +382,19 @@ func load(dir string) (*model.ContentBundle, error) {
 	}
 	if c := g.TransitCard; c != nil {
 		b.Game.TransitCard = &model.TransitCard{Name: c.Name, StartBalance: c.StartBalance, TopUp: c.TopUp}
+	}
+	if a := g.CompanionAbilities; a != nil {
+		ab := &model.CompanionAbilities{Duet: a.Duet}
+		if a.Sing != nil {
+			ab.Sing = &model.SingAbility{Uses: a.Sing.Uses, Turns: a.Sing.Turns, WindowScale: a.Sing.WindowScale, DamageScale: a.Sing.DamageScale}
+		}
+		if a.Guardian != nil {
+			ab.Guardian = &model.GuardianAbility{MinStage: a.Guardian.MinStage, Uses: a.Guardian.Uses, Turns: a.Guardian.Turns, BonusHit: a.Guardian.BonusHit, Guards: a.Guardian.Guards}
+		}
+		if a.DogWhistle != nil {
+			ab.DogWhistle = &model.DogWhistle{MinStage: a.DogWhistle.MinStage, ResolveScale: a.DogWhistle.ResolveScale}
+		}
+		b.Game.CompanionAbilities = ab
 	}
 	for _, c := range g.Contributions {
 		b.Game.Contributions = append(b.Game.Contributions, model.Contribution(c))

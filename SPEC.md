@@ -329,10 +329,11 @@ Occasionally Angie meets something hostile: **wild dogs** (stray packs found on 
 
 Accessibility settings: **Hold instead of mash** (holding fills the meter at a fixed rate), **Slower prompts**, and **Skip encounter** (auto-escape at a small Energy cost). Game-wide: **Captions** subtitle sound cues (O Boy's chirp, contact call and squawk), and **Colour-blind safe** swaps green/red for blue/orange (Okabe-Ito) in bars and lesson results and gives world-map markers distinct shapes.
 
-**Companions in encounters** (hints and assists, never automatic wins):
-- **O Boy**: a loud squawk distracts the enemy, removing one combo step (once per encounter). He flies to safety during fights.
-- **Kei** (`friends`+): an ultrasonic deterrent gadget against dogs lowers their resolve at the start. From `dating`, a camera-flash gadget stuns monsters briefly, so a combo gets a longer time window.
-- **Both**: O Boy distracts while Kei sets up the gadget, giving one free success.
+**Companions in encounters** (hints and assists, never automatic wins). Companions in the party stand beside Angie; their abilities join the Escape/Confront menu, and choosing one starts confronting. Tuned in `companion_abilities` (`content/game.yaml`):
+- **O Boy: Sing** (`sing`, 2 uses): he flies up and sings a lullaby (the `oboy_song` cue) while notes drift to the enemy, which sways. For the next `turns` (2) combos the time windows are `window_scale` (1.4×) longer, and the next counter-hit does `damage_scale` (½) damage.
+- **Kei: Guardian** (`guardian`, from `dating`, 1 use): a digital guardian rises behind him out of his digital kingdom, an original horned, hulking figure drawn as a silhouette filled with columns of falling green code glyphs. For `turns` (3) combos it strikes after each one Angie completes (`bonus_hit`, 12 extra resolve damage) and blocks `guards` (1) counter-hit.
+- **Duet** (`duet`): using one while the other is still active gives one free combo success, once per encounter.
+- **Kei's whistle** (`dog_whistle`, from `friends`): dogs start with `resolve_scale` (¾) resolve.
 
 ### 4.14 Place stories and mini games
 Visiting a place reveals a little of its (lightly fictionalized, Hong Kong-inspired) history: the first time Angie enters an area, a local tells its story and asks a favour, which becomes a mission. Favours are played as short **mini games**; failing costs nothing and can be retried any time.

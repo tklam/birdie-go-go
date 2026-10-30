@@ -44,6 +44,18 @@ energy:
         - "Angie is worn out from the chase."
         - "A kind neighbour helped her home. (-${fee})"
         - "Sneak past, or rest before the next one!"
+# What O Boy and Kei do in encounters (SPEC.md §4.13). Help, never a win:
+# sing: O Boy's song, `uses` per fight; for `turns` combos the time windows
+#   are window_scale× longer, and the next counter-hit does damage_scale×.
+# guardian: Kei's digital guardian (from min_stage); for `turns` combos each
+#   completed one adds bonus_hit resolve damage; it blocks `guards` hits.
+# duet: both acting together give one free combo success per fight.
+# dog_whistle: Kei's ultrasonic whistle; dogs start with resolve_scale×.
+companion_abilities:
+  sing: { uses: 2, turns: 2, window_scale: 1.4, damage_scale: 0.5 }
+  guardian: { min_stage: dating, uses: 1, turns: 3, bonus_hit: 12, guards: 1 }
+  duet: true
+  dog_whistle: { min_stage: friends, resolve_scale: 0.75 }
 # Companions in Angie's party each morning chip in part of what they earn
 # (income × share, rounded), shown with the bills. Kei's share grows with
 # the relationship (by_stage; stages not listed use `share`).

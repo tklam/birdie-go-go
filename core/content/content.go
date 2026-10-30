@@ -261,6 +261,22 @@ func (v *validator) require(ok bool, format string, args ...any) {
 }
 
 func (v *validator) game(g model.GameInfo) {
+	if a := g.CompanionAbilities; a != nil {
+		if sg := a.Sing; sg != nil {
+			v.require(sg.Uses >= 0 && sg.Turns >= 0, "game: sing uses and turns must be ≥ 0")
+			v.require(sg.WindowScale >= 1 && sg.WindowScale <= 3, "game: sing window_scale must be 1–3")
+			v.require(sg.DamageScale >= 0 && sg.DamageScale <= 1, "game: sing damage_scale must be 0–1")
+		}
+		if gd := a.Guardian; gd != nil {
+			v.require(slices.Contains(KeiStages, gd.MinStage), "game: guardian min_stage %q is not a Kei stage", gd.MinStage)
+			v.require(gd.Uses >= 0 && gd.Turns >= 0 && gd.Guards >= 0, "game: guardian uses, turns and guards must be ≥ 0")
+			v.require(gd.BonusHit >= 0 && gd.BonusHit <= 40, "game: guardian bonus_hit must be 0–40 (a hint, not a win)")
+		}
+		if w := a.DogWhistle; w != nil {
+			v.require(slices.Contains(KeiStages, w.MinStage), "game: dog_whistle min_stage %q is not a Kei stage", w.MinStage)
+			v.require(w.ResolveScale > 0 && w.ResolveScale <= 1, "game: dog_whistle resolve_scale must be 0–1")
+		}
+	}
 	for _, c := range g.Contributions {
 		v.require(slices.Contains(Companions, c.Companion), "game: contribution from unknown companion %q", c.Companion)
 		v.require(c.From != "" && c.Income >= 0, "game: contribution from %s needs `from` and an income ≥ 0", c.Companion)

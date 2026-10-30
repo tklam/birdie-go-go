@@ -98,6 +98,10 @@ export interface GameInfo {
    */
   bagCapacity?: number /* int */;
   /**
+   * CompanionAbilities tune O Boy and Kei in encounters.
+   */
+  companionAbilities?: CompanionAbilities;
+  /**
    * Contributions are companions' earnings shared with Angie each morning.
    */
   contributions?: Contribution[];
@@ -168,6 +172,59 @@ export interface FaintRules {
 export interface FaintText {
   title: string;
   lines: string[];
+}
+/**
+ * CompanionAbilities are what O Boy and Kei do in encounters (SPEC.md
+ * §4.13): help, never automatic wins.
+ */
+export interface CompanionAbilities {
+  /**
+   * Sing is O Boy's song: longer combo windows and a softer counter-hit.
+   */
+  sing?: SingAbility;
+  /**
+   * Guardian is Kei's digital guardian: extra resolve damage per combo and
+   * blocked counter-hits.
+   */
+  guardian?: GuardianAbility;
+  /**
+   * Duet: the two together give one free combo success per encounter.
+   */
+  duet?: boolean;
+  /**
+   * DogWhistle is Kei's ultrasonic whistle: dogs start with less resolve.
+   */
+  dogWhistle?: DogWhistle;
+}
+/**
+ * SingAbility is O Boy's song: Uses per encounter; for Turns combos the
+ * time windows are WindowScale× longer; the next counter-hit does
+ * DamageScale× damage.
+ */
+export interface SingAbility {
+  uses: number /* int */;
+  turns: number /* int */;
+  windowScale: number /* float64 */;
+  damageScale: number /* float64 */;
+}
+/**
+ * GuardianAbility is Kei's digital guardian, from MinStage on: Uses per
+ * encounter; for Turns combos each completed one adds BonusHit resolve
+ * damage, and it blocks up to Guards counter-hits.
+ */
+export interface GuardianAbility {
+  minStage: string;
+  uses: number /* int */;
+  turns: number /* int */;
+  bonusHit: number /* int */;
+  guards: number /* int */;
+}
+/**
+ * DogWhistle scales dogs' starting resolve while Kei (MinStage on) is along.
+ */
+export interface DogWhistle {
+  minStage: string;
+  resolveScale: number /* float64 */;
 }
 /**
  * Contribution is part of a companion's earnings that he chips in each

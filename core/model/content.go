@@ -45,6 +45,8 @@ type GameInfo struct {
 	// BagCapacity is how many bought supplies fit in Angie's bag (SPEC.md
 	// §4.12); 0 means no limit.
 	BagCapacity int `json:"bagCapacity,omitempty"`
+	// CompanionAbilities tune O Boy and Kei in encounters.
+	CompanionAbilities *CompanionAbilities `json:"companionAbilities,omitempty"`
 	// Contributions are companions' earnings shared with Angie each morning.
 	Contributions []Contribution `json:"contributions,omitempty"`
 	// ClockRate is how many in-game minutes pass per real second on the map
@@ -96,6 +98,47 @@ type FaintRules struct {
 type FaintText struct {
 	Title string   `json:"title"`
 	Lines []string `json:"lines"`
+}
+
+// CompanionAbilities are what O Boy and Kei do in encounters (SPEC.md
+// §4.13): help, never automatic wins.
+type CompanionAbilities struct {
+	// Sing is O Boy's song: longer combo windows and a softer counter-hit.
+	Sing *SingAbility `json:"sing,omitempty"`
+	// Guardian is Kei's digital guardian: extra resolve damage per combo and
+	// blocked counter-hits.
+	Guardian *GuardianAbility `json:"guardian,omitempty"`
+	// Duet: the two together give one free combo success per encounter.
+	Duet bool `json:"duet,omitempty"`
+	// DogWhistle is Kei's ultrasonic whistle: dogs start with less resolve.
+	DogWhistle *DogWhistle `json:"dogWhistle,omitempty"`
+}
+
+// SingAbility is O Boy's song: Uses per encounter; for Turns combos the
+// time windows are WindowScale× longer; the next counter-hit does
+// DamageScale× damage.
+type SingAbility struct {
+	Uses        int     `json:"uses"`
+	Turns       int     `json:"turns"`
+	WindowScale float64 `json:"windowScale"`
+	DamageScale float64 `json:"damageScale"`
+}
+
+// GuardianAbility is Kei's digital guardian, from MinStage on: Uses per
+// encounter; for Turns combos each completed one adds BonusHit resolve
+// damage, and it blocks up to Guards counter-hits.
+type GuardianAbility struct {
+	MinStage string `json:"minStage"`
+	Uses     int    `json:"uses"`
+	Turns    int    `json:"turns"`
+	BonusHit int    `json:"bonusHit"`
+	Guards   int    `json:"guards"`
+}
+
+// DogWhistle scales dogs' starting resolve while Kei (MinStage on) is along.
+type DogWhistle struct {
+	MinStage     string  `json:"minStage"`
+	ResolveScale float64 `json:"resolveScale"`
 }
 
 // Contribution is part of a companion's earnings that he chips in each
