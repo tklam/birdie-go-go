@@ -41,7 +41,9 @@ func check(dir string) error {
 				}
 			}
 			continue
-		case "audio":
+		case "audio", "illustration":
+			// Illustrations (the splash poster) are full-resolution art for
+			// the HTML overlay, exempt from the 16-bit palette rules.
 			if _, err := os.Stat(filepath.Join(dir, e.File)); err != nil {
 				report("%s: %v", id, err)
 			}

@@ -13,6 +13,7 @@ The city has its rough edges, like stray dogs, the odd strange creature, and fie
 - Open the game in a modern browser on a phone, tablet, or computer. No account is needed.
 - After your first visit you can **install** the game (Add to Home Screen) and play **offline**.
 - Play in **landscape**. If you hold your phone upright, the game will ask you to rotate it.
+- The game opens on a poster of Angie, O Boy and Kei. Tap, click or press any key to reach the title screen.
 - Tap or click **Start**. This also turns on the sound. Headphones help a lot during piano lessons.
 - On your first lesson, the game asks you to **calibrate**: tap along with 8 clicks so it can account for your device's audio delay.
 

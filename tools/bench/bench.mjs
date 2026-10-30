@@ -95,6 +95,11 @@ for (let i = 0; i < 50; i++) {
 await send('Page.navigate', { url: `http://127.0.0.1:${port}/` });
 for (let i = 0; i < 200 && !(await evaluate('document.body?.dataset.boot ?? null')); i++) await sleep(100);
 if ((await evaluate('document.body?.dataset.boot ?? null')) !== 'ok') throw new Error(`the game did not boot (is dist/ built?) ${JSON.stringify({ errors, url: await evaluate('location.href'), title: await evaluate('document.title') })}`);
+// Dismiss the splash poster: its first key only closes it.
+for (let i = 0; i < 50 && (await evaluate('document.body.dataset.splash ?? null')) !== 'open'; i++) await sleep(100);
+await key('keyDown', 'Escape', 27);
+await key('keyUp', 'Escape', 27);
+for (let i = 0; i < 50 && (await evaluate('document.body.dataset.splash ?? null')) === 'open'; i++) await sleep(100);
 await key('keyDown', 'Enter', 13);
 await key('keyUp', 'Enter', 13);
 // Wait for the map, then skip the intro dialogue.

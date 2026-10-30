@@ -45,8 +45,8 @@ func genOBoy(assets string) error {
 		if f == 1 {
 			dy = -1
 		}
-		k.ellipse(1, 2+dy, 6, 5, cTeal)
-		k.rect(1, 4+dy, 3, 2, cDarkTeal)
+		k.ellipse(1, 2+dy, 6, 5, cLightSea)
+		k.rect(1, 4+dy, 3, 2, cSea)
 		k.rect(2, 5+dy, 2, 1, cBlue)
 		k.set(5, 3+dy, cBlack)
 		k.set(7, 4+dy, cSkin)

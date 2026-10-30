@@ -181,6 +181,7 @@ Goal: one in-game day in Tseung Kwan O (estates and mall area + waterfront park 
 ## M7: Polish
 - [x] Settings: music/sound volume, encounter accessibility (hold, slow prompts, skip), lesson timing recalibration
 - [x] Settings: window color, text speed, reduced motion, control scheme
+- [x] Splash poster (SVG illustration, full resolution, outside the 16-bit look)
 - [x] Sound effects and soundscapes from data (content/sounds.yaml): area ambience (city, market, harbour, forest, wetland, beach, village), bird calls for every species, tram bell, ferry horn, minibus beep
 - [x] Accessibility: reduced motion (fades for wipes/glitch, no shake/flash, calm rain), captions for sound cues, colour-blind-safe palette
 - [ ] *(Parked for future development.)* Low-end phone performance pass

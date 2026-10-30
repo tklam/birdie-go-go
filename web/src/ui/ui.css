@@ -523,3 +523,64 @@ button.album-btn:disabled {
 .btn.rhythm-hidden {
   display: none;
 }
+
+/* The splash poster (ui/splash.ts): full resolution, outside the 16-bit look. */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: #2f7fe0;
+  cursor: pointer;
+  touch-action: none;
+  transition: opacity 0.45s ease;
+}
+.splash img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.splash-hint {
+  position: absolute;
+  left: 50%;
+  bottom: max(4vh, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0.4em 1.2em;
+  border: 4px solid #1c1838;
+  border-radius: 999px;
+  background: #ffd23a;
+  color: #1c1838;
+  font: 900 clamp(16px, 3.2vmin, 30px) 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  box-shadow: 0 6px 0 #c2410c;
+  animation: splash-pulse 1.4s ease-in-out infinite;
+}
+.splash.closing {
+  opacity: 0;
+}
+/* Tall screens: the whole poster, between its sky and its sea. */
+@media (max-aspect-ratio: 6/5) {
+  .splash {
+    background: linear-gradient(#2f7fe0, #7cc8ff 45%, #4aa6d8 55%, #1f5f9e);
+  }
+  .splash img {
+    object-fit: contain;
+    object-position: center;
+  }
+}
+.splash.still,
+.splash.still .splash-hint {
+  transition: none;
+  animation: none;
+}
+@keyframes splash-pulse {
+  50% {
+    transform: translateX(-50%) scale(1.07);
+  }
+}

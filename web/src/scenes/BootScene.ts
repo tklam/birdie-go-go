@@ -3,10 +3,12 @@ import Phaser from 'phaser';
 import type { ContentBundle, WorldIndex } from '../core/types.gen';
 import { audioSamples, queueManifest, type Manifest } from '../systems/assets';
 import { loadPixelFont } from '../ui/text';
+import { showSplash } from '../ui/splash';
 
 /**
  * Loads the manifest, then every asset it lists, plus the content bundle and
- * world index. Continues to the title screen.
+ * world index. Shows the splash poster over the title screen, which starts
+ * loading underneath.
  */
 export class BootScene extends Phaser.Scene {
   constructor() {
@@ -31,6 +33,8 @@ export class BootScene extends Phaser.Scene {
   create(): void {
     const manifest = this.cache.json.get('manifest') as Manifest;
     this.registry.set('manifest', manifest);
+    const poster = manifest.splash_poster;
+    if (poster?.file) void showSplash(`${import.meta.env.BASE_URL}assets/${poster.file}`, 'Angie, O Boy and Kei in Birdie Go Go');
     (this.registry.get('audio') as AudioEngine | undefined)?.registerSamples(audioSamples(manifest));
     this.registry.set('content', this.cache.json.get('content') as ContentBundle);
     this.registry.set('world', this.cache.json.get('world') as WorldIndex);

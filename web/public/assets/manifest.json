@@ -3175,6 +3175,10 @@
     "type": "audio",
     "file": "audio/piano_Fs7.mp3"
   },
+  "splash_poster": {
+    "type": "illustration",
+    "file": "splash/poster.svg"
+  },
   "tiles_tko": {
     "type": "spritesheet",
     "file": "tiles/tko.png",

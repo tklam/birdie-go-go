@@ -2,7 +2,8 @@ import type Phaser from 'phaser';
 
 /** One entry of web/public/assets/manifest.json (tools/assetgen). */
 export interface ManifestEntry {
-  type: 'image' | 'spritesheet' | 'background' | 'audio';
+  /** `illustration`: full-resolution art for the HTML overlay (the splash), exempt from the 16-bit rules. */
+  type: 'image' | 'spritesheet' | 'background' | 'audio' | 'illustration';
   file?: string;
   frameWidth?: number;
   frameHeight?: number;
