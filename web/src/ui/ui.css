@@ -596,9 +596,9 @@ button.album-btn:disabled {
 }
 .splash-hint {
   position: absolute;
-  left: 50%;
-  bottom: max(4vh, env(safe-area-inset-bottom));
-  transform: translateX(-50%);
+  right: max(3vw, 16px, env(safe-area-inset-right));
+  bottom: max(4vh, 16px, env(safe-area-inset-bottom));
+  transform-origin: right bottom;
   min-height: 44px;
   display: flex;
   align-items: center;
@@ -633,6 +633,6 @@ button.album-btn:disabled {
 }
 @keyframes splash-pulse {
   50% {
-    transform: translateX(-50%) scale(1.07);
+    transform: scale(1.07);
   }
 }
