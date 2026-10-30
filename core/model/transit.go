@@ -4,9 +4,9 @@ package model
 // ride on the map along Path (world pixels), which passes through the
 // line's stops in order.
 //
-// Transit times are in-game minutes. A ride on the map advances the clock one
-// in-game minute per real second, so Speed in px/s is also px per in-game
-// minute.
+// Transit times are in-game minutes. On the map the clock advances
+// GameInfo.ClockRate in-game minutes per real second, so a vehicle moves
+// Speed × ClockRate px per real second.
 type TransitLine struct {
 	ID    string   `json:"id"`
 	Name  string   `json:"name"`
@@ -16,7 +16,7 @@ type TransitLine struct {
 	// Path waypoints in world pixels, from the first stop to the last; the
 	// ride runs it forwards or backwards.
 	Path [][2]float64 `json:"path"`
-	// Speed on the map in px/s.
+	// Speed in px per in-game minute.
 	Speed float64 `json:"speed"`
 	// Headway is the minutes between departures from each terminus (default
 	// 15).

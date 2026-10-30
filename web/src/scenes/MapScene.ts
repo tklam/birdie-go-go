@@ -561,8 +561,8 @@ export class MapScene extends Phaser.Scene {
     const speed = input.sneak ? SNEAK_SPEED : WALK_SPEED;
     const moving = this.ready && !this.busy && modal.open === 0 && (input.x !== 0 || input.y !== 0);
     this.walking = moving;
-    // The in-game clock: one minute per real second of play (SPEC.md §4.11).
-    if (this.ready && !this.busy && modal.open === 0) this.session.slotMinutes += dt;
+    // The in-game clock: clock_rate minutes per real second of play (SPEC.md §4.11).
+    if (this.ready && !this.busy && modal.open === 0) this.session.slotMinutes += dt * this.session.clockRate;
 
     // Stream the world around the camera, a ring ahead when moving.
     const view = this.cameras.main.worldView;
@@ -670,12 +670,12 @@ export class MapScene extends Phaser.Scene {
   }
 
   /**
-   * Hazards outdoors: drain Energy (one in-game minute per real second),
+   * Hazards outdoors: drain Energy (per in-game minute, at clock_rate a second),
    * push in strong wind, break umbrellas; recover slowly indoors (SPEC.md §4.12).
    */
   private updateHazards(delta: number): void {
     const s = this.session;
-    const minutes = Math.min(delta, 100) / 1000;
+    const minutes = (Math.min(delta, 100) / 1000) * s.clockRate;
     const rules = s.content.game.energy;
     if (!this.weatherRenderer) {
       this.hazards = null;
@@ -1834,8 +1834,10 @@ export class MapScene extends Phaser.Scene {
     const ts = this.index.tileSize;
     const ahead = pointAt(r.path, r.distance + 64);
     if (!this.store.get(Math.floor(ahead.x / ts / CHUNK_TILES), Math.floor(ahead.y / ts / CHUNK_TILES))) return;
-    r.distance = Math.min(r.length, r.distance + r.speed * dt);
-    this.session.slotMinutes += dt;
+    // Speed is px per in-game minute; the clock runs at clock_rate.
+    const minutes = dt * this.session.clockRate;
+    r.distance = Math.min(r.length, r.distance + r.speed * minutes);
+    this.session.slotMinutes += minutes;
     const p = pointAt(r.path, r.distance);
     if (Math.abs(p.dx) > 0.1) r.vehicle.setFlipX(p.dx < 0);
     r.vehicle.setPosition(p.x, p.y).setDepth(DEPTH.entities + p.y).setFrame(Math.floor(time / 150) % 2);

@@ -1,7 +1,9 @@
 # Transit (SPEC.md §4.11). Paths are world-pixel waypoints from the first stop
 # to the last; rides run them either way. Timetables: each terminus sends a
 # vehicle every `headway` in-game minutes from `first` to `last` ("HH:MM";
-# defaults 15, "06:00", "23:30"). `bell` is the sound cue (sounds.yaml) a
+# defaults 15, "06:00", "23:30"). `speed` is px per in-game minute; the map
+# clock runs game.yaml `clock_rate` minutes a second, so on screen a vehicle
+# moves speed × clock_rate px a second. `bell` is the sound cue (sounds.yaml) a
 # vehicle makes leaving a stop and passing Angie.
 stops:
   - { id: tko_plaza, name: Tseung Kwan O Plaza }
@@ -31,8 +33,8 @@ lines:
     fare: 8
     stops: [tko_plaza, cwb_park_gate, po_toi_o_village]
     path: [[1000, 472], [1000, 504], [2168, 504], [2168, 712], [2136, 712]]
-    speed: 110
-    headway: 10
+    speed: 550
+    headway: 3
     first: "06:00"
     last: "23:30"
   - id: ferry_junk_bay
@@ -42,7 +44,7 @@ lines:
     fare: 15
     stops: [tko_pier, po_toi_o_pier]
     path: [[1144, 888], [1144, 968], [2040, 968], [2040, 904]]
-    speed: 70
+    speed: 350
     headway: 30
     first: "07:00"
     last: "22:00"
@@ -53,7 +55,7 @@ lines:
     fare: 12
     stops: [tko_pier, island_pier]
     path: [[1144, 888], [1144, 1176]]
-    speed: 60
+    speed: 300
     headway: 20
     first: "06:30"
     last: "23:00"
@@ -64,15 +66,15 @@ lines:
     fare: 3
     stops: [tram_western, tram_central, tram_eastern]
     path: [[200, 1224], [1352, 1224]]
-    speed: 50
-    headway: 6
+    speed: 250
+    headway: 2
   - id: harbour_line
     name: Harbour Line
     mode: metro
     fare: 10
     stops: [tko_station, island_station, old_town_station]
     path: [[968, 520], [968, 1180], [664, 1180], [664, 1352], [664, 2072], [488, 2072]]
-    speed: 400
+    speed: 2000
     headway: 4
   - id: wetland_line
     name: Wetland Line
@@ -81,7 +83,7 @@ lines:
     locked: true
     stops: [tko_station, wetland_station]
     path: [[968, 520], [968, 600], [1640, 600], [1640, 1112]]
-    speed: 400
+    speed: 2000
     headway: 6
   - id: island_ferry
     name: Island Ferry
@@ -90,7 +92,7 @@ lines:
     fare: 18
     stops: [po_toi_o_pier, pebble_pier]
     path: [[2040, 904], [2040, 1016], [2744, 1016], [2744, 1080]]
-    speed: 70
+    speed: 350
     headway: 40
     first: "07:00"
     last: "21:00"
@@ -101,15 +103,15 @@ lines:
     fare: 9
     stops: [tko_plaza, sai_kung_town]
     path: [[1000, 472], [1000, 504], [2168, 504], [2168, 104], [2664, 104]]
-    speed: 110
-    headway: 12
+    speed: 550
+    headway: 4
   - id: ridge_line
     name: Ridge Line
     mode: metro
     fare: 10
     stops: [old_town_station, lion_station, border_station]
     path: [[488, 2072], [488, 2296], [2376, 2296], [2664, 2296], [2664, 1992]]
-    speed: 400
+    speed: 2000
     headway: 5
   - id: lantern_ferry
     name: Lantern Ferry
@@ -118,7 +120,7 @@ lines:
     fare: 20
     stops: [sai_kung_pier, lantern_pier]
     path: [[3064, 328], [3064, 360], [3700, 360], [3700, 880], [4344, 880], [4344, 696]]
-    speed: 75
+    speed: 375
     headway: 45
     first: "07:00"
     last: "20:30"

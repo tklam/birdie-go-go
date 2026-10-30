@@ -249,13 +249,13 @@ Rules:
 - **Transit missions**: some tasks involve going somewhere specific, or photographing from the ferry deck.
 
 *As built (`core/transit`):*
-- **Clock**: transit times are in-game minutes, absolute from day 0 at midnight (`day × 1440 + minutes`). A ride on the map runs one in-game minute per real second, so a line's `speed` in px/s is also px per in-game minute.
+- **Clock**: transit times are in-game minutes, absolute from day 0 at midnight (`day × 1440 + minutes`). On the map and while riding, the clock runs `clock_rate` in-game minutes per real second (`content/game.yaml`; 0.2, i.e. 5 real minutes an in-game hour). A line's `speed` is px per in-game minute, so a vehicle moves `speed × clock_rate` px a second on screen.
 - **Timetables**: every day each terminus sends a vehicle every `headway` minutes (default 15) from `first` to `last` (`"HH:MM"`, defaults 06:00 and 23:30; `last` may pass midnight, up to a day after `first`). Vehicles run the whole path at constant speed without dwelling, forward trips from the first stop and backward trips from the last. `VehicleAt(line, t)` derives every running vehicle's position, heading and progress from the timetable alone; trips that started the evening before are still on the road after midnight.
 - **Stops along a line**: the first and last stops sit on the path's ends; intermediate stops snap to the nearest point of the path past the previous stop (from their world-index positions), or are spaced evenly when they have none.
 - **Planner**: a time-dependent multi-criteria search over stops. Each leg is one vehicle from its boarding stop to any later stop of the line, so a fare is paid once per boarding and staying aboard is not a transfer. The best itinerary has the earliest arrival, then the lowest fare, then the fewest transfers; full ties go to the line listed first in content. Callers pass the unlocked lines and any suspended modes (e.g. ferry at signal 8+); with no allowed connection the planner reports the destination as unreachable. `ignoreTimetable` boards every leg immediately (no waits).
 
 *As built (client):*
-- **Game clock**: slots start at 07:00, 12:00 and 17:00 and last five hours; the clock is the slot start plus in-game minutes played in it (one per real second on the map and while riding, held at the slot's last minute, not saved).
+- **Game clock**: slots start at 07:00, 12:00 and 17:00 and last five hours; the clock is the slot start plus in-game minutes played in it (`clock_rate` per real second on the map and while riding, held at the slot's last minute, not saved; at 0.2 a slot lasts 25 real minutes).
 - **Boarding** is the route planner: the stop lists every stop reachable on open lines from now, sorted by arrival, each with its fare; the detail line shows the legs, departure times, changes and arrival. The whole fare is paid up front; waits advance the clock; at a change the next leg starts from the transfer stop. Skip jumps to the end of the current leg.
 - **Ferry deck**: on a ferry leg a **Deck** button starts a photo session at the `ferry_deck` spot (seabirds; costs a photo session's Energy and the slot); the trip ends there, and Angie comes back at its destination.
 - **Vehicles on the map** come from `transit.vehicles` (polled twice a second, moved along their heading in between); only those near the camera get sprites.
@@ -270,7 +270,7 @@ Weather isn't just scenery; it can also be an **enemy**.
 
 **Energy.** Angie has an **Energy** meter (0–100), the game's HP. It drains slowly from hazards and quickly from encounters (§4.13). It comes back from food and drinks (bought at shops or kiosks, or carried), resting on benches or in shelters, and sleeping at home.
 
-**Everyday costs** (`energy` in `content/game.yaml`): walking outdoors drains `walk_per_min`, multiplied by the area's `walk_effort` (`content/areas.yaml`; hills cost more). Starting a photo session or a lesson costs Energy, and Angie can't start one with less Energy than its cost; a toast suggests eating or resting. Indoors, Energy slowly recovers (`indoor_recovery_per_min`). Dropping below `low_warning` shows a one-off toast pointing to the shop.
+**Everyday costs** (`energy` in `content/game.yaml`): walking outdoors drains `walk_per_min`, multiplied by the area's `walk_effort` (`content/areas.yaml`; hills cost more). Starting a photo session or a lesson costs Energy, and Angie can't start one with less Energy than its cost; a toast suggests eating or resting. Indoors, Energy slowly recovers (`indoor_recovery_per_min`). All `_per_min` rates (here and in hazards) are per in-game minute, so they're tuned together with `clock_rate`. Dropping below `low_warning` shows a one-off toast pointing to the shop.
 
 **Hazards** come from the blended weather at Angie's position (§4.9). Each one has thresholds, a status effect, and gear that counters it:
 

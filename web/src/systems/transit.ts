@@ -11,7 +11,7 @@ export const MINUTES_PER_DAY = 24 * 60;
 
 /**
  * The absolute in-game minute (day × 1440 + minutes since midnight): the
- * slot's start plus the minutes played in it (one per real second on the
+ * slot's start plus the minutes played in it (`clock_rate` per real second on the
  * map), held at the slot's last minute.
  */
 export function clockMinutes(day: number, slot: TimeSlot, elapsed: number): number {

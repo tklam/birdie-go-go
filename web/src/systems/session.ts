@@ -63,7 +63,7 @@ export class Session {
   minigameRunner?: (game: Minigame) => Promise<boolean>;
   /** The asset manifest, for dialogue portraits (set by the boot scene). */
   manifest?: Manifest;
-  /** In-game minutes played in the current slot (one per real second on the map). */
+  /** In-game minutes played in the current slot (clockRate per real second on the map). */
   slotMinutes = 0;
   private transitLoaded: Promise<unknown> | null = null;
 
@@ -131,6 +131,11 @@ export class Session {
   }
 
   /** Now, in absolute in-game minutes (SPEC.md §4.11). */
+  /** In-game minutes per real second on the map and while riding (game.yaml `clock_rate`). */
+  get clockRate(): number {
+    return this.content.game.clockRate || 1;
+  }
+
   clock(): number {
     return clockMinutes(this.state.day, this.state.slot, this.slotMinutes);
   }

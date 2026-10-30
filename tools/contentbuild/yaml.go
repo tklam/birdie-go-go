@@ -51,7 +51,8 @@ type gameYAML struct {
 		StartBalance int    `yaml:"start_balance"`
 		TopUp        int    `yaml:"top_up"`
 	} `yaml:"transit_card"`
-	BagCapacity int `yaml:"bag_capacity"`
+	BagCapacity int     `yaml:"bag_capacity"`
+	ClockRate   float64 `yaml:"clock_rate"`
 }
 
 // faintText is a titled notice (energy.faint in game.yaml).
@@ -333,7 +334,7 @@ func load(dir string) (*model.ContentBundle, error) {
 	}
 	b.Game = model.GameInfo{
 		Title: g.Title, ContentVersion: g.ContentVersion, StartMap: g.StartMap, StartSpawn: g.StartSpawn,
-		MissionReminderSlots: g.MissionReminderSlots, BagCapacity: g.BagCapacity,
+		MissionReminderSlots: g.MissionReminderSlots, BagCapacity: g.BagCapacity, ClockRate: g.ClockRate,
 	}
 	if br := g.BedtimeReminder; br.EverySeconds != 0 || len(br.Lines) > 0 {
 		b.Game.BedtimeReminder = &model.BedtimeReminder{EverySeconds: br.EverySeconds, Lines: append([]string{}, br.Lines...)}

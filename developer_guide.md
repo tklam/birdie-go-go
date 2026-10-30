@@ -244,8 +244,8 @@ lines:
     fare: 8
     stops: [tko_plaza, po_toi_o_village]              # path runs from the first stop to the last
     path: [[1000, 472], [1000, 504], [2168, 504], [2168, 712], [2136, 712]]   # world px waypoints
-    speed: 110                                        # px/s on the map (= px per in-game minute)
-    headway: 10                                       # optional: minutes between departures from each terminus (15)
+    speed: 550                                        # px per in-game minute (on screen: × clock_rate px/s)
+    headway: 3                                        # optional: minutes between departures from each terminus (15)
     first: "06:00"                                    # optional: first departure from each terminus (06:00)
     last: "23:30"                                     # optional: last departure; may pass midnight, e.g. "25:00" (23:30)
 ```
@@ -274,14 +274,14 @@ Sound effects and ambience live in `content/sounds.yaml` (SPEC.md §1.3). `cues`
   name: High UV
   status: sunburnt
   when: { param: uv, min: 8 }          # param: cloud, precip, temp, fog, wind, uv or signal; min and/or max
-  drain_per_min: 0.25                  # Energy per in-game minute outdoors (1 real second = 1 minute)
-  severe: { min: 11, drain_per_min: 0.5 }
+  drain_per_min: 1.25                  # Energy per in-game minute outdoors (clock_rate minutes per real second)
+  severe: { min: 11, drain_per_min: 2.5 }
   countered_by: [sun_hat, sunscreen, umbrella]
 - id: strong_wind
   name: Strong wind
   status: windswept
   when: { param: wind, min: 0.7 }
-  drain_per_min: 0.1
+  drain_per_min: 0.5
   push: 22                             # px/s at full wind, along the wind direction
   breaks: { item: umbrella, min: 0.8 }
   countered_by: [windbreaker]

@@ -261,6 +261,7 @@ func (v *validator) require(ok bool, format string, args ...any) {
 }
 
 func (v *validator) game(g model.GameInfo) {
+	v.require(g.ClockRate >= 0 && g.ClockRate <= 10, "game: clock_rate must be 0–10 in-game minutes per real second")
 	if g.Title == "" {
 		v.errs = append(v.errs, errors.New("game: title is required"))
 	}

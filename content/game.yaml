@@ -14,9 +14,13 @@ bedtime_reminder:
     - "The streetlights are on. Home to sleep, then a new day!"
 # Everyday Energy costs (SPEC.md §4.12). One in-game minute is one real
 # second while exploring. Sleep restores Energy fully; food restores some.
+# The in-game clock: minutes per real second on the map and while riding
+# (5 real minutes an hour). Energy, hazard and transit rates are per in-game
+# minute, so they're tuned to it.
+clock_rate: 0.2
 energy:
-  walk_per_min: 0.05
-  indoor_recovery_per_min: 0.1
+  walk_per_min: 0.25
+  indoor_recovery_per_min: 0.5
   photo_session: 12
   lesson: 10
   low_warning: 25

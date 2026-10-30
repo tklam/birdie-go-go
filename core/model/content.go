@@ -45,6 +45,10 @@ type GameInfo struct {
 	// BagCapacity is how many bought supplies fit in Angie's bag (SPEC.md
 	// §4.12); 0 means no limit.
 	BagCapacity int `json:"bagCapacity,omitempty"`
+	// ClockRate is how many in-game minutes pass per real second on the map
+	// and while riding (SPEC.md §4.11); 0 means 1. Energy and hazard rates
+	// and transit speeds are per in-game minute, so they scale with it.
+	ClockRate float64 `json:"clockRate,omitempty"`
 }
 
 // TransitCard is the rechargeable fare card: its in-game name, the balance

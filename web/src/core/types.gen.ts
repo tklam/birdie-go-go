@@ -97,6 +97,12 @@ export interface GameInfo {
    * §4.12); 0 means no limit.
    */
   bagCapacity?: number /* int */;
+  /**
+   * ClockRate is how many in-game minutes pass per real second on the map
+   * and while riding (SPEC.md §4.11); 0 means 1. Energy and hazard rates
+   * and transit speeds are per in-game minute, so they scale with it.
+   */
+  clockRate?: number /* float64 */;
 }
 /**
  * TransitCard is the rechargeable fare card: its in-game name, the balance
@@ -1040,9 +1046,9 @@ export interface SoundscapeCue {
  * TransitLine is a bus, tram, metro or ferry line (SPEC.md §4.11). Vehicles
  * ride on the map along Path (world pixels), which passes through the
  * line's stops in order.
- * Transit times are in-game minutes. A ride on the map advances the clock one
- * in-game minute per real second, so Speed in px/s is also px per in-game
- * minute.
+ * Transit times are in-game minutes. On the map the clock advances
+ * GameInfo.ClockRate in-game minutes per real second, so a vehicle moves
+ * Speed × ClockRate px per real second.
  */
 export interface TransitLine {
   id: string;
@@ -1056,7 +1062,7 @@ export interface TransitLine {
    */
   path: number /* float64 */[][];
   /**
-   * Speed on the map in px/s.
+   * Speed in px per in-game minute.
    */
   speed: number /* float64 */;
   /**

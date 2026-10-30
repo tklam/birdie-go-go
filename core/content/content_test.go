@@ -85,6 +85,7 @@ func TestValidateErrors(t *testing.T) {
 		{"missing title", func(b *model.ContentBundle) { b.Game.Title = "" }, "title is required"},
 		{"bad version", func(b *model.ContentBundle) { b.Game.ContentVersion = "v1" }, "MAJOR.MINOR.PATCH"},
 		{"missing start", func(b *model.ContentBundle) { b.Game.StartMap = "" }, "start_map"},
+		{"clock rate", func(b *model.ContentBundle) { b.Game.ClockRate = -1 }, "clock_rate"},
 		{"negative mission reminder", func(b *model.ContentBundle) { b.Game.MissionReminderSlots = -1 }, "mission_reminder_slots"},
 		{"bedtime reminder without lines", func(b *model.ContentBundle) {
 			b.Game.BedtimeReminder = &model.BedtimeReminder{EverySeconds: 60}
