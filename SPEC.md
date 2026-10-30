@@ -577,7 +577,7 @@ Objective types: `photograph`, `lesson` (student, min score), `visit`, `ride` (l
 - Packs **override by ID**; removals must be listed explicitly (`remove:`).
 - Saves reference content by ID; IDs that disappear are ignored gracefully (e.g. an expired live mission).
 - Offline or with no server configured, the game simply uses the content it already has.
-- **Cloud saves** (server started with `-saves`): Settings → Cloud save uploads the save (the first upload makes a sync code, kept in settings) or downloads one by code, replacing the local game; downloads go through the normal save migrations.
+- **Cloud saves** (server started with `-saves`): Menu → Cloud save uploads the save (the first upload makes a sync code, kept in settings) or downloads one by code, replacing the local game; downloads go through the normal save migrations.
 
 **Optional server API**
 | Method & path | Purpose |
@@ -608,7 +608,7 @@ Objective types: `photograph`, `lesson` (student, min score), `visit`, `ride` (l
 ### 9.8 Save data
 `saveVersion`, `worldSeed`, flags, chapter, day/slot/season, position (area + world coordinates), Energy, status effects, equipped gear and bag contents, money, transit card balance, items, album (photo metadata + small thumbnails), students' progress, missions, discovered stops, unlocked lines and teleports, bond values, `kei.stage`, party, settings (latency offset, control scheme, volume).
 - Stored in **IndexedDB** on the device; autosaved at the end of each slot, on entering interiors, and after rides.
-- **Export/import** a save file from Settings (backup or moving devices).
+- **Export/import** a save file from the Menu (backup or moving devices).
 - Migrations run on load according to `saveVersion`.
 
 ### 9.9 Assets
